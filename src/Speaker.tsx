@@ -11,8 +11,14 @@ export function Speaker() {
     undefined
   );
 
+  const [voice, setVoice] = React.useState<
+    "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer"
+  >("alloy");
+
+  const voiceOptions = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
+
   async function say() {
-    const audio = await API.say(text);
+    const audio = await API.say(text, voice);
     if (!audio) return;
 
     await audioAPI.play(audio, speakerId);
@@ -25,6 +31,13 @@ export function Speaker() {
         {audioAPI.outputDevices.map((device) => (
           <option key={device.deviceId} value={device.deviceId}>
             {device.label}
+          </option>
+        ))}
+      </select>
+      <select value={voice} onChange={(e) => setVoice(e.target.value as any)}>
+        {voiceOptions.map((voice) => (
+          <option key={voice} value={voice}>
+            {voice}
           </option>
         ))}
       </select>

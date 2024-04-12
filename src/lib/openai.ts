@@ -40,10 +40,13 @@ export class API {
     return stream;
   }
 
-  static async say(text: string) {
+  static async say(
+    text: string,
+    voice: "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer" = "alloy"
+  ) {
     const response = await this.openaiInstance.audio.speech.create({
       model: this.ttsModel,
-      voice: "alloy",
+      voice,
       input: text,
       response_format: "opus",
     });

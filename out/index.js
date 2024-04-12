@@ -27053,10 +27053,10 @@ class API {
     });
     return stream;
   }
-  static async say(text) {
+  static async say(text, voice = "alloy") {
     const response = await this.openaiInstance.audio.speech.create({
       model: this.ttsModel,
-      voice: "alloy",
+      voice,
       input: text,
       response_format: "opus"
     });
@@ -27148,8 +27148,10 @@ var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
 function Speaker() {
   const [text, updateText] = import_react2.default.useState("Hello, world!");
   const [speakerId, setSpeakerId] = import_react2.default.useState(undefined);
+  const [voice, setVoice] = import_react2.default.useState("alloy");
+  const voiceOptions = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
   async function say() {
-    const audio2 = await API.say(text);
+    const audio2 = await API.say(text, voice);
     if (!audio2)
       return;
     await audioAPI.play(audio2, speakerId);
@@ -27167,6 +27169,14 @@ function Speaker() {
           value: device.deviceId,
           children: device.label
         }, device.deviceId, false, undefined, this))
+      }, undefined, false, undefined, this),
+      jsx_dev_runtime2.jsxDEV("select", {
+        value: voice,
+        onChange: (e) => setVoice(e.target.value),
+        children: voiceOptions.map((voice2) => jsx_dev_runtime2.jsxDEV("option", {
+          value: voice2,
+          children: voice2
+        }, voice2, false, undefined, this))
       }, undefined, false, undefined, this),
       jsx_dev_runtime2.jsxDEV("button", {
         onClick: () => say(),
