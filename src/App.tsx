@@ -1,12 +1,16 @@
 import { Config } from "./Config";
-import { TTSTest } from "./TTSTest";
+import { Speaker } from "./Speaker";
 
 export function App() {
   return (
     <>
-      <p>{"Hello!"}</p>
+      <p>{"Hello2!"}</p>
       <Config />
-      <TTSTest />
+      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <Speaker />
+        <Speaker />
+        <Speaker />
+      </div>
     </>
   );
 }

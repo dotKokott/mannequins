@@ -1,13 +1,18 @@
 import OpenAI from "openai";
 import type { Stream } from "openai/streaming.mjs";
 
-import config from "../config.json";
-
 export class API {
   private static openaiInstance = new OpenAI({
-    apiKey: config.OPENAI_KEY,
+    apiKey: "",
     dangerouslyAllowBrowser: true,
   });
+
+  static async setApiKey(apiKey: string) {
+    this.openaiInstance = new OpenAI({
+      apiKey,
+      dangerouslyAllowBrowser: true,
+    });
+  }
 
   private static completionModel = "gpt-3.5-turbo-16k-0613";
   public static completionSystemPrompt = "";
