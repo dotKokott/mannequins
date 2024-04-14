@@ -1,6 +1,16 @@
 import OpenAI from "openai";
 import type { Stream } from "openai/streaming.mjs";
 
+export const voiceOptions = [
+  "alloy",
+  "echo",
+  "fable",
+  "onyx",
+  "nova",
+  "shimmer",
+] as const;
+export type Voice = (typeof voiceOptions)[number];
+
 export class API {
   private static openaiInstance = new OpenAI({
     apiKey: "",
@@ -40,10 +50,7 @@ export class API {
     return stream;
   }
 
-  static async say(
-    text: string,
-    voice: "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer" = "alloy"
-  ) {
+  static async say(text: string, voice: Voice = "alloy") {
     const response = await this.openaiInstance.audio.speech.create({
       model: this.ttsModel,
       voice,
@@ -54,10 +61,10 @@ export class API {
     return response.arrayBuffer();
   }
 
-  static async sayStream(text: string) {
+  static async sayStream(text: string, voice: Voice = "alloy") {
     const stream = await this.openaiInstance.audio.speech.create({
       model: this.ttsModel,
-      voice: "alloy",
+      voice: voice,
       input: text,
       response_format: "opus",
     });

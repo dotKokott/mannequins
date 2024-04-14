@@ -27023,6 +27023,15 @@ OpenAI.UnprocessableEntityError = UnprocessableEntityError;
 var openai_default = OpenAI;
 
 // src/lib/openai.ts
+var voiceOptions = [
+  "alloy",
+  "echo",
+  "fable",
+  "onyx",
+  "nova",
+  "shimmer"
+];
+
 class API {
   static openaiInstance = new openai_default({
     apiKey: "",
@@ -27062,10 +27071,10 @@ class API {
     });
     return response.arrayBuffer();
   }
-  static async sayStream(text) {
+  static async sayStream(text, voice = "alloy") {
     const stream = await this.openaiInstance.audio.speech.create({
       model: this.ttsModel,
-      voice: "alloy",
+      voice,
       input: text,
       response_format: "opus"
     });
@@ -27148,8 +27157,7 @@ var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
 function Speaker() {
   const [text, updateText] = import_react2.default.useState("Hello, world!");
   const [speakerId, setSpeakerId] = import_react2.default.useState(undefined);
-  const [voice, setVoice] = import_react2.default.useState("alloy");
-  const voiceOptions = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
+  const [voice, setVoice] = import_react2.default.useState(voiceOptions[0]);
   async function say() {
     const audio2 = await API.say(text, voice);
     if (!audio2)

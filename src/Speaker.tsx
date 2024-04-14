@@ -2,7 +2,7 @@ import type OpenAI from "openai";
 import type { Stream } from "openai/streaming.mjs";
 import React from "react";
 
-import { API } from "./lib/openai";
+import { API, type Voice, voiceOptions } from "./lib/openai";
 import { audioAPI } from "./lib/audio";
 
 export function Speaker() {
@@ -11,11 +11,7 @@ export function Speaker() {
     undefined
   );
 
-  const [voice, setVoice] = React.useState<
-    "alloy" | "echo" | "fable" | "onyx" | "nova" | "shimmer"
-  >("alloy");
-
-  const voiceOptions = ["alloy", "echo", "fable", "onyx", "nova", "shimmer"];
+  const [voice, setVoice] = React.useState<Voice>(voiceOptions[0]);
 
   async function say() {
     const audio = await API.say(text, voice);
