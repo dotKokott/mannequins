@@ -1,5 +1,3 @@
-import type OpenAI from "openai";
-import type { Stream } from "openai/streaming.mjs";
 import React from "react";
 
 import { API, type Voice, voiceOptions } from "./lib/openai";
