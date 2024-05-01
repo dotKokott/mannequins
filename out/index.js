@@ -27104,8 +27104,61 @@ function Config() {
   }, undefined, true, undefined, this);
 }
 
-// src/Speaker.tsx
+// src/Conversation.tsx
 var import_react2 = __toESM(require_react(), 1);
+var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
+function Conversation({ onSay }) {
+  const [conversationText, setConversationText] = import_react2.default.useState(testConversation);
+  const parsedConversation = import_react2.default.useMemo(() => {
+    const lines = conversationText.split("\n");
+    const parsed = [];
+    let currentSpeaker = "";
+    let currentText = "";
+    for (const line of lines) {
+      if (line.startsWith("[")) {
+        if (currentSpeaker) {
+          parsed.push({ speaker: currentSpeaker, text: currentText });
+        }
+        currentSpeaker = line;
+        currentText = "";
+      } else {
+        currentText += line + "\n";
+      }
+    }
+    if (currentSpeaker) {
+      parsed.push({ speaker: currentSpeaker, text: currentText });
+    }
+    return parsed;
+  }, [conversationText]);
+  return jsx_dev_runtime2.jsxDEV(jsx_dev_runtime2.Fragment, {
+    children: [
+      jsx_dev_runtime2.jsxDEV("textarea", {
+        rows: 30,
+        value: conversationText,
+        onChange: (e) => setConversationText(e.target.value)
+      }, undefined, false, undefined, this),
+      jsx_dev_runtime2.jsxDEV("button", {
+        onClick: () => onSay(parsedConversation),
+        children: "Speak"
+      }, undefined, false, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
+}
+var testConversation = `
+[SPEAKER1]
+Hello my name is speaker one
+
+
+[SPEAKER2]
+Hello my name is speaker two
+
+
+[SPEAKER3]
+Hello my name is speaker three
+`;
+
+// src/Speaker.tsx
+var import_react3 = __toESM(require_react(), 1);
 
 // src/lib/audio.ts
 class AudioAPI {
@@ -27153,40 +27206,50 @@ var audioAPI = new AudioAPI;
 await audioAPI.initialize();
 
 // src/Speaker.tsx
-var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
-function Speaker() {
-  const [text, updateText] = import_react2.default.useState("Hello, world!");
-  const [speakerId, setSpeakerId] = import_react2.default.useState(undefined);
-  const [voice, setVoice] = import_react2.default.useState(voiceOptions[0]);
+var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
+function Speaker({ handle, onChange }) {
+  const [speakerId, setSpeakerId] = import_react3.default.useState(undefined);
+  const [voice, setVoice] = import_react3.default.useState(voiceOptions[0]);
   async function say() {
-    const audio2 = await API.say(text, voice);
+    const audio2 = await API.say(handle.replace("[", "").replace("]", ""), voice);
     if (!audio2)
       return;
     await audioAPI.play(audio2, speakerId);
   }
-  return jsx_dev_runtime2.jsxDEV(jsx_dev_runtime2.Fragment, {
+  async function copyToClipboard() {
+    await navigator.clipboard.writeText(handle);
+  }
+  import_react3.default.useEffect(() => {
+    if (!speakerId)
+      return;
+    onChange({ deviceId: speakerId, voice });
+  }, [speakerId, voice]);
+  return jsx_dev_runtime3.jsxDEV(jsx_dev_runtime3.Fragment, {
     children: [
-      jsx_dev_runtime2.jsxDEV("textarea", {
-        value: text,
-        onChange: (e) => updateText(e.target.value)
+      jsx_dev_runtime3.jsxDEV("div", {
+        children: jsx_dev_runtime3.jsxDEV("a", {
+          href: "#",
+          onClick: copyToClipboard,
+          children: handle
+        }, undefined, false, undefined, this)
       }, undefined, false, undefined, this),
-      jsx_dev_runtime2.jsxDEV("select", {
+      jsx_dev_runtime3.jsxDEV("select", {
         value: speakerId,
         onChange: (e) => setSpeakerId(e.target.value),
-        children: audioAPI.outputDevices.map((device) => jsx_dev_runtime2.jsxDEV("option", {
+        children: audioAPI.outputDevices.map((device) => jsx_dev_runtime3.jsxDEV("option", {
           value: device.deviceId,
           children: device.label
         }, device.deviceId, false, undefined, this))
       }, undefined, false, undefined, this),
-      jsx_dev_runtime2.jsxDEV("select", {
+      jsx_dev_runtime3.jsxDEV("select", {
         value: voice,
         onChange: (e) => setVoice(e.target.value),
-        children: voiceOptions.map((voice2) => jsx_dev_runtime2.jsxDEV("option", {
+        children: voiceOptions.map((voice2) => jsx_dev_runtime3.jsxDEV("option", {
           value: voice2,
           children: voice2
         }, voice2, false, undefined, this))
       }, undefined, false, undefined, this),
-      jsx_dev_runtime2.jsxDEV("button", {
+      jsx_dev_runtime3.jsxDEV("button", {
         onClick: () => say(),
         children: "Speak"
       }, undefined, false, undefined, this)
@@ -27195,27 +27258,92 @@ function Speaker() {
 }
 
 // src/App.tsx
-var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
+var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
 function App() {
-  return jsx_dev_runtime3.jsxDEV(jsx_dev_runtime3.Fragment, {
+  const handler = ConversationHandler.getInstance();
+  const speakers = Array.from(handler.speakerConfigs.keys());
+  return jsx_dev_runtime4.jsxDEV(jsx_dev_runtime4.Fragment, {
     children: [
-      jsx_dev_runtime3.jsxDEV("p", {
-        children: "Hello2!"
+      jsx_dev_runtime4.jsxDEV("p", {
+        children: "Life in Plastic"
       }, undefined, false, undefined, this),
-      jsx_dev_runtime3.jsxDEV(Config, {}, undefined, false, undefined, this),
-      jsx_dev_runtime3.jsxDEV("div", {
+      jsx_dev_runtime4.jsxDEV(Config, {}, undefined, false, undefined, this),
+      jsx_dev_runtime4.jsxDEV("div", {
         style: { display: "flex", flexDirection: "column", gap: "10px" },
         children: [
-          jsx_dev_runtime3.jsxDEV(Speaker, {}, undefined, false, undefined, this),
-          jsx_dev_runtime3.jsxDEV(Speaker, {}, undefined, false, undefined, this),
-          jsx_dev_runtime3.jsxDEV(Speaker, {}, undefined, false, undefined, this)
+          speakers.map((speaker) => jsx_dev_runtime4.jsxDEV(Speaker, {
+            handle: speaker,
+            onChange: (config) => handler.setSpeakerConfig(speaker, config)
+          }, speaker, false, undefined, this)),
+          jsx_dev_runtime4.jsxDEV(Conversation, {
+            onSay: (conversation) => handler.queue(conversation)
+          }, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
 
+class ConversationHandler {
+  speakerConfigs = new Map;
+  conversationQueue = [];
+  isPlaying = true;
+  cancel = false;
+  constructor() {
+    this.speakerConfigs.set("[SPEAKER1]", {
+      deviceId: "default",
+      voice: "alloy"
+    });
+    this.speakerConfigs.set("[SPEAKER2]", {
+      deviceId: "default",
+      voice: "alloy"
+    });
+    this.speakerConfigs.set("[SPEAKER3]", {
+      deviceId: "default",
+      voice: "alloy"
+    });
+    this.conversationLoop();
+  }
+  static instance;
+  static getInstance() {
+    if (!ConversationHandler.instance) {
+      ConversationHandler.instance = new ConversationHandler;
+    }
+    return ConversationHandler.instance;
+  }
+  setSpeakerConfig(speaker, config) {
+    this.speakerConfigs.set(speaker, config);
+  }
+  queue(conversation) {
+    this.conversationQueue.push(...conversation);
+  }
+  async say(conversation) {
+  }
+  async conversationLoop() {
+    while (!this.cancel) {
+      if (this.conversationQueue.length === 0 || !this.isPlaying) {
+        console.log("No conversations queued. Waiting...");
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        continue;
+      }
+      const conversation = this.conversationQueue.shift();
+      if (!conversation)
+        continue;
+      const { speaker, text } = conversation;
+      const config = this.speakerConfigs.get(speaker);
+      if (!config)
+        continue;
+      console.log(`Saying: ${text} as ${speaker}`);
+      const audio3 = await API.say(text, config.voice);
+      if (!audio3)
+        continue;
+      console.log(`Playing audio on ${config.deviceId}`);
+      await audioAPI.play(audio3, config.deviceId);
+    }
+  }
+}
+
 // src/index.tsx
-var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
+var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
 var root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(jsx_dev_runtime4.jsxDEV(App, {}, undefined, false, undefined, this));
+root.render(jsx_dev_runtime5.jsxDEV(App, {}, undefined, false, undefined, this));

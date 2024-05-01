@@ -1,5 +1,4 @@
 import OpenAI from "openai";
-import type { Stream } from "openai/streaming.mjs";
 
 export const voiceOptions = [
   "alloy",
