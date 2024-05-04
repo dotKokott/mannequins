@@ -62,7 +62,7 @@ export function Speaker({ handle, onChange }: SpeakerProps) {
         ))}
       </select>
 
-      <button onClick={() => say()}>Speak</button>
+      <button onClick={() => say()}>Test</button>
     </>
   );
 }

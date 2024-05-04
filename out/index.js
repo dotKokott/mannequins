@@ -23471,6 +23471,226 @@ var require_jsx_dev_runtime = __commonJS((exports, module) => {
   }
 });
 
+// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js
+var require_use_sync_external_store_shim_development = __commonJS((exports) => {
+  var React4 = __toESM(require_react(), 1);
+  if (true) {
+    (function() {
+      if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
+        __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error);
+      }
+      var ReactSharedInternals = React4.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      function error9(format) {
+        {
+          {
+            for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1;_key2 < _len2; _key2++) {
+              args[_key2 - 1] = arguments[_key2];
+            }
+            printWarning("error", format, args);
+          }
+        }
+      }
+      function printWarning(level, format, args) {
+        {
+          var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
+          var stack = ReactDebugCurrentFrame.getStackAddendum();
+          if (stack !== "") {
+            format += "%s";
+            args = args.concat([stack]);
+          }
+          var argsWithFormat = args.map(function(item) {
+            return String(item);
+          });
+          argsWithFormat.unshift("Warning: " + format);
+          Function.prototype.apply.call(console[level], console, argsWithFormat);
+        }
+      }
+      function is(x, y) {
+        return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
+      }
+      var objectIs = typeof Object.is === "function" ? Object.is : is;
+      var useState2 = React4.useState, useEffect2 = React4.useEffect, useLayoutEffect2 = React4.useLayoutEffect, useDebugValue2 = React4.useDebugValue;
+      var didWarnOld18Alpha = false;
+      var didWarnUncachedGetSnapshot = false;
+      function useSyncExternalStore2(subscribe, getSnapshot, getServerSnapshot) {
+        {
+          if (!didWarnOld18Alpha) {
+            if (React4.startTransition !== undefined) {
+              didWarnOld18Alpha = true;
+              error9("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
+            }
+          }
+        }
+        var value = getSnapshot();
+        {
+          if (!didWarnUncachedGetSnapshot) {
+            var cachedValue = getSnapshot();
+            if (!objectIs(value, cachedValue)) {
+              error9("The result of getSnapshot should be cached to avoid an infinite loop");
+              didWarnUncachedGetSnapshot = true;
+            }
+          }
+        }
+        var _useState = useState2({
+          inst: {
+            value,
+            getSnapshot
+          }
+        }), inst = _useState[0].inst, forceUpdate = _useState[1];
+        useLayoutEffect2(function() {
+          inst.value = value;
+          inst.getSnapshot = getSnapshot;
+          if (checkIfSnapshotChanged(inst)) {
+            forceUpdate({
+              inst
+            });
+          }
+        }, [subscribe, value, getSnapshot]);
+        useEffect2(function() {
+          if (checkIfSnapshotChanged(inst)) {
+            forceUpdate({
+              inst
+            });
+          }
+          var handleStoreChange = function() {
+            if (checkIfSnapshotChanged(inst)) {
+              forceUpdate({
+                inst
+              });
+            }
+          };
+          return subscribe(handleStoreChange);
+        }, [subscribe]);
+        useDebugValue2(value);
+        return value;
+      }
+      function checkIfSnapshotChanged(inst) {
+        var latestGetSnapshot = inst.getSnapshot;
+        var prevValue = inst.value;
+        try {
+          var nextValue = latestGetSnapshot();
+          return !objectIs(prevValue, nextValue);
+        } catch (error10) {
+          return true;
+        }
+      }
+      function useSyncExternalStore$1(subscribe, getSnapshot, getServerSnapshot) {
+        return getSnapshot();
+      }
+      var canUseDOM = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
+      var isServerEnvironment = !canUseDOM;
+      var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore2;
+      var useSyncExternalStore$2 = React4.useSyncExternalStore !== undefined ? React4.useSyncExternalStore : shim;
+      exports.useSyncExternalStore = useSyncExternalStore$2;
+      if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
+        __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error);
+      }
+    })();
+  }
+});
+
+// node_modules/use-sync-external-store/shim/index.js
+var require_shim = __commonJS((exports, module) => {
+  if (false) {
+  } else {
+    module.exports = require_use_sync_external_store_shim_development();
+  }
+});
+
+// node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js
+var require_with_selector_development = __commonJS((exports) => {
+  var React4 = __toESM(require_react(), 1);
+  if (true) {
+    (function() {
+      if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
+        __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error);
+      }
+      var shim = require_shim();
+      function is(x, y) {
+        return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
+      }
+      var objectIs = typeof Object.is === "function" ? Object.is : is;
+      var useSyncExternalStore = shim.useSyncExternalStore;
+      var useRef2 = React4.useRef, useEffect2 = React4.useEffect, useMemo2 = React4.useMemo, useDebugValue2 = React4.useDebugValue;
+      function useSyncExternalStoreWithSelector(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
+        var instRef = useRef2(null);
+        var inst;
+        if (instRef.current === null) {
+          inst = {
+            hasValue: false,
+            value: null
+          };
+          instRef.current = inst;
+        } else {
+          inst = instRef.current;
+        }
+        var _useMemo = useMemo2(function() {
+          var hasMemo = false;
+          var memoizedSnapshot;
+          var memoizedSelection;
+          var memoizedSelector = function(nextSnapshot) {
+            if (!hasMemo) {
+              hasMemo = true;
+              memoizedSnapshot = nextSnapshot;
+              var _nextSelection = selector(nextSnapshot);
+              if (isEqual !== undefined) {
+                if (inst.hasValue) {
+                  var currentSelection = inst.value;
+                  if (isEqual(currentSelection, _nextSelection)) {
+                    memoizedSelection = currentSelection;
+                    return currentSelection;
+                  }
+                }
+              }
+              memoizedSelection = _nextSelection;
+              return _nextSelection;
+            }
+            var prevSnapshot = memoizedSnapshot;
+            var prevSelection = memoizedSelection;
+            if (objectIs(prevSnapshot, nextSnapshot)) {
+              return prevSelection;
+            }
+            var nextSelection = selector(nextSnapshot);
+            if (isEqual !== undefined && isEqual(prevSelection, nextSelection)) {
+              return prevSelection;
+            }
+            memoizedSnapshot = nextSnapshot;
+            memoizedSelection = nextSelection;
+            return nextSelection;
+          };
+          var maybeGetServerSnapshot = getServerSnapshot === undefined ? null : getServerSnapshot;
+          var getSnapshotWithSelector = function() {
+            return memoizedSelector(getSnapshot());
+          };
+          var getServerSnapshotWithSelector = maybeGetServerSnapshot === null ? undefined : function() {
+            return memoizedSelector(maybeGetServerSnapshot());
+          };
+          return [getSnapshotWithSelector, getServerSnapshotWithSelector];
+        }, [getSnapshot, getServerSnapshot, selector, isEqual]), getSelection = _useMemo[0], getServerSelection = _useMemo[1];
+        var value = useSyncExternalStore(subscribe, getSelection, getServerSelection);
+        useEffect2(function() {
+          inst.hasValue = true;
+          inst.value = value;
+        }, [value]);
+        useDebugValue2(value);
+        return value;
+      }
+      exports.useSyncExternalStoreWithSelector = useSyncExternalStoreWithSelector;
+      if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
+        __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error);
+      }
+    })();
+  }
+});
+
+// node_modules/use-sync-external-store/shim/with-selector.js
+var require_with_selector = __commonJS((exports, module) => {
+  if (false) {
+  } else {
+    module.exports = require_with_selector_development();
+  }
+});
+
 // src/index.tsx
 var ReactDOM = __toESM(require_client(), 1);
 
@@ -27133,7 +27353,7 @@ function Conversation({ onSay }) {
   return jsx_dev_runtime2.jsxDEV(jsx_dev_runtime2.Fragment, {
     children: [
       jsx_dev_runtime2.jsxDEV("textarea", {
-        rows: 30,
+        rows: 10,
         value: conversationText,
         onChange: (e) => setConversationText(e.target.value)
       }, undefined, false, undefined, this),
@@ -27182,7 +27402,6 @@ class AudioAPI {
     const audioDevices = devices.filter((device) => {
       return device.kind === "audiooutput";
     });
-    console.log(audioDevices);
     return audioDevices;
   }
   async play(buffer, where = "default") {
@@ -27251,86 +27470,117 @@ function Speaker({ handle, onChange }) {
       }, undefined, false, undefined, this),
       jsx_dev_runtime3.jsxDEV("button", {
         onClick: () => say(),
-        children: "Speak"
+        children: "Test"
       }, undefined, false, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
 
-// src/App.tsx
-var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
-function App() {
-  const handler = ConversationHandler.getInstance();
-  const speakers = Array.from(handler.speakerConfigs.keys());
-  return jsx_dev_runtime4.jsxDEV(jsx_dev_runtime4.Fragment, {
-    children: [
-      jsx_dev_runtime4.jsxDEV("p", {
-        children: "Life in Plastic"
-      }, undefined, false, undefined, this),
-      jsx_dev_runtime4.jsxDEV(Config, {}, undefined, false, undefined, this),
-      jsx_dev_runtime4.jsxDEV("div", {
-        style: { display: "flex", flexDirection: "column", gap: "10px" },
-        children: [
-          speakers.map((speaker) => jsx_dev_runtime4.jsxDEV(Speaker, {
-            handle: speaker,
-            onChange: (config) => handler.setSpeakerConfig(speaker, config)
-          }, speaker, false, undefined, this)),
-          jsx_dev_runtime4.jsxDEV(Conversation, {
-            onSay: (conversation) => handler.queue(conversation)
-          }, undefined, false, undefined, this)
-        ]
-      }, undefined, true, undefined, this)
-    ]
-  }, undefined, true, undefined, this);
-}
-
-class ConversationHandler {
-  speakerConfigs = new Map;
-  conversationQueue = [];
-  isPlaying = true;
-  cancel = false;
-  constructor() {
-    this.speakerConfigs.set("[SPEAKER1]", {
-      deviceId: "default",
-      voice: "alloy"
-    });
-    this.speakerConfigs.set("[SPEAKER2]", {
-      deviceId: "default",
-      voice: "alloy"
-    });
-    this.speakerConfigs.set("[SPEAKER3]", {
-      deviceId: "default",
-      voice: "alloy"
-    });
-    this.conversationLoop();
-  }
-  static instance;
-  static getInstance() {
-    if (!ConversationHandler.instance) {
-      ConversationHandler.instance = new ConversationHandler;
+// node_modules/zustand/esm/vanilla.mjs
+var createStoreImpl = (createState) => {
+  let state;
+  const listeners = new Set;
+  const setState = (partial, replace) => {
+    const nextState = typeof partial === "function" ? partial(state) : partial;
+    if (!Object.is(nextState, state)) {
+      const previousState = state;
+      state = (replace != null ? replace : typeof nextState !== "object" || nextState === null) ? nextState : Object.assign({}, state, nextState);
+      listeners.forEach((listener) => listener(state, previousState));
     }
-    return ConversationHandler.instance;
+  };
+  const getState = () => state;
+  const getInitialState = () => initialState;
+  const subscribe = (listener) => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  };
+  const destroy = () => {
+    if ((import.meta.env ? import.meta.env.MODE : undefined) !== "production") {
+      console.warn("[DEPRECATED] The `destroy` method will be unsupported in a future version. Instead use unsubscribe function returned by subscribe. Everything will be garbage-collected if store is garbage-collected.");
+    }
+    listeners.clear();
+  };
+  const api = { setState, getState, getInitialState, subscribe, destroy };
+  const initialState = state = createState(setState, getState, api);
+  return api;
+};
+var createStore = (createState) => createState ? createStoreImpl(createState) : createStoreImpl;
+
+// node_modules/zustand/esm/index.mjs
+var import_react4 = __toESM(require_react(), 1);
+var with_selector = __toESM(require_with_selector(), 1);
+var useStore = function(api, selector = identity, equalityFn) {
+  if ((import.meta.env ? import.meta.env.MODE : undefined) !== "production" && equalityFn && !didWarnAboutEqualityFn) {
+    console.warn("[DEPRECATED] Use `createWithEqualityFn` instead of `create` or use `useStoreWithEqualityFn` instead of `useStore`. They can be imported from 'zustand/traditional'. https://github.com/pmndrs/zustand/discussions/1937");
+    didWarnAboutEqualityFn = true;
   }
-  setSpeakerConfig(speaker, config) {
-    this.speakerConfigs.set(speaker, config);
+  const slice = useSyncExternalStoreWithSelector(api.subscribe, api.getState, api.getServerState || api.getInitialState, selector, equalityFn);
+  useDebugValue(slice);
+  return slice;
+};
+var { useDebugValue } = import_react4.default;
+var { useSyncExternalStoreWithSelector } = with_selector.default;
+var didWarnAboutEqualityFn = false;
+var identity = (arg) => arg;
+var createImpl = (createState) => {
+  if ((import.meta.env ? import.meta.env.MODE : undefined) !== "production" && typeof createState !== "function") {
+    console.warn("[DEPRECATED] Passing a vanilla store will be unsupported in a future version. Instead use `import { useStore } from 'zustand'`.");
   }
-  queue(conversation) {
-    this.conversationQueue.push(...conversation);
-  }
-  async say(conversation) {
-  }
-  async conversationLoop() {
-    while (!this.cancel) {
-      if (this.conversationQueue.length === 0 || !this.isPlaying) {
-        console.log("No conversations queued. Waiting...");
+  const api = typeof createState === "function" ? createStore(createState) : createState;
+  const useBoundStore = (selector, equalityFn) => useStore(api, selector, equalityFn);
+  Object.assign(useBoundStore, api);
+  return useBoundStore;
+};
+var create = (createState) => createState ? createImpl(createState) : createImpl;
+
+// src/store/conversationStore.ts
+var useConversationStore = create()((set, get) => ({
+  speakerConfigs: new Map(new Map([
+    ["[SPEAKER1]", { deviceId: "default", voice: "alloy" }],
+    ["[SPEAKER2]", { deviceId: "default", voice: "alloy" }],
+    ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }]
+  ])),
+  conversationQueue: [],
+  isPlaying: true,
+  setConversationQueue: (conversationQueue) => {
+    set(() => {
+      return { conversationQueue };
+    });
+  },
+  setIsPlaying: (isPlaying) => {
+    set(() => {
+      return { isPlaying };
+    });
+  },
+  setSpeakerConfig: (speaker, config) => {
+    set((state) => {
+      return {
+        speakerConfigs: new Map(state.speakerConfigs.set(speaker, config))
+      };
+    });
+  },
+  addToQueue: (conversation) => {
+    set((state) => {
+      return {
+        conversationQueue: [...state.conversationQueue, ...conversation]
+      };
+    });
+  },
+  conversationLoop: async () => {
+    while (true) {
+      if (get().conversationQueue.length === 0 || !get().isPlaying) {
+        console.log("No conversations queued or paused. Waiting...");
         await new Promise((resolve) => setTimeout(resolve, 1000));
         continue;
       }
-      const conversation = this.conversationQueue.shift();
+      const conversation = get().conversationQueue.shift();
+      set((state) => {
+        return { conversationQueue: state.conversationQueue };
+      });
       if (!conversation)
         continue;
       const { speaker, text } = conversation;
-      const config = this.speakerConfigs.get(speaker);
+      const config = get().speakerConfigs.get(speaker);
       if (!config)
         continue;
       console.log(`Saying: ${text} as ${speaker}`);
@@ -27341,9 +27591,67 @@ class ConversationHandler {
       await audioAPI.play(audio3, config.deviceId);
     }
   }
+}));
+useConversationStore.getState().conversationLoop();
+
+// src/ConversationQueue.tsx
+function ConversationQueue({ queue }) {
+  return jsx_dev_runtime4.jsxDEV("div", {
+    children: [
+      jsx_dev_runtime4.jsxDEV("h1", {
+        children: "Conversation Queue"
+      }, undefined, false, undefined, this),
+      jsx_dev_runtime4.jsxDEV("div", {
+        children: queue.map((conversation, index) => jsx_dev_runtime4.jsxDEV("div", {
+          children: [
+            jsx_dev_runtime4.jsxDEV("h2", {
+              children: conversation.speaker
+            }, undefined, false, undefined, this),
+            jsx_dev_runtime4.jsxDEV("p", {
+              children: conversation.text
+            }, undefined, false, undefined, this)
+          ]
+        }, index, true, undefined, this))
+      }, undefined, false, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
+}
+var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
+
+// src/App.tsx
+var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
+function App() {
+  const speakers = useConversationStore((state) => Array.from(state.speakerConfigs.keys()));
+  const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
+  const addToQueue = useConversationStore((state) => state.addToQueue);
+  const queue = useConversationStore((state) => state.conversationQueue);
+  console.log(speakers);
+  return jsx_dev_runtime5.jsxDEV(jsx_dev_runtime5.Fragment, {
+    children: [
+      jsx_dev_runtime5.jsxDEV("p", {
+        children: "Life in Plastic"
+      }, undefined, false, undefined, this),
+      jsx_dev_runtime5.jsxDEV(Config, {}, undefined, false, undefined, this),
+      jsx_dev_runtime5.jsxDEV("div", {
+        style: { display: "flex", flexDirection: "column", gap: "10px" },
+        children: [
+          speakers.map((speaker) => jsx_dev_runtime5.jsxDEV(Speaker, {
+            handle: speaker,
+            onChange: (config) => setSpeakerConfig(speaker, config)
+          }, speaker, false, undefined, this)),
+          jsx_dev_runtime5.jsxDEV(Conversation, {
+            onSay: (conversation) => addToQueue(conversation)
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime5.jsxDEV(ConversationQueue, {
+            queue
+          }, undefined, false, undefined, this)
+        ]
+      }, undefined, true, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
 }
 
 // src/index.tsx
-var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
+var jsx_dev_runtime6 = __toESM(require_jsx_dev_runtime(), 1);
 var root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(jsx_dev_runtime5.jsxDEV(App, {}, undefined, false, undefined, this));
+root.render(jsx_dev_runtime6.jsxDEV(App, {}, undefined, false, undefined, this));

@@ -53,7 +53,7 @@ export function Conversation({ onSay }: ConversationProps) {
   return (
     <>
       <textarea
-        rows={30}
+        rows={10}
         value={conversationText}
         onChange={(e) => setConversationText(e.target.value)}
       />

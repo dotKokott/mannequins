@@ -20,11 +20,10 @@ class AudioAPI {
       audio: true,
     });
     const devices = await navigator.mediaDevices.enumerateDevices();
+
     const audioDevices = devices.filter((device) => {
       return device.kind === "audiooutput";
     });
-
-    console.log(audioDevices);
 
     return audioDevices;
   }
