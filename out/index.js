@@ -29154,21 +29154,23 @@ function App() {
           jsx_dev_runtime6.jsxDEV("hr", {}, undefined, false, undefined, this),
           jsx_dev_runtime6.jsxDEV("div", {
             children: [
-              jsx_dev_runtime6.jsxDEV("h3", {
-                children: "Conversations"
+              jsx_dev_runtime6.jsxDEV("div", {
+                children: jsx_dev_runtime6.jsxDEV("h3", {
+                  children: "Conversations"
+                }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
               conversations.map((conversation, index) => jsx_dev_runtime6.jsxDEV(Conversation, {
                 conversation,
                 updateConversation: (conversation2) => setConversation(index, conversation2),
                 onSay: (conversation2) => addToQueue(conversation2),
                 removeConversation: () => removeConversation(index)
-              }, index, false, undefined, this))
+              }, index, false, undefined, this)),
+              jsx_dev_runtime6.jsxDEV("button", {
+                onClick: addNewConversation,
+                children: "+"
+              }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsx_dev_runtime6.jsxDEV("button", {
-            onClick: addNewConversation,
-            children: "Add New Conversation"
-          }, undefined, false, undefined, this),
           jsx_dev_runtime6.jsxDEV(Interruptions, {}, undefined, false, undefined, this),
           jsx_dev_runtime6.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
         ]

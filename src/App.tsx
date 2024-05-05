@@ -61,7 +61,9 @@ export function App() {
 
         <hr />
         <div>
-          <h3>Conversations</h3>
+          <div>
+            <h3>Conversations</h3>
+          </div>
           {conversations.map((conversation, index) => (
             <Conversation
               key={index}
@@ -73,8 +75,9 @@ export function App() {
               removeConversation={() => removeConversation(index)}
             />
           ))}
+          <button onClick={addNewConversation}>+</button>
         </div>
-        <button onClick={addNewConversation}>Add New Conversation</button>
+
         <Interruptions />
         <ConversationQueue />
       </div>
