@@ -29140,13 +29140,14 @@ function App() {
   const queue = useConversationStore((state) => state.lineQueue);
   return jsx_dev_runtime6.jsxDEV(jsx_dev_runtime6.Fragment, {
     children: [
-      jsx_dev_runtime6.jsxDEV("p", {
-        children: "Life in Plastic"
+      jsx_dev_runtime6.jsxDEV("h2", {
+        style: { float: "right" },
+        children: "Life in Plastic ~ Telepathic Control Center"
       }, undefined, false, undefined, this),
       jsx_dev_runtime6.jsxDEV(Config, {}, undefined, false, undefined, this),
       jsx_dev_runtime6.jsxDEV("div", {
         style: {
-          marginTop: "20px",
+          marginTop: "100px",
           display: "flex",
           flexDirection: "column",
           gap: "10px"

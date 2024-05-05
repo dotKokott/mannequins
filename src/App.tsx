@@ -30,11 +30,13 @@ export function App() {
 
   return (
     <>
-      <p>{'Life in Plastic'}</p>
+      <h2 style={{ float: 'right' }}>
+        {'Life in Plastic ~ Telepathic Control Center'}
+      </h2>
       <Config />
       <div
         style={{
-          marginTop: '20px',
+          marginTop: '100px',
           display: 'flex',
           flexDirection: 'column',
           gap: '10px',
