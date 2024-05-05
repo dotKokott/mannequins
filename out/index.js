@@ -28997,7 +28997,6 @@ function App() {
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
-  const addInterruption = useConversationStore((state) => state.addInterruption);
   return jsx_dev_runtime5.jsxDEV(jsx_dev_runtime5.Fragment, {
     children: [
       jsx_dev_runtime5.jsxDEV("p", {
@@ -29034,10 +29033,6 @@ function App() {
           jsx_dev_runtime5.jsxDEV("button", {
             onClick: addNewConversation,
             children: "Add New Conversation"
-          }, undefined, false, undefined, this),
-          jsx_dev_runtime5.jsxDEV("button", {
-            onClick: () => addInterruption([{ speaker: "", text: "Sssssh!" }]),
-            children: "Create interruption"
           }, undefined, false, undefined, this),
           jsx_dev_runtime5.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
         ]
