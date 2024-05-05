@@ -6,14 +6,15 @@ import type { SpeakerConfig } from "./types";
 
 export type SpeakerProps = {
   handle: string;
+  config: SpeakerConfig;
   onChange: (speakerConfig: SpeakerConfig) => void | Promise<void> | undefined;
 };
 
-export function Speaker({ handle, onChange }: SpeakerProps) {
+export function Speaker({ handle, config, onChange }: SpeakerProps) {
   // const [handle, updateHandle] = React.useState(handle);
-  const [speakerId, setSpeakerId] = React.useState<string>("default");
+  const [speakerId, setSpeakerId] = React.useState<string>(config.deviceId);
 
-  const [voice, setVoice] = React.useState<Voice>(voiceOptions[0]);
+  const [voice, setVoice] = React.useState<Voice>(config.voice);
 
   async function say() {
     const audio = await API.say(

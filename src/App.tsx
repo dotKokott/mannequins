@@ -7,13 +7,19 @@ import { useConversationStore } from "./store/conversationStore";
 import { ConversationQueue } from "./ConversationQueue";
 
 export function App() {
-  const speakers = useConversationStore((state) =>
-    Array.from(state.speakerConfigs.keys())
-  );
+  const speakers = useConversationStore((state) => state.speakerConfigs);
 
   const conversations = useConversationStore((state) => state.conversations);
   const setConversation = useConversationStore(
     (state) => state.setConversation
+  );
+
+  const addNewConversation = useConversationStore(
+    (state) => state.addNewConversation
+  );
+
+  const removeConversation = useConversationStore(
+    (state) => state.removeConversation
   );
 
   const setSpeakerConfig = useConversationStore(
@@ -42,14 +48,20 @@ export function App() {
             gap: "10px",
           }}
         >
-          {speakers.map((speaker) => (
+          {Array.from(speakers.entries()).map(([speaker, config]) => (
             <Speaker
               key={speaker}
               handle={speaker}
-              onChange={(config) => setSpeakerConfig(speaker, config)}
+              config={config}
+              onChange={(speakerConfig) =>
+                setSpeakerConfig(speaker, speakerConfig)
+              }
             />
           ))}
         </div>
+
+        <hr />
+
         {conversations.map((conversation, index) => (
           <Conversation
             key={index}
@@ -58,8 +70,10 @@ export function App() {
               setConversation(index, conversation)
             }
             onSay={(conversation) => addToQueue(conversation)}
+            removeConversation={() => removeConversation(index)}
           />
         ))}
+        <button onClick={addNewConversation}>Add New Conversation</button>
         <ConversationQueue />
       </div>
     </>

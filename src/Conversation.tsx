@@ -4,12 +4,14 @@ import { parseConversation, type Conversation, type Line } from "./types";
 export type ConversationProps = {
   conversation: Conversation;
   updateConversation: (conversation: Conversation) => void;
+  removeConversation: () => void;
   onSay: (lines: Line[]) => void | Promise<void> | undefined;
 };
 
 export function Conversation({
   conversation,
   updateConversation,
+  removeConversation,
   onSay,
 }: ConversationProps) {
   const [conversationTitle, setConversationTitle] = React.useState(
@@ -52,6 +54,7 @@ export function Conversation({
         onChange={(e) => setConversationText(e.target.value)}
       />
       <button onClick={() => onSay(parsedConversation)}>Add to queue</button>
+      <button onClick={removeConversation}>Delete Conversation</button>
     </div>
   );
 }

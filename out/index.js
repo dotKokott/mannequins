@@ -27356,6 +27356,7 @@ var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
 function Conversation({
   conversation,
   updateConversation,
+  removeConversation,
   onSay
 }) {
   const [conversationTitle, setConversationTitle] = import_react2.default.useState(conversation.title);
@@ -27391,6 +27392,10 @@ function Conversation({
       jsx_dev_runtime2.jsxDEV("button", {
         onClick: () => onSay(parsedConversation),
         children: "Add to queue"
+      }, undefined, false, undefined, this),
+      jsx_dev_runtime2.jsxDEV("button", {
+        onClick: removeConversation,
+        children: "Delete Conversation"
       }, undefined, false, undefined, this)
     ]
   }, undefined, true, undefined, this);
@@ -27446,9 +27451,9 @@ await audioAPI.initialize();
 
 // src/Speaker.tsx
 var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
-function Speaker({ handle, onChange }) {
-  const [speakerId, setSpeakerId] = import_react3.default.useState("default");
-  const [voice, setVoice] = import_react3.default.useState(voiceOptions[0]);
+function Speaker({ handle, config, onChange }) {
+  const [speakerId, setSpeakerId] = import_react3.default.useState(config.deviceId);
+  const [voice, setVoice] = import_react3.default.useState(config.voice);
   async function say() {
     const audio2 = await API.say(handle.replace("[", "").replace("]", ""), voice);
     if (!audio2)
@@ -28423,22 +28428,24 @@ var immer2 = immerImpl;
 // src/store/conversationStore.ts
 enableMapSet();
 var testConversation = `
-[SPEAKER1]
-Hello my name is speaker one
+[HELIO]
+Hello my name is Helio
 
+[PAULA]
+Hello Helio, my name is Paula
 
-[SPEAKER2]
-Hello my name is speaker two
+[HELIO]
+Nice to meet you Paula. How are you today?
 
-
-[SPEAKER3]
-Hello my name is speaker three
+[PAULA]
+I'm doing well, thank you for asking. How about you?
 `;
 var useConversationStore = create()(immer2((set2, get) => ({
   speakerConfigs: new Map(new Map([
-    ["[SPEAKER1]", { deviceId: "default", voice: "alloy" }],
-    ["[SPEAKER2]", { deviceId: "default", voice: "alloy" }],
-    ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }]
+    ["[HELIO]", { deviceId: "default", voice: "onyx" }],
+    ["[BARBARA]", { deviceId: "default", voice: "alloy" }],
+    ["[KARL]", { deviceId: "default", voice: "echo" }],
+    ["[PAULA]", { deviceId: "default", voice: "shimmer" }]
   ])),
   lineQueue: [],
   currentLine: undefined,
@@ -28450,6 +28457,20 @@ var useConversationStore = create()(immer2((set2, get) => ({
     }
   ],
   isPlaying: true,
+  addNewConversation: () => {
+    set2((state) => {
+      state.conversations.push({
+        title: "New Conversation",
+        text: testConversation,
+        lines: parseConversation(testConversation)
+      });
+    });
+  },
+  removeConversation: (index) => {
+    set2((state) => {
+      state.conversations.splice(index, 1);
+    });
+  },
   setConversation: (index, conversation) => {
     set2((state) => {
       state.conversations[index] = conversation;
@@ -28559,9 +28580,11 @@ var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
 // src/App.tsx
 var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
 function App() {
-  const speakers = useConversationStore((state) => Array.from(state.speakerConfigs.keys()));
+  const speakers = useConversationStore((state) => state.speakerConfigs);
   const conversations = useConversationStore((state) => state.conversations);
   const setConversation = useConversationStore((state) => state.setConversation);
+  const addNewConversation = useConversationStore((state) => state.addNewConversation);
+  const removeConversation = useConversationStore((state) => state.removeConversation);
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
@@ -28585,16 +28608,23 @@ function App() {
               flexDirection: "row",
               gap: "10px"
             },
-            children: speakers.map((speaker) => jsx_dev_runtime5.jsxDEV(Speaker, {
+            children: Array.from(speakers.entries()).map(([speaker, config]) => jsx_dev_runtime5.jsxDEV(Speaker, {
               handle: speaker,
-              onChange: (config) => setSpeakerConfig(speaker, config)
+              config,
+              onChange: (speakerConfig) => setSpeakerConfig(speaker, speakerConfig)
             }, speaker, false, undefined, this))
           }, undefined, false, undefined, this),
+          jsx_dev_runtime5.jsxDEV("hr", {}, undefined, false, undefined, this),
           conversations.map((conversation, index) => jsx_dev_runtime5.jsxDEV(Conversation, {
             conversation,
             updateConversation: (conversation2) => setConversation(index, conversation2),
-            onSay: (conversation2) => addToQueue(conversation2)
+            onSay: (conversation2) => addToQueue(conversation2),
+            removeConversation: () => removeConversation(index)
           }, index, false, undefined, this)),
+          jsx_dev_runtime5.jsxDEV("button", {
+            onClick: addNewConversation,
+            children: "Add New Conversation"
+          }, undefined, false, undefined, this),
           jsx_dev_runtime5.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this)

@@ -6,23 +6,25 @@ import {
   type SpeakerConfig,
 } from "../types";
 import { immer } from "zustand/middleware/immer";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { enableMapSet } from "immer";
+enableMapSet();
+
 import { API } from "../lib/openai";
 import { audioAPI } from "../lib/audio";
 
-enableMapSet();
-
 const testConversation: string = `
-[SPEAKER1]
-Hello my name is speaker one
+[HELIO]
+Hello my name is Helio
 
+[PAULA]
+Hello Helio, my name is Paula
 
-[SPEAKER2]
-Hello my name is speaker two
+[HELIO]
+Nice to meet you Paula. How are you today?
 
-
-[SPEAKER3]
-Hello my name is speaker three
+[PAULA]
+I'm doing well, thank you for asking. How about you?
 `;
 
 interface ConversationStore {
@@ -32,6 +34,8 @@ interface ConversationStore {
   conversations: Conversation[];
   isPlaying: boolean;
 
+  addNewConversation: () => void;
+  removeConversation: (index: number) => void;
   setConversation: (index: number, conversation: Conversation) => void;
   setIsPlaying: (isPlaying: boolean) => void;
   setSpeakerConfig: (speaker: string, config: SpeakerConfig) => void;
@@ -43,9 +47,10 @@ const useConversationStore = create<ConversationStore>()(
   immer((set, get) => ({
     speakerConfigs: new Map<string, SpeakerConfig>(
       new Map([
-        ["[SPEAKER1]", { deviceId: "default", voice: "alloy" }],
-        ["[SPEAKER2]", { deviceId: "default", voice: "alloy" }],
-        ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }],
+        ["[HELIO]", { deviceId: "default", voice: "onyx" }],
+        ["[BARBARA]", { deviceId: "default", voice: "alloy" }],
+        ["[KARL]", { deviceId: "default", voice: "echo" }],
+        ["[PAULA]", { deviceId: "default", voice: "shimmer" }],
       ])
     ),
     lineQueue: [],
@@ -58,6 +63,22 @@ const useConversationStore = create<ConversationStore>()(
       },
     ],
     isPlaying: true,
+
+    addNewConversation: () => {
+      set((state) => {
+        state.conversations.push({
+          title: "New Conversation",
+          text: testConversation,
+          lines: parseConversation(testConversation),
+        });
+      });
+    },
+
+    removeConversation: (index: number) => {
+      set((state) => {
+        state.conversations.splice(index, 1);
+      });
+    },
 
     setConversation: (index: number, conversation: Conversation) => {
       set((state) => {
