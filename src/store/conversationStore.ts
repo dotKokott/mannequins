@@ -6,7 +6,11 @@ import {
   type SpeakerConfig,
 } from '../types'
 import { immer } from 'zustand/middleware/immer'
-import { persist } from 'zustand/middleware'
+import {
+  createJSONStorage,
+  persist,
+  type StorageValue,
+} from 'zustand/middleware'
 import { enableMapSet } from 'immer'
 enableMapSet()
 
@@ -81,6 +85,31 @@ interface ConversationStore {
   addToQueue: (lines: Line[]) => void
   conversationLoop: () => void
   addInterruption: (lines: Line[]) => void
+}
+
+const localStorageWithMap = {
+  getItem: (name: string) => {
+    const str = localStorage.getItem(name)
+    if (!str) return null
+    const { state } = JSON.parse(str)
+    return {
+      state: {
+        ...state,
+        transactions: new Map(state.speakerConfigs),
+      },
+    }
+  },
+  setItem: (name: string, newValue: StorageValue<ConversationStore>) => {
+    // functions cannot be JSON encoded
+    const str = JSON.stringify({
+      state: {
+        ...newValue.state,
+        speakerConfigs: Array.from(newValue.state.speakerConfigs.entries()),
+      },
+    })
+    localStorage.setItem(name, str)
+  },
+  removeItem: (name: string) => localStorage.removeItem(name),
 }
 
 const useConversationStore = create<ConversationStore>()(

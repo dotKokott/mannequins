@@ -4,13 +4,16 @@ import { API, type Voice, voiceOptions } from './lib/openai'
 import { audioAPI } from './lib/audio'
 import type { SpeakerConfig } from './types'
 
+import midiAPI from './lib/midi'
+
 export type SpeakerProps = {
   handle: string
   config: SpeakerConfig
+  index: number
   onChange: (speakerConfig: SpeakerConfig) => void | Promise<void> | undefined
 }
 
-export function Speaker({ handle, config, onChange }: SpeakerProps) {
+export function Speaker({ handle, index, config, onChange }: SpeakerProps) {
   // const [handle, updateHandle] = React.useState(handle);
   const [speakerId, setSpeakerId] = React.useState<string>(config.deviceId)
 
@@ -37,6 +40,18 @@ export function Speaker({ handle, config, onChange }: SpeakerProps) {
   React.useEffect(() => {
     onChange({ deviceId: speakerId, voice, volume })
   }, [speakerId, voice, volume])
+
+  React.useEffect(() => {
+    midiAPI.addNoteOnListener((note, velocity) => {
+      if (note === index + 36) {
+        say()
+      }
+    })
+
+    return () => {
+      // midiAPI.off('noteon')
+    }
+  }, [index])
 
   return (
     <div

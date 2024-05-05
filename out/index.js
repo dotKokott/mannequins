@@ -23693,7 +23693,6 @@ var require_with_selector = __commonJS((exports, module) => {
 
 // src/index.tsx
 var ReactDOM = __toESM(require_client(), 1);
-
 // src/Config.tsx
 var import_react = __toESM(require_react(), 1);
 
@@ -27473,9 +27472,74 @@ class AudioAPI {
 var audioAPI = new AudioAPI;
 await audioAPI.initialize();
 
+// src/lib/midi.ts
+class MidiAPI {
+  midi;
+  noteOnListeners = [];
+  constructor() {
+    this.midi = null;
+  }
+  async init() {
+    this.midi = await navigator.requestMIDIAccess({
+      sysex: true
+    });
+    this.midi?.inputs.forEach((input) => {
+      console.log(input);
+      input.onmidimessage = (message) => this.handleMidiMessage(message);
+    });
+  }
+  addNoteOnListener(listener) {
+    this.noteOnListeners.push(listener);
+  }
+  onNote(note, velocity) {
+    if (velocity > 0) {
+      this.noteOnListeners.forEach((listener) => listener(note, velocity));
+    }
+  }
+  onPad(note, velocity) {
+    console.log("onPad", note, velocity);
+  }
+  onModWheel(velocity) {
+    console.log("onModWheel", velocity);
+  }
+  onPitchBend(velocity) {
+    console.log("onPitchBend", velocity);
+  }
+  handleMidiMessage(message) {
+    const parsed = this.parseMidiMessage(message);
+    if (!parsed) {
+      return;
+    }
+    const { command, channel, note, velocity } = parsed;
+    if (command === 8) {
+      this.onNote(note, -velocity);
+    } else if (command === 9) {
+      this.onNote(note, velocity);
+    } else if (command === 11) {
+      if (note === 1)
+        this.onModWheel(velocity);
+    } else if (command === 14) {
+      this.onPitchBend(velocity);
+    }
+  }
+  parseMidiMessage(message) {
+    if (!message.data || message.data.length < 3) {
+      return null;
+    }
+    return {
+      command: message.data[0] >> 4,
+      channel: message.data[0] & 15,
+      note: message.data[1],
+      velocity: message.data[2] / 127
+    };
+  }
+}
+var midiAPI = new MidiAPI;
+var midi_default = midiAPI;
+
 // src/Speaker.tsx
 var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
-function Speaker({ handle, config, onChange }) {
+function Speaker({ handle, index, config, onChange }) {
   const [speakerId, setSpeakerId] = import_react3.default.useState(config.deviceId);
   const [voice, setVoice] = import_react3.default.useState(config.voice);
   const [volume, setVolume] = import_react3.default.useState(config.volume);
@@ -27491,6 +27555,15 @@ function Speaker({ handle, config, onChange }) {
   import_react3.default.useEffect(() => {
     onChange({ deviceId: speakerId, voice, volume });
   }, [speakerId, voice, volume]);
+  import_react3.default.useEffect(() => {
+    midi_default.addNoteOnListener((note, velocity) => {
+      if (note === index + 36) {
+        say();
+      }
+    });
+    return () => {
+    };
+  }, [index]);
   return jsx_dev_runtime3.jsxDEV("div", {
     style: { display: "flex", flexDirection: "column", gap: "10px", flex: 1 },
     children: [
@@ -29159,9 +29232,10 @@ function App() {
               flexDirection: "row",
               gap: "10px"
             },
-            children: Array.from(speakers.entries()).map(([speaker, config]) => jsx_dev_runtime6.jsxDEV(Speaker, {
+            children: Array.from(speakers.entries()).map(([speaker, config], index) => jsx_dev_runtime6.jsxDEV(Speaker, {
               handle: speaker,
               config,
+              index,
               onChange: (speakerConfig) => setSpeakerConfig(speaker, speakerConfig)
             }, speaker, false, undefined, this))
           }, undefined, false, undefined, this),
@@ -29192,6 +29266,7 @@ function App() {
     ]
   }, undefined, true, undefined, this);
 }
+midi_default.init();
 
 // src/index.tsx
 var jsx_dev_runtime7 = __toESM(require_jsx_dev_runtime(), 1);

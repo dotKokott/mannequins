@@ -7,6 +7,10 @@ import { useConversationStore } from './store/conversationStore'
 import { ConversationQueue } from './ConversationQueue'
 import { Interruptions } from './Interruptions'
 
+import midiAPI from './lib/midi'
+
+midiAPI.init()
+
 export function App() {
   const speakers = useConversationStore((state) => state.speakerConfigs)
 
@@ -49,11 +53,12 @@ export function App() {
             gap: '10px',
           }}
         >
-          {Array.from(speakers.entries()).map(([speaker, config]) => (
+          {Array.from(speakers.entries()).map(([speaker, config], index) => (
             <Speaker
               key={speaker}
               handle={speaker}
               config={config}
+              index={index}
               onChange={(speakerConfig) =>
                 setSpeakerConfig(speaker, speakerConfig)
               }
