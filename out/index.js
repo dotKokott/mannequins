@@ -28775,6 +28775,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   ])),
   lineQueue: [],
   currentLine: undefined,
+  currentSpeakerConfig: undefined,
   conversations: [
     {
       title: "Test Conversation",
@@ -28830,7 +28831,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   },
   addInterruption: (lines) => {
     set2((state) => {
-      audioAPI.stop();
+      audioAPI.stop(state.currentSpeakerConfig?.deviceId || "default");
       lines = lines.map((line) => {
         if (line.speaker == "") {
           line.speaker = state.currentLine?.speaker || get().speakerConfigs.keys().next().value;
@@ -28861,6 +28862,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
         console.log("No lines queued or paused. Waiting...");
         set2((state) => {
           state.currentLine = undefined;
+          state.currentSpeakerConfig = undefined;
         });
         await new Promise((resolve) => setTimeout(resolve, 1000));
         continue;
@@ -28875,6 +28877,9 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       const config = get().speakerConfigs.get(speaker);
       if (!config)
         continue;
+      set2((state) => {
+        state.currentSpeakerConfig = config;
+      });
       console.log(`Saying: ${text} as ${speaker}`);
       const audio3 = await API.say(text, config.voice);
       if (!audio3)

@@ -59,6 +59,7 @@ interface ConversationStore {
   speakerConfigs: Map<string, SpeakerConfig>
   lineQueue: Line[]
   currentLine: Line | undefined
+  currentSpeakerConfig: SpeakerConfig | undefined
   conversations: Conversation[]
   isPlaying: boolean
   autoPickFromConversations: boolean
@@ -88,6 +89,7 @@ const useConversationStore = create<ConversationStore>()(
       ),
       lineQueue: [],
       currentLine: undefined,
+      currentSpeakerConfig: undefined,
       conversations: [
         {
           title: 'Test Conversation',
@@ -152,7 +154,7 @@ const useConversationStore = create<ConversationStore>()(
 
       addInterruption: (lines: Line[]) => {
         set((state) => {
-          audioAPI.stop()
+          audioAPI.stop(state.currentSpeakerConfig?.deviceId || 'default')
 
           lines = lines.map((line) => {
             if (line.speaker == '') {
@@ -203,6 +205,7 @@ const useConversationStore = create<ConversationStore>()(
 
             set((state) => {
               state.currentLine = undefined
+              state.currentSpeakerConfig = undefined
             })
 
             await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -219,6 +222,10 @@ const useConversationStore = create<ConversationStore>()(
           const { speaker, text } = conversation
           const config = get().speakerConfigs.get(speaker)
           if (!config) continue
+
+          set((state) => {
+            state.currentSpeakerConfig = config
+          })
 
           console.log(`Saying: ${text} as ${speaker}`)
           const audio = await API.say(text, config.voice)
