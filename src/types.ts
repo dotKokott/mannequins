@@ -1,3 +1,4 @@
+import { current } from 'immer'
 import type { Voice } from './lib/openai'
 
 export type Conversation = {
@@ -30,7 +31,8 @@ export function parseConversation(conversationText: string): Line[] {
         parsed.push({ speaker: currentSpeaker, text: currentText })
       }
 
-      currentSpeaker = line
+      // regex parse to get speaker name including brackets
+      currentSpeaker = line.match(/\[.*\]/)?.[0] || currentSpeaker
       currentText = ''
     } else {
       currentText += line + '\n'

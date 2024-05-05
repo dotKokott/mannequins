@@ -6,7 +6,7 @@ import {
   type SpeakerConfig,
 } from '../types'
 import { immer } from 'zustand/middleware/immer'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { enableMapSet } from 'immer'
 enableMapSet()
 
@@ -15,16 +15,43 @@ import { audioAPI } from '../lib/audio'
 
 const testConversation: string = `
 [HELIO]
-Hello my name is Helio
+I wanted to talk about something.
 
-[PAULA]
-Hello Helio, my name is Paula
+[KARL]
+What, Helio?
 
 [HELIO]
-Nice to meet you Paula. How are you today?
+I think we need more variety in our hats.
+
+[BARBARA]
+Variety? What kind of variety?
+
+[HELIO]
+You know, a few berets, maybe some cowboy hats.
 
 [PAULA]
-I'm doing well, thank you for asking. How about you?
+Hmm, not a bad idea. But what about the sunglasses? We're looking a bit dated with these retro frames.
+
+[KARL]
+Agreed. How about some aviators or wayfarers?
+
+[BARBARA]
+And don't get me started on the scarves. We need a splash of color!
+
+[PAULA]
+Yes! Floral patterns or bold stripes. Something eye-catching.
+
+[HELIO]
+We're a fashionable bunch. We should make a statement.
+
+[KARL]
+Absolutely! Let’s pitch the idea to the store manager.
+
+[BARBARA]
+After all, we are the faces of this shop.
+
+[PAULA]
+Literally.
 `
 
 interface ConversationStore {
