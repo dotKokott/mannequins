@@ -28479,6 +28479,9 @@ var useConversationStore = create()(immer2((set2, get) => ({
     while (true) {
       if (get().lineQueue.length === 0 || !get().isPlaying) {
         console.log("No lines queued or paused. Waiting...");
+        set2((state) => {
+          state.currentLine = undefined;
+        });
         await new Promise((resolve) => setTimeout(resolve, 1000));
         continue;
       }
