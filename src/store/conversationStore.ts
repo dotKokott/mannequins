@@ -1,8 +1,26 @@
 import { create } from "zustand";
-import type { Conversation, Line, SpeakerConfig } from "../types";
+import {
+  parseConversation,
+  type Conversation,
+  type Line,
+  type SpeakerConfig,
+} from "../types";
 import { immer } from "zustand/middleware/immer";
 import { API } from "../lib/openai";
 import { audioAPI } from "../lib/audio";
+
+const testConversation: string = `
+[SPEAKER1]
+Hello my name is speaker one
+
+
+[SPEAKER2]
+Hello my name is speaker two
+
+
+[SPEAKER3]
+Hello my name is speaker three
+`;
 
 interface ConversationStore {
   speakerConfigs: Map<string, SpeakerConfig>;
@@ -10,6 +28,7 @@ interface ConversationStore {
   conversations: Conversation[];
   isPlaying: boolean;
 
+  setConversation: (index: number, conversation: Conversation) => void;
   setIsPlaying: (isPlaying: boolean) => void;
   setSpeakerConfig: (speaker: string, config: SpeakerConfig) => void;
   addToQueue: (lines: Line[]) => void;
@@ -26,8 +45,20 @@ const useConversationStore = create<ConversationStore>()(
       ])
     ),
     lineQueue: [],
-    conversations: [{ title: "Test Conversation", text: "", lines: [] }],
+    conversations: [
+      {
+        title: "Test Conversation",
+        text: testConversation,
+        lines: parseConversation(testConversation),
+      },
+    ],
     isPlaying: true,
+
+    setConversation: (index: number, conversation: Conversation) => {
+      set((state) => {
+        state.conversations[index] = conversation;
+      });
+    },
 
     setLineQueue: (lineQueue: Line[]) => {
       set((state) => {

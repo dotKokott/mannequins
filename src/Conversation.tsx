@@ -1,57 +1,36 @@
 import React from "react";
-import type { Line } from "./types";
+import { parseConversation, type Conversation, type Line } from "./types";
 
 export type ConversationProps = {
+  conversation: Conversation;
+  updateConversation: (conversation: Conversation) => void;
   onSay: (lines: Line[]) => void | Promise<void> | undefined;
 };
 
-const testConversation: string = `
-[SPEAKER1]
-Hello my name is speaker one
+export function Conversation({
+  conversation,
+  updateConversation,
+  onSay,
+}: ConversationProps) {
+  const [conversationTitle, setConversationTitle] = React.useState(
+    conversation.title
+  );
 
-
-[SPEAKER2]
-Hello my name is speaker two
-
-
-[SPEAKER3]
-Hello my name is speaker three
-`;
-
-export function Conversation({ onSay }: ConversationProps) {
-  const [conversationTitle, setConversationTitle] =
-    React.useState("Conversation title");
-
-  const [conversationText, setConversationText] =
-    React.useState(testConversation);
+  const [conversationText, setConversationText] = React.useState(
+    conversation.text
+  );
 
   const parsedConversation = React.useMemo(() => {
-    const lines = conversationText.split("\n");
-
-    const parsed: Line[] = [];
-
-    let currentSpeaker = "";
-    let currentText = "";
-
-    for (const line of lines) {
-      if (line.startsWith("[")) {
-        if (currentSpeaker) {
-          parsed.push({ speaker: currentSpeaker, text: currentText });
-        }
-
-        currentSpeaker = line;
-        currentText = "";
-      } else {
-        currentText += line + "\n";
-      }
-    }
-
-    if (currentSpeaker) {
-      parsed.push({ speaker: currentSpeaker, text: currentText });
-    }
-
-    return parsed;
+    return parseConversation(conversationText);
   }, [conversationText]);
+
+  React.useEffect(() => {
+    updateConversation({
+      title: conversationTitle,
+      text: conversationText,
+      lines: parseConversation(conversationText),
+    });
+  }, [conversationTitle, conversationText]);
 
   return (
     <div
@@ -72,7 +51,7 @@ export function Conversation({ onSay }: ConversationProps) {
         value={conversationText}
         onChange={(e) => setConversationText(e.target.value)}
       />
-      <button onClick={() => onSay(parsedConversation)}>Speak</button>
+      <button onClick={() => onSay(parsedConversation)}>Add to queue</button>
     </div>
   );
 }

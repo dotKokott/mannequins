@@ -27327,31 +27327,49 @@ function Config() {
 
 // src/Conversation.tsx
 var import_react2 = __toESM(require_react(), 1);
-var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
-function Conversation({ onSay }) {
-  const [conversationTitle, setConversationTitle] = import_react2.default.useState("Conversation title");
-  const [conversationText, setConversationText] = import_react2.default.useState(testConversation);
-  const parsedConversation = import_react2.default.useMemo(() => {
-    const lines = conversationText.split("\n");
-    const parsed = [];
-    let currentSpeaker = "";
-    let currentText = "";
-    for (const line of lines) {
-      if (line.startsWith("[")) {
-        if (currentSpeaker) {
-          parsed.push({ speaker: currentSpeaker, text: currentText });
-        }
-        currentSpeaker = line;
-        currentText = "";
-      } else {
-        currentText += line + "\n";
+
+// src/types.ts
+function parseConversation(conversationText) {
+  const lines = conversationText.split("\n");
+  const parsed = [];
+  let currentSpeaker = "";
+  let currentText = "";
+  for (const line of lines) {
+    if (line.startsWith("[")) {
+      if (currentSpeaker) {
+        parsed.push({ speaker: currentSpeaker, text: currentText });
       }
+      currentSpeaker = line;
+      currentText = "";
+    } else {
+      currentText += line + "\n";
     }
-    if (currentSpeaker) {
-      parsed.push({ speaker: currentSpeaker, text: currentText });
-    }
-    return parsed;
+  }
+  if (currentSpeaker) {
+    parsed.push({ speaker: currentSpeaker, text: currentText });
+  }
+  return parsed;
+}
+
+// src/Conversation.tsx
+var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
+function Conversation({
+  conversation,
+  updateConversation,
+  onSay
+}) {
+  const [conversationTitle, setConversationTitle] = import_react2.default.useState(conversation.title);
+  const [conversationText, setConversationText] = import_react2.default.useState(conversation.text);
+  const parsedConversation = import_react2.default.useMemo(() => {
+    return parseConversation(conversationText);
   }, [conversationText]);
+  import_react2.default.useEffect(() => {
+    updateConversation({
+      title: conversationTitle,
+      text: conversationText,
+      lines: parseConversation(conversationText)
+    });
+  }, [conversationTitle, conversationText]);
   return jsx_dev_runtime2.jsxDEV("div", {
     style: {
       display: "flex",
@@ -27372,23 +27390,11 @@ function Conversation({ onSay }) {
       }, undefined, false, undefined, this),
       jsx_dev_runtime2.jsxDEV("button", {
         onClick: () => onSay(parsedConversation),
-        children: "Speak"
+        children: "Add to queue"
       }, undefined, false, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
-var testConversation = `
-[SPEAKER1]
-Hello my name is speaker one
-
-
-[SPEAKER2]
-Hello my name is speaker two
-
-
-[SPEAKER3]
-Hello my name is speaker three
-`;
 
 // src/Speaker.tsx
 var import_react3 = __toESM(require_react(), 1);
@@ -28166,6 +28172,18 @@ var immerImpl = (initializer) => (set2, get, store) => {
 var immer2 = immerImpl;
 
 // src/store/conversationStore.ts
+var testConversation = `
+[SPEAKER1]
+Hello my name is speaker one
+
+
+[SPEAKER2]
+Hello my name is speaker two
+
+
+[SPEAKER3]
+Hello my name is speaker three
+`;
 var useConversationStore = create()(immer2((set2, get) => ({
   speakerConfigs: new Map(new Map([
     ["[SPEAKER1]", { deviceId: "default", voice: "alloy" }],
@@ -28173,8 +28191,19 @@ var useConversationStore = create()(immer2((set2, get) => ({
     ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }]
   ])),
   lineQueue: [],
-  conversations: [{ title: "Test Conversation", text: "", lines: [] }],
+  conversations: [
+    {
+      title: "Test Conversation",
+      text: testConversation,
+      lines: parseConversation(testConversation)
+    }
+  ],
   isPlaying: true,
+  setConversation: (index, conversation) => {
+    set2((state) => {
+      state.conversations[index] = conversation;
+    });
+  },
   setLineQueue: (lineQueue) => {
     set2((state) => {
       state.lineQueue = lineQueue;
@@ -28253,10 +28282,11 @@ var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
 var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
 function App() {
   const speakers = useConversationStore((state) => Array.from(state.speakerConfigs.keys()));
+  const conversations = useConversationStore((state) => state.conversations);
+  const setConversation = useConversationStore((state) => state.setConversation);
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
-  console.log(speakers);
   return jsx_dev_runtime5.jsxDEV(jsx_dev_runtime5.Fragment, {
     children: [
       jsx_dev_runtime5.jsxDEV("p", {
@@ -28282,9 +28312,11 @@ function App() {
               onChange: (config) => setSpeakerConfig(speaker, config)
             }, speaker, false, undefined, this))
           }, undefined, false, undefined, this),
-          jsx_dev_runtime5.jsxDEV(Conversation, {
-            onSay: (conversation) => addToQueue(conversation)
-          }, undefined, false, undefined, this),
+          conversations.map((conversation, index) => jsx_dev_runtime5.jsxDEV(Conversation, {
+            conversation,
+            updateConversation: (conversation2) => setConversation(index, conversation2),
+            onSay: (conversation2) => addToQueue(conversation2)
+          }, index, false, undefined, this)),
           jsx_dev_runtime5.jsxDEV(ConversationQueue, {
             queue
           }, undefined, false, undefined, this)

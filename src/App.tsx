@@ -11,14 +11,17 @@ export function App() {
     Array.from(state.speakerConfigs.keys())
   );
 
+  const conversations = useConversationStore((state) => state.conversations);
+  const setConversation = useConversationStore(
+    (state) => state.setConversation
+  );
+
   const setSpeakerConfig = useConversationStore(
     (state) => state.setSpeakerConfig
   );
 
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
-
-  console.log(speakers);
 
   return (
     <>
@@ -47,7 +50,17 @@ export function App() {
             />
           ))}
         </div>
-        <Conversation onSay={(conversation) => addToQueue(conversation)} />
+        {conversations.map((conversation, index) => (
+          <Conversation
+            key={index}
+            conversation={conversation}
+            updateConversation={(conversation) =>
+              setConversation(index, conversation)
+            }
+            onSay={(conversation) => addToQueue(conversation)}
+          />
+        ))}
+        {/* <Conversation onSay={(lines) => addToQueue(lines)} /> */}
         <ConversationQueue queue={queue} />
       </div>
     </>
