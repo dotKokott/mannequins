@@ -23693,6 +23693,7 @@ var require_with_selector = __commonJS((exports, module) => {
 
 // src/index.tsx
 var ReactDOM = __toESM(require_client(), 1);
+
 // src/Config.tsx
 var import_react = __toESM(require_react(), 1);
 
@@ -27472,6 +27473,18 @@ class AudioAPI {
 var audioAPI = new AudioAPI;
 await audioAPI.initialize();
 
+// src/media/images/helio.png
+var helio_default = "./helio-06db6a9b5ced0c45.png";
+
+// src/media/images/karl.png
+var karl_default = "./karl-591e1eb63ea4090b.png";
+
+// src/media/images/barbara.png
+var barbara_default = "./barbara-bda1aa12a124c429.png";
+
+// src/media/images/paula.png
+var paula_default = "./paula-dd307689561d9876.png";
+
 // src/lib/midi.ts
 class MidiAPI {
   midi;
@@ -27567,6 +27580,11 @@ function Speaker({ handle, index, config, onChange }) {
   return jsx_dev_runtime3.jsxDEV("div", {
     style: { display: "flex", flexDirection: "column", gap: "10px", flex: 1 },
     children: [
+      jsx_dev_runtime3.jsxDEV("img", {
+        src: imageMap[handle],
+        alt: "Helios",
+        style: { width: "100px" }
+      }, undefined, false, undefined, this),
       jsx_dev_runtime3.jsxDEV("div", {
         children: jsx_dev_runtime3.jsxDEV("a", {
           href: "#",
@@ -27605,6 +27623,12 @@ function Speaker({ handle, index, config, onChange }) {
     ]
   }, undefined, true, undefined, this);
 }
+var imageMap = {
+  "[HELIO]": helio_default,
+  "[KARL]": karl_default,
+  "[BARBARA]": barbara_default,
+  "[PAULA]": paula_default
+};
 
 // node_modules/zustand/esm/vanilla.mjs
 var createStoreImpl = (createState) => {
@@ -29211,7 +29235,8 @@ function App() {
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
-  return jsx_dev_runtime6.jsxDEV(jsx_dev_runtime6.Fragment, {
+  return jsx_dev_runtime6.jsxDEV("div", {
+    style: { fontFamily: "DIN Alternate" },
     children: [
       jsx_dev_runtime6.jsxDEV("h2", {
         style: { float: "right" },

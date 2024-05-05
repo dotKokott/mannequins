@@ -33,7 +33,7 @@ export function App() {
   const queue = useConversationStore((state) => state.lineQueue)
 
   return (
-    <>
+    <div style={{ fontFamily: 'DIN Alternate' }}>
       <h2 style={{ float: 'right' }}>
         {'Life in Plastic ~ Telepathic Control Center'}
       </h2>
@@ -88,6 +88,6 @@ export function App() {
         <Interruptions />
         <ConversationQueue />
       </div>
-    </>
+    </div>
   )
 }

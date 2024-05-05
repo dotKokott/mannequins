@@ -4,6 +4,18 @@ import { API, type Voice, voiceOptions } from './lib/openai'
 import { audioAPI } from './lib/audio'
 import type { SpeakerConfig } from './types'
 
+import helio from './media/images/helio.png'
+import karl from './media/images/karl.png'
+import barbara from './media/images/barbara.png'
+import paula from './media/images/paula.png'
+
+const imageMap = {
+  '[HELIO]': helio as string,
+  '[KARL]': karl as string,
+  '[BARBARA]': barbara as string,
+  '[PAULA]': paula as string,
+}
+
 import midiAPI from './lib/midi'
 
 export type SpeakerProps = {
@@ -57,6 +69,11 @@ export function Speaker({ handle, index, config, onChange }: SpeakerProps) {
     <div
       style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: 1 }}
     >
+      <img
+        src={imageMap[handle as keyof typeof imageMap]}
+        alt="Helios"
+        style={{ width: '100px' }}
+      />
       <div>
         <a href="#" onClick={copyToClipboard}>
           {handle}
