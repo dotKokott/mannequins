@@ -4,7 +4,7 @@ import { Conversation } from './Conversation'
 import { Speaker } from './Speaker'
 import { useConversationStore } from './store/conversationStore'
 
-import { ConversationPlayer, ConversationQueue } from './ConversationQueue'
+import { ConversationQueue } from './ConversationQueue'
 
 export function App() {
   const speakers = useConversationStore((state) => state.speakerConfigs)

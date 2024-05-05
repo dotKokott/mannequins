@@ -1,6 +1,7 @@
 class AudioAPI {
   public outputDevices: MediaDeviceInfo[] = []
   public contexts: Record<string, AudioContext> = {}
+  public sources: Record<string, AudioBufferSourceNode> = {}
 
   public async initialize() {
     this.outputDevices = await AudioAPI.enumerateDevices()
@@ -42,17 +43,30 @@ class AudioAPI {
 
     const audioBuffer = await context.decodeAudioData(buffer)
 
-    const source = context.createBufferSource()
-    source.buffer = audioBuffer
-    source.connect(context.destination)
-    source.start(0)
+    if (this.sources[where]) {
+      this.sources[where].stop()
+      this.sources[where].disconnect()
+    }
+
+    this.sources[where] = context.createBufferSource()
+    this.sources[where].buffer = audioBuffer
+    this.sources[where].connect(context.destination)
+    this.sources[where].start(0)
 
     // resolve once the audio has finished playing
     return new Promise<void>((resolve) => {
-      source.onended = () => {
+      this.sources[where].onended = () => {
         resolve()
       }
     })
+  }
+
+  public async stop(where: string = 'default') {
+    if (!this.sources[where]) {
+      return
+    }
+
+    this.sources[where].stop()
   }
 }
 

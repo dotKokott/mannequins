@@ -12,6 +12,7 @@ enableMapSet()
 
 import { API } from '../lib/openai'
 import { audioAPI } from '../lib/audio'
+import type { LinkedEditingInfo } from 'typescript'
 
 const testConversation: string = `
 [HELIO]
@@ -71,6 +72,7 @@ interface ConversationStore {
   setSpeakerConfig: (speaker: string, config: SpeakerConfig) => void
   addToQueue: (lines: Line[]) => void
   conversationLoop: () => void
+  addInterruption: (lines: Line[]) => void
 }
 
 const useConversationStore = create<ConversationStore>()(
@@ -145,6 +147,36 @@ const useConversationStore = create<ConversationStore>()(
       addToQueue: (lines: Line[]) => {
         set((state) => {
           state.lineQueue.push(...lines)
+        })
+      },
+
+      addInterruption: (lines: Line[]) => {
+        set((state) => {
+          audioAPI.stop()
+
+          lines = lines.map((line) => {
+            if (line.speaker == '') {
+              line.speaker =
+                state.currentLine?.speaker ||
+                get().speakerConfigs.keys().next().value
+            }
+
+            return line
+          })
+
+          let newLines = [
+            // interruption
+            ...lines,
+            // where were we?
+            {
+              speaker: state.currentLine?.speaker || '',
+              text: 'Where were we?',
+            },
+            // current line
+            state.currentLine,
+          ].filter(Boolean) as Line[]
+
+          state.lineQueue = [...newLines, ...state.lineQueue]
         })
       },
 

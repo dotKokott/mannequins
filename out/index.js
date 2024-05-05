@@ -27408,6 +27408,7 @@ var import_react3 = __toESM(require_react(), 1);
 class AudioAPI {
   outputDevices = [];
   contexts = {};
+  sources = {};
   async initialize() {
     this.outputDevices = await AudioAPI.enumerateDevices();
     console.log(this.outputDevices);
@@ -27435,15 +27436,25 @@ class AudioAPI {
     }
     const context = this.contexts[where];
     const audioBuffer = await context.decodeAudioData(buffer);
-    const source = context.createBufferSource();
-    source.buffer = audioBuffer;
-    source.connect(context.destination);
-    source.start(0);
+    if (this.sources[where]) {
+      this.sources[where].stop();
+      this.sources[where].disconnect();
+    }
+    this.sources[where] = context.createBufferSource();
+    this.sources[where].buffer = audioBuffer;
+    this.sources[where].connect(context.destination);
+    this.sources[where].start(0);
     return new Promise((resolve) => {
-      source.onended = () => {
+      this.sources[where].onended = () => {
         resolve();
       };
     });
+  }
+  async stop(where = "default") {
+    if (!this.sources[where]) {
+      return;
+    }
+    this.sources[where].stop();
   }
 }
 var audioAPI = new AudioAPI;
@@ -28817,6 +28828,26 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       state.lineQueue.push(...lines);
     });
   },
+  addInterruption: (lines) => {
+    set2((state) => {
+      audioAPI.stop();
+      lines = lines.map((line) => {
+        if (line.speaker == "") {
+          line.speaker = state.currentLine?.speaker || get().speakerConfigs.keys().next().value;
+        }
+        return line;
+      });
+      let newLines = [
+        ...lines,
+        {
+          speaker: state.currentLine?.speaker || "",
+          text: "Where were we?"
+        },
+        state.currentLine
+      ].filter(Boolean);
+      state.lineQueue = [...newLines, ...state.lineQueue];
+    });
+  },
   conversationLoop: async () => {
     while (true) {
       if (get().lineQueue.length === 0 && get().autoPickFromConversations && get().conversations.length > 0) {
@@ -28863,11 +28894,12 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
 useConversationStore.getState().conversationLoop();
 
 // src/ConversationQueue.tsx
+var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
 function ConversationQueue() {
   const queue = useConversationStore((state) => state.lineQueue);
   const setQueue = useConversationStore((state) => state.setLineQueue);
   const currentLine = useConversationStore((state) => state.currentLine);
-  const [isPlaying, setIsPlaying2] = useConversationStore((state) => [
+  const [isPlaying, setIsPlaying] = useConversationStore((state) => [
     state.isPlaying,
     state.setIsPlaying
   ]);
@@ -28875,6 +28907,7 @@ function ConversationQueue() {
     state.autoPickFromConversations,
     state.setAutoPickFromConversations
   ]);
+  const addInterruption = useConversationStore((state) => state.addInterruption);
   const fullQueue = [currentLine, ...queue].filter(Boolean);
   const getBackgroundColor = (line) => {
     if (line === currentLine) {
@@ -28903,12 +28936,16 @@ function ConversationQueue() {
             children: "Clear Queue"
           }, undefined, false, undefined, this),
           !isPlaying && jsx_dev_runtime4.jsxDEV("button", {
-            onClick: () => setIsPlaying2(true),
+            onClick: () => setIsPlaying(true),
             children: "Play"
           }, undefined, false, undefined, this),
           isPlaying && jsx_dev_runtime4.jsxDEV("button", {
-            onClick: () => setIsPlaying2(false),
+            onClick: () => setIsPlaying(false),
             children: "Pause"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime4.jsxDEV("button", {
+            onClick: () => addInterruption([{ speaker: "", text: "Sssssh!" }]),
+            children: "Interrupt!"
           }, undefined, false, undefined, this),
           jsx_dev_runtime4.jsxDEV("div", {
             children: [
@@ -28948,7 +28985,6 @@ function ConversationQueue() {
     ]
   }, undefined, true, undefined, this);
 }
-var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
 
 // src/App.tsx
 var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
@@ -28961,6 +28997,7 @@ function App() {
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
+  const addInterruption = useConversationStore((state) => state.addInterruption);
   return jsx_dev_runtime5.jsxDEV(jsx_dev_runtime5.Fragment, {
     children: [
       jsx_dev_runtime5.jsxDEV("p", {
@@ -28997,6 +29034,10 @@ function App() {
           jsx_dev_runtime5.jsxDEV("button", {
             onClick: addNewConversation,
             children: "Add New Conversation"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime5.jsxDEV("button", {
+            onClick: () => addInterruption([{ speaker: "", text: "Sssssh!" }]),
+            children: "Create interruption"
           }, undefined, false, undefined, this),
           jsx_dev_runtime5.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
         ]
