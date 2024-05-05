@@ -266,7 +266,7 @@ const useConversationStore = create<ConversationStore>()(
           if (!audio) continue
 
           console.log(`Playing audio on ${config.deviceId}`)
-          await audioAPI.play(audio, config.deviceId)
+          await audioAPI.play(audio, config.deviceId, config.volume)
         }
       },
     })),

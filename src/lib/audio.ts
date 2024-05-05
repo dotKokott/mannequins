@@ -40,7 +40,8 @@ class AudioAPI {
     volume = 1,
   ) {
     if (!this.contexts[where]) {
-      throw new Error(`No audio context for device ${where}`)
+      console.error(`No audio context for device ${where}. Using default.`)
+      where = 'default'
     }
 
     const context = this.contexts[where]
@@ -55,13 +56,13 @@ class AudioAPI {
     this.sources[where] = context.createBufferSource()
     this.sources[where].buffer = audioBuffer
     // this.sources[where].connect(context.destination)
-    this.sources[where].start(0)
 
     const gainNode = context.createGain()
     gainNode.gain.value = volume
     this.sources[where].connect(gainNode)
     gainNode.connect(context.destination)
 
+    this.sources[where].start(0)
     // resolve once the audio has finished playing
     return new Promise<void>((resolve) => {
       this.sources[where].onended = () => {

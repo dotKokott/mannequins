@@ -27441,7 +27441,8 @@ class AudioAPI {
   }
   async play(buffer, where = "default", volume = 1) {
     if (!this.contexts[where]) {
-      throw new Error(`No audio context for device ${where}`);
+      console.error(`No audio context for device ${where}. Using default.`);
+      where = "default";
     }
     const context = this.contexts[where];
     const audioBuffer = await context.decodeAudioData(buffer);
@@ -27451,11 +27452,11 @@ class AudioAPI {
     }
     this.sources[where] = context.createBufferSource();
     this.sources[where].buffer = audioBuffer;
-    this.sources[where].start(0);
     const gainNode = context.createGain();
     gainNode.gain.value = volume;
     this.sources[where].connect(gainNode);
     gainNode.connect(context.destination);
+    this.sources[where].start(0);
     return new Promise((resolve) => {
       this.sources[where].onended = () => {
         resolve();
@@ -27489,7 +27490,7 @@ function Speaker({ handle, config, onChange }) {
   }
   import_react3.default.useEffect(() => {
     onChange({ deviceId: speakerId, voice, volume });
-  }, [speakerId, voice]);
+  }, [speakerId, voice, volume]);
   return jsx_dev_runtime3.jsxDEV("div", {
     style: { display: "flex", flexDirection: "column", gap: "10px", flex: 1 },
     children: [
@@ -28926,7 +28927,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       if (!audio3)
         continue;
       console.log(`Playing audio on ${config.deviceId}`);
-      await audioAPI.play(audio3, config.deviceId);
+      await audioAPI.play(audio3, config.deviceId, config.volume);
     }
   }
 })), {

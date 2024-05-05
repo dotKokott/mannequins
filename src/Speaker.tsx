@@ -36,7 +36,7 @@ export function Speaker({ handle, config, onChange }: SpeakerProps) {
 
   React.useEffect(() => {
     onChange({ deviceId: speakerId, voice, volume })
-  }, [speakerId, voice])
+  }, [speakerId, voice, volume])
 
   return (
     <div
