@@ -12,7 +12,6 @@ enableMapSet()
 
 import { API } from '../lib/openai'
 import { audioAPI } from '../lib/audio'
-import type { LinkedEditingInfo } from 'typescript'
 
 const testConversation: string = `
 [HELIO]
@@ -64,6 +63,14 @@ interface ConversationStore {
   isPlaying: boolean
   autoPickFromConversations: boolean
 
+  welcomeText: string
+  hushText: string
+  goodbyeText: string
+
+  setWelcomeText: (text: string) => void
+  setHushText: (text: string) => void
+  setGoodbyeText: (text: string) => void
+
   addNewConversation: () => void
   removeConversation: (index: number) => void
   setConversation: (index: number, conversation: Conversation) => void
@@ -99,6 +106,28 @@ const useConversationStore = create<ConversationStore>()(
       ],
       isPlaying: true,
       autoPickFromConversations: false,
+
+      welcomeText: 'Ooooh look the new hire!',
+      hushText: 'Shhh!',
+      goodbyeText: 'You got bored? Could have said goodbye',
+
+      setWelcomeText: (text: string) => {
+        set((state) => {
+          state.welcomeText = text
+        })
+      },
+
+      setHushText: (text: string) => {
+        set((state) => {
+          state.hushText = text
+        })
+      },
+
+      setGoodbyeText: (text: string) => {
+        set((state) => {
+          state.goodbyeText = text
+        })
+      },
 
       addNewConversation: () => {
         set((state) => {
@@ -158,9 +187,14 @@ const useConversationStore = create<ConversationStore>()(
 
           lines = lines.map((line) => {
             if (line.speaker == '') {
+              const randomSpeaker = Array.from(state.speakerConfigs.keys())[
+                Math.floor(Math.random() * state.speakerConfigs.size)
+              ]
+
+              console.log('Random speaker:', randomSpeaker)
+
               line.speaker =
-                state.currentLine?.speaker ||
-                get().speakerConfigs.keys().next().value
+                state.currentLine?.speaker || randomSpeaker || '[UNKNOWN]'
             }
 
             return line
@@ -241,6 +275,9 @@ const useConversationStore = create<ConversationStore>()(
       partialize: (state) => {
         return {
           conversations: state.conversations,
+          welcomeText: state.welcomeText,
+          hushText: state.hushText,
+          goodbyeText: state.goodbyeText,
         }
       },
     },

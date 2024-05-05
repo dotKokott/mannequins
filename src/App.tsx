@@ -5,6 +5,7 @@ import { Speaker } from './Speaker'
 import { useConversationStore } from './store/conversationStore'
 
 import { ConversationQueue } from './ConversationQueue'
+import { Interruptions } from './Interruptions'
 
 export function App() {
   const speakers = useConversationStore((state) => state.speakerConfigs)
@@ -72,6 +73,7 @@ export function App() {
           />
         ))}
         <button onClick={addNewConversation}>Add New Conversation</button>
+        <Interruptions />
         <ConversationQueue />
       </div>
     </>

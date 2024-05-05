@@ -20,6 +20,12 @@ export function ConversationQueue() {
 
   const addInterruption = useConversationStore((state) => state.addInterruption)
 
+  const [welcomeText, hushText, goodbyeText] = useConversationStore((state) => [
+    state.welcomeText,
+    state.hushText,
+    state.goodbyeText,
+  ])
+
   const fullQueue = [currentLine, ...queue].filter(Boolean) as Line[]
 
   const getBackgroundColor = (line: Line) => {
@@ -52,11 +58,25 @@ export function ConversationQueue() {
         {isPlaying && (
           <button onClick={() => setIsPlaying(false)}>Pause</button>
         )}
+
         <button
-          onClick={() => addInterruption([{ speaker: '', text: 'Sssssh!' }])}
+          onClick={() => addInterruption([{ speaker: '', text: welcomeText }])}
         >
-          Interrupt!
+          Welcome
         </button>
+
+        <button
+          onClick={() => addInterruption([{ speaker: '', text: hushText }])}
+        >
+          Hush!
+        </button>
+
+        <button
+          onClick={() => addInterruption([{ speaker: '', text: goodbyeText }])}
+        >
+          Goodbye
+        </button>
+
         <div>
           Auto pick from conversations
           <input

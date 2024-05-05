@@ -28785,6 +28785,24 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   ],
   isPlaying: true,
   autoPickFromConversations: false,
+  welcomeText: "Ooooh look the new hire!",
+  hushText: "Shhh!",
+  goodbyeText: "You got bored? Could have said goodbye",
+  setWelcomeText: (text) => {
+    set2((state) => {
+      state.welcomeText = text;
+    });
+  },
+  setHushText: (text) => {
+    set2((state) => {
+      state.hushText = text;
+    });
+  },
+  setGoodbyeText: (text) => {
+    set2((state) => {
+      state.goodbyeText = text;
+    });
+  },
   addNewConversation: () => {
     set2((state) => {
       state.conversations.push({
@@ -28834,7 +28852,9 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       audioAPI.stop(state.currentSpeakerConfig?.deviceId || "default");
       lines = lines.map((line) => {
         if (line.speaker == "") {
-          line.speaker = state.currentLine?.speaker || get().speakerConfigs.keys().next().value;
+          const randomSpeaker = Array.from(state.speakerConfigs.keys())[Math.floor(Math.random() * state.speakerConfigs.size)];
+          console.log("Random speaker:", randomSpeaker);
+          line.speaker = state.currentLine?.speaker || randomSpeaker || "[UNKNOWN]";
         }
         return line;
       });
@@ -28892,7 +28912,10 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   name: "conversation-store",
   partialize: (state) => {
     return {
-      conversations: state.conversations
+      conversations: state.conversations,
+      welcomeText: state.welcomeText,
+      hushText: state.hushText,
+      goodbyeText: state.goodbyeText
     };
   }
 }));
@@ -28913,6 +28936,11 @@ function ConversationQueue() {
     state.setAutoPickFromConversations
   ]);
   const addInterruption = useConversationStore((state) => state.addInterruption);
+  const [welcomeText, hushText, goodbyeText] = useConversationStore((state) => [
+    state.welcomeText,
+    state.hushText,
+    state.goodbyeText
+  ]);
   const fullQueue = [currentLine, ...queue].filter(Boolean);
   const getBackgroundColor = (line) => {
     if (line === currentLine) {
@@ -28949,8 +28977,16 @@ function ConversationQueue() {
             children: "Pause"
           }, undefined, false, undefined, this),
           jsx_dev_runtime4.jsxDEV("button", {
-            onClick: () => addInterruption([{ speaker: "", text: "Sssssh!" }]),
-            children: "Interrupt!"
+            onClick: () => addInterruption([{ speaker: "", text: welcomeText }]),
+            children: "Welcome"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime4.jsxDEV("button", {
+            onClick: () => addInterruption([{ speaker: "", text: hushText }]),
+            children: "Hush!"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime4.jsxDEV("button", {
+            onClick: () => addInterruption([{ speaker: "", text: goodbyeText }]),
+            children: "Goodbye"
           }, undefined, false, undefined, this),
           jsx_dev_runtime4.jsxDEV("div", {
             children: [
@@ -28991,8 +29027,83 @@ function ConversationQueue() {
   }, undefined, true, undefined, this);
 }
 
-// src/App.tsx
+// src/Interruptions.tsx
 var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
+function Interruptions() {
+  const [welcomeText, setWelcomeText] = useConversationStore((state) => [
+    state.welcomeText,
+    state.setWelcomeText
+  ]);
+  const [hushText, setHushText] = useConversationStore((state) => [
+    state.hushText,
+    state.setHushText
+  ]);
+  const [goodbyeText, setGoodbyeText] = useConversationStore((state) => [
+    state.goodbyeText,
+    state.setGoodbyeText
+  ]);
+  return jsx_dev_runtime5.jsxDEV("div", {
+    children: [
+      jsx_dev_runtime5.jsxDEV("h3", {
+        children: "Interruptions"
+      }, undefined, false, undefined, this),
+      jsx_dev_runtime5.jsxDEV("div", {
+        style: {
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: "10px"
+        },
+        children: [
+          jsx_dev_runtime5.jsxDEV("div", {
+            children: [
+              jsx_dev_runtime5.jsxDEV("span", {
+                children: "Welcome:"
+              }, undefined, false, undefined, this),
+              jsx_dev_runtime5.jsxDEV("input", {
+                value: welcomeText,
+                onChange: (e) => setWelcomeText(e.target.value),
+                placeholder: "Welcome Text",
+                style: { width: "450px" }
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
+          jsx_dev_runtime5.jsxDEV("div", {
+            children: [
+              jsx_dev_runtime5.jsxDEV("span", {
+                children: "Hush:"
+              }, undefined, false, undefined, this),
+              jsx_dev_runtime5.jsxDEV("input", {
+                value: hushText,
+                onChange: (e) => {
+                  setHushText(e.target.value);
+                },
+                placeholder: "Hush Text",
+                style: { width: "450px" }
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
+          jsx_dev_runtime5.jsxDEV("div", {
+            children: [
+              jsx_dev_runtime5.jsxDEV("span", {
+                children: "Goodbye:"
+              }, undefined, false, undefined, this),
+              jsx_dev_runtime5.jsxDEV("input", {
+                value: goodbyeText,
+                onChange: (e) => setGoodbyeText(e.target.value),
+                placeholder: "Goodbye Text",
+                style: { width: "450px" }
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this)
+        ]
+      }, undefined, true, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
+}
+
+// src/App.tsx
+var jsx_dev_runtime6 = __toESM(require_jsx_dev_runtime(), 1);
 function App() {
   const speakers = useConversationStore((state) => state.speakerConfigs);
   const conversations = useConversationStore((state) => state.conversations);
@@ -29002,13 +29113,13 @@ function App() {
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
-  return jsx_dev_runtime5.jsxDEV(jsx_dev_runtime5.Fragment, {
+  return jsx_dev_runtime6.jsxDEV(jsx_dev_runtime6.Fragment, {
     children: [
-      jsx_dev_runtime5.jsxDEV("p", {
+      jsx_dev_runtime6.jsxDEV("p", {
         children: "Life in Plastic"
       }, undefined, false, undefined, this),
-      jsx_dev_runtime5.jsxDEV(Config, {}, undefined, false, undefined, this),
-      jsx_dev_runtime5.jsxDEV("div", {
+      jsx_dev_runtime6.jsxDEV(Config, {}, undefined, false, undefined, this),
+      jsx_dev_runtime6.jsxDEV("div", {
         style: {
           marginTop: "20px",
           display: "flex",
@@ -29016,30 +29127,31 @@ function App() {
           gap: "10px"
         },
         children: [
-          jsx_dev_runtime5.jsxDEV("div", {
+          jsx_dev_runtime6.jsxDEV("div", {
             style: {
               display: "flex",
               flexDirection: "row",
               gap: "10px"
             },
-            children: Array.from(speakers.entries()).map(([speaker, config]) => jsx_dev_runtime5.jsxDEV(Speaker, {
+            children: Array.from(speakers.entries()).map(([speaker, config]) => jsx_dev_runtime6.jsxDEV(Speaker, {
               handle: speaker,
               config,
               onChange: (speakerConfig) => setSpeakerConfig(speaker, speakerConfig)
             }, speaker, false, undefined, this))
           }, undefined, false, undefined, this),
-          jsx_dev_runtime5.jsxDEV("hr", {}, undefined, false, undefined, this),
-          conversations.map((conversation, index) => jsx_dev_runtime5.jsxDEV(Conversation, {
+          jsx_dev_runtime6.jsxDEV("hr", {}, undefined, false, undefined, this),
+          conversations.map((conversation, index) => jsx_dev_runtime6.jsxDEV(Conversation, {
             conversation,
             updateConversation: (conversation2) => setConversation(index, conversation2),
             onSay: (conversation2) => addToQueue(conversation2),
             removeConversation: () => removeConversation(index)
           }, index, false, undefined, this)),
-          jsx_dev_runtime5.jsxDEV("button", {
+          jsx_dev_runtime6.jsxDEV("button", {
             onClick: addNewConversation,
             children: "Add New Conversation"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime5.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
+          jsx_dev_runtime6.jsxDEV(Interruptions, {}, undefined, false, undefined, this),
+          jsx_dev_runtime6.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this)
     ]
@@ -29047,6 +29159,6 @@ function App() {
 }
 
 // src/index.tsx
-var jsx_dev_runtime6 = __toESM(require_jsx_dev_runtime(), 1);
+var jsx_dev_runtime7 = __toESM(require_jsx_dev_runtime(), 1);
 var root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(jsx_dev_runtime6.jsxDEV(App, {}, undefined, false, undefined, this));
+root.render(jsx_dev_runtime7.jsxDEV(App, {}, undefined, false, undefined, this));
