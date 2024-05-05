@@ -27389,14 +27389,23 @@ function Conversation({
         value: conversationText,
         onChange: (e) => setConversationText(e.target.value)
       }, undefined, false, undefined, this),
-      jsx_dev_runtime2.jsxDEV("button", {
-        onClick: () => onSay(parsedConversation),
-        children: "Add to queue"
-      }, undefined, false, undefined, this),
-      jsx_dev_runtime2.jsxDEV("button", {
-        onClick: removeConversation,
-        children: "Delete Conversation"
-      }, undefined, false, undefined, this)
+      jsx_dev_runtime2.jsxDEV("div", {
+        style: {
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between"
+        },
+        children: [
+          jsx_dev_runtime2.jsxDEV("button", {
+            onClick: () => onSay(parsedConversation),
+            children: "Add to queue"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime2.jsxDEV("button", {
+            onClick: removeConversation,
+            children: "Delete Conversation"
+          }, undefined, false, undefined, this)
+        ]
+      }, undefined, true, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
@@ -27466,7 +27475,7 @@ function Speaker({ handle, config, onChange }) {
   const [speakerId, setSpeakerId] = import_react3.default.useState(config.deviceId);
   const [voice, setVoice] = import_react3.default.useState(config.voice);
   async function say() {
-    const audio2 = await API.say(handle.replace("[", "").replace("]", ""), voice);
+    const audio2 = await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, voice);
     if (!audio2)
       return;
     await audioAPI.play(audio2, speakerId);
@@ -27505,7 +27514,7 @@ function Speaker({ handle, config, onChange }) {
       }, undefined, false, undefined, this),
       jsx_dev_runtime3.jsxDEV("button", {
         onClick: () => say(),
-        children: "Test"
+        children: "\uD83D\uDDE3\uFE0F"
       }, undefined, false, undefined, this)
     ]
   }, undefined, true, undefined, this);
@@ -28962,12 +28971,6 @@ function ConversationQueue() {
           jsx_dev_runtime4.jsxDEV("h3", {
             children: "Conversation Queue"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime4.jsxDEV("button", {
-            onClick: () => {
-              setQueue([]);
-            },
-            children: "Clear Queue"
-          }, undefined, false, undefined, this),
           !isPlaying && jsx_dev_runtime4.jsxDEV("button", {
             onClick: () => setIsPlaying(true),
             children: "Play"
@@ -28975,6 +28978,25 @@ function ConversationQueue() {
           isPlaying && jsx_dev_runtime4.jsxDEV("button", {
             onClick: () => setIsPlaying(false),
             children: "Pause"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime4.jsxDEV("button", {
+            onClick: () => {
+              setQueue([]);
+            },
+            children: "Clear Queue"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime4.jsxDEV("div", {
+            children: [
+              "Auto play",
+              jsx_dev_runtime4.jsxDEV("input", {
+                type: "checkbox",
+                checked: autoPickFromConversations,
+                onChange: (e) => setAutoPickFromConversations(e.target.checked)
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
+          jsx_dev_runtime4.jsxDEV("span", {
+            children: "Interrupt:"
           }, undefined, false, undefined, this),
           jsx_dev_runtime4.jsxDEV("button", {
             onClick: () => addInterruption([{ speaker: "", text: welcomeText }]),
@@ -28987,17 +29009,7 @@ function ConversationQueue() {
           jsx_dev_runtime4.jsxDEV("button", {
             onClick: () => addInterruption([{ speaker: "", text: goodbyeText }]),
             children: "Goodbye"
-          }, undefined, false, undefined, this),
-          jsx_dev_runtime4.jsxDEV("div", {
-            children: [
-              "Auto pick from conversations",
-              jsx_dev_runtime4.jsxDEV("input", {
-                type: "checkbox",
-                checked: autoPickFromConversations,
-                onChange: (e) => setAutoPickFromConversations(e.target.checked)
-              }, undefined, false, undefined, this)
-            ]
-          }, undefined, true, undefined, this)
+          }, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this),
       jsx_dev_runtime4.jsxDEV("div", {
@@ -29140,12 +29152,19 @@ function App() {
             }, speaker, false, undefined, this))
           }, undefined, false, undefined, this),
           jsx_dev_runtime6.jsxDEV("hr", {}, undefined, false, undefined, this),
-          conversations.map((conversation, index) => jsx_dev_runtime6.jsxDEV(Conversation, {
-            conversation,
-            updateConversation: (conversation2) => setConversation(index, conversation2),
-            onSay: (conversation2) => addToQueue(conversation2),
-            removeConversation: () => removeConversation(index)
-          }, index, false, undefined, this)),
+          jsx_dev_runtime6.jsxDEV("div", {
+            children: [
+              jsx_dev_runtime6.jsxDEV("h3", {
+                children: "Conversations"
+              }, undefined, false, undefined, this),
+              conversations.map((conversation, index) => jsx_dev_runtime6.jsxDEV(Conversation, {
+                conversation,
+                updateConversation: (conversation2) => setConversation(index, conversation2),
+                onSay: (conversation2) => addToQueue(conversation2),
+                removeConversation: () => removeConversation(index)
+              }, index, false, undefined, this))
+            ]
+          }, undefined, true, undefined, this),
           jsx_dev_runtime6.jsxDEV("button", {
             onClick: addNewConversation,
             children: "Add New Conversation"

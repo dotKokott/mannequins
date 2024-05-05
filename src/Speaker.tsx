@@ -17,7 +17,10 @@ export function Speaker({ handle, config, onChange }: SpeakerProps) {
   const [voice, setVoice] = React.useState<Voice>(config.voice)
 
   async function say() {
-    const audio = await API.say(handle.replace('[', '').replace(']', ''), voice)
+    const audio = await API.say(
+      `Hi! My name is ${handle.replace('[', '').replace(']', '')}`,
+      voice,
+    )
     if (!audio) return
 
     await audioAPI.play(audio, speakerId)
@@ -57,7 +60,7 @@ export function Speaker({ handle, config, onChange }: SpeakerProps) {
         ))}
       </select>
 
-      <button onClick={() => say()}>Test</button>
+      <button onClick={() => say()}>🗣️</button>
     </div>
   )
 }

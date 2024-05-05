@@ -53,8 +53,16 @@ export function Conversation({
         value={conversationText}
         onChange={(e) => setConversationText(e.target.value)}
       />
-      <button onClick={() => onSay(parsedConversation)}>Add to queue</button>
-      <button onClick={removeConversation}>Delete Conversation</button>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        <button onClick={() => onSay(parsedConversation)}>Add to queue</button>
+        <button onClick={removeConversation}>Delete Conversation</button>
+      </div>
     </div>
   )
 }

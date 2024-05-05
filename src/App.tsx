@@ -60,18 +60,20 @@ export function App() {
         </div>
 
         <hr />
-
-        {conversations.map((conversation, index) => (
-          <Conversation
-            key={index}
-            conversation={conversation}
-            updateConversation={(conversation) =>
-              setConversation(index, conversation)
-            }
-            onSay={(conversation) => addToQueue(conversation)}
-            removeConversation={() => removeConversation(index)}
-          />
-        ))}
+        <div>
+          <h3>Conversations</h3>
+          {conversations.map((conversation, index) => (
+            <Conversation
+              key={index}
+              conversation={conversation}
+              updateConversation={(conversation) =>
+                setConversation(index, conversation)
+              }
+              onSay={(conversation) => addToQueue(conversation)}
+              removeConversation={() => removeConversation(index)}
+            />
+          ))}
+        </div>
         <button onClick={addNewConversation}>Add New Conversation</button>
         <Interruptions />
         <ConversationQueue />

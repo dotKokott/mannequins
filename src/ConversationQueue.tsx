@@ -47,6 +47,10 @@ export function ConversationQueue() {
         }}
       >
         <h3>Conversation Queue</h3>
+        {!isPlaying && <button onClick={() => setIsPlaying(true)}>Play</button>}
+        {isPlaying && (
+          <button onClick={() => setIsPlaying(false)}>Pause</button>
+        )}
         <button
           onClick={() => {
             setQueue([])
@@ -54,10 +58,17 @@ export function ConversationQueue() {
         >
           Clear Queue
         </button>
-        {!isPlaying && <button onClick={() => setIsPlaying(true)}>Play</button>}
-        {isPlaying && (
-          <button onClick={() => setIsPlaying(false)}>Pause</button>
-        )}
+
+        <div>
+          Auto play
+          <input
+            type="checkbox"
+            checked={autoPickFromConversations}
+            onChange={(e) => setAutoPickFromConversations(e.target.checked)}
+          />
+        </div>
+
+        <span>Interrupt:</span>
 
         <button
           onClick={() => addInterruption([{ speaker: '', text: welcomeText }])}
@@ -76,15 +87,6 @@ export function ConversationQueue() {
         >
           Goodbye
         </button>
-
-        <div>
-          Auto pick from conversations
-          <input
-            type="checkbox"
-            checked={autoPickFromConversations}
-            onChange={(e) => setAutoPickFromConversations(e.target.checked)}
-          />
-        </div>
       </div>
       <div
         style={{
