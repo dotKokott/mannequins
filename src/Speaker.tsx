@@ -40,7 +40,9 @@ export function Speaker({ handle, onChange }: SpeakerProps) {
   }, [speakerId, voice]);
 
   return (
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "column", gap: "10px", flex: 1 }}
+    >
       {/* <textarea value={handle} onChange={(e) => updateHandle(e.target.value)} /> */}
       <div>
         <a href="#" onClick={copyToClipboard}>
@@ -63,6 +65,6 @@ export function Speaker({ handle, onChange }: SpeakerProps) {
       </select>
 
       <button onClick={() => say()}>Test</button>
-    </>
+    </div>
   );
 }

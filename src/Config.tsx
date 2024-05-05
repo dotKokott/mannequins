@@ -13,13 +13,14 @@ export function Config() {
   }, [apiKey]);
 
   return (
-    <>
+    <div>
       <span>API Key:</span>
       <input
         value={apiKey}
         onChange={(e) => setApiKey(e.target.value)}
         placeholder="API Key"
+        style={{ width: "450px" }}
       />
-    </>
+    </div>
   );
 }

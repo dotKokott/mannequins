@@ -1,19 +1,19 @@
 import React from "react";
-import type { ParsedConversation } from "./types";
+import type { Line } from "./types";
 import { useConversationStore } from "./store/conversationStore";
 
 export type ConversationQueueProps = {
-  queue: ParsedConversation;
+  queue: Line[];
 };
 
 export function ConversationQueue({ queue }: ConversationQueueProps) {
   return (
     <div>
-      <h1>Conversation Queue</h1>
-      <div>
+      <h3>Conversation Queue</h3>
+      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
         {queue.map((conversation, index) => (
-          <div key={index}>
-            <h2>{conversation.speaker}</h2>
+          <div key={index} style={{ border: "1px solid black" }}>
+            <span>{conversation.speaker}</span>
             <p>{conversation.text}</p>
           </div>
         ))}
@@ -23,7 +23,7 @@ export function ConversationQueue({ queue }: ConversationQueueProps) {
 }
 
 export function ConversationPlayer() {
-  const queue = useConversationStore((state) => state.conversationQueue);
+  const queue = useConversationStore((state) => state.lineQueue);
   const [isPlaying, setIsPlaying] = useConversationStore((state) => [
     state.isPlaying,
     state.setIsPlaying,

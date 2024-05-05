@@ -1,8 +1,8 @@
 import React from "react";
-import type { ParsedConversation } from "./types";
+import type { Line } from "./types";
 
 export type ConversationProps = {
-  onSay: (conversation: ParsedConversation) => void | Promise<void> | undefined;
+  onSay: (lines: Line[]) => void | Promise<void> | undefined;
 };
 
 const testConversation: string = `
@@ -19,13 +19,16 @@ Hello my name is speaker three
 `;
 
 export function Conversation({ onSay }: ConversationProps) {
+  const [conversationTitle, setConversationTitle] =
+    React.useState("Conversation title");
+
   const [conversationText, setConversationText] =
     React.useState(testConversation);
 
   const parsedConversation = React.useMemo(() => {
     const lines = conversationText.split("\n");
 
-    const parsed: ParsedConversation = [];
+    const parsed: Line[] = [];
 
     let currentSpeaker = "";
     let currentText = "";
@@ -51,13 +54,25 @@ export function Conversation({ onSay }: ConversationProps) {
   }, [conversationText]);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        border: "1px solid black",
+        padding: "10px",
+      }}
+    >
+      <input
+        value={conversationTitle}
+        onChange={(e) => setConversationTitle(e.target.value)}
+      />
       <textarea
         rows={10}
         value={conversationText}
         onChange={(e) => setConversationText(e.target.value)}
       />
       <button onClick={() => onSay(parsedConversation)}>Speak</button>
-    </>
+    </div>
   );
 }

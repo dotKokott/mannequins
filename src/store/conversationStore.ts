@@ -1,17 +1,18 @@
 import { create } from "zustand";
-import type { ParsedConversation, SpeakerConfig } from "../types";
+import type { Conversation, Line, SpeakerConfig } from "../types";
 import { immer } from "zustand/middleware/immer";
 import { API } from "../lib/openai";
 import { audioAPI } from "../lib/audio";
 
 interface ConversationStore {
   speakerConfigs: Map<string, SpeakerConfig>;
-  conversationQueue: ParsedConversation;
+  lineQueue: Line[];
+  conversations: Conversation[];
   isPlaying: boolean;
 
   setIsPlaying: (isPlaying: boolean) => void;
   setSpeakerConfig: (speaker: string, config: SpeakerConfig) => void;
-  addToQueue: (conversation: ParsedConversation) => void;
+  addToQueue: (lines: Line[]) => void;
   conversationLoop: () => void;
 }
 
@@ -24,12 +25,13 @@ const useConversationStore = create<ConversationStore>()(
         ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }],
       ])
     ),
-    conversationQueue: [],
+    lineQueue: [],
+    conversations: [{ title: "Test Conversation", text: "", lines: [] }],
     isPlaying: true,
 
-    setConversationQueue: (conversationQueue: ParsedConversation) => {
+    setLineQueue: (lineQueue: Line[]) => {
       set((state) => {
-        state.conversationQueue = conversationQueue;
+        state.lineQueue = lineQueue;
       });
     },
 
@@ -45,23 +47,23 @@ const useConversationStore = create<ConversationStore>()(
       });
     },
 
-    addToQueue: (conversation: ParsedConversation) => {
+    addToQueue: (lines: Line[]) => {
       set((state) => {
-        state.conversationQueue.push(...conversation);
+        state.lineQueue.push(...lines);
       });
     },
 
     conversationLoop: async () => {
       while (true) {
-        if (get().conversationQueue.length === 0 || !get().isPlaying) {
-          console.log("No conversations queued or paused. Waiting...");
+        if (get().lineQueue.length === 0 || !get().isPlaying) {
+          console.log("No lines queued or paused. Waiting...");
           await new Promise((resolve) => setTimeout(resolve, 1000));
           continue;
         }
 
-        const conversation = get().conversationQueue[0];
+        const conversation = get().lineQueue[0];
         set((state) => {
-          state.conversationQueue = state.conversationQueue.slice(1);
+          state.lineQueue.shift();
         });
 
         if (!conversation) continue;

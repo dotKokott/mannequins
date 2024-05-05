@@ -27310,7 +27310,7 @@ function Config() {
     localStorage.setItem("OPENAI_KEY", apiKey);
     API.setApiKey(apiKey);
   }, [apiKey]);
-  return jsx_dev_runtime.jsxDEV(jsx_dev_runtime.Fragment, {
+  return jsx_dev_runtime.jsxDEV("div", {
     children: [
       jsx_dev_runtime.jsxDEV("span", {
         children: "API Key:"
@@ -27318,7 +27318,8 @@ function Config() {
       jsx_dev_runtime.jsxDEV("input", {
         value: apiKey,
         onChange: (e) => setApiKey(e.target.value),
-        placeholder: "API Key"
+        placeholder: "API Key",
+        style: { width: "450px" }
       }, undefined, false, undefined, this)
     ]
   }, undefined, true, undefined, this);
@@ -27328,6 +27329,7 @@ function Config() {
 var import_react2 = __toESM(require_react(), 1);
 var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
 function Conversation({ onSay }) {
+  const [conversationTitle, setConversationTitle] = import_react2.default.useState("Conversation title");
   const [conversationText, setConversationText] = import_react2.default.useState(testConversation);
   const parsedConversation = import_react2.default.useMemo(() => {
     const lines = conversationText.split("\n");
@@ -27350,8 +27352,19 @@ function Conversation({ onSay }) {
     }
     return parsed;
   }, [conversationText]);
-  return jsx_dev_runtime2.jsxDEV(jsx_dev_runtime2.Fragment, {
+  return jsx_dev_runtime2.jsxDEV("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "10px",
+      border: "1px solid black",
+      padding: "10px"
+    },
     children: [
+      jsx_dev_runtime2.jsxDEV("input", {
+        value: conversationTitle,
+        onChange: (e) => setConversationTitle(e.target.value)
+      }, undefined, false, undefined, this),
       jsx_dev_runtime2.jsxDEV("textarea", {
         rows: 10,
         value: conversationText,
@@ -27443,7 +27456,8 @@ function Speaker({ handle, onChange }) {
       return;
     onChange({ deviceId: speakerId, voice });
   }, [speakerId, voice]);
-  return jsx_dev_runtime3.jsxDEV(jsx_dev_runtime3.Fragment, {
+  return jsx_dev_runtime3.jsxDEV("div", {
+    style: { display: "flex", flexDirection: "column", gap: "10px", flex: 1 },
     children: [
       jsx_dev_runtime3.jsxDEV("div", {
         children: jsx_dev_runtime3.jsxDEV("a", {
@@ -28158,11 +28172,12 @@ var useConversationStore = create()(immer2((set2, get) => ({
     ["[SPEAKER2]", { deviceId: "default", voice: "alloy" }],
     ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }]
   ])),
-  conversationQueue: [],
+  lineQueue: [],
+  conversations: [{ title: "Test Conversation", text: "", lines: [] }],
   isPlaying: true,
-  setConversationQueue: (conversationQueue) => {
+  setLineQueue: (lineQueue) => {
     set2((state) => {
-      state.conversationQueue = conversationQueue;
+      state.lineQueue = lineQueue;
     });
   },
   setIsPlaying: (isPlaying) => {
@@ -28175,21 +28190,21 @@ var useConversationStore = create()(immer2((set2, get) => ({
       state.speakerConfigs.set(speaker, config);
     });
   },
-  addToQueue: (conversation) => {
+  addToQueue: (lines) => {
     set2((state) => {
-      state.conversationQueue.push(...conversation);
+      state.lineQueue.push(...lines);
     });
   },
   conversationLoop: async () => {
     while (true) {
-      if (get().conversationQueue.length === 0 || !get().isPlaying) {
-        console.log("No conversations queued or paused. Waiting...");
+      if (get().lineQueue.length === 0 || !get().isPlaying) {
+        console.log("No lines queued or paused. Waiting...");
         await new Promise((resolve) => setTimeout(resolve, 1000));
         continue;
       }
-      const conversation = get().conversationQueue[0];
+      const conversation = get().lineQueue[0];
       set2((state) => {
-        state.conversationQueue = state.conversationQueue.slice(1);
+        state.lineQueue.shift();
       });
       if (!conversation)
         continue;
@@ -28212,13 +28227,15 @@ useConversationStore.getState().conversationLoop();
 function ConversationQueue({ queue }) {
   return jsx_dev_runtime4.jsxDEV("div", {
     children: [
-      jsx_dev_runtime4.jsxDEV("h1", {
+      jsx_dev_runtime4.jsxDEV("h3", {
         children: "Conversation Queue"
       }, undefined, false, undefined, this),
       jsx_dev_runtime4.jsxDEV("div", {
+        style: { display: "flex", gap: "10px", flexWrap: "wrap" },
         children: queue.map((conversation, index) => jsx_dev_runtime4.jsxDEV("div", {
+          style: { border: "1px solid black" },
           children: [
-            jsx_dev_runtime4.jsxDEV("h2", {
+            jsx_dev_runtime4.jsxDEV("span", {
               children: conversation.speaker
             }, undefined, false, undefined, this),
             jsx_dev_runtime4.jsxDEV("p", {
@@ -28238,7 +28255,7 @@ function App() {
   const speakers = useConversationStore((state) => Array.from(state.speakerConfigs.keys()));
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
-  const queue = useConversationStore((state) => state.conversationQueue);
+  const queue = useConversationStore((state) => state.lineQueue);
   console.log(speakers);
   return jsx_dev_runtime5.jsxDEV(jsx_dev_runtime5.Fragment, {
     children: [
@@ -28247,12 +28264,24 @@ function App() {
       }, undefined, false, undefined, this),
       jsx_dev_runtime5.jsxDEV(Config, {}, undefined, false, undefined, this),
       jsx_dev_runtime5.jsxDEV("div", {
-        style: { display: "flex", flexDirection: "column", gap: "10px" },
+        style: {
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px"
+        },
         children: [
-          speakers.map((speaker) => jsx_dev_runtime5.jsxDEV(Speaker, {
-            handle: speaker,
-            onChange: (config) => setSpeakerConfig(speaker, config)
-          }, speaker, false, undefined, this)),
+          jsx_dev_runtime5.jsxDEV("div", {
+            style: {
+              display: "flex",
+              flexDirection: "row",
+              gap: "10px"
+            },
+            children: speakers.map((speaker) => jsx_dev_runtime5.jsxDEV(Speaker, {
+              handle: speaker,
+              onChange: (config) => setSpeakerConfig(speaker, config)
+            }, speaker, false, undefined, this))
+          }, undefined, false, undefined, this),
           jsx_dev_runtime5.jsxDEV(Conversation, {
             onSay: (conversation) => addToQueue(conversation)
           }, undefined, false, undefined, this),

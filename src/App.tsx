@@ -16,7 +16,7 @@ export function App() {
   );
 
   const addToQueue = useConversationStore((state) => state.addToQueue);
-  const queue = useConversationStore((state) => state.conversationQueue);
+  const queue = useConversationStore((state) => state.lineQueue);
 
   console.log(speakers);
 
@@ -24,14 +24,29 @@ export function App() {
     <>
       <p>{"Life in Plastic"}</p>
       <Config />
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        {speakers.map((speaker) => (
-          <Speaker
-            key={speaker}
-            handle={speaker}
-            onChange={(config) => setSpeakerConfig(speaker, config)}
-          />
-        ))}
+      <div
+        style={{
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "10px",
+          }}
+        >
+          {speakers.map((speaker) => (
+            <Speaker
+              key={speaker}
+              handle={speaker}
+              onChange={(config) => setSpeakerConfig(speaker, config)}
+            />
+          ))}
+        </div>
         <Conversation onSay={(conversation) => addToQueue(conversation)} />
         <ConversationQueue queue={queue} />
       </div>
