@@ -60,11 +60,14 @@ interface ConversationStore {
   currentLine: Line | undefined
   conversations: Conversation[]
   isPlaying: boolean
+  autoPickFromConversations: boolean
 
   addNewConversation: () => void
   removeConversation: (index: number) => void
   setConversation: (index: number, conversation: Conversation) => void
   setIsPlaying: (isPlaying: boolean) => void
+  setLineQueue: (lineQueue: Line[]) => void
+  setAutoPickFromConversations: (autoPickFromQueue: boolean) => void
   setSpeakerConfig: (speaker: string, config: SpeakerConfig) => void
   addToQueue: (lines: Line[]) => void
   conversationLoop: () => void
@@ -91,6 +94,7 @@ const useConversationStore = create<ConversationStore>()(
         },
       ],
       isPlaying: true,
+      autoPickFromConversations: false,
 
       addNewConversation: () => {
         set((state) => {
@@ -120,6 +124,12 @@ const useConversationStore = create<ConversationStore>()(
         })
       },
 
+      setAutoPickFromConversations: (autoPickFromQueue: boolean) => {
+        set((state) => {
+          state.autoPickFromConversations = autoPickFromQueue
+        })
+      },
+
       setIsPlaying: (isPlaying: boolean) => {
         set((state) => {
           state.isPlaying = isPlaying
@@ -140,6 +150,22 @@ const useConversationStore = create<ConversationStore>()(
 
       conversationLoop: async () => {
         while (true) {
+          if (
+            get().lineQueue.length === 0 &&
+            get().autoPickFromConversations &&
+            get().conversations.length > 0
+          ) {
+            console.log('No lines queued. Picking randomly conversations...')
+            const conversation =
+              get().conversations[
+                Math.floor(Math.random() * get().conversations.length)
+              ]
+
+            set((state) => {
+              state.lineQueue = conversation.lines
+            })
+          }
+
           if (get().lineQueue.length === 0 || !get().isPlaying) {
             console.log('No lines queued or paused. Waiting...')
 

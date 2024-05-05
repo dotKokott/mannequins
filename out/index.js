@@ -28772,6 +28772,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
     }
   ],
   isPlaying: true,
+  autoPickFromConversations: false,
   addNewConversation: () => {
     set2((state) => {
       state.conversations.push({
@@ -28796,6 +28797,11 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       state.lineQueue = lineQueue;
     });
   },
+  setAutoPickFromConversations: (autoPickFromQueue) => {
+    set2((state) => {
+      state.autoPickFromConversations = autoPickFromQueue;
+    });
+  },
   setIsPlaying: (isPlaying) => {
     set2((state) => {
       state.isPlaying = isPlaying;
@@ -28813,6 +28819,13 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   },
   conversationLoop: async () => {
     while (true) {
+      if (get().lineQueue.length === 0 && get().autoPickFromConversations && get().conversations.length > 0) {
+        console.log("No lines queued. Picking randomly conversations...");
+        const conversation2 = get().conversations[Math.floor(Math.random() * get().conversations.length)];
+        set2((state) => {
+          state.lineQueue = conversation2.lines;
+        });
+      }
       if (get().lineQueue.length === 0 || !get().isPlaying) {
         console.log("No lines queued or paused. Waiting...");
         set2((state) => {
@@ -28852,6 +28865,7 @@ useConversationStore.getState().conversationLoop();
 // src/ConversationQueue.tsx
 function ConversationQueue() {
   const queue = useConversationStore((state) => state.lineQueue);
+  const setQueue = useConversationStore((state) => state.setLineQueue);
   const currentLine = useConversationStore((state) => state.currentLine);
   let fullQueue;
   if (currentLine) {
@@ -28878,22 +28892,30 @@ function ConversationQueue() {
           flexDirection: "column",
           flexWrap: "wrap"
         },
-        children: fullQueue.map((line, index) => jsx_dev_runtime4.jsxDEV("div", {
-          style: {
-            border: "1px solid black",
-            padding: "10px",
-            backgroundColor: getBackgroundColor(line)
-          },
-          children: [
-            jsx_dev_runtime4.jsxDEV("span", {
-              children: line.speaker
-            }, undefined, false, undefined, this),
-            jsx_dev_runtime4.jsxDEV("p", {
-              children: line.text
-            }, undefined, false, undefined, this)
-          ]
-        }, index, true, undefined, this))
-      }, undefined, false, undefined, this)
+        children: [
+          jsx_dev_runtime4.jsxDEV("button", {
+            onClick: () => {
+              setQueue([]);
+            },
+            children: "Clear Queue"
+          }, undefined, false, undefined, this),
+          fullQueue.map((line, index) => jsx_dev_runtime4.jsxDEV("div", {
+            style: {
+              border: "1px solid black",
+              padding: "10px",
+              backgroundColor: getBackgroundColor(line)
+            },
+            children: [
+              jsx_dev_runtime4.jsxDEV("span", {
+                children: line.speaker
+              }, undefined, false, undefined, this),
+              jsx_dev_runtime4.jsxDEV("p", {
+                children: line.text
+              }, undefined, false, undefined, this)
+            ]
+          }, index, true, undefined, this))
+        ]
+      }, undefined, true, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
@@ -28910,6 +28932,10 @@ function App() {
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
+  const [autoPickFromConversations, setAutoPickFromConversations] = useConversationStore((state) => [
+    state.autoPickFromConversations,
+    state.setAutoPickFromConversations
+  ]);
   return jsx_dev_runtime5.jsxDEV(jsx_dev_runtime5.Fragment, {
     children: [
       jsx_dev_runtime5.jsxDEV("p", {
@@ -28947,6 +28973,16 @@ function App() {
             onClick: addNewConversation,
             children: "Add New Conversation"
           }, undefined, false, undefined, this),
+          jsx_dev_runtime5.jsxDEV("div", {
+            children: [
+              "Auto pick from conversations",
+              jsx_dev_runtime5.jsxDEV("input", {
+                type: "checkbox",
+                checked: autoPickFromConversations,
+                onChange: (e) => setAutoPickFromConversations(e.target.checked)
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
           jsx_dev_runtime5.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this)

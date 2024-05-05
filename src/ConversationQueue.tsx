@@ -4,6 +4,7 @@ import { useConversationStore } from './store/conversationStore'
 
 export function ConversationQueue() {
   const queue = useConversationStore((state) => state.lineQueue)
+  const setQueue = useConversationStore((state) => state.setLineQueue)
   const currentLine = useConversationStore((state) => state.currentLine)
 
   let fullQueue
@@ -33,6 +34,13 @@ export function ConversationQueue() {
           flexWrap: 'wrap',
         }}
       >
+        <button
+          onClick={() => {
+            setQueue([])
+          }}
+        >
+          Clear Queue
+        </button>
         {fullQueue.map((line, index) => (
           <div
             key={index}
