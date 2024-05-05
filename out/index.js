@@ -27439,7 +27439,7 @@ class AudioAPI {
     });
     return audioDevices;
   }
-  async play(buffer, where = "default") {
+  async play(buffer, where = "default", volume = 1) {
     if (!this.contexts[where]) {
       throw new Error(`No audio context for device ${where}`);
     }
@@ -27451,8 +27451,11 @@ class AudioAPI {
     }
     this.sources[where] = context.createBufferSource();
     this.sources[where].buffer = audioBuffer;
-    this.sources[where].connect(context.destination);
     this.sources[where].start(0);
+    const gainNode = context.createGain();
+    gainNode.gain.value = volume;
+    this.sources[where].connect(gainNode);
+    gainNode.connect(context.destination);
     return new Promise((resolve) => {
       this.sources[where].onended = () => {
         resolve();
@@ -27474,17 +27477,18 @@ var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
 function Speaker({ handle, config, onChange }) {
   const [speakerId, setSpeakerId] = import_react3.default.useState(config.deviceId);
   const [voice, setVoice] = import_react3.default.useState(config.voice);
+  const [volume, setVolume] = import_react3.default.useState(config.volume);
   async function say() {
     const audio2 = await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, voice);
     if (!audio2)
       return;
-    await audioAPI.play(audio2, speakerId);
+    await audioAPI.play(audio2, speakerId, volume);
   }
   async function copyToClipboard() {
     await navigator.clipboard.writeText(handle);
   }
   import_react3.default.useEffect(() => {
-    onChange({ deviceId: speakerId, voice });
+    onChange({ deviceId: speakerId, voice, volume });
   }, [speakerId, voice]);
   return jsx_dev_runtime3.jsxDEV("div", {
     style: { display: "flex", flexDirection: "column", gap: "10px", flex: 1 },
@@ -27511,6 +27515,14 @@ function Speaker({ handle, config, onChange }) {
           value: voice2,
           children: voice2
         }, voice2, false, undefined, this))
+      }, undefined, false, undefined, this),
+      jsx_dev_runtime3.jsxDEV("input", {
+        type: "range",
+        value: volume,
+        onChange: (e) => setVolume(parseFloat(e.target.value)),
+        min: 0,
+        max: 2,
+        step: 0.01
       }, undefined, false, undefined, this),
       jsx_dev_runtime3.jsxDEV("button", {
         onClick: () => say(),
@@ -28777,10 +28789,10 @@ Literally.
 `;
 var useConversationStore = create()(persist(immer2((set2, get) => ({
   speakerConfigs: new Map(new Map([
-    ["[HELIO]", { deviceId: "default", voice: "onyx" }],
-    ["[BARBARA]", { deviceId: "default", voice: "alloy" }],
-    ["[KARL]", { deviceId: "default", voice: "echo" }],
-    ["[PAULA]", { deviceId: "default", voice: "shimmer" }]
+    ["[HELIO]", { deviceId: "default", voice: "onyx", volume: 1 }],
+    ["[BARBARA]", { deviceId: "default", voice: "alloy", volume: 1 }],
+    ["[KARL]", { deviceId: "default", voice: "echo", volume: 1 }],
+    ["[PAULA]", { deviceId: "default", voice: "shimmer", volume: 1 }]
   ])),
   lineQueue: [],
   currentLine: undefined,

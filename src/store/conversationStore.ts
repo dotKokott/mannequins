@@ -88,10 +88,10 @@ const useConversationStore = create<ConversationStore>()(
     immer((set, get) => ({
       speakerConfigs: new Map<string, SpeakerConfig>(
         new Map([
-          ['[HELIO]', { deviceId: 'default', voice: 'onyx' }],
-          ['[BARBARA]', { deviceId: 'default', voice: 'alloy' }],
-          ['[KARL]', { deviceId: 'default', voice: 'echo' }],
-          ['[PAULA]', { deviceId: 'default', voice: 'shimmer' }],
+          ['[HELIO]', { deviceId: 'default', voice: 'onyx', volume: 1 }],
+          ['[BARBARA]', { deviceId: 'default', voice: 'alloy', volume: 1 }],
+          ['[KARL]', { deviceId: 'default', voice: 'echo', volume: 1 }],
+          ['[PAULA]', { deviceId: 'default', voice: 'shimmer', volume: 1 }],
         ]),
       ),
       lineQueue: [],

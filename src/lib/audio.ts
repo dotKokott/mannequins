@@ -34,7 +34,11 @@ class AudioAPI {
     return audioDevices
   }
 
-  public async play(buffer: ArrayBuffer, where: string = 'default') {
+  public async play(
+    buffer: ArrayBuffer,
+    where: string = 'default',
+    volume = 1,
+  ) {
     if (!this.contexts[where]) {
       throw new Error(`No audio context for device ${where}`)
     }
@@ -50,8 +54,13 @@ class AudioAPI {
 
     this.sources[where] = context.createBufferSource()
     this.sources[where].buffer = audioBuffer
-    this.sources[where].connect(context.destination)
+    // this.sources[where].connect(context.destination)
     this.sources[where].start(0)
+
+    const gainNode = context.createGain()
+    gainNode.gain.value = volume
+    this.sources[where].connect(gainNode)
+    gainNode.connect(context.destination)
 
     // resolve once the audio has finished playing
     return new Promise<void>((resolve) => {

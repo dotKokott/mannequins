@@ -16,6 +16,8 @@ export function Speaker({ handle, config, onChange }: SpeakerProps) {
 
   const [voice, setVoice] = React.useState<Voice>(config.voice)
 
+  const [volume, setVolume] = React.useState<number>(config.volume)
+
   async function say() {
     const audio = await API.say(
       `Hi! My name is ${handle.replace('[', '').replace(']', '')}`,
@@ -23,7 +25,7 @@ export function Speaker({ handle, config, onChange }: SpeakerProps) {
     )
     if (!audio) return
 
-    await audioAPI.play(audio, speakerId)
+    await audioAPI.play(audio, speakerId, volume)
   }
 
   async function copyToClipboard() {
@@ -33,7 +35,7 @@ export function Speaker({ handle, config, onChange }: SpeakerProps) {
   }
 
   React.useEffect(() => {
-    onChange({ deviceId: speakerId, voice })
+    onChange({ deviceId: speakerId, voice, volume })
   }, [speakerId, voice])
 
   return (
@@ -59,6 +61,15 @@ export function Speaker({ handle, config, onChange }: SpeakerProps) {
           </option>
         ))}
       </select>
+
+      <input
+        type="range"
+        value={volume}
+        onChange={(e) => setVolume(parseFloat(e.target.value))}
+        min={0}
+        max={2}
+        step={0.01}
+      />
 
       <button onClick={() => say()}>🗣️</button>
     </div>

@@ -15,6 +15,7 @@ export type Line = {
 export type SpeakerConfig = {
   deviceId: string
   voice: Voice
+  volume: number
 }
 
 export function parseConversation(conversationText: string): Line[] {
