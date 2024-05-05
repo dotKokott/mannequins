@@ -11,9 +11,7 @@ export type SpeakerProps = {
 
 export function Speaker({ handle, onChange }: SpeakerProps) {
   // const [handle, updateHandle] = React.useState(handle);
-  const [speakerId, setSpeakerId] = React.useState<string | undefined>(
-    undefined
-  );
+  const [speakerId, setSpeakerId] = React.useState<string>("default");
 
   const [voice, setVoice] = React.useState<Voice>(voiceOptions[0]);
 
@@ -34,8 +32,6 @@ export function Speaker({ handle, onChange }: SpeakerProps) {
   }
 
   React.useEffect(() => {
-    if (!speakerId) return;
-
     onChange({ deviceId: speakerId, voice });
   }, [speakerId, voice]);
 
@@ -43,7 +39,6 @@ export function Speaker({ handle, onChange }: SpeakerProps) {
     <div
       style={{ display: "flex", flexDirection: "column", gap: "10px", flex: 1 }}
     >
-      {/* <textarea value={handle} onChange={(e) => updateHandle(e.target.value)} /> */}
       <div>
         <a href="#" onClick={copyToClipboard}>
           {handle}

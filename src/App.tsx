@@ -60,8 +60,7 @@ export function App() {
             onSay={(conversation) => addToQueue(conversation)}
           />
         ))}
-        {/* <Conversation onSay={(lines) => addToQueue(lines)} /> */}
-        <ConversationQueue queue={queue} />
+        <ConversationQueue />
       </div>
     </>
   );

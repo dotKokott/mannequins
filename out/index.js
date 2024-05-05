@@ -27405,6 +27405,7 @@ class AudioAPI {
   contexts = {};
   async initialize() {
     this.outputDevices = await AudioAPI.enumerateDevices();
+    console.log(this.outputDevices);
     this.contexts = this.outputDevices.reduce((acc, device) => {
       const context = new AudioContext({
         sinkId: device.deviceId !== "default" ? device.deviceId : undefined
@@ -27446,7 +27447,7 @@ await audioAPI.initialize();
 // src/Speaker.tsx
 var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
 function Speaker({ handle, onChange }) {
-  const [speakerId, setSpeakerId] = import_react3.default.useState(undefined);
+  const [speakerId, setSpeakerId] = import_react3.default.useState("default");
   const [voice, setVoice] = import_react3.default.useState(voiceOptions[0]);
   async function say() {
     const audio2 = await API.say(handle.replace("[", "").replace("]", ""), voice);
@@ -27458,8 +27459,6 @@ function Speaker({ handle, onChange }) {
     await navigator.clipboard.writeText(handle);
   }
   import_react3.default.useEffect(() => {
-    if (!speakerId)
-      return;
     onChange({ deviceId: speakerId, voice });
   }, [speakerId, voice]);
   return jsx_dev_runtime3.jsxDEV("div", {
@@ -27686,6 +27685,10 @@ var getPlugin = function(pluginKey) {
   }
   return plugin;
 };
+var loadPlugin = function(pluginKey, implementation) {
+  if (!plugins[pluginKey])
+    plugins[pluginKey] = implementation;
+};
 var getCurrentScope = function() {
   return currentScope;
 };
@@ -27904,6 +27907,252 @@ var currentImpl = function(value) {
     state.finalized_ = false;
   }
   return copy;
+};
+var enableMapSet = function() {
+  class DraftMap extends Map {
+    constructor(target, parent) {
+      super();
+      this[DRAFT_STATE] = {
+        type_: 2,
+        parent_: parent,
+        scope_: parent ? parent.scope_ : getCurrentScope(),
+        modified_: false,
+        finalized_: false,
+        copy_: undefined,
+        assigned_: undefined,
+        base_: target,
+        draft_: this,
+        isManual_: false,
+        revoked_: false
+      };
+    }
+    get size() {
+      return latest(this[DRAFT_STATE]).size;
+    }
+    has(key) {
+      return latest(this[DRAFT_STATE]).has(key);
+    }
+    set(key, value) {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (!latest(state).has(key) || latest(state).get(key) !== value) {
+        prepareMapCopy(state);
+        markChanged(state);
+        state.assigned_.set(key, true);
+        state.copy_.set(key, value);
+        state.assigned_.set(key, true);
+      }
+      return this;
+    }
+    delete(key) {
+      if (!this.has(key)) {
+        return false;
+      }
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareMapCopy(state);
+      markChanged(state);
+      if (state.base_.has(key)) {
+        state.assigned_.set(key, false);
+      } else {
+        state.assigned_.delete(key);
+      }
+      state.copy_.delete(key);
+      return true;
+    }
+    clear() {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (latest(state).size) {
+        prepareMapCopy(state);
+        markChanged(state);
+        state.assigned_ = new Map;
+        each(state.base_, (key) => {
+          state.assigned_.set(key, false);
+        });
+        state.copy_.clear();
+      }
+    }
+    forEach(cb, thisArg) {
+      const state = this[DRAFT_STATE];
+      latest(state).forEach((_value, key, _map) => {
+        cb.call(thisArg, this.get(key), key, this);
+      });
+    }
+    get(key) {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      const value = latest(state).get(key);
+      if (state.finalized_ || !isDraftable(value)) {
+        return value;
+      }
+      if (value !== state.base_.get(key)) {
+        return value;
+      }
+      const draft = createProxy(value, state);
+      prepareMapCopy(state);
+      state.copy_.set(key, draft);
+      return draft;
+    }
+    keys() {
+      return latest(this[DRAFT_STATE]).keys();
+    }
+    values() {
+      const iterator = this.keys();
+      return {
+        [Symbol.iterator]: () => this.values(),
+        next: () => {
+          const r = iterator.next();
+          if (r.done)
+            return r;
+          const value = this.get(r.value);
+          return {
+            done: false,
+            value
+          };
+        }
+      };
+    }
+    entries() {
+      const iterator = this.keys();
+      return {
+        [Symbol.iterator]: () => this.entries(),
+        next: () => {
+          const r = iterator.next();
+          if (r.done)
+            return r;
+          const value = this.get(r.value);
+          return {
+            done: false,
+            value: [r.value, value]
+          };
+        }
+      };
+    }
+    [(DRAFT_STATE, Symbol.iterator)]() {
+      return this.entries();
+    }
+  }
+  function proxyMap_(target, parent) {
+    return new DraftMap(target, parent);
+  }
+  function prepareMapCopy(state) {
+    if (!state.copy_) {
+      state.assigned_ = new Map;
+      state.copy_ = new Map(state.base_);
+    }
+  }
+
+  class DraftSet extends Set {
+    constructor(target, parent) {
+      super();
+      this[DRAFT_STATE] = {
+        type_: 3,
+        parent_: parent,
+        scope_: parent ? parent.scope_ : getCurrentScope(),
+        modified_: false,
+        finalized_: false,
+        copy_: undefined,
+        base_: target,
+        draft_: this,
+        drafts_: new Map,
+        revoked_: false,
+        isManual_: false
+      };
+    }
+    get size() {
+      return latest(this[DRAFT_STATE]).size;
+    }
+    has(value) {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (!state.copy_) {
+        return state.base_.has(value);
+      }
+      if (state.copy_.has(value))
+        return true;
+      if (state.drafts_.has(value) && state.copy_.has(state.drafts_.get(value)))
+        return true;
+      return false;
+    }
+    add(value) {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (!this.has(value)) {
+        prepareSetCopy(state);
+        markChanged(state);
+        state.copy_.add(value);
+      }
+      return this;
+    }
+    delete(value) {
+      if (!this.has(value)) {
+        return false;
+      }
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      markChanged(state);
+      return state.copy_.delete(value) || (state.drafts_.has(value) ? state.copy_.delete(state.drafts_.get(value)) : false);
+    }
+    clear() {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (latest(state).size) {
+        prepareSetCopy(state);
+        markChanged(state);
+        state.copy_.clear();
+      }
+    }
+    values() {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      return state.copy_.values();
+    }
+    entries() {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      return state.copy_.entries();
+    }
+    keys() {
+      return this.values();
+    }
+    [(DRAFT_STATE, Symbol.iterator)]() {
+      return this.values();
+    }
+    forEach(cb, thisArg) {
+      const iterator = this.values();
+      let result = iterator.next();
+      while (!result.done) {
+        cb.call(thisArg, result.value, result.value, this);
+        result = iterator.next();
+      }
+    }
+  }
+  function proxySet_(target, parent) {
+    return new DraftSet(target, parent);
+  }
+  function prepareSetCopy(state) {
+    if (!state.copy_) {
+      state.copy_ = new Set;
+      state.base_.forEach((value) => {
+        if (isDraftable(value)) {
+          const draft = createProxy(value, state);
+          state.drafts_.set(value, draft);
+          state.copy_.add(draft);
+        } else {
+          state.copy_.add(value);
+        }
+      });
+    }
+  }
+  function assertUnrevoked(state) {
+    if (state.revoked_)
+      die(3, JSON.stringify(latest(state)));
+  }
+  loadPlugin("MapSet", { proxyMap_, proxySet_ });
 };
 var NOTHING = Symbol.for("immer-nothing");
 var DRAFTABLE = Symbol.for("immer-draftable");
@@ -28172,6 +28421,7 @@ var immerImpl = (initializer) => (set2, get, store) => {
 var immer2 = immerImpl;
 
 // src/store/conversationStore.ts
+enableMapSet();
 var testConversation = `
 [SPEAKER1]
 Hello my name is speaker one
@@ -28191,6 +28441,7 @@ var useConversationStore = create()(immer2((set2, get) => ({
     ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }]
   ])),
   lineQueue: [],
+  currentLine: undefined,
   conversations: [
     {
       title: "Test Conversation",
@@ -28233,7 +28484,7 @@ var useConversationStore = create()(immer2((set2, get) => ({
       }
       const conversation = get().lineQueue[0];
       set2((state) => {
-        state.lineQueue.shift();
+        state.currentLine = state.lineQueue.shift();
       });
       if (!conversation)
         continue;
@@ -28253,22 +28504,46 @@ var useConversationStore = create()(immer2((set2, get) => ({
 useConversationStore.getState().conversationLoop();
 
 // src/ConversationQueue.tsx
-function ConversationQueue({ queue }) {
+function ConversationQueue() {
+  const queue = useConversationStore((state) => state.lineQueue);
+  const currentLine = useConversationStore((state) => state.currentLine);
+  let fullQueue;
+  if (currentLine) {
+    fullQueue = [currentLine, ...queue];
+  } else {
+    fullQueue = queue;
+  }
+  const getBackgroundColor = (line) => {
+    if (line === currentLine) {
+      return "green";
+    } else {
+      return "white";
+    }
+  };
   return jsx_dev_runtime4.jsxDEV("div", {
     children: [
       jsx_dev_runtime4.jsxDEV("h3", {
         children: "Conversation Queue"
       }, undefined, false, undefined, this),
       jsx_dev_runtime4.jsxDEV("div", {
-        style: { display: "flex", gap: "10px", flexWrap: "wrap" },
-        children: queue.map((conversation, index) => jsx_dev_runtime4.jsxDEV("div", {
-          style: { border: "1px solid black" },
+        style: {
+          display: "flex",
+          gap: "10px",
+          flexDirection: "column",
+          flexWrap: "wrap"
+        },
+        children: fullQueue.map((line, index) => jsx_dev_runtime4.jsxDEV("div", {
+          style: {
+            border: "1px solid black",
+            padding: "10px",
+            backgroundColor: getBackgroundColor(line)
+          },
           children: [
             jsx_dev_runtime4.jsxDEV("span", {
-              children: conversation.speaker
+              children: line.speaker
             }, undefined, false, undefined, this),
             jsx_dev_runtime4.jsxDEV("p", {
-              children: conversation.text
+              children: line.text
             }, undefined, false, undefined, this)
           ]
         }, index, true, undefined, this))
@@ -28317,9 +28592,7 @@ function App() {
             updateConversation: (conversation2) => setConversation(index, conversation2),
             onSay: (conversation2) => addToQueue(conversation2)
           }, index, false, undefined, this)),
-          jsx_dev_runtime5.jsxDEV(ConversationQueue, {
-            queue
-          }, undefined, false, undefined, this)
+          jsx_dev_runtime5.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this)
     ]

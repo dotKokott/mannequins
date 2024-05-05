@@ -6,8 +6,11 @@ import {
   type SpeakerConfig,
 } from "../types";
 import { immer } from "zustand/middleware/immer";
+import { enableMapSet } from "immer";
 import { API } from "../lib/openai";
 import { audioAPI } from "../lib/audio";
+
+enableMapSet();
 
 const testConversation: string = `
 [SPEAKER1]
@@ -25,6 +28,7 @@ Hello my name is speaker three
 interface ConversationStore {
   speakerConfigs: Map<string, SpeakerConfig>;
   lineQueue: Line[];
+  currentLine: Line | undefined;
   conversations: Conversation[];
   isPlaying: boolean;
 
@@ -45,6 +49,7 @@ const useConversationStore = create<ConversationStore>()(
       ])
     ),
     lineQueue: [],
+    currentLine: undefined,
     conversations: [
       {
         title: "Test Conversation",
@@ -94,7 +99,7 @@ const useConversationStore = create<ConversationStore>()(
 
         const conversation = get().lineQueue[0];
         set((state) => {
-          state.lineQueue.shift();
+          state.currentLine = state.lineQueue.shift();
         });
 
         if (!conversation) continue;

@@ -5,6 +5,8 @@ class AudioAPI {
   public async initialize() {
     this.outputDevices = await AudioAPI.enumerateDevices();
 
+    console.log(this.outputDevices);
+
     this.contexts = this.outputDevices.reduce((acc, device) => {
       const context = new AudioContext({
         sinkId: device.deviceId !== "default" ? device.deviceId : undefined,
