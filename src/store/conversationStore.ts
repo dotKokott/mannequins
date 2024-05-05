@@ -15,73 +15,71 @@ interface ConversationStore {
   conversationLoop: () => void;
 }
 
-const useConversationStore = create<ConversationStore>()((set, get) => ({
-  speakerConfigs: new Map<string, SpeakerConfig>(
-    new Map([
-      ["[SPEAKER1]", { deviceId: "default", voice: "alloy" }],
-      ["[SPEAKER2]", { deviceId: "default", voice: "alloy" }],
-      ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }],
-    ])
-  ),
-  conversationQueue: [],
-  isPlaying: true,
+const useConversationStore = create<ConversationStore>()(
+  immer((set, get) => ({
+    speakerConfigs: new Map<string, SpeakerConfig>(
+      new Map([
+        ["[SPEAKER1]", { deviceId: "default", voice: "alloy" }],
+        ["[SPEAKER2]", { deviceId: "default", voice: "alloy" }],
+        ["[SPEAKER3]", { deviceId: "default", voice: "alloy" }],
+      ])
+    ),
+    conversationQueue: [],
+    isPlaying: true,
 
-  setConversationQueue: (conversationQueue: ParsedConversation) => {
-    set(() => {
-      return { conversationQueue };
-    });
-  },
-
-  setIsPlaying: (isPlaying: boolean) => {
-    set(() => {
-      return { isPlaying };
-    });
-  },
-
-  setSpeakerConfig: (speaker: string, config: SpeakerConfig) => {
-    set((state) => {
-      return {
-        speakerConfigs: new Map(state.speakerConfigs.set(speaker, config)),
-      };
-    });
-  },
-
-  addToQueue: (conversation: ParsedConversation) => {
-    set((state) => {
-      return {
-        conversationQueue: [...state.conversationQueue, ...conversation],
-      };
-    });
-  },
-
-  conversationLoop: async () => {
-    while (true) {
-      if (get().conversationQueue.length === 0 || !get().isPlaying) {
-        console.log("No conversations queued or paused. Waiting...");
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        continue;
-      }
-
-      const conversation = get().conversationQueue.shift();
+    setConversationQueue: (conversationQueue: ParsedConversation) => {
       set((state) => {
-        return { conversationQueue: state.conversationQueue };
+        state.conversationQueue = conversationQueue;
       });
+    },
 
-      if (!conversation) continue;
+    setIsPlaying: (isPlaying: boolean) => {
+      set((state) => {
+        state.isPlaying = isPlaying;
+      });
+    },
 
-      const { speaker, text } = conversation;
-      const config = get().speakerConfigs.get(speaker);
-      if (!config) continue;
+    setSpeakerConfig: (speaker: string, config: SpeakerConfig) => {
+      set((state) => {
+        state.speakerConfigs.set(speaker, config);
+      });
+    },
 
-      console.log(`Saying: ${text} as ${speaker}`);
-      const audio = await API.say(text, config.voice);
-      if (!audio) continue;
+    addToQueue: (conversation: ParsedConversation) => {
+      set((state) => {
+        state.conversationQueue.push(...conversation);
+      });
+    },
 
-      console.log(`Playing audio on ${config.deviceId}`);
-      await audioAPI.play(audio, config.deviceId);
-    }
-  },
-}));
+    conversationLoop: async () => {
+      while (true) {
+        if (get().conversationQueue.length === 0 || !get().isPlaying) {
+          console.log("No conversations queued or paused. Waiting...");
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          continue;
+        }
+
+        const conversation = get().conversationQueue[0];
+        set((state) => {
+          state.conversationQueue = state.conversationQueue.slice(1);
+        });
+
+        if (!conversation) continue;
+
+        const { speaker, text } = conversation;
+        const config = get().speakerConfigs.get(speaker);
+        if (!config) continue;
+
+        console.log(`Saying: ${text} as ${speaker}`);
+        const audio = await API.say(text, config.voice);
+        if (!audio) continue;
+
+        console.log(`Playing audio on ${config.deviceId}`);
+        await audioAPI.play(audio, config.deviceId);
+      }
+    },
+  }))
+);
 
 useConversationStore.getState().conversationLoop();
 
