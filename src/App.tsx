@@ -1,51 +1,49 @@
-import React from "react";
-import { Config } from "./Config";
-import { Conversation } from "./Conversation";
-import { Speaker } from "./Speaker";
-import { useConversationStore } from "./store/conversationStore";
+import React from 'react'
+import { Config } from './Config'
+import { Conversation } from './Conversation'
+import { Speaker } from './Speaker'
+import { useConversationStore } from './store/conversationStore'
 
-import { ConversationQueue } from "./ConversationQueue";
+import { ConversationQueue } from './ConversationQueue'
 
 export function App() {
-  const speakers = useConversationStore((state) => state.speakerConfigs);
+  const speakers = useConversationStore((state) => state.speakerConfigs)
 
-  const conversations = useConversationStore((state) => state.conversations);
-  const setConversation = useConversationStore(
-    (state) => state.setConversation
-  );
+  const conversations = useConversationStore((state) => state.conversations)
+  const setConversation = useConversationStore((state) => state.setConversation)
 
   const addNewConversation = useConversationStore(
-    (state) => state.addNewConversation
-  );
+    (state) => state.addNewConversation,
+  )
 
   const removeConversation = useConversationStore(
-    (state) => state.removeConversation
-  );
+    (state) => state.removeConversation,
+  )
 
   const setSpeakerConfig = useConversationStore(
-    (state) => state.setSpeakerConfig
-  );
+    (state) => state.setSpeakerConfig,
+  )
 
-  const addToQueue = useConversationStore((state) => state.addToQueue);
-  const queue = useConversationStore((state) => state.lineQueue);
+  const addToQueue = useConversationStore((state) => state.addToQueue)
+  const queue = useConversationStore((state) => state.lineQueue)
 
   return (
     <>
-      <p>{"Life in Plastic"}</p>
+      <p>{'Life in Plastic'}</p>
       <Config />
       <div
         style={{
-          marginTop: "20px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
+          marginTop: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
         }}
       >
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "10px",
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '10px',
           }}
         >
           {Array.from(speakers.entries()).map(([speaker, config]) => (
@@ -77,5 +75,5 @@ export function App() {
         <ConversationQueue />
       </div>
     </>
-  );
+  )
 }

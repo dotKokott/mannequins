@@ -1,44 +1,44 @@
-import React from "react";
-import type { Line } from "./types";
-import { useConversationStore } from "./store/conversationStore";
+import React from 'react'
+import type { Line } from './types'
+import { useConversationStore } from './store/conversationStore'
 
 export function ConversationQueue() {
-  const queue = useConversationStore((state) => state.lineQueue);
-  const currentLine = useConversationStore((state) => state.currentLine);
+  const queue = useConversationStore((state) => state.lineQueue)
+  const currentLine = useConversationStore((state) => state.currentLine)
 
-  let fullQueue;
+  let fullQueue
 
   if (currentLine) {
-    fullQueue = [currentLine, ...queue];
+    fullQueue = [currentLine, ...queue]
   } else {
-    fullQueue = queue;
+    fullQueue = queue
   }
 
   const getBackgroundColor = (line: Line) => {
     if (line === currentLine) {
-      return "green";
+      return 'green'
     } else {
-      return "white";
+      return 'white'
     }
-  };
+  }
 
   return (
     <div>
       <h3>Conversation Queue</h3>
       <div
         style={{
-          display: "flex",
-          gap: "10px",
-          flexDirection: "column",
-          flexWrap: "wrap",
+          display: 'flex',
+          gap: '10px',
+          flexDirection: 'column',
+          flexWrap: 'wrap',
         }}
       >
         {fullQueue.map((line, index) => (
           <div
             key={index}
             style={{
-              border: "1px solid black",
-              padding: "10px",
+              border: '1px solid black',
+              padding: '10px',
               backgroundColor: getBackgroundColor(line),
             }}
           >
@@ -48,23 +48,23 @@ export function ConversationQueue() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 export function ConversationPlayer() {
-  const queue = useConversationStore((state) => state.lineQueue);
+  const queue = useConversationStore((state) => state.lineQueue)
   const [isPlaying, setIsPlaying] = useConversationStore((state) => [
     state.isPlaying,
     state.setIsPlaying,
-  ]);
+  ])
 
   const play = () => {
-    setIsPlaying(true);
-  };
+    setIsPlaying(true)
+  }
 
   const pause = () => {
-    setIsPlaying(false);
-  };
+    setIsPlaying(false)
+  }
 
   return (
     <div>
@@ -72,5 +72,5 @@ export function ConversationPlayer() {
       <button onClick={pause}>Pause</button>
       <ConversationQueue />
     </div>
-  );
+  )
 }

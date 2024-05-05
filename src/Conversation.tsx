@@ -1,12 +1,12 @@
-import React from "react";
-import { parseConversation, type Conversation, type Line } from "./types";
+import React from 'react'
+import { parseConversation, type Conversation, type Line } from './types'
 
 export type ConversationProps = {
-  conversation: Conversation;
-  updateConversation: (conversation: Conversation) => void;
-  removeConversation: () => void;
-  onSay: (lines: Line[]) => void | Promise<void> | undefined;
-};
+  conversation: Conversation
+  updateConversation: (conversation: Conversation) => void
+  removeConversation: () => void
+  onSay: (lines: Line[]) => void | Promise<void> | undefined
+}
 
 export function Conversation({
   conversation,
@@ -15,33 +15,33 @@ export function Conversation({
   onSay,
 }: ConversationProps) {
   const [conversationTitle, setConversationTitle] = React.useState(
-    conversation.title
-  );
+    conversation.title,
+  )
 
   const [conversationText, setConversationText] = React.useState(
-    conversation.text
-  );
+    conversation.text,
+  )
 
   const parsedConversation = React.useMemo(() => {
-    return parseConversation(conversationText);
-  }, [conversationText]);
+    return parseConversation(conversationText)
+  }, [conversationText])
 
   React.useEffect(() => {
     updateConversation({
       title: conversationTitle,
       text: conversationText,
       lines: parseConversation(conversationText),
-    });
-  }, [conversationTitle, conversationText]);
+    })
+  }, [conversationTitle, conversationText])
 
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        border: "1px solid black",
-        padding: "10px",
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        border: '1px solid black',
+        padding: '10px',
       }}
     >
       <input
@@ -56,5 +56,5 @@ export function Conversation({
       <button onClick={() => onSay(parsedConversation)}>Add to queue</button>
       <button onClick={removeConversation}>Delete Conversation</button>
     </div>
-  );
+  )
 }
