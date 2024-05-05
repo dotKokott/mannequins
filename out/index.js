@@ -28425,6 +28425,294 @@ var immerImpl = (initializer) => (set2, get, store) => {
 };
 var immer2 = immerImpl;
 
+// node_modules/zustand/esm/middleware.mjs
+var createJSONStorage = function(getStorage, options) {
+  let storage;
+  try {
+    storage = getStorage();
+  } catch (e) {
+    return;
+  }
+  const persistStorage = {
+    getItem: (name) => {
+      var _a2;
+      const parse = (str22) => {
+        if (str22 === null) {
+          return null;
+        }
+        return JSON.parse(str22, options == null ? undefined : options.reviver);
+      };
+      const str2 = (_a2 = storage.getItem(name)) != null ? _a2 : null;
+      if (str2 instanceof Promise) {
+        return str2.then(parse);
+      }
+      return parse(str2);
+    },
+    setItem: (name, newValue) => storage.setItem(name, JSON.stringify(newValue, options == null ? undefined : options.replacer)),
+    removeItem: (name) => storage.removeItem(name)
+  };
+  return persistStorage;
+};
+var toThenable = (fn) => (input) => {
+  try {
+    const result = fn(input);
+    if (result instanceof Promise) {
+      return result;
+    }
+    return {
+      then(onFulfilled) {
+        return toThenable(onFulfilled)(result);
+      },
+      catch(_onRejected) {
+        return this;
+      }
+    };
+  } catch (e) {
+    return {
+      then(_onFulfilled) {
+        return this;
+      },
+      catch(onRejected) {
+        return toThenable(onRejected)(e);
+      }
+    };
+  }
+};
+var oldImpl = (config, baseOptions) => (set2, get, api) => {
+  let options = {
+    getStorage: () => localStorage,
+    serialize: JSON.stringify,
+    deserialize: JSON.parse,
+    partialize: (state) => state,
+    version: 0,
+    merge: (persistedState, currentState) => ({
+      ...currentState,
+      ...persistedState
+    }),
+    ...baseOptions
+  };
+  let hasHydrated = false;
+  const hydrationListeners = new Set;
+  const finishHydrationListeners = new Set;
+  let storage;
+  try {
+    storage = options.getStorage();
+  } catch (e) {
+  }
+  if (!storage) {
+    return config((...args) => {
+      console.warn(`[zustand persist middleware] Unable to update item '${options.name}', the given storage is currently unavailable.`);
+      set2(...args);
+    }, get, api);
+  }
+  const thenableSerialize = toThenable(options.serialize);
+  const setItem = () => {
+    const state = options.partialize({ ...get() });
+    let errorInSync;
+    const thenable = thenableSerialize({ state, version: options.version }).then((serializedValue) => storage.setItem(options.name, serializedValue)).catch((e) => {
+      errorInSync = e;
+    });
+    if (errorInSync) {
+      throw errorInSync;
+    }
+    return thenable;
+  };
+  const savedSetState = api.setState;
+  api.setState = (state, replace) => {
+    savedSetState(state, replace);
+    setItem();
+  };
+  const configResult = config((...args) => {
+    set2(...args);
+    setItem();
+  }, get, api);
+  let stateFromStorage;
+  const hydrate = () => {
+    var _a2;
+    if (!storage)
+      return;
+    hasHydrated = false;
+    hydrationListeners.forEach((cb) => cb(get()));
+    const postRehydrationCallback = ((_a2 = options.onRehydrateStorage) == null ? undefined : _a2.call(options, get())) || undefined;
+    return toThenable(storage.getItem.bind(storage))(options.name).then((storageValue) => {
+      if (storageValue) {
+        return options.deserialize(storageValue);
+      }
+    }).then((deserializedStorageValue) => {
+      if (deserializedStorageValue) {
+        if (typeof deserializedStorageValue.version === "number" && deserializedStorageValue.version !== options.version) {
+          if (options.migrate) {
+            return options.migrate(deserializedStorageValue.state, deserializedStorageValue.version);
+          }
+          console.error(`State loaded from storage couldn't be migrated since no migrate function was provided`);
+        } else {
+          return deserializedStorageValue.state;
+        }
+      }
+    }).then((migratedState) => {
+      var _a22;
+      stateFromStorage = options.merge(migratedState, (_a22 = get()) != null ? _a22 : configResult);
+      set2(stateFromStorage, true);
+      return setItem();
+    }).then(() => {
+      postRehydrationCallback == null || postRehydrationCallback(stateFromStorage, undefined);
+      hasHydrated = true;
+      finishHydrationListeners.forEach((cb) => cb(stateFromStorage));
+    }).catch((e) => {
+      postRehydrationCallback == null || postRehydrationCallback(undefined, e);
+    });
+  };
+  api.persist = {
+    setOptions: (newOptions) => {
+      options = {
+        ...options,
+        ...newOptions
+      };
+      if (newOptions.getStorage) {
+        storage = newOptions.getStorage();
+      }
+    },
+    clearStorage: () => {
+      storage == null || storage.removeItem(options.name);
+    },
+    getOptions: () => options,
+    rehydrate: () => hydrate(),
+    hasHydrated: () => hasHydrated,
+    onHydrate: (cb) => {
+      hydrationListeners.add(cb);
+      return () => {
+        hydrationListeners.delete(cb);
+      };
+    },
+    onFinishHydration: (cb) => {
+      finishHydrationListeners.add(cb);
+      return () => {
+        finishHydrationListeners.delete(cb);
+      };
+    }
+  };
+  hydrate();
+  return stateFromStorage || configResult;
+};
+var newImpl = (config, baseOptions) => (set2, get, api) => {
+  let options = {
+    storage: createJSONStorage(() => localStorage),
+    partialize: (state) => state,
+    version: 0,
+    merge: (persistedState, currentState) => ({
+      ...currentState,
+      ...persistedState
+    }),
+    ...baseOptions
+  };
+  let hasHydrated = false;
+  const hydrationListeners = new Set;
+  const finishHydrationListeners = new Set;
+  let storage = options.storage;
+  if (!storage) {
+    return config((...args) => {
+      console.warn(`[zustand persist middleware] Unable to update item '${options.name}', the given storage is currently unavailable.`);
+      set2(...args);
+    }, get, api);
+  }
+  const setItem = () => {
+    const state = options.partialize({ ...get() });
+    return storage.setItem(options.name, {
+      state,
+      version: options.version
+    });
+  };
+  const savedSetState = api.setState;
+  api.setState = (state, replace) => {
+    savedSetState(state, replace);
+    setItem();
+  };
+  const configResult = config((...args) => {
+    set2(...args);
+    setItem();
+  }, get, api);
+  api.getInitialState = () => configResult;
+  let stateFromStorage;
+  const hydrate = () => {
+    var _a2, _b;
+    if (!storage)
+      return;
+    hasHydrated = false;
+    hydrationListeners.forEach((cb) => {
+      var _a22;
+      return cb((_a22 = get()) != null ? _a22 : configResult);
+    });
+    const postRehydrationCallback = ((_b = options.onRehydrateStorage) == null ? undefined : _b.call(options, (_a2 = get()) != null ? _a2 : configResult)) || undefined;
+    return toThenable(storage.getItem.bind(storage))(options.name).then((deserializedStorageValue) => {
+      if (deserializedStorageValue) {
+        if (typeof deserializedStorageValue.version === "number" && deserializedStorageValue.version !== options.version) {
+          if (options.migrate) {
+            return options.migrate(deserializedStorageValue.state, deserializedStorageValue.version);
+          }
+          console.error(`State loaded from storage couldn't be migrated since no migrate function was provided`);
+        } else {
+          return deserializedStorageValue.state;
+        }
+      }
+    }).then((migratedState) => {
+      var _a22;
+      stateFromStorage = options.merge(migratedState, (_a22 = get()) != null ? _a22 : configResult);
+      set2(stateFromStorage, true);
+      return setItem();
+    }).then(() => {
+      postRehydrationCallback == null || postRehydrationCallback(stateFromStorage, undefined);
+      stateFromStorage = get();
+      hasHydrated = true;
+      finishHydrationListeners.forEach((cb) => cb(stateFromStorage));
+    }).catch((e) => {
+      postRehydrationCallback == null || postRehydrationCallback(undefined, e);
+    });
+  };
+  api.persist = {
+    setOptions: (newOptions) => {
+      options = {
+        ...options,
+        ...newOptions
+      };
+      if (newOptions.storage) {
+        storage = newOptions.storage;
+      }
+    },
+    clearStorage: () => {
+      storage == null || storage.removeItem(options.name);
+    },
+    getOptions: () => options,
+    rehydrate: () => hydrate(),
+    hasHydrated: () => hasHydrated,
+    onHydrate: (cb) => {
+      hydrationListeners.add(cb);
+      return () => {
+        hydrationListeners.delete(cb);
+      };
+    },
+    onFinishHydration: (cb) => {
+      finishHydrationListeners.add(cb);
+      return () => {
+        finishHydrationListeners.delete(cb);
+      };
+    }
+  };
+  if (!options.skipHydration) {
+    hydrate();
+  }
+  return stateFromStorage || configResult;
+};
+var persistImpl = (config, baseOptions) => {
+  if ("getStorage" in baseOptions || "serialize" in baseOptions || "deserialize" in baseOptions) {
+    if ((import.meta.env ? import.meta.env.MODE : undefined) !== "production") {
+      console.warn("[DEPRECATED] `getStorage`, `serialize` and `deserialize` options are deprecated. Use `storage` option instead.");
+    }
+    return oldImpl(config, baseOptions);
+  }
+  return newImpl(config, baseOptions);
+};
+var persist = persistImpl;
+
 // src/store/conversationStore.ts
 enableMapSet();
 var testConversation = `
@@ -28440,7 +28728,7 @@ Nice to meet you Paula. How are you today?
 [PAULA]
 I'm doing well, thank you for asking. How about you?
 `;
-var useConversationStore = create()(immer2((set2, get) => ({
+var useConversationStore = create()(persist(immer2((set2, get) => ({
   speakerConfigs: new Map(new Map([
     ["[HELIO]", { deviceId: "default", voice: "onyx" }],
     ["[BARBARA]", { deviceId: "default", voice: "alloy" }],
@@ -28524,7 +28812,14 @@ var useConversationStore = create()(immer2((set2, get) => ({
       await audioAPI.play(audio3, config.deviceId);
     }
   }
-})));
+})), {
+  name: "conversation-store",
+  partialize: (state) => {
+    return {
+      conversations: state.conversations
+    };
+  }
+}));
 useConversationStore.getState().conversationLoop();
 
 // src/ConversationQueue.tsx
