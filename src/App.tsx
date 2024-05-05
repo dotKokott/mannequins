@@ -4,7 +4,7 @@ import { Conversation } from './Conversation'
 import { Speaker } from './Speaker'
 import { useConversationStore } from './store/conversationStore'
 
-import { ConversationQueue } from './ConversationQueue'
+import { ConversationPlayer, ConversationQueue } from './ConversationQueue'
 
 export function App() {
   const speakers = useConversationStore((state) => state.speakerConfigs)
@@ -26,12 +26,6 @@ export function App() {
 
   const addToQueue = useConversationStore((state) => state.addToQueue)
   const queue = useConversationStore((state) => state.lineQueue)
-
-  const [autoPickFromConversations, setAutoPickFromConversations] =
-    useConversationStore((state) => [
-      state.autoPickFromConversations,
-      state.setAutoPickFromConversations,
-    ])
 
   return (
     <>
@@ -78,14 +72,6 @@ export function App() {
           />
         ))}
         <button onClick={addNewConversation}>Add New Conversation</button>
-        <div>
-          Auto pick from conversations
-          <input
-            type="checkbox"
-            checked={autoPickFromConversations}
-            onChange={(e) => setAutoPickFromConversations(e.target.checked)}
-          />
-        </div>
         <ConversationQueue />
       </div>
     </>

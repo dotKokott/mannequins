@@ -28867,12 +28867,15 @@ function ConversationQueue() {
   const queue = useConversationStore((state) => state.lineQueue);
   const setQueue = useConversationStore((state) => state.setLineQueue);
   const currentLine = useConversationStore((state) => state.currentLine);
-  let fullQueue;
-  if (currentLine) {
-    fullQueue = [currentLine, ...queue];
-  } else {
-    fullQueue = queue;
-  }
+  const [isPlaying, setIsPlaying2] = useConversationStore((state) => [
+    state.isPlaying,
+    state.setIsPlaying
+  ]);
+  const [autoPickFromConversations, setAutoPickFromConversations] = useConversationStore((state) => [
+    state.autoPickFromConversations,
+    state.setAutoPickFromConversations
+  ]);
+  const fullQueue = [currentLine, ...queue].filter(Boolean);
   const getBackgroundColor = (line) => {
     if (line === currentLine) {
       return "green";
@@ -28882,9 +28885,43 @@ function ConversationQueue() {
   };
   return jsx_dev_runtime4.jsxDEV("div", {
     children: [
-      jsx_dev_runtime4.jsxDEV("h3", {
-        children: "Conversation Queue"
-      }, undefined, false, undefined, this),
+      jsx_dev_runtime4.jsxDEV("div", {
+        style: {
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: "10px"
+        },
+        children: [
+          jsx_dev_runtime4.jsxDEV("h3", {
+            children: "Conversation Queue"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime4.jsxDEV("button", {
+            onClick: () => {
+              setQueue([]);
+            },
+            children: "Clear Queue"
+          }, undefined, false, undefined, this),
+          !isPlaying && jsx_dev_runtime4.jsxDEV("button", {
+            onClick: () => setIsPlaying2(true),
+            children: "Play"
+          }, undefined, false, undefined, this),
+          isPlaying && jsx_dev_runtime4.jsxDEV("button", {
+            onClick: () => setIsPlaying2(false),
+            children: "Pause"
+          }, undefined, false, undefined, this),
+          jsx_dev_runtime4.jsxDEV("div", {
+            children: [
+              "Auto pick from conversations",
+              jsx_dev_runtime4.jsxDEV("input", {
+                type: "checkbox",
+                checked: autoPickFromConversations,
+                onChange: (e) => setAutoPickFromConversations(e.target.checked)
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this)
+        ]
+      }, undefined, true, undefined, this),
       jsx_dev_runtime4.jsxDEV("div", {
         style: {
           display: "flex",
@@ -28892,30 +28929,22 @@ function ConversationQueue() {
           flexDirection: "column",
           flexWrap: "wrap"
         },
-        children: [
-          jsx_dev_runtime4.jsxDEV("button", {
-            onClick: () => {
-              setQueue([]);
-            },
-            children: "Clear Queue"
-          }, undefined, false, undefined, this),
-          fullQueue.map((line, index) => jsx_dev_runtime4.jsxDEV("div", {
-            style: {
-              border: "1px solid black",
-              padding: "10px",
-              backgroundColor: getBackgroundColor(line)
-            },
-            children: [
-              jsx_dev_runtime4.jsxDEV("span", {
-                children: line.speaker
-              }, undefined, false, undefined, this),
-              jsx_dev_runtime4.jsxDEV("p", {
-                children: line.text
-              }, undefined, false, undefined, this)
-            ]
-          }, index, true, undefined, this))
-        ]
-      }, undefined, true, undefined, this)
+        children: fullQueue.map((line, index) => jsx_dev_runtime4.jsxDEV("div", {
+          style: {
+            border: "1px solid black",
+            padding: "10px",
+            backgroundColor: getBackgroundColor(line)
+          },
+          children: [
+            jsx_dev_runtime4.jsxDEV("span", {
+              children: line.speaker
+            }, undefined, false, undefined, this),
+            jsx_dev_runtime4.jsxDEV("p", {
+              children: line.text
+            }, undefined, false, undefined, this)
+          ]
+        }, index, true, undefined, this))
+      }, undefined, false, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
@@ -28932,10 +28961,6 @@ function App() {
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
-  const [autoPickFromConversations, setAutoPickFromConversations] = useConversationStore((state) => [
-    state.autoPickFromConversations,
-    state.setAutoPickFromConversations
-  ]);
   return jsx_dev_runtime5.jsxDEV(jsx_dev_runtime5.Fragment, {
     children: [
       jsx_dev_runtime5.jsxDEV("p", {
@@ -28973,16 +28998,6 @@ function App() {
             onClick: addNewConversation,
             children: "Add New Conversation"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime5.jsxDEV("div", {
-            children: [
-              "Auto pick from conversations",
-              jsx_dev_runtime5.jsxDEV("input", {
-                type: "checkbox",
-                checked: autoPickFromConversations,
-                onChange: (e) => setAutoPickFromConversations(e.target.checked)
-              }, undefined, false, undefined, this)
-            ]
-          }, undefined, true, undefined, this),
           jsx_dev_runtime5.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this)

@@ -7,13 +7,18 @@ export function ConversationQueue() {
   const setQueue = useConversationStore((state) => state.setLineQueue)
   const currentLine = useConversationStore((state) => state.currentLine)
 
-  let fullQueue
+  const [isPlaying, setIsPlaying] = useConversationStore((state) => [
+    state.isPlaying,
+    state.setIsPlaying,
+  ])
 
-  if (currentLine) {
-    fullQueue = [currentLine, ...queue]
-  } else {
-    fullQueue = queue
-  }
+  const [autoPickFromConversations, setAutoPickFromConversations] =
+    useConversationStore((state) => [
+      state.autoPickFromConversations,
+      state.setAutoPickFromConversations,
+    ])
+
+  const fullQueue = [currentLine, ...queue].filter(Boolean) as Line[]
 
   const getBackgroundColor = (line: Line) => {
     if (line === currentLine) {
@@ -25,7 +30,35 @@ export function ConversationQueue() {
 
   return (
     <div>
-      <h3>Conversation Queue</h3>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: '10px',
+        }}
+      >
+        <h3>Conversation Queue</h3>
+        <button
+          onClick={() => {
+            setQueue([])
+          }}
+        >
+          Clear Queue
+        </button>
+        {!isPlaying && <button onClick={() => setIsPlaying(true)}>Play</button>}
+        {isPlaying && (
+          <button onClick={() => setIsPlaying(false)}>Pause</button>
+        )}
+        <div>
+          Auto pick from conversations
+          <input
+            type="checkbox"
+            checked={autoPickFromConversations}
+            onChange={(e) => setAutoPickFromConversations(e.target.checked)}
+          />
+        </div>
+      </div>
       <div
         style={{
           display: 'flex',
@@ -34,13 +67,6 @@ export function ConversationQueue() {
           flexWrap: 'wrap',
         }}
       >
-        <button
-          onClick={() => {
-            setQueue([])
-          }}
-        >
-          Clear Queue
-        </button>
         {fullQueue.map((line, index) => (
           <div
             key={index}
@@ -60,12 +86,6 @@ export function ConversationQueue() {
 }
 
 export function ConversationPlayer() {
-  const queue = useConversationStore((state) => state.lineQueue)
-  const [isPlaying, setIsPlaying] = useConversationStore((state) => [
-    state.isPlaying,
-    state.setIsPlaying,
-  ])
-
   const play = () => {
     setIsPlaying(true)
   }
@@ -76,9 +96,7 @@ export function ConversationPlayer() {
 
   return (
     <div>
-      <button onClick={play}>Play</button>
-      <button onClick={pause}>Pause</button>
-      <ConversationQueue />
+      <h3>Conversation Player</h3>
     </div>
   )
 }
