@@ -252,6 +252,7 @@ const useConversationStore = create<ConversationStore>()(
             get().autoPickFromConversations &&
             get().conversations.length > 0
           ) {
+            API.storeCache()
             console.log('No lines queued. Picking randomly conversations...')
             const conversation =
               get().conversations[
@@ -264,6 +265,7 @@ const useConversationStore = create<ConversationStore>()(
           }
 
           if (get().lineQueue.length === 0 || !get().isPlaying) {
+            API.storeCache()
             console.log('No lines queued or paused. Waiting...')
 
             set((state) => {

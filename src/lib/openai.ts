@@ -12,10 +12,36 @@ export const voiceOptions = [
 ] as const
 export type Voice = (typeof voiceOptions)[number]
 
+const dbName = 'BufferCacheDB'
+const storeName = 'buffers'
+
+// Open the IndexedDB
+function openDB(): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(dbName, 1)
+
+    request.onupgradeneeded = (event) => {
+      const db = request.result
+      if (!db.objectStoreNames.contains(storeName)) {
+        db.createObjectStore(storeName)
+      }
+    }
+
+    request.onsuccess = () => {
+      resolve(request.result)
+    }
+
+    request.onerror = () => {
+      reject(request.error)
+    }
+  })
+}
+
 export class API {
   // cache for audio buffers
   // it is a map of [voice + text, buffer]
-  static bufferCache: Map<string, ArrayBuffer> = this.getCache()
+  static bufferCache = new Map<string, ArrayBufferLike>()
+  static bufferChanged = false
 
   static async getOrCreateBuffer(voice: Voice, text: string) {
     const key = `${voice}+${text}`
@@ -39,18 +65,71 @@ export class API {
 
     const buffer = await response.arrayBuffer()
     API.bufferCache.set(`${voice}+${text}`, buffer)
+    API.bufferChanged = true
 
     return buffer
   }
 
-  static async storeCache() {
-    localStorage.setItem('bufferCache', JSON.stringify([...API.bufferCache]))
+  static async storeCache(): Promise<void> {
+    if (!API.bufferChanged) {
+      return
+    }
+
+    const db = await openDB()
+
+    const serializedMap = Array.from(this.bufferCache.entries()).map(
+      ([key, buffer]) => ({
+        key,
+        buffer: buffer, // Ensure we clone the buffer properly
+      }),
+    )
+
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], 'readwrite')
+      const store = transaction.objectStore(storeName)
+      const request = store.put(serializedMap, 'bufferCache')
+
+      request.onsuccess = () => {
+        resolve()
+      }
+
+      request.onerror = () => {
+        reject(request.error)
+      }
+
+      transaction.oncomplete = () => {
+        db.close()
+      }
+    })
   }
 
-  static getCache() {
-    const cache = localStorage.getItem('bufferCache')
+  static async loadFromCache(): Promise<Map<string, ArrayBuffer>> {
+    const db = await openDB()
 
-    return cache ? new Map(JSON.parse(cache)) : new Map()
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], 'readonly')
+      const store = transaction.objectStore(storeName)
+      const request = store.get('bufferCache')
+
+      request.onsuccess = () => {
+        const result = request.result || []
+        const bufferCache = new Map<string, ArrayBuffer>(
+          result.map((entry: { key: string; buffer: ArrayBuffer }) => [
+            entry.key,
+            entry.buffer,
+          ]),
+        )
+        resolve(bufferCache)
+      }
+
+      request.onerror = () => {
+        reject(request.error)
+      }
+
+      transaction.oncomplete = () => {
+        db.close()
+      }
+    })
   }
 
   private static openaiInstance = new OpenAI({
@@ -133,3 +212,5 @@ export class API {
     return stream.body
   }
 }
+
+API.bufferCache = await API.loadFromCache()

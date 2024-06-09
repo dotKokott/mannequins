@@ -27547,6 +27547,23 @@ var audioAPI = new AudioAPI;
 await audioAPI.initialize();
 
 // src/lib/openai.ts
+var openDB = function() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(dbName, 1);
+    request.onupgradeneeded = (event) => {
+      const db = request.result;
+      if (!db.objectStoreNames.contains(storeName)) {
+        db.createObjectStore(storeName);
+      }
+    };
+    request.onsuccess = () => {
+      resolve(request.result);
+    };
+    request.onerror = () => {
+      reject(request.error);
+    };
+  });
+};
 var voiceOptions = [
   "alloy",
   "echo",
@@ -27555,9 +27572,12 @@ var voiceOptions = [
   "nova",
   "shimmer"
 ];
+var dbName = "BufferCacheDB";
+var storeName = "buffers";
 
 class API {
-  static bufferCache = this.getCache();
+  static bufferCache = new Map;
+  static bufferChanged = false;
   static async getOrCreateBuffer(voice, text) {
     const key = `${voice}+${text}`;
     if (API.bufferCache.has(key)) {
@@ -27576,14 +27596,54 @@ class API {
     });
     const buffer = await response.arrayBuffer();
     API.bufferCache.set(`${voice}+${text}`, buffer);
+    API.bufferChanged = true;
     return buffer;
   }
   static async storeCache() {
-    localStorage.setItem("bufferCache", JSON.stringify([...API.bufferCache]));
+    if (!API.bufferChanged) {
+      return;
+    }
+    const db = await openDB();
+    const serializedMap = Array.from(this.bufferCache.entries()).map(([key, buffer]) => ({
+      key,
+      buffer
+    }));
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], "readwrite");
+      const store = transaction.objectStore(storeName);
+      const request = store.put(serializedMap, "bufferCache");
+      request.onsuccess = () => {
+        resolve();
+      };
+      request.onerror = () => {
+        reject(request.error);
+      };
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    });
   }
-  static getCache() {
-    const cache = localStorage.getItem("bufferCache");
-    return cache ? new Map(JSON.parse(cache)) : new Map;
+  static async loadFromCache() {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], "readonly");
+      const store = transaction.objectStore(storeName);
+      const request = store.get("bufferCache");
+      request.onsuccess = () => {
+        const result = request.result || [];
+        const bufferCache = new Map(result.map((entry) => [
+          entry.key,
+          entry.buffer
+        ]));
+        resolve(bufferCache);
+      };
+      request.onerror = () => {
+        reject(request.error);
+      };
+      transaction.oncomplete = () => {
+        db.close();
+      };
+    });
   }
   static openaiInstance = new openai_default({
     apiKey: "",
@@ -27641,6 +27701,7 @@ class API {
     return stream.body;
   }
 }
+API.bufferCache = await API.loadFromCache();
 
 // src/Config.tsx
 function Config() {
@@ -31002,6 +31063,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   conversationLoop: async () => {
     while (true) {
       if (get().lineQueue.length === 0 && get().autoPickFromConversations && get().conversations.length > 0) {
+        API.storeCache();
         console.log("No lines queued. Picking randomly conversations...");
         const conversation2 = get().conversations[Math.floor(Math.random() * get().conversations.length)];
         set2((state) => {
@@ -31009,6 +31071,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
         });
       }
       if (get().lineQueue.length === 0 || !get().isPlaying) {
+        API.storeCache();
         console.log("No lines queued or paused. Waiting...");
         set2((state) => {
           state.currentLine = undefined;
