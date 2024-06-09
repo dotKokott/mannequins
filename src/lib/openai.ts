@@ -198,7 +198,12 @@ export class API {
     const buffer = await this.getOrCreateBuffer(config.voice, text)
 
     // the slice is needed because the buffer is a stream and we need to copy it
-    await audioAPI.play(buffer.slice(0), config.deviceId, config.volume)
+    await audioAPI.play(
+      buffer.slice(0),
+      config.deviceId,
+      config.volume,
+      config.pan,
+    )
   }
 
   static async sayStream(text: string, voice: Voice = 'alloy') {

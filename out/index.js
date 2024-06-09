@@ -27512,7 +27512,7 @@ class AudioAPI {
     });
     return audioDevices;
   }
-  async play(buffer, where = "default", volume = 1) {
+  async play(buffer, where = "default", volume = 1, pan = 0) {
     if (!this.contexts[where]) {
       console.error(`No audio context for device ${where}. Using default.`);
       where = "default";
@@ -27525,9 +27525,12 @@ class AudioAPI {
     }
     this.sources[where] = context.createBufferSource();
     this.sources[where].buffer = audioBuffer;
+    const panNode = context.createStereoPanner();
+    panNode.pan.value = pan;
+    this.sources[where].connect(panNode);
     const gainNode = context.createGain();
     gainNode.gain.value = volume;
-    this.sources[where].connect(gainNode);
+    panNode.connect(gainNode);
     gainNode.connect(context.destination);
     this.sources[where].start(0);
     return new Promise((resolve) => {
@@ -27689,7 +27692,7 @@ class API {
       return;
     }
     const buffer = await this.getOrCreateBuffer(config.voice, text);
-    await audioAPI.play(buffer.slice(0), config.deviceId, config.volume);
+    await audioAPI.play(buffer.slice(0), config.deviceId, config.volume, config.pan);
   }
   static async sayStream(text, voice = "alloy") {
     const stream = await this.openaiInstance.audio.speech.create({
@@ -29579,19 +29582,21 @@ function Speaker({
   const [speakerId, setSpeakerId] = import_react5.default.useState(config.deviceId);
   const [voice, setVoice] = import_react5.default.useState(config.voice);
   const [volume, setVolume] = import_react5.default.useState(config.volume);
+  const [pan, setPan] = import_react5.default.useState(config.pan);
   async function say() {
     await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, {
       voice,
       deviceId: speakerId,
-      volume
+      volume,
+      pan
     });
   }
   async function copyToClipboard() {
     await navigator.clipboard.writeText(handle);
   }
   import_react5.default.useEffect(() => {
-    onChange({ deviceId: speakerId, voice, volume });
-  }, [speakerId, voice, volume]);
+    onChange({ deviceId: speakerId, voice, volume, pan });
+  }, [speakerId, voice, volume, pan]);
   import_react5.default.useEffect(() => {
     midi_default.addNoteOnListener((note, velocity) => {
       if (note === index + 36) {
@@ -29657,15 +29662,38 @@ function Speaker({
           }, undefined, false, undefined, this),
           jsxDEV2("div", {
             css: flexItem,
-            children: jsxDEV2("input", {
-              type: "range",
-              value: volume,
-              onChange: (e) => setVolume(parseFloat(e.target.value)),
-              min: 0,
-              max: 2,
-              step: 0.01
-            }, undefined, false, undefined, this)
-          }, undefined, false, undefined, this),
+            children: [
+              jsxDEV2("label", {
+                htmlFor: "volume",
+                children: "Volume"
+              }, undefined, false, undefined, this),
+              jsxDEV2("input", {
+                type: "range",
+                value: volume,
+                onChange: (e) => setVolume(parseFloat(e.target.value)),
+                min: 0,
+                max: 2,
+                step: 0.01
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
+          jsxDEV2("div", {
+            css: flexItem,
+            children: [
+              jsxDEV2("label", {
+                htmlFor: "pan",
+                children: "Pan"
+              }, undefined, false, undefined, this),
+              jsxDEV2("input", {
+                type: "range",
+                value: pan,
+                onChange: (e) => setPan(parseFloat(e.target.value)),
+                min: -1,
+                max: 1,
+                step: 0.01
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
           jsxDEV2("div", {
             css: flexItem,
             children: jsxDEV2("button", {

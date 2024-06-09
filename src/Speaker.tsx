@@ -53,12 +53,10 @@ export function Speaker({
   color,
   onChange,
 }: SpeakerProps) {
-  // const [handle, updateHandle] = React.useState(handle);
   const [speakerId, setSpeakerId] = React.useState<string>(config.deviceId)
-
   const [voice, setVoice] = React.useState<Voice>(config.voice)
-
   const [volume, setVolume] = React.useState<number>(config.volume)
+  const [pan, setPan] = React.useState<number>(config.pan)
 
   async function say() {
     await API.say(
@@ -67,6 +65,7 @@ export function Speaker({
         voice,
         deviceId: speakerId,
         volume,
+        pan,
       },
     )
   }
@@ -78,8 +77,8 @@ export function Speaker({
   }
 
   React.useEffect(() => {
-    onChange({ deviceId: speakerId, voice, volume })
-  }, [speakerId, voice, volume])
+    onChange({ deviceId: speakerId, voice, volume, pan })
+  }, [speakerId, voice, volume, pan])
 
   React.useEffect(() => {
     midiAPI.addNoteOnListener((note, velocity) => {
@@ -150,12 +149,25 @@ export function Speaker({
         </div>
 
         <div css={flexItem}>
+          <label htmlFor="volume">Volume</label>
           <input
             type="range"
             value={volume}
             onChange={(e) => setVolume(parseFloat(e.target.value))}
             min={0}
             max={2}
+            step={0.01}
+          />
+        </div>
+
+        <div css={flexItem}>
+          <label htmlFor="pan">Pan</label>
+          <input
+            type="range"
+            value={pan}
+            onChange={(e) => setPan(parseFloat(e.target.value))}
+            min={-1}
+            max={1}
             step={0.01}
           />
         </div>

@@ -38,6 +38,7 @@ class AudioAPI {
     buffer: ArrayBuffer,
     where: string = 'default',
     volume = 1,
+    pan = 0,
   ) {
     if (!this.contexts[where]) {
       console.error(`No audio context for device ${where}. Using default.`)
@@ -57,9 +58,14 @@ class AudioAPI {
     this.sources[where].buffer = audioBuffer
     // this.sources[where].connect(context.destination)
 
+    const panNode = context.createStereoPanner()
+    panNode.pan.value = pan
+    this.sources[where].connect(panNode)
+
     const gainNode = context.createGain()
     gainNode.gain.value = volume
-    this.sources[where].connect(gainNode)
+
+    panNode.connect(gainNode)
     gainNode.connect(context.destination)
 
     this.sources[where].start(0)
