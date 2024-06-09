@@ -291,11 +291,11 @@ const useConversationStore = create<ConversationStore>()(
           })
 
           console.log(`Saying: ${text} as ${speaker}`)
-          const audio = await API.say(text, config.voice)
-          if (!audio) continue
+          await API.say(text, config)
+          // if (!audio) continue
 
-          console.log(`Playing audio on ${config.deviceId}`)
-          await audioAPI.play(audio, config.deviceId, config.volume)
+          // console.log(`Playing audio on ${config.deviceId}`)
+          // await audioAPI.play(audio, config.deviceId, config.volume)
         }
       },
     })),

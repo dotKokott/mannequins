@@ -27486,6 +27486,66 @@ OpenAI.UnprocessableEntityError = UnprocessableEntityError;
 })(OpenAI || (OpenAI = {}));
 var openai_default = OpenAI;
 
+// src/lib/audio.ts
+class AudioAPI {
+  outputDevices = [];
+  contexts = {};
+  sources = {};
+  async initialize() {
+    this.outputDevices = await AudioAPI.enumerateDevices();
+    console.log(this.outputDevices);
+    this.contexts = this.outputDevices.reduce((acc, device) => {
+      const context = new AudioContext({
+        sinkId: device.deviceId !== "default" ? device.deviceId : undefined
+      });
+      acc[device.deviceId] = context;
+      return acc;
+    }, {});
+  }
+  static async enumerateDevices() {
+    await navigator.mediaDevices.getUserMedia({
+      audio: true
+    });
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const audioDevices = devices.filter((device) => {
+      return device.kind === "audiooutput";
+    });
+    return audioDevices;
+  }
+  async play(buffer, where = "default", volume = 1) {
+    if (!this.contexts[where]) {
+      console.error(`No audio context for device ${where}. Using default.`);
+      where = "default";
+    }
+    const context = this.contexts[where];
+    const audioBuffer = await context.decodeAudioData(buffer);
+    if (this.sources[where]) {
+      this.sources[where].stop();
+      this.sources[where].disconnect();
+    }
+    this.sources[where] = context.createBufferSource();
+    this.sources[where].buffer = audioBuffer;
+    const gainNode = context.createGain();
+    gainNode.gain.value = volume;
+    this.sources[where].connect(gainNode);
+    gainNode.connect(context.destination);
+    this.sources[where].start(0);
+    return new Promise((resolve) => {
+      this.sources[where].onended = () => {
+        resolve();
+      };
+    });
+  }
+  async stop(where = "default") {
+    if (!this.sources[where]) {
+      return;
+    }
+    this.sources[where].stop();
+  }
+}
+var audioAPI = new AudioAPI;
+await audioAPI.initialize();
+
 // src/lib/openai.ts
 var voiceOptions = [
   "alloy",
@@ -27526,14 +27586,29 @@ class API {
     });
     return stream;
   }
-  static async say(text, voice = "alloy") {
+  static async say(text, config) {
+    const parts = text.split(/{(\d+)s}(.*)/);
+    if (parts.length > 1) {
+      console.log(parts);
+      const [firstPart, waitTime, secondPart] = parts;
+      console.log(`Found wait time: ${parts[1]}`);
+      await this.say(firstPart, config);
+      await new Promise((resolve) => setTimeout(resolve, parseInt(waitTime) * 1000));
+      await this.say(secondPart, config);
+      return;
+    }
+    if (text.length == 0) {
+      return;
+    }
+    console.log(`Saying: ${text} as ${config.voice}`);
     const response = await this.openaiInstance.audio.speech.create({
       model: this.ttsModel,
-      voice,
+      voice: config.voice,
       input: text,
       response_format: "opus"
     });
-    return response.arrayBuffer();
+    const buffer = await response.arrayBuffer();
+    await audioAPI.play(buffer, config.deviceId, config.volume);
   }
   static async sayStream(text, voice = "alloy") {
     const stream = await this.openaiInstance.audio.speech.create({
@@ -29005,66 +29080,6 @@ function Conversation({
 // src/Speaker.tsx
 var import_react5 = __toESM(require_react(), 1);
 
-// src/lib/audio.ts
-class AudioAPI {
-  outputDevices = [];
-  contexts = {};
-  sources = {};
-  async initialize() {
-    this.outputDevices = await AudioAPI.enumerateDevices();
-    console.log(this.outputDevices);
-    this.contexts = this.outputDevices.reduce((acc, device) => {
-      const context = new AudioContext({
-        sinkId: device.deviceId !== "default" ? device.deviceId : undefined
-      });
-      acc[device.deviceId] = context;
-      return acc;
-    }, {});
-  }
-  static async enumerateDevices() {
-    await navigator.mediaDevices.getUserMedia({
-      audio: true
-    });
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const audioDevices = devices.filter((device) => {
-      return device.kind === "audiooutput";
-    });
-    return audioDevices;
-  }
-  async play(buffer, where = "default", volume = 1) {
-    if (!this.contexts[where]) {
-      console.error(`No audio context for device ${where}. Using default.`);
-      where = "default";
-    }
-    const context = this.contexts[where];
-    const audioBuffer = await context.decodeAudioData(buffer);
-    if (this.sources[where]) {
-      this.sources[where].stop();
-      this.sources[where].disconnect();
-    }
-    this.sources[where] = context.createBufferSource();
-    this.sources[where].buffer = audioBuffer;
-    const gainNode = context.createGain();
-    gainNode.gain.value = volume;
-    this.sources[where].connect(gainNode);
-    gainNode.connect(context.destination);
-    this.sources[where].start(0);
-    return new Promise((resolve) => {
-      this.sources[where].onended = () => {
-        resolve();
-      };
-    });
-  }
-  async stop(where = "default") {
-    if (!this.sources[where]) {
-      return;
-    }
-    this.sources[where].stop();
-  }
-}
-var audioAPI = new AudioAPI;
-await audioAPI.initialize();
-
 // node_modules/@emotion/react/dist/emotion-react.browser.esm.js
 var React5 = __toESM(require_react(), 1);
 var import_hoist_non_react_statics2 = __toESM(require_hoist_non_react_statics_cjs(), 1);
@@ -29483,10 +29498,10 @@ function Speaker({
   const [voice, setVoice] = import_react5.default.useState(config.voice);
   const [volume, setVolume] = import_react5.default.useState(config.volume);
   async function say() {
-    const audio2 = await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, voice);
-    if (!audio2)
+    const audio3 = await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, voice);
+    if (!audio3)
       return;
-    await audioAPI.play(audio2, speakerId, volume);
+    await audioAPI.play(audio3, speakerId, volume);
   }
   async function copyToClipboard() {
     await navigator.clipboard.writeText(handle);
@@ -30994,11 +31009,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
         state.currentSpeakerConfig = config;
       });
       console.log(`Saying: ${text} as ${speaker}`);
-      const audio3 = await API.say(text, config.voice);
-      if (!audio3)
-        continue;
-      console.log(`Playing audio on ${config.deviceId}`);
-      await audioAPI.play(audio3, config.deviceId, config.volume);
+      await API.say(text, config);
     }
   }
 })), {
