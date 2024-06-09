@@ -27557,6 +27557,34 @@ var voiceOptions = [
 ];
 
 class API {
+  static bufferCache = this.getCache();
+  static async getOrCreateBuffer(voice, text) {
+    const key = `${voice}+${text}`;
+    if (API.bufferCache.has(key)) {
+      console.log("Cache hit");
+      return API.bufferCache.get(key);
+    }
+    console.log("Cache miss");
+    return await this.createBuffer(voice, text);
+  }
+  static async createBuffer(voice, text) {
+    const response = await this.openaiInstance.audio.speech.create({
+      model: "tts-1",
+      voice,
+      input: text,
+      response_format: "opus"
+    });
+    const buffer = await response.arrayBuffer();
+    API.bufferCache.set(`${voice}+${text}`, buffer);
+    return buffer;
+  }
+  static async storeCache() {
+    localStorage.setItem("bufferCache", JSON.stringify([...API.bufferCache]));
+  }
+  static getCache() {
+    const cache = localStorage.getItem("bufferCache");
+    return cache ? new Map(JSON.parse(cache)) : new Map;
+  }
   static openaiInstance = new openai_default({
     apiKey: "",
     dangerouslyAllowBrowser: true
@@ -27600,15 +27628,8 @@ class API {
     if (text.length == 0) {
       return;
     }
-    console.log(`Saying: ${text} as ${config.voice}`);
-    const response = await this.openaiInstance.audio.speech.create({
-      model: this.ttsModel,
-      voice: config.voice,
-      input: text,
-      response_format: "opus"
-    });
-    const buffer = await response.arrayBuffer();
-    await audioAPI.play(buffer, config.deviceId, config.volume);
+    const buffer = await this.getOrCreateBuffer(config.voice, text);
+    await audioAPI.play(buffer.slice(0), config.deviceId, config.volume);
   }
   static async sayStream(text, voice = "alloy") {
     const stream = await this.openaiInstance.audio.speech.create({

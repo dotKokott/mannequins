@@ -13,6 +13,46 @@ export const voiceOptions = [
 export type Voice = (typeof voiceOptions)[number]
 
 export class API {
+  // cache for audio buffers
+  // it is a map of [voice + text, buffer]
+  static bufferCache: Map<string, ArrayBuffer> = this.getCache()
+
+  static async getOrCreateBuffer(voice: Voice, text: string) {
+    const key = `${voice}+${text}`
+
+    if (API.bufferCache.has(key)) {
+      console.log('Cache hit')
+      return API.bufferCache.get(key) as ArrayBuffer
+    }
+
+    console.log('Cache miss')
+    return await this.createBuffer(voice, text)
+  }
+
+  static async createBuffer(voice: Voice, text: string) {
+    const response = await this.openaiInstance.audio.speech.create({
+      model: 'tts-1',
+      voice: voice,
+      input: text,
+      response_format: 'opus',
+    })
+
+    const buffer = await response.arrayBuffer()
+    API.bufferCache.set(`${voice}+${text}`, buffer)
+
+    return buffer
+  }
+
+  static async storeCache() {
+    localStorage.setItem('bufferCache', JSON.stringify([...API.bufferCache]))
+  }
+
+  static getCache() {
+    const cache = localStorage.getItem('bufferCache')
+
+    return cache ? new Map(JSON.parse(cache)) : new Map()
+  }
+
   private static openaiInstance = new OpenAI({
     apiKey: '',
     dangerouslyAllowBrowser: true,
@@ -76,17 +116,10 @@ export class API {
       return
     }
 
-    console.log(`Saying: ${text} as ${config.voice}`)
-    const response = await this.openaiInstance.audio.speech.create({
-      model: this.ttsModel,
-      voice: config.voice,
-      input: text,
-      response_format: 'opus',
-    })
+    const buffer = await this.getOrCreateBuffer(config.voice, text)
 
-    const buffer = await response.arrayBuffer()
-
-    await audioAPI.play(buffer, config.deviceId, config.volume)
+    // the slice is needed because the buffer is a stream and we need to copy it
+    await audioAPI.play(buffer.slice(0), config.deviceId, config.volume)
   }
 
   static async sayStream(text: string, voice: Voice = 'alloy') {
