@@ -23939,7 +23939,7 @@ var require_with_selector = __commonJS((exports, module) => {
 var ReactDOM = __toESM(require_client(), 1);
 
 // src/App.tsx
-var import_react7 = __toESM(require_react(), 1);
+var import_react8 = __toESM(require_react(), 1);
 
 // src/Config.tsx
 var import_react3 = __toESM(require_react(), 1);
@@ -31065,6 +31065,31 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       state.goodbyeText = text;
     });
   },
+  setPlayPauseMidi: (midiNote) => {
+    set2((state) => {
+      state.playPauseMidi = midiNote;
+    });
+  },
+  setClearQueueMidi: (midiNote) => {
+    set2((state) => {
+      state.ClearQueueMidi = midiNote;
+    });
+  },
+  setWelcomeMidi: (midiNote) => {
+    set2((state) => {
+      state.welcomeMidi = midiNote;
+    });
+  },
+  setHushMidi: (midiNote) => {
+    set2((state) => {
+      state.hushMidi = midiNote;
+    });
+  },
+  setGoodbyeMidi: (midiNote) => {
+    set2((state) => {
+      state.goodbyeMidi = midiNote;
+    });
+  },
   addNewConversation: () => {
     set2((state) => {
       state.conversations.push({
@@ -31176,30 +31201,90 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       conversations: state.conversations,
       welcomeText: state.welcomeText,
       hushText: state.hushText,
-      goodbyeText: state.goodbyeText
+      goodbyeText: state.goodbyeText,
+      playPauseMidi: state.playPauseMidi,
+      ClearQueueMidi: state.ClearQueueMidi,
+      welcomeMidi: state.welcomeMidi,
+      hushMidi: state.hushMidi,
+      goodbyeMidi: state.goodbyeMidi
     };
   }
 }));
 useConversationStore.getState().conversationLoop();
 
 // src/ConversationQueue.tsx
+var import_react7 = __toESM(require_react(), 1);
 function ConversationQueue() {
   const queue = useConversationStore((state) => state.lineQueue);
   const setQueue = useConversationStore((state) => state.setLineQueue);
   const currentLine = useConversationStore((state) => state.currentLine);
-  const [isPlaying, setIsPlaying] = useConversationStore((state) => [
-    state.isPlaying,
-    state.setIsPlaying
+  const [playPauseMidi, setPlayPauseMidi] = useConversationStore((state) => [
+    state.playPauseMidi || 0,
+    state.setPlayPauseMidi
   ]);
-  const [autoPickFromConversations, setAutoPickFromConversations] = useConversationStore((state) => [
-    state.autoPickFromConversations,
-    state.setAutoPickFromConversations
+  const [clearQueueMidi, setClearQueueMidi] = useConversationStore((state) => [
+    state.ClearQueueMidi || 0,
+    state.setClearQueueMidi
   ]);
-  const addInterruption = useConversationStore((state) => state.addInterruption);
+  const [welcomeMidi, setWelcomeMidi] = useConversationStore((state) => [
+    state.welcomeMidi || 0,
+    state.setWelcomeMidi
+  ]);
+  const [hushMidi, setHushMidi] = useConversationStore((state) => [
+    state.hushMidi || 0,
+    state.setHushMidi
+  ]);
+  const [goodbyeMidi, setGoodbyeMidi] = useConversationStore((state) => [
+    state.goodbyeMidi || 0,
+    state.setGoodbyeMidi
+  ]);
   const [welcomeText, hushText, goodbyeText] = useConversationStore((state) => [
     state.welcomeText,
     state.hushText,
     state.goodbyeText
+  ]);
+  const [isPlaying, setIsPlaying] = useConversationStore((state) => [
+    state.isPlaying,
+    state.setIsPlaying
+  ]);
+  const addInterruption = useConversationStore((state) => state.addInterruption);
+  import_react7.default.useEffect(() => {
+    const handleMidiNote = (note) => {
+      if (note === clearQueueMidi) {
+        setQueue([]);
+      }
+      if (note === playPauseMidi) {
+        setIsPlaying(isPlaying ? false : true);
+      }
+      if (note === welcomeMidi) {
+        addInterruption([{ speaker: "", text: welcomeText }]);
+      }
+      if (note === hushMidi) {
+        addInterruption([{ speaker: "", text: hushText }]);
+      }
+      if (note === goodbyeMidi) {
+        addInterruption([{ speaker: "", text: goodbyeText }]);
+      }
+    };
+    midi_default.addNoteOnListener(handleMidiNote);
+    return () => {
+      midi_default.removeNoteOnListener(handleMidiNote);
+    };
+  }, [
+    clearQueueMidi,
+    playPauseMidi,
+    welcomeMidi,
+    hushMidi,
+    goodbyeMidi,
+    welcomeText,
+    hushText,
+    goodbyeText,
+    isPlaying,
+    setQueue
+  ]);
+  const [autoPickFromConversations, setAutoPickFromConversations] = useConversationStore((state) => [
+    state.autoPickFromConversations,
+    state.setAutoPickFromConversations
   ]);
   const fullQueue = [currentLine, ...queue].filter(Boolean);
   const getBackgroundColor = (line2) => {
@@ -31260,6 +31345,55 @@ function ConversationQueue() {
           jsxDEV2("button", {
             onClick: () => addInterruption([{ speaker: "", text: goodbyeText }]),
             children: "Goodbye"
+          }, undefined, false, undefined, this)
+        ]
+      }, undefined, true, undefined, this),
+      jsxDEV2("div", {
+        children: [
+          jsxDEV2("label", {
+            children: "Play/Pause MIDI note"
+          }, undefined, false, undefined, this),
+          jsxDEV2("input", {
+            style: { width: "50px" },
+            type: "number",
+            value: playPauseMidi,
+            onChange: (e) => setPlayPauseMidi(parseInt(e.target.value))
+          }, undefined, false, undefined, this),
+          jsxDEV2("label", {
+            children: "Clear Queue MIDI note"
+          }, undefined, false, undefined, this),
+          jsxDEV2("input", {
+            style: { width: "50px" },
+            type: "number",
+            value: clearQueueMidi,
+            onChange: (e) => setClearQueueMidi(parseInt(e.target.value))
+          }, undefined, false, undefined, this),
+          jsxDEV2("label", {
+            children: "Welcome MIDI note"
+          }, undefined, false, undefined, this),
+          jsxDEV2("input", {
+            style: { width: "50px" },
+            type: "number",
+            value: welcomeMidi,
+            onChange: (e) => setWelcomeMidi(parseInt(e.target.value))
+          }, undefined, false, undefined, this),
+          jsxDEV2("label", {
+            children: "Hush MIDI note"
+          }, undefined, false, undefined, this),
+          jsxDEV2("input", {
+            style: { width: "50px" },
+            type: "number",
+            value: hushMidi,
+            onChange: (e) => setHushMidi(parseInt(e.target.value))
+          }, undefined, false, undefined, this),
+          jsxDEV2("label", {
+            children: "Goodbye MIDI note"
+          }, undefined, false, undefined, this),
+          jsxDEV2("input", {
+            style: { width: "50px" },
+            type: "number",
+            value: goodbyeMidi,
+            onChange: (e) => setGoodbyeMidi(parseInt(e.target.value))
           }, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this),
@@ -31372,8 +31506,8 @@ var green = "rgb(71, 158, 80)";
 
 // src/App.tsx
 function App() {
-  const [lastMidiNote, setLastMidiNote] = import_react7.default.useState(null);
-  import_react7.default.useEffect(() => {
+  const [lastMidiNote, setLastMidiNote] = import_react8.default.useState(null);
+  import_react8.default.useEffect(() => {
     const handleMidiNote = (note) => {
       console.log("MIDI Note:", note);
       setLastMidiNote(note);

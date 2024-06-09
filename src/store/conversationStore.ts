@@ -71,9 +71,21 @@ interface ConversationStore {
   hushText: string
   goodbyeText: string
 
+  playPauseMidi?: number
+  ClearQueueMidi?: number
+  welcomeMidi?: number
+  hushMidi?: number
+  goodbyeMidi?: number
+
   setWelcomeText: (text: string) => void
   setHushText: (text: string) => void
   setGoodbyeText: (text: string) => void
+
+  setPlayPauseMidi: (midiNote: number) => void
+  setClearQueueMidi: (midiNote: number) => void
+  setWelcomeMidi: (midiNote: number) => void
+  setHushMidi: (midiNote: number) => void
+  setGoodbyeMidi: (midiNote: number) => void
 
   addNewConversation: () => void
   removeConversation: (index: number) => void
@@ -164,6 +176,36 @@ const useConversationStore = create<ConversationStore>()(
       setGoodbyeText: (text: string) => {
         set((state) => {
           state.goodbyeText = text
+        })
+      },
+
+      setPlayPauseMidi: (midiNote: number) => {
+        set((state) => {
+          state.playPauseMidi = midiNote
+        })
+      },
+
+      setClearQueueMidi: (midiNote: number) => {
+        set((state) => {
+          state.ClearQueueMidi = midiNote
+        })
+      },
+
+      setWelcomeMidi: (midiNote: number) => {
+        set((state) => {
+          state.welcomeMidi = midiNote
+        })
+      },
+
+      setHushMidi: (midiNote: number) => {
+        set((state) => {
+          state.hushMidi = midiNote
+        })
+      },
+
+      setGoodbyeMidi: (midiNote: number) => {
+        set((state) => {
+          state.goodbyeMidi = midiNote
         })
       },
 
@@ -322,6 +364,12 @@ const useConversationStore = create<ConversationStore>()(
           welcomeText: state.welcomeText,
           hushText: state.hushText,
           goodbyeText: state.goodbyeText,
+
+          playPauseMidi: state.playPauseMidi,
+          ClearQueueMidi: state.ClearQueueMidi,
+          welcomeMidi: state.welcomeMidi,
+          hushMidi: state.hushMidi,
+          goodbyeMidi: state.goodbyeMidi,
         }
       },
     },

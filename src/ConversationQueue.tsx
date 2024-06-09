@@ -1,15 +1,90 @@
 import React from 'react'
 import type { Line } from './types'
 import { useConversationStore } from './store/conversationStore'
+import midiAPI from './lib/midi'
 
 export function ConversationQueue() {
   const queue = useConversationStore((state) => state.lineQueue)
   const setQueue = useConversationStore((state) => state.setLineQueue)
   const currentLine = useConversationStore((state) => state.currentLine)
 
+  const [playPauseMidi, setPlayPauseMidi] = useConversationStore((state) => [
+    state.playPauseMidi || 0,
+    state.setPlayPauseMidi,
+  ])
+
+  const [clearQueueMidi, setClearQueueMidi] = useConversationStore((state) => [
+    state.ClearQueueMidi || 0,
+    state.setClearQueueMidi,
+  ])
+
+  const [welcomeMidi, setWelcomeMidi] = useConversationStore((state) => [
+    state.welcomeMidi || 0,
+    state.setWelcomeMidi,
+  ])
+
+  const [hushMidi, setHushMidi] = useConversationStore((state) => [
+    state.hushMidi || 0,
+    state.setHushMidi,
+  ])
+
+  const [goodbyeMidi, setGoodbyeMidi] = useConversationStore((state) => [
+    state.goodbyeMidi || 0,
+    state.setGoodbyeMidi,
+  ])
+
+  const [welcomeText, hushText, goodbyeText] = useConversationStore((state) => [
+    state.welcomeText,
+    state.hushText,
+    state.goodbyeText,
+  ])
+
   const [isPlaying, setIsPlaying] = useConversationStore((state) => [
     state.isPlaying,
     state.setIsPlaying,
+  ])
+
+  const addInterruption = useConversationStore((state) => state.addInterruption)
+
+  React.useEffect(() => {
+    const handleMidiNote = (note: number) => {
+      if (note === clearQueueMidi) {
+        setQueue([])
+      }
+
+      if (note === playPauseMidi) {
+        setIsPlaying(isPlaying ? false : true)
+      }
+
+      if (note === welcomeMidi) {
+        addInterruption([{ speaker: '', text: welcomeText }])
+      }
+
+      if (note === hushMidi) {
+        addInterruption([{ speaker: '', text: hushText }])
+      }
+
+      if (note === goodbyeMidi) {
+        addInterruption([{ speaker: '', text: goodbyeText }])
+      }
+    }
+
+    midiAPI.addNoteOnListener(handleMidiNote)
+
+    return () => {
+      midiAPI.removeNoteOnListener(handleMidiNote)
+    }
+  }, [
+    clearQueueMidi,
+    playPauseMidi,
+    welcomeMidi,
+    hushMidi,
+    goodbyeMidi,
+    welcomeText,
+    hushText,
+    goodbyeText,
+    isPlaying,
+    setQueue,
   ])
 
   const [autoPickFromConversations, setAutoPickFromConversations] =
@@ -17,14 +92,6 @@ export function ConversationQueue() {
       state.autoPickFromConversations,
       state.setAutoPickFromConversations,
     ])
-
-  const addInterruption = useConversationStore((state) => state.addInterruption)
-
-  const [welcomeText, hushText, goodbyeText] = useConversationStore((state) => [
-    state.welcomeText,
-    state.hushText,
-    state.goodbyeText,
-  ])
 
   const fullQueue = [currentLine, ...queue].filter(Boolean) as Line[]
 
@@ -87,6 +154,47 @@ export function ConversationQueue() {
         >
           Goodbye
         </button>
+      </div>
+      <div>
+        <label>Play/Pause MIDI note</label>
+        <input
+          style={{ width: '50px' }}
+          type="number"
+          value={playPauseMidi}
+          onChange={(e) => setPlayPauseMidi(parseInt(e.target.value))}
+        />
+
+        <label>Clear Queue MIDI note</label>
+        <input
+          style={{ width: '50px' }}
+          type="number"
+          value={clearQueueMidi}
+          onChange={(e) => setClearQueueMidi(parseInt(e.target.value))}
+        />
+
+        <label>Welcome MIDI note</label>
+        <input
+          style={{ width: '50px' }}
+          type="number"
+          value={welcomeMidi}
+          onChange={(e) => setWelcomeMidi(parseInt(e.target.value))}
+        />
+
+        <label>Hush MIDI note</label>
+        <input
+          style={{ width: '50px' }}
+          type="number"
+          value={hushMidi}
+          onChange={(e) => setHushMidi(parseInt(e.target.value))}
+        />
+
+        <label>Goodbye MIDI note</label>
+        <input
+          style={{ width: '50px' }}
+          type="number"
+          value={goodbyeMidi}
+          onChange={(e) => setGoodbyeMidi(parseInt(e.target.value))}
+        />
       </div>
       <div
         style={{
