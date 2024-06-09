@@ -29498,10 +29498,11 @@ function Speaker({
   const [voice, setVoice] = import_react5.default.useState(config.voice);
   const [volume, setVolume] = import_react5.default.useState(config.volume);
   async function say() {
-    const audio3 = await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, voice);
-    if (!audio3)
-      return;
-    await audioAPI.play(audio3, speakerId, volume);
+    await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, {
+      voice,
+      deviceId: speakerId,
+      volume
+    });
   }
   async function copyToClipboard() {
     await navigator.clipboard.writeText(handle);

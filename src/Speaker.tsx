@@ -61,13 +61,14 @@ export function Speaker({
   const [volume, setVolume] = React.useState<number>(config.volume)
 
   async function say() {
-    const audio = await API.say(
+    await API.say(
       `Hi! My name is ${handle.replace('[', '').replace(']', '')}`,
-      voice,
+      {
+        voice,
+        deviceId: speakerId,
+        volume,
+      },
     )
-    if (!audio) return
-
-    await audioAPI.play(audio, speakerId, volume)
   }
 
   async function copyToClipboard() {
