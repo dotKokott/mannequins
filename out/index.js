@@ -23471,15 +23471,259 @@ var require_jsx_dev_runtime = __commonJS((exports, module) => {
   }
 });
 
+// node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js
+var require_react_is_development = __commonJS((exports) => {
+  if (true) {
+    (function() {
+      var hasSymbol = typeof Symbol === "function" && Symbol.for;
+      var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for("react.element") : 60103;
+      var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for("react.portal") : 60106;
+      var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for("react.fragment") : 60107;
+      var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for("react.strict_mode") : 60108;
+      var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for("react.profiler") : 60114;
+      var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for("react.provider") : 60109;
+      var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for("react.context") : 60110;
+      var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for("react.async_mode") : 60111;
+      var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for("react.concurrent_mode") : 60111;
+      var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for("react.forward_ref") : 60112;
+      var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for("react.suspense") : 60113;
+      var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for("react.suspense_list") : 60120;
+      var REACT_MEMO_TYPE = hasSymbol ? Symbol.for("react.memo") : 60115;
+      var REACT_LAZY_TYPE = hasSymbol ? Symbol.for("react.lazy") : 60116;
+      var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for("react.block") : 60121;
+      var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for("react.fundamental") : 60117;
+      var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for("react.responder") : 60118;
+      var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for("react.scope") : 60119;
+      function isValidElementType(type) {
+        return typeof type === "string" || typeof type === "function" || type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === "object" && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+      }
+      function typeOf(object) {
+        if (typeof object === "object" && object !== null) {
+          var $$typeof = object.$$typeof;
+          switch ($$typeof) {
+            case REACT_ELEMENT_TYPE:
+              var type = object.type;
+              switch (type) {
+                case REACT_ASYNC_MODE_TYPE:
+                case REACT_CONCURRENT_MODE_TYPE:
+                case REACT_FRAGMENT_TYPE:
+                case REACT_PROFILER_TYPE:
+                case REACT_STRICT_MODE_TYPE:
+                case REACT_SUSPENSE_TYPE:
+                  return type;
+                default:
+                  var $$typeofType = type && type.$$typeof;
+                  switch ($$typeofType) {
+                    case REACT_CONTEXT_TYPE:
+                    case REACT_FORWARD_REF_TYPE:
+                    case REACT_LAZY_TYPE:
+                    case REACT_MEMO_TYPE:
+                    case REACT_PROVIDER_TYPE:
+                      return $$typeofType;
+                    default:
+                      return $$typeof;
+                  }
+              }
+            case REACT_PORTAL_TYPE:
+              return $$typeof;
+          }
+        }
+        return;
+      }
+      var AsyncMode = REACT_ASYNC_MODE_TYPE;
+      var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+      var ContextConsumer = REACT_CONTEXT_TYPE;
+      var ContextProvider = REACT_PROVIDER_TYPE;
+      var Element = REACT_ELEMENT_TYPE;
+      var ForwardRef = REACT_FORWARD_REF_TYPE;
+      var Fragment = REACT_FRAGMENT_TYPE;
+      var Lazy = REACT_LAZY_TYPE;
+      var Memo = REACT_MEMO_TYPE;
+      var Portal = REACT_PORTAL_TYPE;
+      var Profiler = REACT_PROFILER_TYPE;
+      var StrictMode = REACT_STRICT_MODE_TYPE;
+      var Suspense = REACT_SUSPENSE_TYPE;
+      var hasWarnedAboutDeprecatedIsAsyncMode = false;
+      function isAsyncMode(object) {
+        {
+          if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+            hasWarnedAboutDeprecatedIsAsyncMode = true;
+            console["warn"]("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.");
+          }
+        }
+        return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+      }
+      function isConcurrentMode(object) {
+        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+      }
+      function isContextConsumer(object) {
+        return typeOf(object) === REACT_CONTEXT_TYPE;
+      }
+      function isContextProvider(object) {
+        return typeOf(object) === REACT_PROVIDER_TYPE;
+      }
+      function isElement(object) {
+        return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+      }
+      function isForwardRef(object) {
+        return typeOf(object) === REACT_FORWARD_REF_TYPE;
+      }
+      function isFragment(object) {
+        return typeOf(object) === REACT_FRAGMENT_TYPE;
+      }
+      function isLazy(object) {
+        return typeOf(object) === REACT_LAZY_TYPE;
+      }
+      function isMemo(object) {
+        return typeOf(object) === REACT_MEMO_TYPE;
+      }
+      function isPortal(object) {
+        return typeOf(object) === REACT_PORTAL_TYPE;
+      }
+      function isProfiler(object) {
+        return typeOf(object) === REACT_PROFILER_TYPE;
+      }
+      function isStrictMode(object) {
+        return typeOf(object) === REACT_STRICT_MODE_TYPE;
+      }
+      function isSuspense(object) {
+        return typeOf(object) === REACT_SUSPENSE_TYPE;
+      }
+      exports.AsyncMode = AsyncMode;
+      exports.ConcurrentMode = ConcurrentMode;
+      exports.ContextConsumer = ContextConsumer;
+      exports.ContextProvider = ContextProvider;
+      exports.Element = Element;
+      exports.ForwardRef = ForwardRef;
+      exports.Fragment = Fragment;
+      exports.Lazy = Lazy;
+      exports.Memo = Memo;
+      exports.Portal = Portal;
+      exports.Profiler = Profiler;
+      exports.StrictMode = StrictMode;
+      exports.Suspense = Suspense;
+      exports.isAsyncMode = isAsyncMode;
+      exports.isConcurrentMode = isConcurrentMode;
+      exports.isContextConsumer = isContextConsumer;
+      exports.isContextProvider = isContextProvider;
+      exports.isElement = isElement;
+      exports.isForwardRef = isForwardRef;
+      exports.isFragment = isFragment;
+      exports.isLazy = isLazy;
+      exports.isMemo = isMemo;
+      exports.isPortal = isPortal;
+      exports.isProfiler = isProfiler;
+      exports.isStrictMode = isStrictMode;
+      exports.isSuspense = isSuspense;
+      exports.isValidElementType = isValidElementType;
+      exports.typeOf = typeOf;
+    })();
+  }
+});
+
+// node_modules/hoist-non-react-statics/node_modules/react-is/index.js
+var require_react_is = __commonJS((exports, module) => {
+  var react_is_development = __toESM(require_react_is_development(), 1);
+  if (false) {
+  } else {
+    module.exports = react_is_development;
+  }
+});
+
+// node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js
+var require_hoist_non_react_statics_cjs = __commonJS((exports, module) => {
+  var reactIs = __toESM(require_react_is(), 1);
+  var getStatics = function(component) {
+    if (reactIs.isMemo(component)) {
+      return MEMO_STATICS;
+    }
+    return TYPE_STATICS[component["$$typeof"]] || REACT_STATICS;
+  };
+  var hoistNonReactStatics = function(targetComponent, sourceComponent, blacklist) {
+    if (typeof sourceComponent !== "string") {
+      if (objectPrototype) {
+        var inheritedComponent = getPrototypeOf(sourceComponent);
+        if (inheritedComponent && inheritedComponent !== objectPrototype) {
+          hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+        }
+      }
+      var keys = getOwnPropertyNames(sourceComponent);
+      if (getOwnPropertySymbols) {
+        keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+      }
+      var targetStatics = getStatics(targetComponent);
+      var sourceStatics = getStatics(sourceComponent);
+      for (var i = 0;i < keys.length; ++i) {
+        var key = keys[i];
+        if (!KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
+          var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+          try {
+            defineProperty(targetComponent, key, descriptor);
+          } catch (e) {
+          }
+        }
+      }
+    }
+    return targetComponent;
+  };
+  var REACT_STATICS = {
+    childContextTypes: true,
+    contextType: true,
+    contextTypes: true,
+    defaultProps: true,
+    displayName: true,
+    getDefaultProps: true,
+    getDerivedStateFromError: true,
+    getDerivedStateFromProps: true,
+    mixins: true,
+    propTypes: true,
+    type: true
+  };
+  var KNOWN_STATICS = {
+    name: true,
+    length: true,
+    prototype: true,
+    caller: true,
+    callee: true,
+    arguments: true,
+    arity: true
+  };
+  var FORWARD_REF_STATICS = {
+    $$typeof: true,
+    render: true,
+    defaultProps: true,
+    displayName: true,
+    propTypes: true
+  };
+  var MEMO_STATICS = {
+    $$typeof: true,
+    compare: true,
+    defaultProps: true,
+    displayName: true,
+    propTypes: true,
+    type: true
+  };
+  var TYPE_STATICS = {};
+  TYPE_STATICS[reactIs.ForwardRef] = FORWARD_REF_STATICS;
+  TYPE_STATICS[reactIs.Memo] = MEMO_STATICS;
+  var defineProperty = Object.defineProperty;
+  var getOwnPropertyNames = Object.getOwnPropertyNames;
+  var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+  var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+  var getPrototypeOf = Object.getPrototypeOf;
+  var objectPrototype = Object.prototype;
+  module.exports = hoistNonReactStatics;
+});
+
 // node_modules/use-sync-external-store/cjs/use-sync-external-store-shim.development.js
 var require_use_sync_external_store_shim_development = __commonJS((exports) => {
-  var React4 = __toESM(require_react(), 1);
+  var React7 = __toESM(require_react(), 1);
   if (true) {
     (function() {
       if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
         __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error);
       }
-      var ReactSharedInternals = React4.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+      var ReactSharedInternals = React7.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
       function error9(format) {
         {
           {
@@ -23509,13 +23753,13 @@ var require_use_sync_external_store_shim_development = __commonJS((exports) => {
         return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y;
       }
       var objectIs = typeof Object.is === "function" ? Object.is : is;
-      var useState2 = React4.useState, useEffect2 = React4.useEffect, useLayoutEffect2 = React4.useLayoutEffect, useDebugValue2 = React4.useDebugValue;
+      var useState2 = React7.useState, useEffect2 = React7.useEffect, useLayoutEffect3 = React7.useLayoutEffect, useDebugValue2 = React7.useDebugValue;
       var didWarnOld18Alpha = false;
       var didWarnUncachedGetSnapshot = false;
       function useSyncExternalStore2(subscribe, getSnapshot, getServerSnapshot) {
         {
           if (!didWarnOld18Alpha) {
-            if (React4.startTransition !== undefined) {
+            if (React7.startTransition !== undefined) {
               didWarnOld18Alpha = true;
               error9("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
             }
@@ -23537,7 +23781,7 @@ var require_use_sync_external_store_shim_development = __commonJS((exports) => {
             getSnapshot
           }
         }), inst = _useState[0].inst, forceUpdate = _useState[1];
-        useLayoutEffect2(function() {
+        useLayoutEffect3(function() {
           inst.value = value;
           inst.getSnapshot = getSnapshot;
           if (checkIfSnapshotChanged(inst)) {
@@ -23580,7 +23824,7 @@ var require_use_sync_external_store_shim_development = __commonJS((exports) => {
       var canUseDOM = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
       var isServerEnvironment = !canUseDOM;
       var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore2;
-      var useSyncExternalStore$2 = React4.useSyncExternalStore !== undefined ? React4.useSyncExternalStore : shim;
+      var useSyncExternalStore$2 = React7.useSyncExternalStore !== undefined ? React7.useSyncExternalStore : shim;
       exports.useSyncExternalStore = useSyncExternalStore$2;
       if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
         __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error);
@@ -23599,7 +23843,7 @@ var require_shim = __commonJS((exports, module) => {
 
 // node_modules/use-sync-external-store/cjs/use-sync-external-store-shim/with-selector.development.js
 var require_with_selector_development = __commonJS((exports) => {
-  var React4 = __toESM(require_react(), 1);
+  var React7 = __toESM(require_react(), 1);
   if (true) {
     (function() {
       if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
@@ -23611,9 +23855,9 @@ var require_with_selector_development = __commonJS((exports) => {
       }
       var objectIs = typeof Object.is === "function" ? Object.is : is;
       var useSyncExternalStore = shim.useSyncExternalStore;
-      var useRef2 = React4.useRef, useEffect2 = React4.useEffect, useMemo2 = React4.useMemo, useDebugValue2 = React4.useDebugValue;
+      var useRef3 = React7.useRef, useEffect2 = React7.useEffect, useMemo2 = React7.useMemo, useDebugValue2 = React7.useDebugValue;
       function useSyncExternalStoreWithSelector(subscribe, getSnapshot, getServerSnapshot, selector, isEqual) {
-        var instRef = useRef2(null);
+        var instRef = useRef3(null);
         var inst;
         if (instRef.current === null) {
           inst = {
@@ -23695,7 +23939,7 @@ var require_with_selector = __commonJS((exports, module) => {
 var ReactDOM = __toESM(require_client(), 1);
 
 // src/Config.tsx
-var import_react = __toESM(require_react(), 1);
+var import_react3 = __toESM(require_react(), 1);
 
 // node_modules/openai/version.mjs
 var VERSION = "4.30.0";
@@ -27303,19 +27547,18 @@ class API {
 }
 
 // src/Config.tsx
-var jsx_dev_runtime = __toESM(require_jsx_dev_runtime(), 1);
 function Config() {
-  const [apiKey, setApiKey] = import_react.default.useState(() => localStorage.getItem("OPENAI_KEY") || "");
-  import_react.default.useEffect(() => {
+  const [apiKey, setApiKey] = import_react3.default.useState(() => localStorage.getItem("OPENAI_KEY") || "");
+  import_react3.default.useEffect(() => {
     localStorage.setItem("OPENAI_KEY", apiKey);
     API.setApiKey(apiKey);
   }, [apiKey]);
-  return jsx_dev_runtime.jsxDEV("div", {
+  return jsxDEV2("div", {
     children: [
-      jsx_dev_runtime.jsxDEV("span", {
+      jsxDEV2("span", {
         children: "API Key:"
       }, undefined, false, undefined, this),
-      jsx_dev_runtime.jsxDEV("input", {
+      jsxDEV2("input", {
         value: apiKey,
         onChange: (e) => setApiKey(e.target.value),
         placeholder: "API Key",
@@ -27325,8 +27568,1358 @@ function Config() {
   }, undefined, true, undefined, this);
 }
 
-// src/Conversation.tsx
+// node_modules/@emotion/react/jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js
+var ReactJSXRuntimeDev = __toESM(require_jsx_dev_runtime(), 1);
+
+// node_modules/@emotion/react/dist/emotion-element-43c6fea0.browser.esm.js
+var React2 = __toESM(require_react(), 1);
+var import_react = __toESM(require_react(), 1);
+
+// node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
+var sheetForTag = function(tag) {
+  if (tag.sheet) {
+    return tag.sheet;
+  }
+  for (var i = 0;i < document.styleSheets.length; i++) {
+    if (document.styleSheets[i].ownerNode === tag) {
+      return document.styleSheets[i];
+    }
+  }
+};
+var createStyleElement = function(options) {
+  var tag = document.createElement("style");
+  tag.setAttribute("data-emotion", options.key);
+  if (options.nonce !== undefined) {
+    tag.setAttribute("nonce", options.nonce);
+  }
+  tag.appendChild(document.createTextNode(""));
+  tag.setAttribute("data-s", "");
+  return tag;
+};
+var StyleSheet = function() {
+  function StyleSheet2(options) {
+    var _this = this;
+    this._insertTag = function(tag) {
+      var before;
+      if (_this.tags.length === 0) {
+        if (_this.insertionPoint) {
+          before = _this.insertionPoint.nextSibling;
+        } else if (_this.prepend) {
+          before = _this.container.firstChild;
+        } else {
+          before = _this.before;
+        }
+      } else {
+        before = _this.tags[_this.tags.length - 1].nextSibling;
+      }
+      _this.container.insertBefore(tag, before);
+      _this.tags.push(tag);
+    };
+    this.isSpeedy = options.speedy === undefined ? false : options.speedy;
+    this.tags = [];
+    this.ctr = 0;
+    this.nonce = options.nonce;
+    this.key = options.key;
+    this.container = options.container;
+    this.prepend = options.prepend;
+    this.insertionPoint = options.insertionPoint;
+    this.before = null;
+  }
+  var _proto = StyleSheet2.prototype;
+  _proto.hydrate = function hydrate(nodes) {
+    nodes.forEach(this._insertTag);
+  };
+  _proto.insert = function insert(rule) {
+    if (this.ctr % (this.isSpeedy ? 65000 : 1) === 0) {
+      this._insertTag(createStyleElement(this));
+    }
+    var tag = this.tags[this.tags.length - 1];
+    if (true) {
+      var isImportRule = rule.charCodeAt(0) === 64 && rule.charCodeAt(1) === 105;
+      if (isImportRule && this._alreadyInsertedOrderInsensitiveRule) {
+        console.error("You're attempting to insert the following rule:\n" + rule + "\n\n`@import` rules must be before all other types of rules in a stylesheet but other rules have already been inserted. Please ensure that `@import` rules are before all other rules.");
+      }
+      this._alreadyInsertedOrderInsensitiveRule = this._alreadyInsertedOrderInsensitiveRule || !isImportRule;
+    }
+    if (this.isSpeedy) {
+      var sheet = sheetForTag(tag);
+      try {
+        sheet.insertRule(rule, sheet.cssRules.length);
+      } catch (e) {
+        if (!/:(-moz-placeholder|-moz-focus-inner|-moz-focusring|-ms-input-placeholder|-moz-read-write|-moz-read-only|-ms-clear|-ms-expand|-ms-reveal){/.test(rule)) {
+          console.error("There was a problem inserting the following rule: \"" + rule + "\"", e);
+        }
+      }
+    } else {
+      tag.appendChild(document.createTextNode(rule));
+    }
+    this.ctr++;
+  };
+  _proto.flush = function flush() {
+    this.tags.forEach(function(tag) {
+      return tag.parentNode && tag.parentNode.removeChild(tag);
+    });
+    this.tags = [];
+    this.ctr = 0;
+    if (true) {
+      this._alreadyInsertedOrderInsensitiveRule = false;
+    }
+  };
+  return StyleSheet2;
+}();
+
+// node_modules/stylis/src/Enum.js
+var MS = "-ms-";
+var MOZ = "-moz-";
+var WEBKIT = "-webkit-";
+var COMMENT = "comm";
+var RULESET = "rule";
+var DECLARATION = "decl";
+var IMPORT = "@import";
+var KEYFRAMES = "@keyframes";
+var LAYER = "@layer";
+
+// node_modules/stylis/src/Utility.js
+function hash(value, length) {
+  return charat(value, 0) ^ 45 ? (((length << 2 ^ charat(value, 0)) << 2 ^ charat(value, 1)) << 2 ^ charat(value, 2)) << 2 ^ charat(value, 3) : 0;
+}
+function trim(value) {
+  return value.trim();
+}
+function match(value, pattern) {
+  return (value = pattern.exec(value)) ? value[0] : value;
+}
+function replace(value, pattern, replacement) {
+  return value.replace(pattern, replacement);
+}
+function indexof(value, search) {
+  return value.indexOf(search);
+}
+function charat(value, index) {
+  return value.charCodeAt(index) | 0;
+}
+function substr(value, begin, end) {
+  return value.slice(begin, end);
+}
+function strlen(value) {
+  return value.length;
+}
+function sizeof(value) {
+  return value.length;
+}
+function append(value, array) {
+  return array.push(value), value;
+}
+function combine(array, callback) {
+  return array.map(callback).join("");
+}
+var abs = Math.abs;
+var from = String.fromCharCode;
+var assign = Object.assign;
+
+// node_modules/stylis/src/Tokenizer.js
+function node(value, root, parent, type, props, children, length) {
+  return { value, root, parent, type, props, children, line, column, length, return: "" };
+}
+function copy(root, props) {
+  return assign(node("", null, null, "", null, null, 0), root, { length: -root.length }, props);
+}
+function char() {
+  return character;
+}
+function prev() {
+  character = position > 0 ? charat(characters, --position) : 0;
+  if (column--, character === 10)
+    column = 1, line--;
+  return character;
+}
+function next() {
+  character = position < length ? charat(characters, position++) : 0;
+  if (column++, character === 10)
+    column = 1, line++;
+  return character;
+}
+function peek() {
+  return charat(characters, position);
+}
+function caret() {
+  return position;
+}
+function slice(begin, end) {
+  return substr(characters, begin, end);
+}
+function token(type) {
+  switch (type) {
+    case 0:
+    case 9:
+    case 10:
+    case 13:
+    case 32:
+      return 5;
+    case 33:
+    case 43:
+    case 44:
+    case 47:
+    case 62:
+    case 64:
+    case 126:
+    case 59:
+    case 123:
+    case 125:
+      return 4;
+    case 58:
+      return 3;
+    case 34:
+    case 39:
+    case 40:
+    case 91:
+      return 2;
+    case 41:
+    case 93:
+      return 1;
+  }
+  return 0;
+}
+function alloc(value) {
+  return line = column = 1, length = strlen(characters = value), position = 0, [];
+}
+function dealloc(value) {
+  return characters = "", value;
+}
+function delimit(type) {
+  return trim(slice(position - 1, delimiter(type === 91 ? type + 2 : type === 40 ? type + 1 : type)));
+}
+function whitespace(type) {
+  while (character = peek())
+    if (character < 33)
+      next();
+    else
+      break;
+  return token(type) > 2 || token(character) > 3 ? "" : " ";
+}
+function escaping(index, count) {
+  while (--count && next())
+    if (character < 48 || character > 102 || character > 57 && character < 65 || character > 70 && character < 97)
+      break;
+  return slice(index, caret() + (count < 6 && peek() == 32 && next() == 32));
+}
+function delimiter(type) {
+  while (next())
+    switch (character) {
+      case type:
+        return position;
+      case 34:
+      case 39:
+        if (type !== 34 && type !== 39)
+          delimiter(character);
+        break;
+      case 40:
+        if (type === 41)
+          delimiter(type);
+        break;
+      case 92:
+        next();
+        break;
+    }
+  return position;
+}
+function commenter(type, index) {
+  while (next())
+    if (type + character === 47 + 10)
+      break;
+    else if (type + character === 42 + 42 && peek() === 47)
+      break;
+  return "/*" + slice(index, position - 1) + "*" + from(type === 47 ? type : next());
+}
+function identifier(index) {
+  while (!token(peek()))
+    next();
+  return slice(index, position);
+}
+var line = 1;
+var column = 1;
+var length = 0;
+var position = 0;
+var character = 0;
+var characters = "";
+
+// node_modules/stylis/src/Parser.js
+function compile(value) {
+  return dealloc(parse("", null, null, null, [""], value = alloc(value), 0, [0], value));
+}
+function parse(value, root, parent, rule, rules, rulesets, pseudo, points, declarations) {
+  var index = 0;
+  var offset = 0;
+  var length2 = pseudo;
+  var atrule = 0;
+  var property = 0;
+  var previous = 0;
+  var variable = 1;
+  var scanning = 1;
+  var ampersand = 1;
+  var character2 = 0;
+  var type = "";
+  var props = rules;
+  var children = rulesets;
+  var reference = rule;
+  var characters2 = type;
+  while (scanning)
+    switch (previous = character2, character2 = next()) {
+      case 40:
+        if (previous != 108 && charat(characters2, length2 - 1) == 58) {
+          if (indexof(characters2 += replace(delimit(character2), "&", "&\f"), "&\f") != -1)
+            ampersand = -1;
+          break;
+        }
+      case 34:
+      case 39:
+      case 91:
+        characters2 += delimit(character2);
+        break;
+      case 9:
+      case 10:
+      case 13:
+      case 32:
+        characters2 += whitespace(previous);
+        break;
+      case 92:
+        characters2 += escaping(caret() - 1, 7);
+        continue;
+      case 47:
+        switch (peek()) {
+          case 42:
+          case 47:
+            append(comment(commenter(next(), caret()), root, parent), declarations);
+            break;
+          default:
+            characters2 += "/";
+        }
+        break;
+      case 123 * variable:
+        points[index++] = strlen(characters2) * ampersand;
+      case 125 * variable:
+      case 59:
+      case 0:
+        switch (character2) {
+          case 0:
+          case 125:
+            scanning = 0;
+          case 59 + offset:
+            if (ampersand == -1)
+              characters2 = replace(characters2, /\f/g, "");
+            if (property > 0 && strlen(characters2) - length2)
+              append(property > 32 ? declaration(characters2 + ";", rule, parent, length2 - 1) : declaration(replace(characters2, " ", "") + ";", rule, parent, length2 - 2), declarations);
+            break;
+          case 59:
+            characters2 += ";";
+          default:
+            append(reference = ruleset(characters2, root, parent, index, offset, rules, points, type, props = [], children = [], length2), rulesets);
+            if (character2 === 123)
+              if (offset === 0)
+                parse(characters2, root, reference, reference, props, rulesets, length2, points, children);
+              else
+                switch (atrule === 99 && charat(characters2, 3) === 110 ? 100 : atrule) {
+                  case 100:
+                  case 108:
+                  case 109:
+                  case 115:
+                    parse(value, reference, reference, rule && append(ruleset(value, reference, reference, 0, 0, rules, points, type, rules, props = [], length2), children), rules, children, length2, points, rule ? props : children);
+                    break;
+                  default:
+                    parse(characters2, reference, reference, reference, [""], children, 0, points, children);
+                }
+        }
+        index = offset = property = 0, variable = ampersand = 1, type = characters2 = "", length2 = pseudo;
+        break;
+      case 58:
+        length2 = 1 + strlen(characters2), property = previous;
+      default:
+        if (variable < 1) {
+          if (character2 == 123)
+            --variable;
+          else if (character2 == 125 && variable++ == 0 && prev() == 125)
+            continue;
+        }
+        switch (characters2 += from(character2), character2 * variable) {
+          case 38:
+            ampersand = offset > 0 ? 1 : (characters2 += "\f", -1);
+            break;
+          case 44:
+            points[index++] = (strlen(characters2) - 1) * ampersand, ampersand = 1;
+            break;
+          case 64:
+            if (peek() === 45)
+              characters2 += delimit(next());
+            atrule = peek(), offset = length2 = strlen(type = characters2 += identifier(caret())), character2++;
+            break;
+          case 45:
+            if (previous === 45 && strlen(characters2) == 2)
+              variable = 0;
+        }
+    }
+  return rulesets;
+}
+function ruleset(value, root, parent, index, offset, rules, points, type, props, children, length2) {
+  var post = offset - 1;
+  var rule = offset === 0 ? rules : [""];
+  var size = sizeof(rule);
+  for (var i = 0, j = 0, k = 0;i < index; ++i)
+    for (var x = 0, y = substr(value, post + 1, post = abs(j = points[i])), z = value;x < size; ++x)
+      if (z = trim(j > 0 ? rule[x] + " " + y : replace(y, /&\f/g, rule[x])))
+        props[k++] = z;
+  return node(value, root, parent, offset === 0 ? RULESET : type, props, children, length2);
+}
+function comment(value, root, parent) {
+  return node(value, root, parent, COMMENT, from(char()), substr(value, 2, -2), 0);
+}
+function declaration(value, root, parent, length2) {
+  return node(value, root, parent, DECLARATION, substr(value, 0, length2), substr(value, length2 + 1, -1), length2);
+}
+
+// node_modules/stylis/src/Serializer.js
+function serialize(children, callback) {
+  var output = "";
+  var length2 = sizeof(children);
+  for (var i = 0;i < length2; i++)
+    output += callback(children[i], i, children, callback) || "";
+  return output;
+}
+function stringify(element, index, children, callback) {
+  switch (element.type) {
+    case LAYER:
+      if (element.children.length)
+        break;
+    case IMPORT:
+    case DECLARATION:
+      return element.return = element.return || element.value;
+    case COMMENT:
+      return "";
+    case KEYFRAMES:
+      return element.return = element.value + "{" + serialize(element.children, callback) + "}";
+    case RULESET:
+      element.value = element.props.join(",");
+  }
+  return strlen(children = serialize(element.children, callback)) ? element.return = element.value + "{" + children + "}" : "";
+}
+
+// node_modules/stylis/src/Middleware.js
+function middleware(collection) {
+  var length2 = sizeof(collection);
+  return function(element, index, children, callback) {
+    var output = "";
+    for (var i = 0;i < length2; i++)
+      output += collection[i](element, index, children, callback) || "";
+    return output;
+  };
+}
+
+// node_modules/@emotion/memoize/dist/emotion-memoize.esm.js
+var memoize = function(fn) {
+  var cache = Object.create(null);
+  return function(arg) {
+    if (cache[arg] === undefined)
+      cache[arg] = fn(arg);
+    return cache[arg];
+  };
+};
+
+// node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js
+var prefix = function(value, length2) {
+  switch (hash(value, length2)) {
+    case 5103:
+      return WEBKIT + "print-" + value + value;
+    case 5737:
+    case 4201:
+    case 3177:
+    case 3433:
+    case 1641:
+    case 4457:
+    case 2921:
+    case 5572:
+    case 6356:
+    case 5844:
+    case 3191:
+    case 6645:
+    case 3005:
+    case 6391:
+    case 5879:
+    case 5623:
+    case 6135:
+    case 4599:
+    case 4855:
+    case 4215:
+    case 6389:
+    case 5109:
+    case 5365:
+    case 5621:
+    case 3829:
+      return WEBKIT + value + value;
+    case 5349:
+    case 4246:
+    case 4810:
+    case 6968:
+    case 2756:
+      return WEBKIT + value + MOZ + value + MS + value + value;
+    case 6828:
+    case 4268:
+      return WEBKIT + value + MS + value + value;
+    case 6165:
+      return WEBKIT + value + MS + "flex-" + value + value;
+    case 5187:
+      return WEBKIT + value + replace(value, /(\w+).+(:[^]+)/, WEBKIT + "box-$1$2" + MS + "flex-$1$2") + value;
+    case 5443:
+      return WEBKIT + value + MS + "flex-item-" + replace(value, /flex-|-self/, "") + value;
+    case 4675:
+      return WEBKIT + value + MS + "flex-line-pack" + replace(value, /align-content|flex-|-self/, "") + value;
+    case 5548:
+      return WEBKIT + value + MS + replace(value, "shrink", "negative") + value;
+    case 5292:
+      return WEBKIT + value + MS + replace(value, "basis", "preferred-size") + value;
+    case 6060:
+      return WEBKIT + "box-" + replace(value, "-grow", "") + WEBKIT + value + MS + replace(value, "grow", "positive") + value;
+    case 4554:
+      return WEBKIT + replace(value, /([^-])(transform)/g, "$1" + WEBKIT + "$2") + value;
+    case 6187:
+      return replace(replace(replace(value, /(zoom-|grab)/, WEBKIT + "$1"), /(image-set)/, WEBKIT + "$1"), value, "") + value;
+    case 5495:
+    case 3959:
+      return replace(value, /(image-set\([^]*)/, WEBKIT + "$1$`$1");
+    case 4968:
+      return replace(replace(value, /(.+:)(flex-)?(.*)/, WEBKIT + "box-pack:$3" + MS + "flex-pack:$3"), /s.+-b[^;]+/, "justify") + WEBKIT + value + value;
+    case 4095:
+    case 3583:
+    case 4068:
+    case 2532:
+      return replace(value, /(.+)-inline(.+)/, WEBKIT + "$1$2") + value;
+    case 8116:
+    case 7059:
+    case 5753:
+    case 5535:
+    case 5445:
+    case 5701:
+    case 4933:
+    case 4677:
+    case 5533:
+    case 5789:
+    case 5021:
+    case 4765:
+      if (strlen(value) - 1 - length2 > 6)
+        switch (charat(value, length2 + 1)) {
+          case 109:
+            if (charat(value, length2 + 4) !== 45)
+              break;
+          case 102:
+            return replace(value, /(.+:)(.+)-([^]+)/, "$1" + WEBKIT + "$2-$3$1" + MOZ + (charat(value, length2 + 3) == 108 ? "$3" : "$2-$3")) + value;
+          case 115:
+            return ~indexof(value, "stretch") ? prefix(replace(value, "stretch", "fill-available"), length2) + value : value;
+        }
+      break;
+    case 4949:
+      if (charat(value, length2 + 1) !== 115)
+        break;
+    case 6444:
+      switch (charat(value, strlen(value) - 3 - (~indexof(value, "!important") && 10))) {
+        case 107:
+          return replace(value, ":", ":" + WEBKIT) + value;
+        case 101:
+          return replace(value, /(.+:)([^;!]+)(;|!.+)?/, "$1" + WEBKIT + (charat(value, 14) === 45 ? "inline-" : "") + "box$3$1" + WEBKIT + "$2$3$1" + MS + "$2box$3") + value;
+      }
+      break;
+    case 5936:
+      switch (charat(value, length2 + 11)) {
+        case 114:
+          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb") + value;
+        case 108:
+          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb-rl") + value;
+        case 45:
+          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "lr") + value;
+      }
+      return WEBKIT + value + MS + value + value;
+  }
+  return value;
+};
+var identifierWithPointTracking = function identifierWithPointTracking2(begin, points, index) {
+  var previous = 0;
+  var character2 = 0;
+  while (true) {
+    previous = character2;
+    character2 = peek();
+    if (previous === 38 && character2 === 12) {
+      points[index] = 1;
+    }
+    if (token(character2)) {
+      break;
+    }
+    next();
+  }
+  return slice(begin, position);
+};
+var toRules = function toRules2(parsed, points) {
+  var index = -1;
+  var character2 = 44;
+  do {
+    switch (token(character2)) {
+      case 0:
+        if (character2 === 38 && peek() === 12) {
+          points[index] = 1;
+        }
+        parsed[index] += identifierWithPointTracking(position - 1, points, index);
+        break;
+      case 2:
+        parsed[index] += delimit(character2);
+        break;
+      case 4:
+        if (character2 === 44) {
+          parsed[++index] = peek() === 58 ? "&\f" : "";
+          points[index] = parsed[index].length;
+          break;
+        }
+      default:
+        parsed[index] += from(character2);
+    }
+  } while (character2 = next());
+  return parsed;
+};
+var getRules = function getRules2(value, points) {
+  return dealloc(toRules(alloc(value), points));
+};
+var fixedElements = new WeakMap;
+var compat = function compat2(element) {
+  if (element.type !== "rule" || !element.parent || element.length < 1) {
+    return;
+  }
+  var { value, parent } = element;
+  var isImplicitRule = element.column === parent.column && element.line === parent.line;
+  while (parent.type !== "rule") {
+    parent = parent.parent;
+    if (!parent)
+      return;
+  }
+  if (element.props.length === 1 && value.charCodeAt(0) !== 58 && !fixedElements.get(parent)) {
+    return;
+  }
+  if (isImplicitRule) {
+    return;
+  }
+  fixedElements.set(element, true);
+  var points = [];
+  var rules = getRules(value, points);
+  var parentRules = parent.props;
+  for (var i = 0, k = 0;i < rules.length; i++) {
+    for (var j = 0;j < parentRules.length; j++, k++) {
+      element.props[k] = points[i] ? rules[i].replace(/&\f/g, parentRules[j]) : parentRules[j] + " " + rules[i];
+    }
+  }
+};
+var removeLabel = function removeLabel2(element) {
+  if (element.type === "decl") {
+    var value = element.value;
+    if (value.charCodeAt(0) === 108 && value.charCodeAt(2) === 98) {
+      element["return"] = "";
+      element.value = "";
+    }
+  }
+};
+var ignoreFlag = "emotion-disable-server-rendering-unsafe-selector-warning-please-do-not-use-this-the-warning-exists-for-a-reason";
+var isIgnoringComment = function isIgnoringComment2(element) {
+  return element.type === "comm" && element.children.indexOf(ignoreFlag) > -1;
+};
+var createUnsafeSelectorsAlarm = function createUnsafeSelectorsAlarm2(cache) {
+  return function(element, index, children) {
+    if (element.type !== "rule" || cache.compat)
+      return;
+    var unsafePseudoClasses = element.value.match(/(:first|:nth|:nth-last)-child/g);
+    if (unsafePseudoClasses) {
+      var isNested = !!element.parent;
+      var commentContainer = isNested ? element.parent.children : children;
+      for (var i = commentContainer.length - 1;i >= 0; i--) {
+        var node2 = commentContainer[i];
+        if (node2.line < element.line) {
+          break;
+        }
+        if (node2.column < element.column) {
+          if (isIgnoringComment(node2)) {
+            return;
+          }
+          break;
+        }
+      }
+      unsafePseudoClasses.forEach(function(unsafePseudoClass) {
+        console.error("The pseudo class \"" + unsafePseudoClass + "\" is potentially unsafe when doing server-side rendering. Try changing it to \"" + unsafePseudoClass.split("-child")[0] + "-of-type\".");
+      });
+    }
+  };
+};
+var isImportRule = function isImportRule2(element) {
+  return element.type.charCodeAt(1) === 105 && element.type.charCodeAt(0) === 64;
+};
+var isPrependedWithRegularRules = function isPrependedWithRegularRules2(index, children) {
+  for (var i = index - 1;i >= 0; i--) {
+    if (!isImportRule(children[i])) {
+      return true;
+    }
+  }
+  return false;
+};
+var nullifyElement = function nullifyElement2(element) {
+  element.type = "";
+  element.value = "";
+  element["return"] = "";
+  element.children = "";
+  element.props = "";
+};
+var incorrectImportAlarm = function incorrectImportAlarm2(element, index, children) {
+  if (!isImportRule(element)) {
+    return;
+  }
+  if (element.parent) {
+    console.error("`@import` rules can't be nested inside other rules. Please move it to the top level and put it before regular rules. Keep in mind that they can only be used within global styles.");
+    nullifyElement(element);
+  } else if (isPrependedWithRegularRules(index, children)) {
+    console.error("`@import` rules can't be after other rules. Please put your `@import` rules before your other rules.");
+    nullifyElement(element);
+  }
+};
+var prefixer = function prefixer2(element, index, children, callback) {
+  if (element.length > -1) {
+    if (!element["return"])
+      switch (element.type) {
+        case DECLARATION:
+          element["return"] = prefix(element.value, element.length);
+          break;
+        case KEYFRAMES:
+          return serialize([copy(element, {
+            value: replace(element.value, "@", "@" + WEBKIT)
+          })], callback);
+        case RULESET:
+          if (element.length)
+            return combine(element.props, function(value) {
+              switch (match(value, /(::plac\w+|:read-\w+)/)) {
+                case ":read-only":
+                case ":read-write":
+                  return serialize([copy(element, {
+                    props: [replace(value, /:(read-\w+)/, ":" + MOZ + "$1")]
+                  })], callback);
+                case "::placeholder":
+                  return serialize([copy(element, {
+                    props: [replace(value, /:(plac\w+)/, ":" + WEBKIT + "input-$1")]
+                  }), copy(element, {
+                    props: [replace(value, /:(plac\w+)/, ":" + MOZ + "$1")]
+                  }), copy(element, {
+                    props: [replace(value, /:(plac\w+)/, MS + "input-$1")]
+                  })], callback);
+              }
+              return "";
+            });
+      }
+  }
+};
+var defaultStylisPlugins = [prefixer];
+var createCache = function createCache2(options) {
+  var key = options.key;
+  if (!key) {
+    throw new Error("You have to configure `key` for your cache. Please make sure it's unique (and not equal to 'css') as it's used for linking styles to your cache.\nIf multiple caches share the same key they might \"fight\" for each other's style elements.");
+  }
+  if (key === "css") {
+    var ssrStyles = document.querySelectorAll("style[data-emotion]:not([data-s])");
+    Array.prototype.forEach.call(ssrStyles, function(node2) {
+      var dataEmotionAttribute = node2.getAttribute("data-emotion");
+      if (dataEmotionAttribute.indexOf(" ") === -1) {
+        return;
+      }
+      document.head.appendChild(node2);
+      node2.setAttribute("data-s", "");
+    });
+  }
+  var stylisPlugins = options.stylisPlugins || defaultStylisPlugins;
+  if (true) {
+    if (/[^a-z-]/.test(key)) {
+      throw new Error("Emotion key must only contain lower case alphabetical characters and - but \"" + key + "\" was passed");
+    }
+  }
+  var inserted = {};
+  var container;
+  var nodesToHydrate = [];
+  {
+    container = options.container || document.head;
+    Array.prototype.forEach.call(document.querySelectorAll("style[data-emotion^=\"" + key + " \"]"), function(node2) {
+      var attrib = node2.getAttribute("data-emotion").split(" ");
+      for (var i = 1;i < attrib.length; i++) {
+        inserted[attrib[i]] = true;
+      }
+      nodesToHydrate.push(node2);
+    });
+  }
+  var _insert;
+  var omnipresentPlugins = [compat, removeLabel];
+  if (true) {
+    omnipresentPlugins.push(createUnsafeSelectorsAlarm({
+      get compat() {
+        return cache.compat;
+      }
+    }), incorrectImportAlarm);
+  }
+  {
+    var currentSheet;
+    var finalizingPlugins = [stringify, function(element) {
+      if (!element.root) {
+        if (element["return"]) {
+          currentSheet.insert(element["return"]);
+        } else if (element.value && element.type !== COMMENT) {
+          currentSheet.insert(element.value + "{}");
+        }
+      }
+    }];
+    var serializer = middleware(omnipresentPlugins.concat(stylisPlugins, finalizingPlugins));
+    var stylis = function stylis(styles) {
+      return serialize(compile(styles), serializer);
+    };
+    _insert = function insert(selector, serialized, sheet2, shouldCache) {
+      currentSheet = sheet2;
+      if (serialized.map !== undefined) {
+        currentSheet = {
+          insert: function insert(rule) {
+            sheet2.insert(rule + serialized.map);
+          }
+        };
+      }
+      stylis(selector ? selector + "{" + serialized.styles + "}" : serialized.styles);
+      if (shouldCache) {
+        cache.inserted[serialized.name] = true;
+      }
+    };
+  }
+  var cache = {
+    key,
+    sheet: new StyleSheet({
+      key,
+      container,
+      nonce: options.nonce,
+      speedy: options.speedy,
+      prepend: options.prepend,
+      insertionPoint: options.insertionPoint
+    }),
+    nonce: options.nonce,
+    inserted,
+    registered: {},
+    insert: _insert
+  };
+  cache.sheet.hydrate(nodesToHydrate);
+  return cache;
+};
+
+// node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js
+var getRegisteredStyles = function(registered, registeredStyles, classNames) {
+  var rawClassName = "";
+  classNames.split(" ").forEach(function(className) {
+    if (registered[className] !== undefined) {
+      registeredStyles.push(registered[className] + ";");
+    } else {
+      rawClassName += className + " ";
+    }
+  });
+  return rawClassName;
+};
+var isBrowser = true;
+var registerStyles = function registerStyles2(cache, serialized, isStringTag) {
+  var className = cache.key + "-" + serialized.name;
+  if ((isStringTag === false || isBrowser === false) && cache.registered[className] === undefined) {
+    cache.registered[className] = serialized.styles;
+  }
+};
+var insertStyles = function insertStyles2(cache, serialized, isStringTag) {
+  registerStyles(cache, serialized, isStringTag);
+  var className = cache.key + "-" + serialized.name;
+  if (cache.inserted[serialized.name] === undefined) {
+    var current = serialized;
+    do {
+      cache.insert(serialized === current ? "." + className : "", current, cache.sheet, true);
+      current = current.next;
+    } while (current !== undefined);
+  }
+};
+
+// node_modules/@emotion/hash/dist/emotion-hash.esm.js
+var murmur2 = function(str2) {
+  var h = 0;
+  var k, i = 0, len = str2.length;
+  for (;len >= 4; ++i, len -= 4) {
+    k = str2.charCodeAt(i) & 255 | (str2.charCodeAt(++i) & 255) << 8 | (str2.charCodeAt(++i) & 255) << 16 | (str2.charCodeAt(++i) & 255) << 24;
+    k = (k & 65535) * 1540483477 + ((k >>> 16) * 59797 << 16);
+    k ^= k >>> 24;
+    h = (k & 65535) * 1540483477 + ((k >>> 16) * 59797 << 16) ^ (h & 65535) * 1540483477 + ((h >>> 16) * 59797 << 16);
+  }
+  switch (len) {
+    case 3:
+      h ^= (str2.charCodeAt(i + 2) & 255) << 16;
+    case 2:
+      h ^= (str2.charCodeAt(i + 1) & 255) << 8;
+    case 1:
+      h ^= str2.charCodeAt(i) & 255;
+      h = (h & 65535) * 1540483477 + ((h >>> 16) * 59797 << 16);
+  }
+  h ^= h >>> 13;
+  h = (h & 65535) * 1540483477 + ((h >>> 16) * 59797 << 16);
+  return ((h ^ h >>> 15) >>> 0).toString(36);
+};
+
+// node_modules/@emotion/unitless/dist/emotion-unitless.esm.js
+var unitlessKeys = {
+  animationIterationCount: 1,
+  aspectRatio: 1,
+  borderImageOutset: 1,
+  borderImageSlice: 1,
+  borderImageWidth: 1,
+  boxFlex: 1,
+  boxFlexGroup: 1,
+  boxOrdinalGroup: 1,
+  columnCount: 1,
+  columns: 1,
+  flex: 1,
+  flexGrow: 1,
+  flexPositive: 1,
+  flexShrink: 1,
+  flexNegative: 1,
+  flexOrder: 1,
+  gridRow: 1,
+  gridRowEnd: 1,
+  gridRowSpan: 1,
+  gridRowStart: 1,
+  gridColumn: 1,
+  gridColumnEnd: 1,
+  gridColumnSpan: 1,
+  gridColumnStart: 1,
+  msGridRow: 1,
+  msGridRowSpan: 1,
+  msGridColumn: 1,
+  msGridColumnSpan: 1,
+  fontWeight: 1,
+  lineHeight: 1,
+  opacity: 1,
+  order: 1,
+  orphans: 1,
+  tabSize: 1,
+  widows: 1,
+  zIndex: 1,
+  zoom: 1,
+  WebkitLineClamp: 1,
+  fillOpacity: 1,
+  floodOpacity: 1,
+  stopOpacity: 1,
+  strokeDasharray: 1,
+  strokeDashoffset: 1,
+  strokeMiterlimit: 1,
+  strokeOpacity: 1,
+  strokeWidth: 1
+};
+
+// node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
+var handleInterpolation = function(mergedProps, registered, interpolation) {
+  if (interpolation == null) {
+    return "";
+  }
+  if (interpolation.__emotion_styles !== undefined) {
+    if (interpolation.toString() === "NO_COMPONENT_SELECTOR") {
+      throw new Error(noComponentSelectorMessage);
+    }
+    return interpolation;
+  }
+  switch (typeof interpolation) {
+    case "boolean": {
+      return "";
+    }
+    case "object": {
+      if (interpolation.anim === 1) {
+        cursor = {
+          name: interpolation.name,
+          styles: interpolation.styles,
+          next: cursor
+        };
+        return interpolation.name;
+      }
+      if (interpolation.styles !== undefined) {
+        var next2 = interpolation.next;
+        if (next2 !== undefined) {
+          while (next2 !== undefined) {
+            cursor = {
+              name: next2.name,
+              styles: next2.styles,
+              next: cursor
+            };
+            next2 = next2.next;
+          }
+        }
+        var styles = interpolation.styles + ";";
+        if (interpolation.map !== undefined) {
+          styles += interpolation.map;
+        }
+        return styles;
+      }
+      return createStringFromObject(mergedProps, registered, interpolation);
+    }
+    case "function": {
+      if (mergedProps !== undefined) {
+        var previousCursor = cursor;
+        var result = interpolation(mergedProps);
+        cursor = previousCursor;
+        return handleInterpolation(mergedProps, registered, result);
+      } else if (true) {
+        console.error("Functions that are interpolated in css calls will be stringified.\nIf you want to have a css call based on props, create a function that returns a css call like this\nlet dynamicStyle = (props) => css`color: ${props.color}`\nIt can be called directly with props or interpolated in a styled call like this\nlet SomeComponent = styled('div')`${dynamicStyle}`");
+      }
+      break;
+    }
+    case "string":
+      if (true) {
+        var matched = [];
+        var replaced = interpolation.replace(animationRegex, function(match2, p1, p2) {
+          var fakeVarName = "animation" + matched.length;
+          matched.push("const " + fakeVarName + " = keyframes`" + p2.replace(/^@keyframes animation-\w+/, "") + "`");
+          return "${" + fakeVarName + "}";
+        });
+        if (matched.length) {
+          console.error("`keyframes` output got interpolated into plain string, please wrap it with `css`.\n\nInstead of doing this:\n\n" + [].concat(matched, ["`" + replaced + "`"]).join("\n") + "\n\nYou should wrap it with `css` like this:\n\n" + ("css`" + replaced + "`"));
+        }
+      }
+      break;
+  }
+  if (registered == null) {
+    return interpolation;
+  }
+  var cached = registered[interpolation];
+  return cached !== undefined ? cached : interpolation;
+};
+var createStringFromObject = function(mergedProps, registered, obj) {
+  var string = "";
+  if (Array.isArray(obj)) {
+    for (var i = 0;i < obj.length; i++) {
+      string += handleInterpolation(mergedProps, registered, obj[i]) + ";";
+    }
+  } else {
+    for (var _key in obj) {
+      var value = obj[_key];
+      if (typeof value !== "object") {
+        if (registered != null && registered[value] !== undefined) {
+          string += _key + "{" + registered[value] + "}";
+        } else if (isProcessableValue(value)) {
+          string += processStyleName(_key) + ":" + processStyleValue(_key, value) + ";";
+        }
+      } else {
+        if (_key === "NO_COMPONENT_SELECTOR" && true) {
+          throw new Error(noComponentSelectorMessage);
+        }
+        if (Array.isArray(value) && typeof value[0] === "string" && (registered == null || registered[value[0]] === undefined)) {
+          for (var _i = 0;_i < value.length; _i++) {
+            if (isProcessableValue(value[_i])) {
+              string += processStyleName(_key) + ":" + processStyleValue(_key, value[_i]) + ";";
+            }
+          }
+        } else {
+          var interpolated = handleInterpolation(mergedProps, registered, value);
+          switch (_key) {
+            case "animation":
+            case "animationName": {
+              string += processStyleName(_key) + ":" + interpolated + ";";
+              break;
+            }
+            default: {
+              if (_key === "undefined") {
+                console.error(UNDEFINED_AS_OBJECT_KEY_ERROR);
+              }
+              string += _key + "{" + interpolated + "}";
+            }
+          }
+        }
+      }
+    }
+  }
+  return string;
+};
+var ILLEGAL_ESCAPE_SEQUENCE_ERROR = "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
+var UNDEFINED_AS_OBJECT_KEY_ERROR = "You have passed in falsy value as style object's key (can happen when in example you pass unexported component as computed key).";
+var hyphenateRegex = /[A-Z]|^ms/g;
+var animationRegex = /_EMO_([^_]+?)_([^]*?)_EMO_/g;
+var isCustomProperty = function isCustomProperty2(property) {
+  return property.charCodeAt(1) === 45;
+};
+var isProcessableValue = function isProcessableValue2(value) {
+  return value != null && typeof value !== "boolean";
+};
+var processStyleName = memoize(function(styleName) {
+  return isCustomProperty(styleName) ? styleName : styleName.replace(hyphenateRegex, "-$&").toLowerCase();
+});
+var processStyleValue = function processStyleValue2(key, value) {
+  switch (key) {
+    case "animation":
+    case "animationName": {
+      if (typeof value === "string") {
+        return value.replace(animationRegex, function(match2, p1, p2) {
+          cursor = {
+            name: p1,
+            styles: p2,
+            next: cursor
+          };
+          return p1;
+        });
+      }
+    }
+  }
+  if (unitlessKeys[key] !== 1 && !isCustomProperty(key) && typeof value === "number" && value !== 0) {
+    return value + "px";
+  }
+  return value;
+};
+if (true) {
+  contentValuePattern = /(var|attr|counters?|url|element|(((repeating-)?(linear|radial))|conic)-gradient)\(|(no-)?(open|close)-quote/;
+  contentValues = ["normal", "none", "initial", "inherit", "unset"];
+  oldProcessStyleValue = processStyleValue;
+  msPattern = /^-ms-/;
+  hyphenPattern = /-(.)/g;
+  hyphenatedCache = {};
+  processStyleValue = function processStyleValue(key, value) {
+    if (key === "content") {
+      if (typeof value !== "string" || contentValues.indexOf(value) === -1 && !contentValuePattern.test(value) && (value.charAt(0) !== value.charAt(value.length - 1) || value.charAt(0) !== '"' && value.charAt(0) !== "'")) {
+        throw new Error("You seem to be using a value for 'content' without quotes, try replacing it with `content: '\"" + value + "\"'`");
+      }
+    }
+    var processed = oldProcessStyleValue(key, value);
+    if (processed !== "" && !isCustomProperty(key) && key.indexOf("-") !== -1 && hyphenatedCache[key] === undefined) {
+      hyphenatedCache[key] = true;
+      console.error("Using kebab-case for css properties in objects is not supported. Did you mean " + key.replace(msPattern, "ms-").replace(hyphenPattern, function(str2, _char) {
+        return _char.toUpperCase();
+      }) + "?");
+    }
+    return processed;
+  };
+}
+var contentValuePattern;
+var contentValues;
+var oldProcessStyleValue;
+var msPattern;
+var hyphenPattern;
+var hyphenatedCache;
+var noComponentSelectorMessage = "Component selectors can only be used in conjunction with @emotion/babel-plugin, the swc Emotion plugin, or another Emotion-aware compiler transform.";
+var labelPattern = /label:\s*([^\s;\n{]+)\s*(;|$)/g;
+var sourceMapPattern;
+if (true) {
+  sourceMapPattern = /\/\*#\ssourceMappingURL=data:application\/json;\S+\s+\*\//g;
+}
+var cursor;
+var serializeStyles = function serializeStyles2(args, registered, mergedProps) {
+  if (args.length === 1 && typeof args[0] === "object" && args[0] !== null && args[0].styles !== undefined) {
+    return args[0];
+  }
+  var stringMode = true;
+  var styles = "";
+  cursor = undefined;
+  var strings = args[0];
+  if (strings == null || strings.raw === undefined) {
+    stringMode = false;
+    styles += handleInterpolation(mergedProps, registered, strings);
+  } else {
+    if (strings[0] === undefined) {
+      console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR);
+    }
+    styles += strings[0];
+  }
+  for (var i = 1;i < args.length; i++) {
+    styles += handleInterpolation(mergedProps, registered, args[i]);
+    if (stringMode) {
+      if (strings[i] === undefined) {
+        console.error(ILLEGAL_ESCAPE_SEQUENCE_ERROR);
+      }
+      styles += strings[i];
+    }
+  }
+  var sourceMap;
+  if (true) {
+    styles = styles.replace(sourceMapPattern, function(match3) {
+      sourceMap = match3;
+      return "";
+    });
+  }
+  labelPattern.lastIndex = 0;
+  var identifierName = "";
+  var match2;
+  while ((match2 = labelPattern.exec(styles)) !== null) {
+    identifierName += "-" + match2[1];
+  }
+  var name = murmur2(styles) + identifierName;
+  if (true) {
+    return {
+      name,
+      styles,
+      map: sourceMap,
+      next: cursor,
+      toString: function toString() {
+        return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop).";
+      }
+    };
+  }
+  return {
+    name,
+    styles,
+    next: cursor
+  };
+};
+
+// node_modules/@emotion/use-insertion-effect-with-fallbacks/dist/emotion-use-insertion-effect-with-fallbacks.browser.esm.js
+var React = __toESM(require_react(), 1);
+var syncFallback = function syncFallback2(create) {
+  return create();
+};
+var useInsertionEffect2 = React.useInsertionEffect ? React.useInsertionEffect : false;
+var useInsertionEffectAlwaysWithSyncFallback = useInsertionEffect2 || syncFallback;
+var useInsertionEffectWithLayoutFallback = useInsertionEffect2 || React.useLayoutEffect;
+
+// node_modules/@emotion/react/dist/emotion-element-43c6fea0.browser.esm.js
+var isBrowser2 = true;
+var hasOwn2 = {}.hasOwnProperty;
+var EmotionCacheContext = React2.createContext(typeof HTMLElement !== "undefined" ? createCache({
+  key: "css"
+}) : null);
+if (true) {
+  EmotionCacheContext.displayName = "EmotionCacheContext";
+}
+var CacheProvider = EmotionCacheContext.Provider;
+var withEmotionCache = function withEmotionCache2(func) {
+  return import_react.forwardRef(function(props, ref) {
+    var cache2 = import_react.useContext(EmotionCacheContext);
+    return func(props, cache2, ref);
+  });
+};
+if (!isBrowser2) {
+  withEmotionCache = function withEmotionCache(func) {
+    return function(props) {
+      var cache2 = import_react.useContext(EmotionCacheContext);
+      if (cache2 === null) {
+        cache2 = createCache({
+          key: "css"
+        });
+        return React2.createElement(EmotionCacheContext.Provider, {
+          value: cache2
+        }, func(props, cache2));
+      } else {
+        return func(props, cache2);
+      }
+    };
+  };
+}
+var ThemeContext = React2.createContext({});
+if (true) {
+  ThemeContext.displayName = "EmotionThemeContext";
+}
+var getLastPart = function getLastPart2(functionName) {
+  var parts = functionName.split(".");
+  return parts[parts.length - 1];
+};
+var getFunctionNameFromStackTraceLine = function getFunctionNameFromStackTraceLine2(line2) {
+  var match2 = /^\s+at\s+([A-Za-z0-9$.]+)\s/.exec(line2);
+  if (match2)
+    return getLastPart(match2[1]);
+  match2 = /^([A-Za-z0-9$.]+)@/.exec(line2);
+  if (match2)
+    return getLastPart(match2[1]);
+  return;
+};
+var internalReactFunctionNames = new Set(["renderWithHooks", "processChild", "finishClassComponent", "renderToString"]);
+var sanitizeIdentifier = function sanitizeIdentifier2(identifier2) {
+  return identifier2.replace(/\$/g, "-");
+};
+var getLabelFromStackTrace = function getLabelFromStackTrace2(stackTrace) {
+  if (!stackTrace)
+    return;
+  var lines = stackTrace.split("\n");
+  for (var i = 0;i < lines.length; i++) {
+    var functionName = getFunctionNameFromStackTraceLine(lines[i]);
+    if (!functionName)
+      continue;
+    if (internalReactFunctionNames.has(functionName))
+      break;
+    if (/^[A-Z]/.test(functionName))
+      return sanitizeIdentifier(functionName);
+  }
+  return;
+};
+var typePropName = "__EMOTION_TYPE_PLEASE_DO_NOT_USE__";
+var labelPropName = "__EMOTION_LABEL_PLEASE_DO_NOT_USE__";
+var createEmotionProps = function createEmotionProps2(type, props) {
+  if (typeof props.css === "string" && props.css.indexOf(":") !== -1) {
+    throw new Error("Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/react' like this: css`" + props.css + "`");
+  }
+  var newProps = {};
+  for (var key in props) {
+    if (hasOwn2.call(props, key)) {
+      newProps[key] = props[key];
+    }
+  }
+  newProps[typePropName] = type;
+  if (!!props.css && (typeof props.css !== "object" || typeof props.css.name !== "string" || props.css.name.indexOf("-") === -1)) {
+    var label = getLabelFromStackTrace(new Error().stack);
+    if (label)
+      newProps[labelPropName] = label;
+  }
+  return newProps;
+};
+var Insertion = function Insertion2(_ref) {
+  var { cache: cache2, serialized, isStringTag } = _ref;
+  registerStyles(cache2, serialized, isStringTag);
+  useInsertionEffectAlwaysWithSyncFallback(function() {
+    return insertStyles(cache2, serialized, isStringTag);
+  });
+  return null;
+};
+var Emotion = withEmotionCache(function(props, cache2, ref) {
+  var cssProp = props.css;
+  if (typeof cssProp === "string" && cache2.registered[cssProp] !== undefined) {
+    cssProp = cache2.registered[cssProp];
+  }
+  var WrappedComponent = props[typePropName];
+  var registeredStyles = [cssProp];
+  var className = "";
+  if (typeof props.className === "string") {
+    className = getRegisteredStyles(cache2.registered, registeredStyles, props.className);
+  } else if (props.className != null) {
+    className = props.className + " ";
+  }
+  var serialized = serializeStyles(registeredStyles, undefined, React2.useContext(ThemeContext));
+  if (serialized.name.indexOf("-") === -1) {
+    var labelFromStack = props[labelPropName];
+    if (labelFromStack) {
+      serialized = serializeStyles([serialized, "label:" + labelFromStack + ";"]);
+    }
+  }
+  className += cache2.key + "-" + serialized.name;
+  var newProps = {};
+  for (var key in props) {
+    if (hasOwn2.call(props, key) && key !== "css" && key !== typePropName && key !== labelPropName) {
+      newProps[key] = props[key];
+    }
+  }
+  newProps.ref = ref;
+  newProps.className = className;
+  return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
+    cache: cache2,
+    serialized,
+    isStringTag: typeof WrappedComponent === "string"
+  }), React2.createElement(WrappedComponent, newProps));
+});
+if (true) {
+  Emotion.displayName = "EmotionCssPropInternal";
+}
+var Emotion$1 = Emotion;
+
+// node_modules/@emotion/react/jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js
 var import_react2 = __toESM(require_react(), 1);
+var import_hoist_non_react_statics = __toESM(require_hoist_non_react_statics_cjs(), 1);
+var jsxDEV2 = function(type, props, key, isStaticChildren, source, self) {
+  if (!hasOwn2.call(props, "css")) {
+    return ReactJSXRuntimeDev.jsxDEV(type, props, key, isStaticChildren, source, self);
+  }
+  return ReactJSXRuntimeDev.jsxDEV(Emotion$1, createEmotionProps(type, props), key, isStaticChildren, source, self);
+};
+
+// src/Conversation.tsx
+var import_react4 = __toESM(require_react(), 1);
 
 // src/types.ts
 function parseConversation(conversationText) {
@@ -27334,15 +28927,15 @@ function parseConversation(conversationText) {
   const parsed = [];
   let currentSpeaker = "";
   let currentText = "";
-  for (const line of lines) {
-    if (line.startsWith("[")) {
+  for (const line2 of lines) {
+    if (line2.startsWith("[")) {
       if (currentSpeaker) {
         parsed.push({ speaker: currentSpeaker, text: currentText });
       }
-      currentSpeaker = line.match(/\[.*\]/)?.[0] || currentSpeaker;
+      currentSpeaker = line2.match(/\[.*\]/)?.[0] || currentSpeaker;
       currentText = "";
     } else {
-      currentText += line + "\n";
+      currentText += line2 + "\n";
     }
   }
   if (currentSpeaker) {
@@ -27352,26 +28945,25 @@ function parseConversation(conversationText) {
 }
 
 // src/Conversation.tsx
-var jsx_dev_runtime2 = __toESM(require_jsx_dev_runtime(), 1);
 function Conversation({
   conversation,
   updateConversation,
   removeConversation,
   onSay
 }) {
-  const [conversationTitle, setConversationTitle] = import_react2.default.useState(conversation.title);
-  const [conversationText, setConversationText] = import_react2.default.useState(conversation.text);
-  const parsedConversation = import_react2.default.useMemo(() => {
+  const [conversationTitle, setConversationTitle] = import_react4.default.useState(conversation.title);
+  const [conversationText, setConversationText] = import_react4.default.useState(conversation.text);
+  const parsedConversation = import_react4.default.useMemo(() => {
     return parseConversation(conversationText);
   }, [conversationText]);
-  import_react2.default.useEffect(() => {
+  import_react4.default.useEffect(() => {
     updateConversation({
       title: conversationTitle,
       text: conversationText,
       lines: parseConversation(conversationText)
     });
   }, [conversationTitle, conversationText]);
-  return jsx_dev_runtime2.jsxDEV("div", {
+  return jsxDEV2("div", {
     style: {
       display: "flex",
       flexDirection: "column",
@@ -27380,27 +28972,27 @@ function Conversation({
       padding: "10px"
     },
     children: [
-      jsx_dev_runtime2.jsxDEV("input", {
+      jsxDEV2("input", {
         value: conversationTitle,
         onChange: (e) => setConversationTitle(e.target.value)
       }, undefined, false, undefined, this),
-      jsx_dev_runtime2.jsxDEV("textarea", {
+      jsxDEV2("textarea", {
         rows: 10,
         value: conversationText,
         onChange: (e) => setConversationText(e.target.value)
       }, undefined, false, undefined, this),
-      jsx_dev_runtime2.jsxDEV("div", {
+      jsxDEV2("div", {
         style: {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between"
         },
         children: [
-          jsx_dev_runtime2.jsxDEV("button", {
+          jsxDEV2("button", {
             onClick: () => onSay(parsedConversation),
             children: "Add to queue"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime2.jsxDEV("button", {
+          jsxDEV2("button", {
             onClick: removeConversation,
             children: "Delete Conversation"
           }, undefined, false, undefined, this)
@@ -27411,7 +29003,7 @@ function Conversation({
 }
 
 // src/Speaker.tsx
-var import_react3 = __toESM(require_react(), 1);
+var import_react5 = __toESM(require_react(), 1);
 
 // src/lib/audio.ts
 class AudioAPI {
@@ -27472,6 +29064,335 @@ class AudioAPI {
 }
 var audioAPI = new AudioAPI;
 await audioAPI.initialize();
+
+// node_modules/@emotion/react/dist/emotion-react.browser.esm.js
+var React5 = __toESM(require_react(), 1);
+var import_hoist_non_react_statics2 = __toESM(require_hoist_non_react_statics_cjs(), 1);
+var css = function() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return serializeStyles(args);
+};
+var merge = function(registered, css2, className) {
+  var registeredStyles = [];
+  var rawClassName = getRegisteredStyles(registered, registeredStyles, className);
+  if (registeredStyles.length < 2) {
+    return className;
+  }
+  return rawClassName + css2(registeredStyles);
+};
+var pkg = {
+  name: "@emotion/react",
+  version: "11.11.4",
+  main: "dist/emotion-react.cjs.js",
+  module: "dist/emotion-react.esm.js",
+  browser: {
+    "./dist/emotion-react.esm.js": "./dist/emotion-react.browser.esm.js"
+  },
+  exports: {
+    ".": {
+      module: {
+        worker: "./dist/emotion-react.worker.esm.js",
+        browser: "./dist/emotion-react.browser.esm.js",
+        default: "./dist/emotion-react.esm.js"
+      },
+      import: "./dist/emotion-react.cjs.mjs",
+      default: "./dist/emotion-react.cjs.js"
+    },
+    "./jsx-runtime": {
+      module: {
+        worker: "./jsx-runtime/dist/emotion-react-jsx-runtime.worker.esm.js",
+        browser: "./jsx-runtime/dist/emotion-react-jsx-runtime.browser.esm.js",
+        default: "./jsx-runtime/dist/emotion-react-jsx-runtime.esm.js"
+      },
+      import: "./jsx-runtime/dist/emotion-react-jsx-runtime.cjs.mjs",
+      default: "./jsx-runtime/dist/emotion-react-jsx-runtime.cjs.js"
+    },
+    "./_isolated-hnrs": {
+      module: {
+        worker: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.worker.esm.js",
+        browser: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.browser.esm.js",
+        default: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.esm.js"
+      },
+      import: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.mjs",
+      default: "./_isolated-hnrs/dist/emotion-react-_isolated-hnrs.cjs.js"
+    },
+    "./jsx-dev-runtime": {
+      module: {
+        worker: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.worker.esm.js",
+        browser: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js",
+        default: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.esm.js"
+      },
+      import: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.cjs.mjs",
+      default: "./jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.cjs.js"
+    },
+    "./package.json": "./package.json",
+    "./types/css-prop": "./types/css-prop.d.ts",
+    "./macro": {
+      types: {
+        import: "./macro.d.mts",
+        default: "./macro.d.ts"
+      },
+      default: "./macro.js"
+    }
+  },
+  types: "types/index.d.ts",
+  files: [
+    "src",
+    "dist",
+    "jsx-runtime",
+    "jsx-dev-runtime",
+    "_isolated-hnrs",
+    "types/*.d.ts",
+    "macro.*"
+  ],
+  sideEffects: false,
+  author: "Emotion Contributors",
+  license: "MIT",
+  scripts: {
+    "test:typescript": "dtslint types"
+  },
+  dependencies: {
+    "@babel/runtime": "^7.18.3",
+    "@emotion/babel-plugin": "^11.11.0",
+    "@emotion/cache": "^11.11.0",
+    "@emotion/serialize": "^1.1.3",
+    "@emotion/use-insertion-effect-with-fallbacks": "^1.0.1",
+    "@emotion/utils": "^1.2.1",
+    "@emotion/weak-memoize": "^0.3.1",
+    "hoist-non-react-statics": "^3.3.1"
+  },
+  peerDependencies: {
+    react: ">=16.8.0"
+  },
+  peerDependenciesMeta: {
+    "@types/react": {
+      optional: true
+    }
+  },
+  devDependencies: {
+    "@definitelytyped/dtslint": "0.0.112",
+    "@emotion/css": "11.11.2",
+    "@emotion/css-prettifier": "1.1.3",
+    "@emotion/server": "11.11.0",
+    "@emotion/styled": "11.11.0",
+    "html-tag-names": "^1.1.2",
+    react: "16.14.0",
+    "svg-tag-names": "^1.1.1",
+    typescript: "^4.5.5"
+  },
+  repository: "https://github.com/emotion-js/emotion/tree/main/packages/react",
+  publishConfig: {
+    access: "public"
+  },
+  "umd:main": "dist/emotion-react.umd.min.js",
+  preconstruct: {
+    entrypoints: [
+      "./index.js",
+      "./jsx-runtime.js",
+      "./jsx-dev-runtime.js",
+      "./_isolated-hnrs.js"
+    ],
+    umdName: "emotionReact",
+    exports: {
+      envConditions: [
+        "browser",
+        "worker"
+      ],
+      extra: {
+        "./types/css-prop": "./types/css-prop.d.ts",
+        "./macro": {
+          types: {
+            import: "./macro.d.mts",
+            default: "./macro.d.ts"
+          },
+          default: "./macro.js"
+        }
+      }
+    }
+  }
+};
+var warnedAboutCssPropForGlobal = false;
+var Global = withEmotionCache(function(props, cache4) {
+  if (!warnedAboutCssPropForGlobal && (props.className || props.css)) {
+    console.error("It looks like you're using the css prop on Global, did you mean to use the styles prop instead?");
+    warnedAboutCssPropForGlobal = true;
+  }
+  var styles = props.styles;
+  var serialized = serializeStyles([styles], undefined, React5.useContext(ThemeContext));
+  if (!isBrowser2) {
+    var _ref;
+    var serializedNames = serialized.name;
+    var serializedStyles = serialized.styles;
+    var next2 = serialized.next;
+    while (next2 !== undefined) {
+      serializedNames += " " + next2.name;
+      serializedStyles += next2.styles;
+      next2 = next2.next;
+    }
+    var shouldCache = cache4.compat === true;
+    var rules = cache4.insert("", {
+      name: serializedNames,
+      styles: serializedStyles
+    }, cache4.sheet, shouldCache);
+    if (shouldCache) {
+      return null;
+    }
+    return React5.createElement("style", (_ref = {}, _ref["data-emotion"] = cache4.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
+      __html: rules
+    }, _ref.nonce = cache4.sheet.nonce, _ref));
+  }
+  var sheetRef = React5.useRef();
+  useInsertionEffectWithLayoutFallback(function() {
+    var key = cache4.key + "-global";
+    var sheet2 = new cache4.sheet.constructor({
+      key,
+      nonce: cache4.sheet.nonce,
+      container: cache4.sheet.container,
+      speedy: cache4.sheet.isSpeedy
+    });
+    var rehydrating = false;
+    var node2 = document.querySelector("style[data-emotion=\"" + key + " " + serialized.name + "\"]");
+    if (cache4.sheet.tags.length) {
+      sheet2.before = cache4.sheet.tags[0];
+    }
+    if (node2 !== null) {
+      rehydrating = true;
+      node2.setAttribute("data-emotion", key);
+      sheet2.hydrate([node2]);
+    }
+    sheetRef.current = [sheet2, rehydrating];
+    return function() {
+      sheet2.flush();
+    };
+  }, [cache4]);
+  useInsertionEffectWithLayoutFallback(function() {
+    var sheetRefCurrent = sheetRef.current;
+    var sheet2 = sheetRefCurrent[0], rehydrating = sheetRefCurrent[1];
+    if (rehydrating) {
+      sheetRefCurrent[1] = false;
+      return;
+    }
+    if (serialized.next !== undefined) {
+      insertStyles(cache4, serialized.next, true);
+    }
+    if (sheet2.tags.length) {
+      var element = sheet2.tags[sheet2.tags.length - 1].nextElementSibling;
+      sheet2.before = element;
+      sheet2.flush();
+    }
+    cache4.insert("", serialized, sheet2, false);
+  }, [cache4, serialized.name]);
+  return null;
+});
+if (true) {
+  Global.displayName = "EmotionGlobal";
+}
+var classnames = function classnames2(args) {
+  var len = args.length;
+  var i = 0;
+  var cls = "";
+  for (;i < len; i++) {
+    var arg = args[i];
+    if (arg == null)
+      continue;
+    var toAdd = undefined;
+    switch (typeof arg) {
+      case "boolean":
+        break;
+      case "object": {
+        if (Array.isArray(arg)) {
+          toAdd = classnames2(arg);
+        } else {
+          if (arg.styles !== undefined && arg.name !== undefined) {
+            console.error("You have passed styles created with `css` from `@emotion/react` package to the `cx`.\n`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component.");
+          }
+          toAdd = "";
+          for (var k in arg) {
+            if (arg[k] && k) {
+              toAdd && (toAdd += " ");
+              toAdd += k;
+            }
+          }
+        }
+        break;
+      }
+      default: {
+        toAdd = arg;
+      }
+    }
+    if (toAdd) {
+      cls && (cls += " ");
+      cls += toAdd;
+    }
+  }
+  return cls;
+};
+var Insertion3 = function Insertion4(_ref) {
+  var { cache: cache4, serializedArr } = _ref;
+  useInsertionEffectAlwaysWithSyncFallback(function() {
+    for (var i = 0;i < serializedArr.length; i++) {
+      insertStyles(cache4, serializedArr[i], false);
+    }
+  });
+  return null;
+};
+var ClassNames = withEmotionCache(function(props, cache4) {
+  var hasRendered = false;
+  var serializedArr = [];
+  var css2 = function css() {
+    if (hasRendered && true) {
+      throw new Error("css can only be used during render");
+    }
+    for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    var serialized = serializeStyles(args, cache4.registered);
+    serializedArr.push(serialized);
+    registerStyles(cache4, serialized, false);
+    return cache4.key + "-" + serialized.name;
+  };
+  var cx = function cx() {
+    if (hasRendered && true) {
+      throw new Error("cx can only be used during render");
+    }
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0;_key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    return merge(cache4.registered, css2, classnames(args));
+  };
+  var content = {
+    css: css2,
+    cx,
+    theme: React5.useContext(ThemeContext)
+  };
+  var ele = props.children(content);
+  hasRendered = true;
+  return React5.createElement(React5.Fragment, null, React5.createElement(Insertion3, {
+    cache: cache4,
+    serializedArr
+  }), ele);
+});
+if (true) {
+  ClassNames.displayName = "EmotionClassNames";
+}
+if (true) {
+  isBrowser3 = true;
+  isTestEnv = typeof jest !== "undefined" || typeof vi !== "undefined";
+  if (isBrowser3 && !isTestEnv) {
+    globalContext = typeof globalThis !== "undefined" ? globalThis : isBrowser3 ? window : global;
+    globalKey = "__EMOTION_REACT_" + pkg.version.split(".")[0] + "__";
+    if (globalContext[globalKey]) {
+      console.warn("You are loading @emotion/react when it is already loaded. Running multiple instances may cause problems. This can happen if multiple versions are used, or if multiple builds of the same version are used.");
+    }
+    globalContext[globalKey] = true;
+  }
+}
+var isBrowser3;
+var isTestEnv;
+var globalContext;
+var globalKey;
 
 // src/media/images/helio.png
 var helio_default = "./helio-06db6a9b5ced0c45.png";
@@ -27551,11 +29472,16 @@ var midiAPI = new MidiAPI;
 var midi_default = midiAPI;
 
 // src/Speaker.tsx
-var jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
-function Speaker({ handle, index, config, onChange }) {
-  const [speakerId, setSpeakerId] = import_react3.default.useState(config.deviceId);
-  const [voice, setVoice] = import_react3.default.useState(config.voice);
-  const [volume, setVolume] = import_react3.default.useState(config.volume);
+function Speaker({
+  handle,
+  index,
+  config,
+  color,
+  onChange
+}) {
+  const [speakerId, setSpeakerId] = import_react5.default.useState(config.deviceId);
+  const [voice, setVoice] = import_react5.default.useState(config.voice);
+  const [volume, setVolume] = import_react5.default.useState(config.volume);
   async function say() {
     const audio2 = await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, voice);
     if (!audio2)
@@ -27565,10 +29491,10 @@ function Speaker({ handle, index, config, onChange }) {
   async function copyToClipboard() {
     await navigator.clipboard.writeText(handle);
   }
-  import_react3.default.useEffect(() => {
+  import_react5.default.useEffect(() => {
     onChange({ deviceId: speakerId, voice, volume });
   }, [speakerId, voice, volume]);
-  import_react3.default.useEffect(() => {
+  import_react5.default.useEffect(() => {
     midi_default.addNoteOnListener((note, velocity) => {
       if (note === index + 36) {
         say();
@@ -27577,49 +29503,80 @@ function Speaker({ handle, index, config, onChange }) {
     return () => {
     };
   }, [index]);
-  return jsx_dev_runtime3.jsxDEV("div", {
-    style: { display: "flex", flexDirection: "column", gap: "10px", flex: 1 },
+  return jsxDEV2("div", {
+    style: { display: "flex", flexDirection: "column", flex: 1 },
     children: [
-      jsx_dev_runtime3.jsxDEV("img", {
-        src: imageMap[handle],
-        alt: "Helios",
-        style: { width: "100px" }
-      }, undefined, false, undefined, this),
-      jsx_dev_runtime3.jsxDEV("div", {
-        children: jsx_dev_runtime3.jsxDEV("a", {
-          href: "#",
-          onClick: copyToClipboard,
-          children: handle
+      jsxDEV2("div", {
+        style: { height: "200px", margin: "auto" },
+        children: jsxDEV2("img", {
+          src: imageMap[handle],
+          alt: "Helios",
+          style: { height: "100%" }
         }, undefined, false, undefined, this)
       }, undefined, false, undefined, this),
-      jsx_dev_runtime3.jsxDEV("select", {
-        value: speakerId,
-        onChange: (e) => setSpeakerId(e.target.value),
-        children: audioAPI.outputDevices.map((device) => jsx_dev_runtime3.jsxDEV("option", {
-          value: device.deviceId,
-          children: device.label
-        }, device.deviceId, false, undefined, this))
-      }, undefined, false, undefined, this),
-      jsx_dev_runtime3.jsxDEV("select", {
-        value: voice,
-        onChange: (e) => setVoice(e.target.value),
-        children: voiceOptions.map((voice2) => jsx_dev_runtime3.jsxDEV("option", {
-          value: voice2,
-          children: voice2
-        }, voice2, false, undefined, this))
-      }, undefined, false, undefined, this),
-      jsx_dev_runtime3.jsxDEV("input", {
-        type: "range",
-        value: volume,
-        onChange: (e) => setVolume(parseFloat(e.target.value)),
-        min: 0,
-        max: 2,
-        step: 0.01
-      }, undefined, false, undefined, this),
-      jsx_dev_runtime3.jsxDEV("button", {
-        onClick: () => say(),
-        children: "\uD83D\uDDE3\uFE0F"
-      }, undefined, false, undefined, this)
+      jsxDEV2("div", {
+        css: flex,
+        children: [
+          jsxDEV2("div", {
+            css: css`
+            ${flexItem};
+            background-color: ${color};
+          `,
+            style: { textAlign: "center" },
+            children: jsxDEV2("a", {
+              css: css`
+              text-decoration: none;
+              &:visited {
+                color: black;
+              }
+            `,
+              href: "#",
+              onClick: copyToClipboard,
+              children: handle
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this),
+          jsxDEV2("div", {
+            css: flexItem,
+            children: jsxDEV2("select", {
+              value: speakerId,
+              onChange: (e) => setSpeakerId(e.target.value),
+              children: audioAPI.outputDevices.map((device) => jsxDEV2("option", {
+                value: device.deviceId,
+                children: device.label
+              }, device.deviceId, false, undefined, this))
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this),
+          jsxDEV2("div", {
+            css: flexItem,
+            children: jsxDEV2("select", {
+              value: voice,
+              onChange: (e) => setVoice(e.target.value),
+              children: voiceOptions.map((voice2) => jsxDEV2("option", {
+                value: voice2,
+                children: voice2
+              }, voice2, false, undefined, this))
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this),
+          jsxDEV2("div", {
+            css: flexItem,
+            children: jsxDEV2("input", {
+              type: "range",
+              value: volume,
+              onChange: (e) => setVolume(parseFloat(e.target.value)),
+              min: 0,
+              max: 2,
+              step: 0.01
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this),
+          jsxDEV2("div", {
+            css: flexItem,
+            children: jsxDEV2("button", {
+              onClick: () => say(),
+              children: "\uD83D\uDDE3\uFE0F"
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this)
+        ]
+      }, undefined, true, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
@@ -27629,16 +29586,33 @@ var imageMap = {
   "[BARBARA]": barbara_default,
   "[PAULA]": paula_default
 };
+var flex = css`
+  display: flex;
+  flex-direction: column;
+`;
+var flexItem = css`
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  border-bottom: none;
+  background-color: white;
+
+  padding: 10px;
+
+  &:last-of-type {
+    border-bottom: 2px solid black;
+  }
+`;
 
 // node_modules/zustand/esm/vanilla.mjs
 var createStoreImpl = (createState) => {
   let state;
   const listeners = new Set;
-  const setState = (partial, replace) => {
+  const setState = (partial, replace2) => {
     const nextState = typeof partial === "function" ? partial(state) : partial;
     if (!Object.is(nextState, state)) {
       const previousState = state;
-      state = (replace != null ? replace : typeof nextState !== "object" || nextState === null) ? nextState : Object.assign({}, state, nextState);
+      state = (replace2 != null ? replace2 : typeof nextState !== "object" || nextState === null) ? nextState : Object.assign({}, state, nextState);
       listeners.forEach((listener) => listener(state, previousState));
     }
   };
@@ -27661,18 +29635,18 @@ var createStoreImpl = (createState) => {
 var createStore = (createState) => createState ? createStoreImpl(createState) : createStoreImpl;
 
 // node_modules/zustand/esm/index.mjs
-var import_react4 = __toESM(require_react(), 1);
+var import_react6 = __toESM(require_react(), 1);
 var with_selector = __toESM(require_with_selector(), 1);
 var useStore = function(api, selector = identity, equalityFn) {
   if ((import.meta.env ? import.meta.env.MODE : undefined) !== "production" && equalityFn && !didWarnAboutEqualityFn) {
     console.warn("[DEPRECATED] Use `createWithEqualityFn` instead of `create` or use `useStoreWithEqualityFn` instead of `useStore`. They can be imported from 'zustand/traditional'. https://github.com/pmndrs/zustand/discussions/1937");
     didWarnAboutEqualityFn = true;
   }
-  const slice = useSyncExternalStoreWithSelector(api.subscribe, api.getState, api.getServerState || api.getInitialState, selector, equalityFn);
-  useDebugValue(slice);
-  return slice;
+  const slice2 = useSyncExternalStoreWithSelector(api.subscribe, api.getState, api.getServerState || api.getInitialState, selector, equalityFn);
+  useDebugValue(slice2);
+  return slice2;
 };
-var { useDebugValue } = import_react4.default;
+var { useDebugValue } = import_react6.default;
 var { useSyncExternalStoreWithSelector } = with_selector.default;
 var didWarnAboutEqualityFn = false;
 var identity = (arg) => arg;
@@ -27977,7 +29951,7 @@ var createProxyProxy = function(base, parent) {
   state.revoke_ = revoke;
   return proxy;
 };
-var peek = function(draft, prop) {
+var peek2 = function(draft, prop) {
   const state = draft[DRAFT_STATE];
   const source = state ? latest(state) : draft;
   return source[prop];
@@ -28026,22 +30000,22 @@ var currentImpl = function(value) {
   if (!isDraftable(value) || isFrozen(value))
     return value;
   const state = value[DRAFT_STATE];
-  let copy;
+  let copy2;
   if (state) {
     if (!state.modified_)
       return state.base_;
     state.finalized_ = true;
-    copy = shallowCopy(value, state.scope_.immer_.useStrictShallowCopy_);
+    copy2 = shallowCopy(value, state.scope_.immer_.useStrictShallowCopy_);
   } else {
-    copy = shallowCopy(value, true);
+    copy2 = shallowCopy(value, true);
   }
-  each(copy, (key, childValue) => {
-    set(copy, key, currentImpl(childValue));
+  each(copy2, (key, childValue) => {
+    set(copy2, key, currentImpl(childValue));
   });
   if (state) {
     state.finalized_ = false;
   }
-  return copy;
+  return copy2;
 };
 var enableMapSet = function() {
   class DraftMap extends Map {
@@ -28336,7 +30310,7 @@ var objectTraps = {
     if (state.finalized_ || !isDraftable(value)) {
       return value;
     }
-    if (value === peek(state.base_, prop)) {
+    if (value === peek2(state.base_, prop)) {
       prepareCopy(state);
       return state.copy_[prop] = createProxy(value, state);
     }
@@ -28355,7 +30329,7 @@ var objectTraps = {
       return true;
     }
     if (!state.modified_) {
-      const current2 = peek(latest(state), prop);
+      const current2 = peek2(latest(state), prop);
       const currentState = current2?.[DRAFT_STATE];
       if (currentState && currentState.base_ === value) {
         state.copy_[prop] = value;
@@ -28374,7 +30348,7 @@ var objectTraps = {
     return true;
   },
   deleteProperty(state, prop) {
-    if (peek(state.base_, prop) !== undefined || prop in state.base_) {
+    if (peek2(state.base_, prop) !== undefined || prop in state.base_) {
       state.assigned_[prop] = false;
       prepareCopy(state);
       markChanged(state);
@@ -28547,9 +30521,9 @@ var finishDraft = immer.finishDraft.bind(immer);
 
 // node_modules/zustand/esm/middleware/immer.mjs
 var immerImpl = (initializer) => (set2, get, store) => {
-  store.setState = (updater, replace, ...a) => {
+  store.setState = (updater, replace2, ...a) => {
     const nextState = typeof updater === "function" ? produce(updater) : updater;
-    return set2(nextState, replace, ...a);
+    return set2(nextState, replace2, ...a);
   };
   return initializer(store.setState, get, store);
 };
@@ -28566,7 +30540,7 @@ var createJSONStorage = function(getStorage, options) {
   const persistStorage = {
     getItem: (name) => {
       var _a2;
-      const parse = (str22) => {
+      const parse2 = (str22) => {
         if (str22 === null) {
           return null;
         }
@@ -28574,9 +30548,9 @@ var createJSONStorage = function(getStorage, options) {
       };
       const str2 = (_a2 = storage.getItem(name)) != null ? _a2 : null;
       if (str2 instanceof Promise) {
-        return str2.then(parse);
+        return str2.then(parse2);
       }
-      return parse(str2);
+      return parse2(str2);
     },
     setItem: (name, newValue) => storage.setItem(name, JSON.stringify(newValue, options == null ? undefined : options.replacer)),
     removeItem: (name) => storage.removeItem(name)
@@ -28648,8 +30622,8 @@ var oldImpl = (config, baseOptions) => (set2, get, api) => {
     return thenable;
   };
   const savedSetState = api.setState;
-  api.setState = (state, replace) => {
-    savedSetState(state, replace);
+  api.setState = (state, replace2) => {
+    savedSetState(state, replace2);
     setItem();
   };
   const configResult = config((...args) => {
@@ -28753,8 +30727,8 @@ var newImpl = (config, baseOptions) => (set2, get, api) => {
     });
   };
   const savedSetState = api.setState;
-  api.setState = (state, replace) => {
-    savedSetState(state, replace);
+  api.setState = (state, replace2) => {
+    savedSetState(state, replace2);
     setItem();
   };
   const configResult = config((...args) => {
@@ -28969,13 +30943,13 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   addInterruption: (lines) => {
     set2((state) => {
       audioAPI.stop(state.currentSpeakerConfig?.deviceId || "default");
-      lines = lines.map((line) => {
-        if (line.speaker == "") {
+      lines = lines.map((line2) => {
+        if (line2.speaker == "") {
           const randomSpeaker = Array.from(state.speakerConfigs.keys())[Math.floor(Math.random() * state.speakerConfigs.size)];
           console.log("Random speaker:", randomSpeaker);
-          line.speaker = state.currentLine?.speaker || randomSpeaker || "[UNKNOWN]";
+          line2.speaker = state.currentLine?.speaker || randomSpeaker || "[UNKNOWN]";
         }
-        return line;
+        return line2;
       });
       let newLines = [
         ...lines,
@@ -29041,7 +31015,6 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
 useConversationStore.getState().conversationLoop();
 
 // src/ConversationQueue.tsx
-var jsx_dev_runtime4 = __toESM(require_jsx_dev_runtime(), 1);
 function ConversationQueue() {
   const queue = useConversationStore((state) => state.lineQueue);
   const setQueue = useConversationStore((state) => state.setLineQueue);
@@ -29061,16 +31034,16 @@ function ConversationQueue() {
     state.goodbyeText
   ]);
   const fullQueue = [currentLine, ...queue].filter(Boolean);
-  const getBackgroundColor = (line) => {
-    if (line === currentLine) {
+  const getBackgroundColor = (line2) => {
+    if (line2 === currentLine) {
       return "green";
     } else {
       return "white";
     }
   };
-  return jsx_dev_runtime4.jsxDEV("div", {
+  return jsxDEV2("div", {
     children: [
-      jsx_dev_runtime4.jsxDEV("div", {
+      jsxDEV2("div", {
         style: {
           display: "flex",
           flexDirection: "row",
@@ -29078,69 +31051,69 @@ function ConversationQueue() {
           gap: "10px"
         },
         children: [
-          jsx_dev_runtime4.jsxDEV("h3", {
+          jsxDEV2("h3", {
             children: "Conversation Queue"
           }, undefined, false, undefined, this),
-          !isPlaying && jsx_dev_runtime4.jsxDEV("button", {
+          !isPlaying && jsxDEV2("button", {
             onClick: () => setIsPlaying(true),
             children: "Play"
           }, undefined, false, undefined, this),
-          isPlaying && jsx_dev_runtime4.jsxDEV("button", {
+          isPlaying && jsxDEV2("button", {
             onClick: () => setIsPlaying(false),
             children: "Pause"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime4.jsxDEV("button", {
+          jsxDEV2("button", {
             onClick: () => {
               setQueue([]);
             },
             children: "Clear Queue"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime4.jsxDEV("div", {
+          jsxDEV2("div", {
             children: [
               "Auto play",
-              jsx_dev_runtime4.jsxDEV("input", {
+              jsxDEV2("input", {
                 type: "checkbox",
                 checked: autoPickFromConversations,
                 onChange: (e) => setAutoPickFromConversations(e.target.checked)
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsx_dev_runtime4.jsxDEV("span", {
+          jsxDEV2("span", {
             children: "Interrupt:"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime4.jsxDEV("button", {
+          jsxDEV2("button", {
             onClick: () => addInterruption([{ speaker: "", text: welcomeText }]),
             children: "Welcome"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime4.jsxDEV("button", {
+          jsxDEV2("button", {
             onClick: () => addInterruption([{ speaker: "", text: hushText }]),
             children: "Hush!"
           }, undefined, false, undefined, this),
-          jsx_dev_runtime4.jsxDEV("button", {
+          jsxDEV2("button", {
             onClick: () => addInterruption([{ speaker: "", text: goodbyeText }]),
             children: "Goodbye"
           }, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this),
-      jsx_dev_runtime4.jsxDEV("div", {
+      jsxDEV2("div", {
         style: {
           display: "flex",
           gap: "10px",
           flexDirection: "column",
           flexWrap: "wrap"
         },
-        children: fullQueue.map((line, index) => jsx_dev_runtime4.jsxDEV("div", {
+        children: fullQueue.map((line2, index) => jsxDEV2("div", {
           style: {
             border: "1px solid black",
             padding: "10px",
-            backgroundColor: getBackgroundColor(line)
+            backgroundColor: getBackgroundColor(line2)
           },
           children: [
-            jsx_dev_runtime4.jsxDEV("span", {
-              children: line.speaker
+            jsxDEV2("span", {
+              children: line2.speaker
             }, undefined, false, undefined, this),
-            jsx_dev_runtime4.jsxDEV("p", {
-              children: line.text
+            jsxDEV2("p", {
+              children: line2.text
             }, undefined, false, undefined, this)
           ]
         }, index, true, undefined, this))
@@ -29150,7 +31123,6 @@ function ConversationQueue() {
 }
 
 // src/Interruptions.tsx
-var jsx_dev_runtime5 = __toESM(require_jsx_dev_runtime(), 1);
 function Interruptions() {
   const [welcomeText, setWelcomeText] = useConversationStore((state) => [
     state.welcomeText,
@@ -29164,12 +31136,12 @@ function Interruptions() {
     state.goodbyeText,
     state.setGoodbyeText
   ]);
-  return jsx_dev_runtime5.jsxDEV("div", {
+  return jsxDEV2("div", {
     children: [
-      jsx_dev_runtime5.jsxDEV("h3", {
+      jsxDEV2("h3", {
         children: "Interruptions"
       }, undefined, false, undefined, this),
-      jsx_dev_runtime5.jsxDEV("div", {
+      jsxDEV2("div", {
         style: {
           display: "flex",
           flexDirection: "row",
@@ -29177,12 +31149,12 @@ function Interruptions() {
           gap: "10px"
         },
         children: [
-          jsx_dev_runtime5.jsxDEV("div", {
+          jsxDEV2("div", {
             children: [
-              jsx_dev_runtime5.jsxDEV("span", {
+              jsxDEV2("span", {
                 children: "Welcome:"
               }, undefined, false, undefined, this),
-              jsx_dev_runtime5.jsxDEV("input", {
+              jsxDEV2("input", {
                 value: welcomeText,
                 onChange: (e) => setWelcomeText(e.target.value),
                 placeholder: "Welcome Text",
@@ -29190,12 +31162,12 @@ function Interruptions() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsx_dev_runtime5.jsxDEV("div", {
+          jsxDEV2("div", {
             children: [
-              jsx_dev_runtime5.jsxDEV("span", {
+              jsxDEV2("span", {
                 children: "Hush:"
               }, undefined, false, undefined, this),
-              jsx_dev_runtime5.jsxDEV("input", {
+              jsxDEV2("input", {
                 value: hushText,
                 onChange: (e) => {
                   setHushText(e.target.value);
@@ -29205,12 +31177,12 @@ function Interruptions() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsx_dev_runtime5.jsxDEV("div", {
+          jsxDEV2("div", {
             children: [
-              jsx_dev_runtime5.jsxDEV("span", {
+              jsxDEV2("span", {
                 children: "Goodbye:"
               }, undefined, false, undefined, this),
-              jsx_dev_runtime5.jsxDEV("input", {
+              jsxDEV2("input", {
                 value: goodbyeText,
                 onChange: (e) => setGoodbyeText(e.target.value),
                 placeholder: "Goodbye Text",
@@ -29224,8 +31196,13 @@ function Interruptions() {
   }, undefined, true, undefined, this);
 }
 
+// src/constants.ts
+var pink = "rgb(240, 145, 183)";
+var yellow = "rgb(255, 252, 83)";
+var blue = "rgb(86, 181, 215)";
+var green = "rgb(71, 158, 80)";
+
 // src/App.tsx
-var jsx_dev_runtime6 = __toESM(require_jsx_dev_runtime(), 1);
 function App() {
   const speakers = useConversationStore((state) => state.speakerConfigs);
   const conversations = useConversationStore((state) => state.conversations);
@@ -29235,15 +31212,18 @@ function App() {
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
-  return jsx_dev_runtime6.jsxDEV("div", {
-    style: { fontFamily: "DIN Alternate" },
+  return jsxDEV2("div", {
+    style: {
+      fontFamily: "DIN Alternate",
+      backgroundColor: "rgb(244, 183, 155)"
+    },
     children: [
-      jsx_dev_runtime6.jsxDEV("h2", {
+      jsxDEV2("h2", {
         style: { float: "right" },
         children: "Life in Plastic ~ Telepathic Control Center"
       }, undefined, false, undefined, this),
-      jsx_dev_runtime6.jsxDEV(Config, {}, undefined, false, undefined, this),
-      jsx_dev_runtime6.jsxDEV("div", {
+      jsxDEV2(Config, {}, undefined, false, undefined, this),
+      jsxDEV2("div", {
         style: {
           marginTop: "100px",
           display: "flex",
@@ -29251,49 +31231,49 @@ function App() {
           gap: "10px"
         },
         children: [
-          jsx_dev_runtime6.jsxDEV("div", {
+          jsxDEV2("div", {
             style: {
               display: "flex",
-              flexDirection: "row",
-              gap: "10px"
+              flexDirection: "row"
             },
-            children: Array.from(speakers.entries()).map(([speaker, config], index) => jsx_dev_runtime6.jsxDEV(Speaker, {
+            children: Array.from(speakers.entries()).map(([speaker, config], index) => jsxDEV2(Speaker, {
               handle: speaker,
               config,
               index,
+              color: speakerColors[index],
               onChange: (speakerConfig) => setSpeakerConfig(speaker, speakerConfig)
             }, speaker, false, undefined, this))
           }, undefined, false, undefined, this),
-          jsx_dev_runtime6.jsxDEV("hr", {}, undefined, false, undefined, this),
-          jsx_dev_runtime6.jsxDEV("div", {
+          jsxDEV2("hr", {}, undefined, false, undefined, this),
+          jsxDEV2("div", {
             children: [
-              jsx_dev_runtime6.jsxDEV("div", {
-                children: jsx_dev_runtime6.jsxDEV("h3", {
+              jsxDEV2("div", {
+                children: jsxDEV2("h3", {
                   children: "Conversations"
                 }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
-              conversations.map((conversation, index) => jsx_dev_runtime6.jsxDEV(Conversation, {
+              conversations.map((conversation, index) => jsxDEV2(Conversation, {
                 conversation,
                 updateConversation: (conversation2) => setConversation(index, conversation2),
                 onSay: (conversation2) => addToQueue(conversation2),
                 removeConversation: () => removeConversation(index)
               }, index, false, undefined, this)),
-              jsx_dev_runtime6.jsxDEV("button", {
+              jsxDEV2("button", {
                 onClick: addNewConversation,
                 children: "+"
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsx_dev_runtime6.jsxDEV(Interruptions, {}, undefined, false, undefined, this),
-          jsx_dev_runtime6.jsxDEV(ConversationQueue, {}, undefined, false, undefined, this)
+          jsxDEV2(Interruptions, {}, undefined, false, undefined, this),
+          jsxDEV2(ConversationQueue, {}, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
 midi_default.init();
+var speakerColors = [pink, yellow, blue, green];
 
 // src/index.tsx
-var jsx_dev_runtime7 = __toESM(require_jsx_dev_runtime(), 1);
 var root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(jsx_dev_runtime7.jsxDEV(App, {}, undefined, false, undefined, this));
+root.render(jsxDEV2(App, {}, undefined, false, undefined, this));

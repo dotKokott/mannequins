@@ -8,8 +8,11 @@ import { ConversationQueue } from './ConversationQueue'
 import { Interruptions } from './Interruptions'
 
 import midiAPI from './lib/midi'
+import { blue, green, pink, yellow } from './constants'
 
 midiAPI.init()
+
+const speakerColors = [pink, yellow, blue, green]
 
 export function App() {
   const speakers = useConversationStore((state) => state.speakerConfigs)
@@ -33,7 +36,12 @@ export function App() {
   const queue = useConversationStore((state) => state.lineQueue)
 
   return (
-    <div style={{ fontFamily: 'DIN Alternate' }}>
+    <div
+      style={{
+        fontFamily: 'DIN Alternate',
+        backgroundColor: 'rgb(244, 183, 155)',
+      }}
+    >
       <h2 style={{ float: 'right' }}>
         {'Life in Plastic ~ Telepathic Control Center'}
       </h2>
@@ -50,7 +58,6 @@ export function App() {
           style={{
             display: 'flex',
             flexDirection: 'row',
-            gap: '10px',
           }}
         >
           {Array.from(speakers.entries()).map(([speaker, config], index) => (
@@ -59,6 +66,7 @@ export function App() {
               handle={speaker}
               config={config}
               index={index}
+              color={speakerColors[index]}
               onChange={(speakerConfig) =>
                 setSpeakerConfig(speaker, speakerConfig)
               }
