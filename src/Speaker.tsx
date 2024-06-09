@@ -90,7 +90,7 @@ export function Speaker({
     return () => {
       // midiAPI.off('noteon')
     }
-  }, [index])
+  }, [index, speakerId, voice, volume, pan])
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>

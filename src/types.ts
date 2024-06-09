@@ -5,6 +5,8 @@ export type Conversation = {
   title: string
   text: string
   lines: Line[]
+
+  queueMidiNote?: number
 }
 
 export type Line = {

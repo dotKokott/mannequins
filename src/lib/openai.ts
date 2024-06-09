@@ -147,7 +147,7 @@ export class API {
   private static completionModel = 'gpt-3.5-turbo-16k-0613'
   public static completionSystemPrompt = ''
 
-  private static ttsModel = 'tts-1' //tts-1-hd is better
+  private static ttsModel = 'tts-1'
 
   static async completeChat(text: string) {
     const response = await this.openaiInstance.chat.completions.create({

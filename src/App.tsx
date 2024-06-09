@@ -15,6 +15,21 @@ midiAPI.init()
 const speakerColors = [pink, yellow, blue, green]
 
 export function App() {
+  const [lastMidiNote, setLastMidiNote] = React.useState<number | null>(null)
+
+  React.useEffect(() => {
+    const handleMidiNote = (note: number) => {
+      console.log('MIDI Note:', note)
+      setLastMidiNote(note)
+    }
+
+    midiAPI.addNoteOnListener(handleMidiNote)
+
+    return () => {
+      midiAPI.removeNoteOnListener(handleMidiNote)
+    }
+  }, [])
+
   const speakers = useConversationStore((state) => state.speakerConfigs)
 
   const conversations = useConversationStore((state) => state.conversations)
@@ -45,7 +60,9 @@ export function App() {
       <h2 style={{ float: 'right' }}>
         {'Life in Plastic ~ Telepathic Control Center'}
       </h2>
+
       <Config />
+      <span style={{}}>Last MIDI: {lastMidiNote}</span>
       <div
         style={{
           marginTop: '100px',

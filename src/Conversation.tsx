@@ -1,5 +1,6 @@
 import React from 'react'
 import { parseConversation, type Conversation, type Line } from './types'
+import midiAPI from './lib/midi'
 
 export type ConversationProps = {
   conversation: Conversation
@@ -22,6 +23,9 @@ export function Conversation({
     conversation.text,
   )
 
+  const [conversationQueueMidiNote, setConversationQueueMidiNote] =
+    React.useState(conversation.queueMidiNote)
+
   const parsedConversation = React.useMemo(() => {
     return parseConversation(conversationText)
   }, [conversationText])
@@ -31,8 +35,24 @@ export function Conversation({
       title: conversationTitle,
       text: conversationText,
       lines: parseConversation(conversationText),
+
+      queueMidiNote: conversationQueueMidiNote,
     })
-  }, [conversationTitle, conversationText])
+  }, [conversationTitle, conversationText, conversationQueueMidiNote])
+
+  React.useEffect(() => {
+    const handleMidiNote = (note: number) => {
+      if (note === conversationQueueMidiNote) {
+        onSay(parsedConversation)
+      }
+    }
+
+    midiAPI.addNoteOnListener(handleMidiNote)
+
+    return () => {
+      midiAPI.removeNoteOnListener(handleMidiNote)
+    }
+  }, [conversationQueueMidiNote, parsedConversation])
 
   return (
     <div
@@ -53,6 +73,19 @@ export function Conversation({
         value={conversationText}
         onChange={(e) => setConversationText(e.target.value)}
       />
+      <div>
+        <div>
+          <label>Midi Note: </label>
+          <input
+            style={{ width: '10%' }}
+            type="number"
+            value={conversationQueueMidiNote}
+            onChange={(e) =>
+              setConversationQueueMidiNote(parseInt(e.target.value))
+            }
+          />
+        </div>
+      </div>
       <div
         style={{
           display: 'flex',

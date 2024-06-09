@@ -117,10 +117,19 @@ const useConversationStore = create<ConversationStore>()(
     immer((set, get) => ({
       speakerConfigs: new Map<string, SpeakerConfig>(
         new Map([
-          ['[HELIO]', { deviceId: 'default', voice: 'onyx', volume: 1 }],
-          ['[BARBARA]', { deviceId: 'default', voice: 'alloy', volume: 1 }],
-          ['[KARL]', { deviceId: 'default', voice: 'echo', volume: 1 }],
-          ['[PAULA]', { deviceId: 'default', voice: 'shimmer', volume: 1 }],
+          [
+            '[HELIO]',
+            { deviceId: 'default', voice: 'onyx', volume: 1, pan: 0 },
+          ],
+          [
+            '[BARBARA]',
+            { deviceId: 'default', voice: 'alloy', volume: 1, pan: 0 },
+          ],
+          ['[KARL]', { deviceId: 'default', voice: 'echo', volume: 1, pan: 0 }],
+          [
+            '[PAULA]',
+            { deviceId: 'default', voice: 'shimmer', volume: 1, pan: 0 },
+          ],
         ]),
       ),
       lineQueue: [],
@@ -254,6 +263,10 @@ const useConversationStore = create<ConversationStore>()(
           ) {
             API.storeCache()
             console.log('No lines queued. Picking randomly conversations...')
+
+            // wait a bit for natural conversation flow
+            await new Promise((resolve) => setTimeout(resolve, 2000))
+
             const conversation =
               get().conversations[
                 Math.floor(Math.random() * get().conversations.length)

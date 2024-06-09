@@ -23938,6 +23938,9 @@ var require_with_selector = __commonJS((exports, module) => {
 // src/index.tsx
 var ReactDOM = __toESM(require_client(), 1);
 
+// src/App.tsx
+var import_react7 = __toESM(require_react(), 1);
+
 // src/Config.tsx
 var import_react3 = __toESM(require_react(), 1);
 
@@ -29104,6 +29107,74 @@ function parseConversation(conversationText) {
   return parsed;
 }
 
+// src/lib/midi.ts
+class MidiAPI {
+  midi;
+  noteOnListeners = [];
+  constructor() {
+    this.midi = null;
+  }
+  async init() {
+    this.midi = await navigator.requestMIDIAccess({
+      sysex: true
+    });
+    this.midi?.inputs.forEach((input) => {
+      console.log(input);
+      input.onmidimessage = (message) => this.handleMidiMessage(message);
+    });
+  }
+  addNoteOnListener(listener) {
+    this.noteOnListeners.push(listener);
+  }
+  removeNoteOnListener(listener) {
+    this.noteOnListeners = this.noteOnListeners.filter((l) => l !== listener);
+  }
+  onNote(note, velocity) {
+    if (velocity > 0) {
+      this.noteOnListeners.forEach((listener) => listener(note, velocity));
+    }
+  }
+  onPad(note, velocity) {
+    console.log("onPad", note, velocity);
+  }
+  onModWheel(velocity) {
+    console.log("onModWheel", velocity);
+  }
+  onPitchBend(velocity) {
+    console.log("onPitchBend", velocity);
+  }
+  handleMidiMessage(message) {
+    const parsed = this.parseMidiMessage(message);
+    if (!parsed) {
+      return;
+    }
+    const { command, channel, note, velocity } = parsed;
+    if (command === 8) {
+      this.onNote(note, -velocity);
+    } else if (command === 9) {
+      this.onNote(note, velocity);
+    } else if (command === 11) {
+      if (note === 1)
+        this.onModWheel(velocity);
+    } else if (command === 14) {
+      this.onPitchBend(velocity);
+    }
+  }
+  parseMidiMessage(message) {
+    if (!message.data || message.data.length < 3) {
+      return null;
+    }
+    return {
+      command: message.data[0] >> 4,
+      channel: message.data[0] & 15,
+      note: message.data[1],
+      velocity: message.data[2] / 127
+    };
+  }
+}
+var midiAPI = new MidiAPI;
+var midi_default = midiAPI;
+
 // src/Conversation.tsx
 function Conversation({
   conversation,
@@ -29113,6 +29184,7 @@ function Conversation({
 }) {
   const [conversationTitle, setConversationTitle] = import_react4.default.useState(conversation.title);
   const [conversationText, setConversationText] = import_react4.default.useState(conversation.text);
+  const [conversationQueueMidiNote, setConversationQueueMidiNote] = import_react4.default.useState(conversation.queueMidiNote);
   const parsedConversation = import_react4.default.useMemo(() => {
     return parseConversation(conversationText);
   }, [conversationText]);
@@ -29120,9 +29192,21 @@ function Conversation({
     updateConversation({
       title: conversationTitle,
       text: conversationText,
-      lines: parseConversation(conversationText)
+      lines: parseConversation(conversationText),
+      queueMidiNote: conversationQueueMidiNote
     });
-  }, [conversationTitle, conversationText]);
+  }, [conversationTitle, conversationText, conversationQueueMidiNote]);
+  import_react4.default.useEffect(() => {
+    const handleMidiNote = (note) => {
+      if (note === conversationQueueMidiNote) {
+        onSay(parsedConversation);
+      }
+    };
+    midi_default.addNoteOnListener(handleMidiNote);
+    return () => {
+      midi_default.removeNoteOnListener(handleMidiNote);
+    };
+  }, [conversationQueueMidiNote, parsedConversation]);
   return jsxDEV2("div", {
     style: {
       display: "flex",
@@ -29140,6 +29224,21 @@ function Conversation({
         rows: 10,
         value: conversationText,
         onChange: (e) => setConversationText(e.target.value)
+      }, undefined, false, undefined, this),
+      jsxDEV2("div", {
+        children: jsxDEV2("div", {
+          children: [
+            jsxDEV2("label", {
+              children: "Midi Note: "
+            }, undefined, false, undefined, this),
+            jsxDEV2("input", {
+              style: { width: "10%" },
+              type: "number",
+              value: conversationQueueMidiNote,
+              onChange: (e) => setConversationQueueMidiNote(parseInt(e.target.value))
+            }, undefined, false, undefined, this)
+          ]
+        }, undefined, true, undefined, this)
       }, undefined, false, undefined, this),
       jsxDEV2("div", {
         style: {
@@ -29506,71 +29605,6 @@ var barbara_default = "./barbara-bda1aa12a124c429.png";
 // src/media/images/paula.png
 var paula_default = "./paula-dd307689561d9876.png";
 
-// src/lib/midi.ts
-class MidiAPI {
-  midi;
-  noteOnListeners = [];
-  constructor() {
-    this.midi = null;
-  }
-  async init() {
-    this.midi = await navigator.requestMIDIAccess({
-      sysex: true
-    });
-    this.midi?.inputs.forEach((input) => {
-      console.log(input);
-      input.onmidimessage = (message) => this.handleMidiMessage(message);
-    });
-  }
-  addNoteOnListener(listener) {
-    this.noteOnListeners.push(listener);
-  }
-  onNote(note, velocity) {
-    if (velocity > 0) {
-      this.noteOnListeners.forEach((listener) => listener(note, velocity));
-    }
-  }
-  onPad(note, velocity) {
-    console.log("onPad", note, velocity);
-  }
-  onModWheel(velocity) {
-    console.log("onModWheel", velocity);
-  }
-  onPitchBend(velocity) {
-    console.log("onPitchBend", velocity);
-  }
-  handleMidiMessage(message) {
-    const parsed = this.parseMidiMessage(message);
-    if (!parsed) {
-      return;
-    }
-    const { command, channel, note, velocity } = parsed;
-    if (command === 8) {
-      this.onNote(note, -velocity);
-    } else if (command === 9) {
-      this.onNote(note, velocity);
-    } else if (command === 11) {
-      if (note === 1)
-        this.onModWheel(velocity);
-    } else if (command === 14) {
-      this.onPitchBend(velocity);
-    }
-  }
-  parseMidiMessage(message) {
-    if (!message.data || message.data.length < 3) {
-      return null;
-    }
-    return {
-      command: message.data[0] >> 4,
-      channel: message.data[0] & 15,
-      note: message.data[1],
-      velocity: message.data[2] / 127
-    };
-  }
-}
-var midiAPI = new MidiAPI;
-var midi_default = midiAPI;
-
 // src/Speaker.tsx
 function Speaker({
   handle,
@@ -29605,7 +29639,7 @@ function Speaker({
     });
     return () => {
     };
-  }, [index]);
+  }, [index, speakerId, voice, volume, pan]);
   return jsxDEV2("div", {
     style: { display: "flex", flexDirection: "column", flex: 1 },
     children: [
@@ -30987,10 +31021,19 @@ Literally.
 `;
 var useConversationStore = create()(persist(immer2((set2, get) => ({
   speakerConfigs: new Map(new Map([
-    ["[HELIO]", { deviceId: "default", voice: "onyx", volume: 1 }],
-    ["[BARBARA]", { deviceId: "default", voice: "alloy", volume: 1 }],
-    ["[KARL]", { deviceId: "default", voice: "echo", volume: 1 }],
-    ["[PAULA]", { deviceId: "default", voice: "shimmer", volume: 1 }]
+    [
+      "[HELIO]",
+      { deviceId: "default", voice: "onyx", volume: 1, pan: 0 }
+    ],
+    [
+      "[BARBARA]",
+      { deviceId: "default", voice: "alloy", volume: 1, pan: 0 }
+    ],
+    ["[KARL]", { deviceId: "default", voice: "echo", volume: 1, pan: 0 }],
+    [
+      "[PAULA]",
+      { deviceId: "default", voice: "shimmer", volume: 1, pan: 0 }
+    ]
   ])),
   lineQueue: [],
   currentLine: undefined,
@@ -31093,6 +31136,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       if (get().lineQueue.length === 0 && get().autoPickFromConversations && get().conversations.length > 0) {
         API.storeCache();
         console.log("No lines queued. Picking randomly conversations...");
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         const conversation2 = get().conversations[Math.floor(Math.random() * get().conversations.length)];
         set2((state) => {
           state.lineQueue = conversation2.lines;
@@ -31328,6 +31372,17 @@ var green = "rgb(71, 158, 80)";
 
 // src/App.tsx
 function App() {
+  const [lastMidiNote, setLastMidiNote] = import_react7.default.useState(null);
+  import_react7.default.useEffect(() => {
+    const handleMidiNote = (note) => {
+      console.log("MIDI Note:", note);
+      setLastMidiNote(note);
+    };
+    midi_default.addNoteOnListener(handleMidiNote);
+    return () => {
+      midi_default.removeNoteOnListener(handleMidiNote);
+    };
+  }, []);
   const speakers = useConversationStore((state) => state.speakerConfigs);
   const conversations = useConversationStore((state) => state.conversations);
   const setConversation = useConversationStore((state) => state.setConversation);
@@ -31347,6 +31402,13 @@ function App() {
         children: "Life in Plastic ~ Telepathic Control Center"
       }, undefined, false, undefined, this),
       jsxDEV2(Config, {}, undefined, false, undefined, this),
+      jsxDEV2("span", {
+        style: {},
+        children: [
+          "Last MIDI: ",
+          lastMidiNote
+        ]
+      }, undefined, true, undefined, this),
       jsxDEV2("div", {
         style: {
           marginTop: "100px",

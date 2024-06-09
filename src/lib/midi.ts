@@ -24,6 +24,12 @@ class MidiAPI {
     this.noteOnListeners.push(listener)
   }
 
+  public removeNoteOnListener(
+    listener: (note: number, velocity: number) => void,
+  ) {
+    this.noteOnListeners = this.noteOnListeners.filter((l) => l !== listener)
+  }
+
   onNote(note: number, velocity: number) {
     if (velocity > 0) {
       this.noteOnListeners.forEach((listener) => listener(note, velocity))
