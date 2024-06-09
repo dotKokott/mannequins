@@ -62,6 +62,7 @@ export function Conversation({
         gap: '10px',
         border: '1px solid black',
         padding: '10px',
+        backgroundColor: 'white',
       }}
     >
       <input

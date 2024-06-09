@@ -29213,7 +29213,8 @@ function Conversation({
       flexDirection: "column",
       gap: "10px",
       border: "1px solid black",
-      padding: "10px"
+      padding: "10px",
+      backgroundColor: "white"
     },
     children: [
       jsxDEV2("input", {
