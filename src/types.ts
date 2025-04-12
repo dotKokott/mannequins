@@ -1,12 +1,15 @@
 import { current } from 'immer'
 import type { Voice } from './lib/openai'
 
+export type Language = 'english' | 'french'
+
 export type Conversation = {
   title: string
   text: string
   lines: Line[]
 
   queueMidiNote?: number
+  language: Language
 }
 
 export type Line = {

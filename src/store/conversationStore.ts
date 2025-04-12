@@ -4,6 +4,7 @@ import {
   type Conversation,
   type Line,
   type SpeakerConfig,
+  type Language,
 } from '../types'
 import { immer } from 'zustand/middleware/immer'
 import {
@@ -77,9 +78,12 @@ interface ConversationStore {
   hushMidi?: number
   goodbyeMidi?: number
 
+  currentLanguage: Language
+
   setWelcomeText: (text: string) => void
   setHushText: (text: string) => void
   setGoodbyeText: (text: string) => void
+  setCurrentLanguage: (language: Language) => void
 
   setPlayPauseMidi: (midiNote: number) => void
   setClearQueueMidi: (midiNote: number) => void
@@ -152,6 +156,7 @@ const useConversationStore = create<ConversationStore>()(
           title: 'Test Conversation',
           text: testConversation,
           lines: parseConversation(testConversation),
+          language: 'english',
         },
       ],
       isPlaying: true,
@@ -160,6 +165,8 @@ const useConversationStore = create<ConversationStore>()(
       welcomeText: 'Ooooh look the new hire!',
       hushText: 'Shhh!',
       goodbyeText: 'You got bored? Could have said goodbye',
+
+      currentLanguage: 'english',
 
       setWelcomeText: (text: string) => {
         set((state) => {
@@ -209,12 +216,19 @@ const useConversationStore = create<ConversationStore>()(
         })
       },
 
+      setCurrentLanguage: (language: Language) => {
+        set((state) => {
+          state.currentLanguage = language
+        })
+      },
+
       addNewConversation: () => {
         set((state) => {
           state.conversations.push({
             title: 'New Conversation',
             text: testConversation,
             lines: parseConversation(testConversation),
+            language: 'english',
           })
         })
       },
@@ -228,6 +242,7 @@ const useConversationStore = create<ConversationStore>()(
       setConversation: (index: number, conversation: Conversation) => {
         set((state) => {
           state.conversations[index] = conversation
+          console.log(conversation)
         })
       },
 
@@ -309,9 +324,19 @@ const useConversationStore = create<ConversationStore>()(
             // wait a bit for natural conversation flow
             await new Promise((resolve) => setTimeout(resolve, 2000))
 
+            const currentLanguage = get().currentLanguage
+
+            const conversationsInLanguage = get().conversations.filter(
+              (c) => c.language === currentLanguage,
+            )
+
+            console.log(
+              `Found ${conversationsInLanguage.length} conversations in language ${currentLanguage}`,
+            )
+
             const conversation =
-              get().conversations[
-                Math.floor(Math.random() * get().conversations.length)
+              conversationsInLanguage[
+                Math.floor(Math.random() * conversationsInLanguage.length)
               ]
 
             set((state) => {
@@ -370,6 +395,8 @@ const useConversationStore = create<ConversationStore>()(
           welcomeMidi: state.welcomeMidi,
           hushMidi: state.hushMidi,
           goodbyeMidi: state.goodbyeMidi,
+
+          currentLanguage: state.currentLanguage,
         }
       },
     },

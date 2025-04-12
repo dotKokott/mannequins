@@ -17,6 +17,11 @@ const speakerColors = [pink, yellow, blue, green]
 export function App() {
   const [lastMidiNote, setLastMidiNote] = React.useState<number | null>(null)
 
+  const currentLanguage = useConversationStore((state) => state.currentLanguage)
+  const setCurrentLanguage = useConversationStore(
+    (state) => state.setCurrentLanguage,
+  )
+
   React.useEffect(() => {
     const handleMidiNote = (note: number) => {
       console.log('MIDI Note:', note)
@@ -25,10 +30,21 @@ export function App() {
 
     midiAPI.addNoteOnListener(handleMidiNote)
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        setCurrentLanguage('english')
+      } else if (e.key === 'ArrowRight') {
+        setCurrentLanguage('french')
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
     return () => {
       midiAPI.removeNoteOnListener(handleMidiNote)
+      window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [])
+  }, [setCurrentLanguage])
 
   const speakers = useConversationStore((state) => state.speakerConfigs)
 
@@ -60,6 +76,10 @@ export function App() {
       <h2 style={{ float: 'right' }}>
         {'Life in Plastic ~ Telepathic Control Center'}
       </h2>
+
+      <div style={{ float: 'right' }}>
+        <span>Current Language: {currentLanguage}</span>
+      </div>
 
       <Config />
       <span style={{}}>Last MIDI: {lastMidiNote}</span>

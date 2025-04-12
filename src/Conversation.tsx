@@ -1,5 +1,10 @@
 import React from 'react'
-import { parseConversation, type Conversation, type Line } from './types'
+import {
+  parseConversation,
+  type Conversation,
+  type Line,
+  type Language,
+} from './types'
 import midiAPI from './lib/midi'
 
 export type ConversationProps = {
@@ -23,6 +28,10 @@ export function Conversation({
     conversation.text,
   )
 
+  const [language, setLanguage] = React.useState<Language>(
+    conversation.language,
+  )
+
   const [conversationQueueMidiNote, setConversationQueueMidiNote] =
     React.useState(conversation.queueMidiNote)
 
@@ -36,9 +45,11 @@ export function Conversation({
       text: conversationText,
       lines: parseConversation(conversationText),
 
+      language,
+
       queueMidiNote: conversationQueueMidiNote,
     })
-  }, [conversationTitle, conversationText, conversationQueueMidiNote])
+  }, [conversationTitle, conversationText, conversationQueueMidiNote, language])
 
   React.useEffect(() => {
     const handleMidiNote = (note: number) => {
@@ -85,6 +96,16 @@ export function Conversation({
               setConversationQueueMidiNote(parseInt(e.target.value))
             }
           />
+        </div>
+        <div>
+          <label>Language: </label>
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value as Language)}
+          >
+            <option value="english">English</option>
+            <option value="french">French</option>
+          </select>
         </div>
       </div>
       <div
