@@ -18,7 +18,7 @@
     "@types/react": "^18.2.73",
     "@types/react-dom": "^18.2.23",
     "immer": "^10.1.1",
-    "openai": "^4.30.0",
+    "openai": "^4.93.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zustand": "^4.5.2"
