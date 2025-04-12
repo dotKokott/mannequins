@@ -33436,7 +33436,6 @@ var blue = "rgb(86, 181, 215)";
 var green = "rgb(71, 158, 80)";
 
 // src/App.tsx
-midi_default.init();
 var speakerColors = [pink, yellow, blue, green];
 function App() {
   const [lastMidiNote, setLastMidiNote] = import_react9.default.useState(null);
