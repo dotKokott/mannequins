@@ -4,11 +4,16 @@ import type { SpeakerConfig } from '../types'
 
 export const voiceOptions = [
   'alloy',
+  'ash',
+  'ballad',
+  'coral',
   'echo',
   'fable',
   'onyx',
   'nova',
+  'sage',
   'shimmer',
+  'verse',
 ] as const
 export type Voice = (typeof voiceOptions)[number]
 
@@ -43,8 +48,14 @@ export class API {
   static bufferCache = new Map<string, ArrayBufferLike>()
   static bufferChanged = false
 
-  static async getOrCreateBuffer(voice: Voice, text: string) {
-    const key = `${voice}+${text}`
+  private static ttsModel = 'gpt-4o-mini-tts'
+
+  static async getOrCreateBuffer(
+    voice: Voice,
+    text: string,
+    instructions?: string,
+  ) {
+    const key = `${voice}+${text}-${instructions}`
 
     if (API.bufferCache.has(key)) {
       console.log('Cache hit')
@@ -52,15 +63,18 @@ export class API {
     }
 
     console.log('Cache miss')
-    return await this.createBuffer(voice, text)
+    return await this.createBuffer(voice, text, instructions)
   }
 
-  static async createBuffer(voice: Voice, text: string) {
+  static async createBuffer(voice: Voice, text: string, instructions?: string) {
     const response = await this.openaiInstance.audio.speech.create({
-      model: 'tts-1',
+      model: API.ttsModel,
       voice: voice,
       input: text,
       response_format: 'opus',
+      instructions:
+        instructions ||
+        'Please speak in a slow and clear manner. Add emotion and personality to the text.',
     })
 
     const buffer = await response.arrayBuffer()
@@ -147,8 +161,6 @@ export class API {
   private static completionModel = 'gpt-3.5-turbo-16k-0613'
   public static completionSystemPrompt = ''
 
-  private static ttsModel = 'tts-1'
-
   static async completeChat(text: string) {
     const response = await this.openaiInstance.chat.completions.create({
       model: this.completionModel,
@@ -195,7 +207,11 @@ export class API {
       return
     }
 
-    const buffer = await this.getOrCreateBuffer(config.voice, text)
+    const buffer = await this.getOrCreateBuffer(
+      config.voice,
+      text,
+      config.voiceInstructions,
+    )
 
     // the slice is needed because the buffer is a stream and we need to copy it
     await audioAPI.play(

@@ -57,6 +57,10 @@ export function Speaker({
   const [voice, setVoice] = React.useState<Voice>(config.voice)
   const [volume, setVolume] = React.useState<number>(config.volume)
   const [pan, setPan] = React.useState<number>(config.pan)
+  const [voiceInstructions, setVoiceInstructions] = React.useState<string>(
+    config.voiceInstructions ||
+      'Please speak in a slow and clear manner. Add emotion and personality to the text.',
+  )
 
   async function say() {
     await API.say(
@@ -77,8 +81,8 @@ export function Speaker({
   }
 
   React.useEffect(() => {
-    onChange({ deviceId: speakerId, voice, volume, pan })
-  }, [speakerId, voice, volume, pan])
+    onChange({ deviceId: speakerId, voice, volume, pan, voiceInstructions })
+  }, [speakerId, voice, volume, pan, voiceInstructions])
 
   React.useEffect(() => {
     midiAPI.addNoteOnListener((note, velocity) => {
@@ -169,6 +173,16 @@ export function Speaker({
             min={-1}
             max={1}
             step={0.01}
+          />
+        </div>
+
+        <div css={flexItem}>
+          <label htmlFor="voiceInstructions">Voice Instructions</label>
+          <textarea
+            value={voiceInstructions}
+            onChange={(e) => setVoiceInstructions(e.target.value)}
+            style={{ width: '100%', minHeight: '60px' }}
+            placeholder="Enter voice instructions..."
           />
         </div>
 
