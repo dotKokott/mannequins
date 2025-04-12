@@ -1,6 +1,6 @@
 var __create = Object.create;
-var __defProp = Object.defineProperty;
 var __getProtoOf = Object.getPrototypeOf;
+var __defProp = Object.defineProperty;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __toESM = (mod, isNodeMode, target) => {
@@ -147,7 +147,7 @@ var require_react_development = __commonJS((exports, module) => {
           if (didWarnStateUpdateForUnmountedComponent[warningKey]) {
             return;
           }
-          error("Can't call %s on a component that is not yet mounted. This is a no-op, but it might indicate a bug in your application. Instead, assign to `this.state` directly or define a `state = {};` class property with the desired state in the %s component.", callerName, componentName);
+          error("Can't call %s on a component that is not yet mounted. " + "This is a no-op, but it might indicate a bug in your application. " + "Instead, assign to `this.state` directly or define a `state = {};` " + "class property with the desired state in the %s component.", callerName, componentName);
           didWarnStateUpdateForUnmountedComponent[warningKey] = true;
         }
       }
@@ -179,7 +179,7 @@ var require_react_development = __commonJS((exports, module) => {
       Component.prototype.isReactComponent = {};
       Component.prototype.setState = function(partialState, callback) {
         if (typeof partialState !== "object" && typeof partialState !== "function" && partialState != null) {
-          throw new Error("setState(...): takes an object of state variables to update or a function which returns an object of state variables.");
+          throw new Error("setState(...): takes an object of state variables to update or a " + "function which returns an object of state variables.");
         }
         this.updater.enqueueSetState(this, partialState, callback, "setState");
       };
@@ -188,8 +188,8 @@ var require_react_development = __commonJS((exports, module) => {
       };
       {
         var deprecatedAPIs = {
-          isMounted: ["isMounted", "Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks."],
-          replaceState: ["replaceState", "Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236)."]
+          isMounted: ["isMounted", "Instead, make sure to clean up subscriptions and pending requests in " + "componentWillUnmount to prevent memory leaks."],
+          replaceState: ["replaceState", "Refactor your code to use setState instead (see " + "https://github.com/facebook/react/issues/3236)."]
         };
         var defineDeprecationWarning = function(methodName, info) {
           Object.defineProperty(Component.prototype, methodName, {
@@ -205,8 +205,7 @@ var require_react_development = __commonJS((exports, module) => {
           }
         }
       }
-      function ComponentDummy() {
-      }
+      function ComponentDummy() {}
       ComponentDummy.prototype = Component.prototype;
       function PureComponent(props, context, updater) {
         this.props = props;
@@ -254,7 +253,7 @@ var require_react_development = __commonJS((exports, module) => {
       function checkKeyStringCoercion(value) {
         {
           if (willCoercionThrow(value)) {
-            error("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", typeName(value));
+            error("The provided key is an unsupported type %s." + " This value must be coerced to a string before before using it here.", typeName(value));
             return testStringCoercion(value);
           }
         }
@@ -276,7 +275,7 @@ var require_react_development = __commonJS((exports, module) => {
         }
         {
           if (typeof type.tag === "number") {
-            error("Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue.");
+            error("Received an unexpected object in getComponentNameFromType(). " + "This is likely a bug in React. Please file an issue.");
           }
         }
         if (typeof type === "function") {
@@ -367,7 +366,7 @@ var require_react_development = __commonJS((exports, module) => {
           {
             if (!specialPropKeyWarningShown) {
               specialPropKeyWarningShown = true;
-              error("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", displayName);
+              error("%s: `key` is not a prop. Trying to access it will result " + "in `undefined` being returned. If you need to access the same " + "value within the child component, you should pass it as a different " + "prop. (https://reactjs.org/link/special-props)", displayName);
             }
           }
         };
@@ -382,7 +381,7 @@ var require_react_development = __commonJS((exports, module) => {
           {
             if (!specialPropRefWarningShown) {
               specialPropRefWarningShown = true;
-              error("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", displayName);
+              error("%s: `ref` is not a prop. Trying to access it will result " + "in `undefined` being returned. If you need to access the same " + "value within the child component, you should pass it as a different " + "prop. (https://reactjs.org/link/special-props)", displayName);
             }
           }
         };
@@ -397,7 +396,7 @@ var require_react_development = __commonJS((exports, module) => {
           if (typeof config.ref === "string" && ReactCurrentOwner.current && config.__self && ReactCurrentOwner.current.stateNode !== config.__self) {
             var componentName = getComponentNameFromType(ReactCurrentOwner.current.type);
             if (!didWarnAboutStringRefs[componentName]) {
-              error('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', componentName, config.ref);
+              error('Component "%s" contains the string ref "%s". ' + "Support for string refs will be removed in a future major release. " + "This case cannot be automatically converted to an arrow function. " + "We ask you to manually fix this case by using useRef() or createRef() instead. " + "Learn more about using refs safely here: " + "https://reactjs.org/link/strict-mode-string-ref", componentName, config.ref);
               didWarnAboutStringRefs[componentName] = true;
             }
           }
@@ -560,7 +559,7 @@ var require_react_development = __commonJS((exports, module) => {
       }
       var SEPARATOR = ".";
       var SUBSEPARATOR = ":";
-      function escape(key) {
+      function escape2(key) {
         var escapeRegex = /[=:]/g;
         var escaperLookup = {
           "=": "=0",
@@ -581,7 +580,7 @@ var require_react_development = __commonJS((exports, module) => {
           {
             checkKeyStringCoercion(element.key);
           }
-          return escape("" + element.key);
+          return escape2("" + element.key);
         }
         return index.toString(36);
       }
@@ -649,7 +648,7 @@ var require_react_development = __commonJS((exports, module) => {
             {
               if (iteratorFn === iterableChildren.entries) {
                 if (!didWarnAboutMaps) {
-                  warn("Using Maps as children is not supported. Use an array of keyed ReactElements instead.");
+                  warn("Using Maps as children is not supported. " + "Use an array of keyed ReactElements instead.");
                 }
                 didWarnAboutMaps = true;
               }
@@ -664,7 +663,7 @@ var require_react_development = __commonJS((exports, module) => {
             }
           } else if (type === "object") {
             var childrenString = String(children);
-            throw new Error("Objects are not valid as a React child (found: " + (childrenString === "[object Object]" ? "object with keys {" + Object.keys(children).join(", ") + "}" : childrenString) + "). If you meant to render a collection of children, use an array instead.");
+            throw new Error("Objects are not valid as a React child (found: " + (childrenString === "[object Object]" ? "object with keys {" + Object.keys(children).join(", ") + "}" : childrenString) + "). " + "If you meant to render a collection of children, use an array " + "instead.");
           }
         }
         return subtreeCount;
@@ -731,7 +730,7 @@ var require_react_development = __commonJS((exports, module) => {
               get: function() {
                 if (!hasWarnedAboutUsingConsumerProvider) {
                   hasWarnedAboutUsingConsumerProvider = true;
-                  error("Rendering <Context.Consumer.Provider> is not supported and will be removed in a future major release. Did you mean to render <Context.Provider> instead?");
+                  error("Rendering <Context.Consumer.Provider> is not supported and will be removed in " + "a future major release. Did you mean to render <Context.Provider> instead?");
                 }
                 return context.Provider;
               },
@@ -767,7 +766,7 @@ var require_react_development = __commonJS((exports, module) => {
               get: function() {
                 if (!hasWarnedAboutUsingNestedContextConsumers) {
                   hasWarnedAboutUsingNestedContextConsumers = true;
-                  error("Rendering <Context.Consumer.Consumer> is not supported and will be removed in a future major release. Did you mean to render <Context.Consumer> instead?");
+                  error("Rendering <Context.Consumer.Consumer> is not supported and will be removed in " + "a future major release. Did you mean to render <Context.Consumer> instead?");
                 }
                 return context.Consumer;
               }
@@ -778,7 +777,7 @@ var require_react_development = __commonJS((exports, module) => {
               },
               set: function(displayName) {
                 if (!hasWarnedAboutDisplayNameOnConsumer) {
-                  warn("Setting `displayName` on Context.Consumer has no effect. You should set it directly on the context with Context.displayName = '%s'.", displayName);
+                  warn("Setting `displayName` on Context.Consumer has no effect. " + "You should set it directly on the context with Context.displayName = '%s'.", displayName);
                   hasWarnedAboutDisplayNameOnConsumer = true;
                 }
               }
@@ -823,12 +822,20 @@ var require_react_development = __commonJS((exports, module) => {
           var moduleObject = payload._result;
           {
             if (moduleObject === undefined) {
-              error("lazy: Expected the result of a dynamic import() call. Instead received: %s\n\nYour code should look like: \n  const MyComponent = lazy(() => import('./MyComponent'))\n\nDid you accidentally put curly braces around the import?", moduleObject);
+              error("lazy: Expected the result of a dynamic imp" + "ort() call. " + `Instead received: %s
+
+Your code should look like: 
+  ` + "const MyComponent = lazy(() => imp" + `ort('./MyComponent'))
+
+` + "Did you accidentally put curly braces around the import?", moduleObject);
             }
           }
           {
             if (!("default" in moduleObject)) {
-              error("lazy: Expected the result of a dynamic import() call. Instead received: %s\n\nYour code should look like: \n  const MyComponent = lazy(() => import('./MyComponent'))", moduleObject);
+              error("lazy: Expected the result of a dynamic imp" + "ort() call. " + `Instead received: %s
+
+Your code should look like: 
+  ` + "const MyComponent = lazy(() => imp" + "ort('./MyComponent'))", moduleObject);
             }
           }
           return moduleObject.default;
@@ -856,7 +863,7 @@ var require_react_development = __commonJS((exports, module) => {
                 return defaultProps;
               },
               set: function(newDefaultProps) {
-                error("React.lazy(...): It is not supported to assign `defaultProps` to a lazy component import. Either specify them where the component is defined, or create a wrapping component around it.");
+                error("React.lazy(...): It is not supported to assign `defaultProps` to " + "a lazy component import. Either specify them where the component " + "is defined, or create a wrapping component around it.");
                 defaultProps = newDefaultProps;
                 Object.defineProperty(lazyType, "defaultProps", {
                   enumerable: true
@@ -869,7 +876,7 @@ var require_react_development = __commonJS((exports, module) => {
                 return propTypes;
               },
               set: function(newPropTypes) {
-                error("React.lazy(...): It is not supported to assign `propTypes` to a lazy component import. Either specify them where the component is defined, or create a wrapping component around it.");
+                error("React.lazy(...): It is not supported to assign `propTypes` to " + "a lazy component import. Either specify them where the component " + "is defined, or create a wrapping component around it.");
                 propTypes = newPropTypes;
                 Object.defineProperty(lazyType, "propTypes", {
                   enumerable: true
@@ -883,7 +890,7 @@ var require_react_development = __commonJS((exports, module) => {
       function forwardRef(render) {
         {
           if (render != null && render.$$typeof === REACT_MEMO_TYPE) {
-            error("forwardRef requires a render function but received a `memo` component. Instead of forwardRef(memo(...)), use memo(forwardRef(...)).");
+            error("forwardRef requires a render function but received a `memo` " + "component. Instead of forwardRef(memo(...)), use " + "memo(forwardRef(...)).");
           } else if (typeof render !== "function") {
             error("forwardRef requires a render function but was given %s.", render === null ? "null" : typeof render);
           } else {
@@ -893,7 +900,7 @@ var require_react_development = __commonJS((exports, module) => {
           }
           if (render != null) {
             if (render.defaultProps != null || render.propTypes != null) {
-              error("forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?");
+              error("forwardRef render functions do not support propTypes or defaultProps. " + "Did you accidentally pass a React component?");
             }
           }
         }
@@ -940,7 +947,7 @@ var require_react_development = __commonJS((exports, module) => {
       function memo(type, compare) {
         {
           if (!isValidElementType(type)) {
-            error("memo: The first argument must be a component. Instead received: %s", type === null ? "null" : typeof type);
+            error("memo: The first argument must be a component. Instead " + "received: %s", type === null ? "null" : typeof type);
           }
         }
         var elementType = {
@@ -970,7 +977,11 @@ var require_react_development = __commonJS((exports, module) => {
         var dispatcher = ReactCurrentDispatcher.current;
         {
           if (dispatcher === null) {
-            error("Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.");
+            error("Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for" + ` one of the following reasons:
+` + `1. You might have mismatching versions of React and the renderer (such as React DOM)
+` + `2. You might be breaking the Rules of Hooks
+` + `3. You might have more than one copy of React in the same app
+` + "See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.");
           }
         }
         return dispatcher;
@@ -981,9 +992,9 @@ var require_react_development = __commonJS((exports, module) => {
           if (Context._context !== undefined) {
             var realContext = Context._context;
             if (realContext.Consumer === Context) {
-              error("Calling useContext(Context.Consumer) is not supported, may cause bugs, and will be removed in a future major release. Did you mean to call useContext(Context) instead?");
+              error("Calling useContext(Context.Consumer) is not supported, may cause bugs, and will be " + "removed in a future major release. Did you mean to call useContext(Context) instead?");
             } else if (realContext.Provider === Context) {
-              error("Calling useContext(Context.Provider) is not supported. Did you mean to call useContext(Context) instead?");
+              error("Calling useContext(Context.Provider) is not supported. " + "Did you mean to call useContext(Context) instead?");
             }
           }
         }
@@ -1055,8 +1066,7 @@ var require_react_development = __commonJS((exports, module) => {
       var prevGroup;
       var prevGroupCollapsed;
       var prevGroupEnd;
-      function disabledLog() {
-      }
+      function disabledLog() {}
       disabledLog.__reactDisabledLog = true;
       function disableLogs() {
         {
@@ -1121,7 +1131,7 @@ var require_react_development = __commonJS((exports, module) => {
             });
           }
           if (disabledDepth < 0) {
-            error("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
+            error("disabledDepth fell below zero. " + "This is a bug in React. Please file an issue.");
           }
         }
       }
@@ -1137,7 +1147,8 @@ var require_react_development = __commonJS((exports, module) => {
               prefix = match && match[1] || "";
             }
           }
-          return "\n" + prefix + name;
+          return `
+` + prefix + name;
         }
       }
       var reentry = false;
@@ -1201,8 +1212,10 @@ var require_react_development = __commonJS((exports, module) => {
           }
         } catch (sample) {
           if (sample && control && typeof sample.stack === "string") {
-            var sampleLines = sample.stack.split("\n");
-            var controlLines = control.stack.split("\n");
+            var sampleLines = sample.stack.split(`
+`);
+            var controlLines = control.stack.split(`
+`);
             var s = sampleLines.length - 1;
             var c = controlLines.length - 1;
             while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
@@ -1215,7 +1228,8 @@ var require_react_development = __commonJS((exports, module) => {
                     s--;
                     c--;
                     if (c < 0 || sampleLines[s] !== controlLines[c]) {
-                      var _frame = "\n" + sampleLines[s].replace(" at new ", " at ");
+                      var _frame = `
+` + sampleLines[s].replace(" at new ", " at ");
                       if (fn.displayName && _frame.includes("<anonymous>")) {
                         _frame = _frame.replace("<anonymous>", fn.displayName);
                       }
@@ -1288,8 +1302,7 @@ var require_react_development = __commonJS((exports, module) => {
               var init = lazyComponent._init;
               try {
                 return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-              } catch (x) {
-              }
+              } catch (x) {}
             }
           }
         }
@@ -1316,7 +1329,7 @@ var require_react_development = __commonJS((exports, module) => {
               var error$1 = undefined;
               try {
                 if (typeof typeSpecs[typeSpecName] !== "function") {
-                  var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                  var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; " + "it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`." + "This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                   err.name = "Invariant Violation";
                   throw err;
                 }
@@ -1326,7 +1339,7 @@ var require_react_development = __commonJS((exports, module) => {
               }
               if (error$1 && !(error$1 instanceof Error)) {
                 setCurrentlyValidatingElement(element);
-                error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
+                error("%s: type specification of %s" + " `%s` is invalid; the type checker " + "function must return `null` or an `Error` but returned a %s. " + "You may have forgotten to pass an argument to the type checker " + "creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and " + "shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
                 setCurrentlyValidatingElement(null);
               }
               if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
@@ -1358,7 +1371,9 @@ var require_react_development = __commonJS((exports, module) => {
         if (ReactCurrentOwner.current) {
           var name = getComponentNameFromType(ReactCurrentOwner.current.type);
           if (name) {
-            return "\n\nCheck the render method of `" + name + "`.";
+            return `
+
+Check the render method of \`` + name + "`.";
           }
         }
         return "";
@@ -1367,7 +1382,9 @@ var require_react_development = __commonJS((exports, module) => {
         if (source !== undefined) {
           var fileName = source.fileName.replace(/^.*[\\\/]/, "");
           var lineNumber = source.lineNumber;
-          return "\n\nCheck your code at " + fileName + ":" + lineNumber + ".";
+          return `
+
+Check your code at ` + fileName + ":" + lineNumber + ".";
         }
         return "";
       }
@@ -1383,7 +1400,9 @@ var require_react_development = __commonJS((exports, module) => {
         if (!info) {
           var parentName = typeof parentType === "string" ? parentType : parentType.displayName || parentType.name;
           if (parentName) {
-            info = "\n\nCheck the top-level render call using <" + parentName + ">.";
+            info = `
+
+Check the top-level render call using <` + parentName + ">.";
           }
         }
         return info;
@@ -1404,7 +1423,7 @@ var require_react_development = __commonJS((exports, module) => {
         }
         {
           setCurrentlyValidatingElement$1(element);
-          error('Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.', currentComponentErrorInfo, childOwner);
+          error('Each child in a list should have a unique "key" prop.' + "%s%s See https://reactjs.org/link/warning-keys for more information.", currentComponentErrorInfo, childOwner);
           setCurrentlyValidatingElement$1(null);
         }
       }
@@ -1461,7 +1480,7 @@ var require_react_development = __commonJS((exports, module) => {
             error("Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?", _name || "Unknown");
           }
           if (typeof type.getDefaultProps === "function" && !type.getDefaultProps.isReactClassApproved) {
-            error("getDefaultProps is only used on classic React.createClass definitions. Use a static property named `defaultProps` instead.");
+            error("getDefaultProps is only used on classic React.createClass " + "definitions. Use a static property named `defaultProps` instead.");
           }
         }
       }
@@ -1472,7 +1491,7 @@ var require_react_development = __commonJS((exports, module) => {
             var key = keys[i];
             if (key !== "children" && key !== "key") {
               setCurrentlyValidatingElement$1(fragment);
-              error("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key);
+              error("Invalid prop `%s` supplied to `React.Fragment`. " + "React.Fragment can only have `key` and `children` props.", key);
               setCurrentlyValidatingElement$1(null);
               break;
             }
@@ -1489,7 +1508,7 @@ var require_react_development = __commonJS((exports, module) => {
         if (!validType) {
           var info = "";
           if (type === undefined || typeof type === "object" && type !== null && Object.keys(type).length === 0) {
-            info += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.";
+            info += " You likely forgot to export your component from the file " + "it's defined in, or you might have mixed up default and named imports.";
           }
           var sourceInfo = getSourceInfoErrorAddendumForProps(props);
           if (sourceInfo) {
@@ -1509,7 +1528,7 @@ var require_react_development = __commonJS((exports, module) => {
             typeString = typeof type;
           }
           {
-            error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
+            error("React.createElement: type is invalid -- expected a string (for " + "built-in components) or a class/function (for composite " + "components) but got: %s.%s", typeString, info);
           }
         }
         var element = createElement.apply(this, arguments);
@@ -1535,12 +1554,12 @@ var require_react_development = __commonJS((exports, module) => {
         {
           if (!didWarnAboutDeprecatedCreateFactory) {
             didWarnAboutDeprecatedCreateFactory = true;
-            warn("React.createFactory() is deprecated and will be removed in a future major release. Consider using JSX or use React.createElement() directly instead.");
+            warn("React.createFactory() is deprecated and will be removed in " + "a future major release. Consider using JSX " + "or use React.createElement() directly instead.");
           }
           Object.defineProperty(validatedFactory, "type", {
             enumerable: false,
             get: function() {
-              warn("Factory.type is deprecated. Access the class directly before passing it to createFactory.");
+              warn("Factory.type is deprecated. Access the class directly " + "before passing it to createFactory.");
               Object.defineProperty(this, "type", {
                 value: type
               });
@@ -1573,7 +1592,7 @@ var require_react_development = __commonJS((exports, module) => {
             if (prevTransition === null && currentTransition._updatedFibers) {
               var updatedFibersCount = currentTransition._updatedFibers.size;
               if (updatedFibersCount > 10) {
-                warn("Detected a large number of updates inside startTransition. If this is due to a subscription please re-write it to use React provided hooks. Otherwise concurrent mode guarantees are off the table.");
+                warn("Detected a large number of updates inside startTransition. " + "If this is due to a subscription please re-write it to use React provided hooks. " + "Otherwise concurrent mode guarantees are off the table.");
               }
               currentTransition._updatedFibers.clear();
             }
@@ -1594,7 +1613,7 @@ var require_react_development = __commonJS((exports, module) => {
                 if (didWarnAboutMessageChannel === false) {
                   didWarnAboutMessageChannel = true;
                   if (typeof MessageChannel === "undefined") {
-                    error("This browser does not have a MessageChannel implementation, so enqueuing tasks via await act(async () => ...) will fail. Please file an issue at https://github.com/facebook/react/issues if you encounter this warning.");
+                    error("This browser does not have a MessageChannel implementation, " + "so enqueuing tasks via await act(async () => ...) will fail. " + "Please file an issue at https://github.com/facebook/react/issues " + "if you encounter this warning.");
                   }
                 }
               }
@@ -1654,11 +1673,10 @@ var require_react_development = __commonJS((exports, module) => {
             };
             {
               if (!didWarnNoAwaitAct && typeof Promise !== "undefined") {
-                Promise.resolve().then(function() {
-                }).then(function() {
+                Promise.resolve().then(function() {}).then(function() {
                   if (!wasAwaited) {
                     didWarnNoAwaitAct = true;
-                    error("You called act(async () => ...) without await. This could lead to unexpected testing behaviour, interleaving multiple act calls and mixing their scopes. You should - await act(async () => ...);");
+                    error("You called act(async () => ...) without await. " + "This could lead to unexpected testing behaviour, " + "interleaving multiple act calls and mixing their " + "scopes. " + "You should - await act(async () => ...);");
                   }
                 });
               }
@@ -1698,7 +1716,7 @@ var require_react_development = __commonJS((exports, module) => {
       function popActScope(prevActScopeDepth) {
         {
           if (prevActScopeDepth !== actScopeDepth - 1) {
-            error("You seem to have overlapping act() calls, this is not supported. Be sure to await previous act() calls before making a new one. ");
+            error("You seem to have overlapping act() calls, this is not supported. " + "Be sure to await previous act() calls before making a new one. ");
           }
           actScopeDepth = prevActScopeDepth;
         }
@@ -1803,8 +1821,7 @@ var require_react_development = __commonJS((exports, module) => {
 // node_modules/react/index.js
 var require_react = __commonJS((exports, module) => {
   var react_development = __toESM(require_react_development(), 1);
-  if (false) {
-  } else {
+  if (false) {} else {
     module.exports = react_development;
   }
 });
@@ -1890,8 +1907,7 @@ var require_scheduler_development = __commonJS((exports) => {
       var NormalPriority = 3;
       var LowPriority = 4;
       var IdlePriority = 5;
-      function markTaskErrored(task, ms) {
-      }
+      function markTaskErrored(task, ms) {}
       var hasPerformanceNow = typeof performance === "object" && typeof performance.now === "function";
       if (hasPerformanceNow) {
         var localPerformance = performance;
@@ -2133,8 +2149,7 @@ var require_scheduler_development = __commonJS((exports) => {
         }
         return newTask;
       }
-      function unstable_pauseExecution() {
-      }
+      function unstable_pauseExecution() {}
       function unstable_continueExecution() {
         if (!isHostCallbackScheduled && !isPerformingWork) {
           isHostCallbackScheduled = true;
@@ -2162,11 +2177,10 @@ var require_scheduler_development = __commonJS((exports) => {
         }
         return true;
       }
-      function requestPaint() {
-      }
+      function requestPaint() {}
       function forceFrameRate(fps) {
         if (fps < 0 || fps > 125) {
-          console["error"]("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported");
+          console["error"]("forceFrameRate takes a positive int between 0 and 125, " + "forcing frame rates higher than 125 fps is not supported");
           return;
         }
         if (fps > 0) {
@@ -2258,8 +2272,7 @@ var require_scheduler_development = __commonJS((exports) => {
 // node_modules/scheduler/index.js
 var require_scheduler = __commonJS((exports, module) => {
   var scheduler_development = __toESM(require_scheduler_development(), 1);
-  if (false) {
-  } else {
+  if (false) {} else {
     module.exports = scheduler_development;
   }
 });
@@ -2361,7 +2374,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function registerDirectEvent(registrationName, dependencies) {
         {
           if (registrationNameDependencies[registrationName]) {
-            error("EventRegistry: More than one plugin attempted to publish the same registration name, `%s`.", registrationName);
+            error("EventRegistry: More than one plugin attempted to publish the same " + "registration name, `%s`.", registrationName);
           }
         }
         registrationNameDependencies[registrationName] = dependencies;
@@ -2401,7 +2414,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function checkAttributeStringCoercion(value, attributeName) {
         {
           if (willCoercionThrow(value)) {
-            error("The provided `%s` attribute is an unsupported type %s. This value must be coerced to a string before before using it here.", attributeName, typeName(value));
+            error("The provided `%s` attribute is an unsupported type %s." + " This value must be coerced to a string before before using it here.", attributeName, typeName(value));
             return testStringCoercion(value);
           }
         }
@@ -2409,7 +2422,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function checkKeyStringCoercion(value) {
         {
           if (willCoercionThrow(value)) {
-            error("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", typeName(value));
+            error("The provided key is an unsupported type %s." + " This value must be coerced to a string before before using it here.", typeName(value));
             return testStringCoercion(value);
           }
         }
@@ -2417,7 +2430,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function checkPropStringCoercion(value, propName) {
         {
           if (willCoercionThrow(value)) {
-            error("The provided `%s` prop is an unsupported type %s. This value must be coerced to a string before before using it here.", propName, typeName(value));
+            error("The provided `%s` prop is an unsupported type %s." + " This value must be coerced to a string before before using it here.", propName, typeName(value));
             return testStringCoercion(value);
           }
         }
@@ -2425,7 +2438,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function checkCSSPropertyStringCoercion(value, propName) {
         {
           if (willCoercionThrow(value)) {
-            error("The provided `%s` CSS property is an unsupported type %s. This value must be coerced to a string before before using it here.", propName, typeName(value));
+            error("The provided `%s` CSS property is an unsupported type %s." + " This value must be coerced to a string before before using it here.", propName, typeName(value));
             return testStringCoercion(value);
           }
         }
@@ -2433,7 +2446,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function checkHtmlStringCoercion(value) {
         {
           if (willCoercionThrow(value)) {
-            error("The provided HTML markup uses a value of unsupported type %s. This value must be coerced to a string before before using it here.", typeName(value));
+            error("The provided HTML markup uses a value of unsupported type %s." + " This value must be coerced to a string before before using it here.", typeName(value));
             return testStringCoercion(value);
           }
         }
@@ -2441,7 +2454,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function checkFormFieldValueStringCoercion(value) {
         {
           if (willCoercionThrow(value)) {
-            error("Form field values (value, checked, defaultValue, or defaultChecked props) must be strings, not %s. This value must be coerced to a string before before using it here.", typeName(value));
+            error("Form field values (value, checked, defaultValue, or defaultChecked props)" + " must be strings, not %s." + " This value must be coerced to a string before before using it here.", typeName(value));
             return testStringCoercion(value);
           }
         }
@@ -2738,7 +2751,7 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           if (!didWarn && isJavaScriptProtocol.test(url)) {
             didWarn = true;
-            error("A future version of React will block javascript: URLs as a security precaution. Use event handlers instead if you can. If you need to generate unsafe HTML try using dangerouslySetInnerHTML instead. React was passed %s.", JSON.stringify(url));
+            error("A future version of React will block javascript: URLs as a security precaution. " + "Use event handlers instead if you can. If you need to generate unsafe HTML try " + "using dangerouslySetInnerHTML instead. React was passed %s.", JSON.stringify(url));
           }
         }
       }
@@ -2905,8 +2918,7 @@ var require_react_dom_development = __commonJS((exports) => {
       var prevGroup;
       var prevGroupCollapsed;
       var prevGroupEnd;
-      function disabledLog() {
-      }
+      function disabledLog() {}
       disabledLog.__reactDisabledLog = true;
       function disableLogs() {
         {
@@ -2971,7 +2983,7 @@ var require_react_dom_development = __commonJS((exports) => {
             });
           }
           if (disabledDepth < 0) {
-            error("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
+            error("disabledDepth fell below zero. " + "This is a bug in React. Please file an issue.");
           }
         }
       }
@@ -2987,7 +2999,8 @@ var require_react_dom_development = __commonJS((exports) => {
               prefix = match && match[1] || "";
             }
           }
-          return "\n" + prefix + name;
+          return `
+` + prefix + name;
         }
       }
       var reentry = false;
@@ -3051,8 +3064,10 @@ var require_react_dom_development = __commonJS((exports) => {
           }
         } catch (sample) {
           if (sample && control && typeof sample.stack === "string") {
-            var sampleLines = sample.stack.split("\n");
-            var controlLines = control.stack.split("\n");
+            var sampleLines = sample.stack.split(`
+`);
+            var controlLines = control.stack.split(`
+`);
             var s = sampleLines.length - 1;
             var c = controlLines.length - 1;
             while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
@@ -3065,7 +3080,8 @@ var require_react_dom_development = __commonJS((exports) => {
                     s--;
                     c--;
                     if (c < 0 || sampleLines[s] !== controlLines[c]) {
-                      var _frame = "\n" + sampleLines[s].replace(" at new ", " at ");
+                      var _frame = `
+` + sampleLines[s].replace(" at new ", " at ");
                       if (fn.displayName && _frame.includes("<anonymous>")) {
                         _frame = _frame.replace("<anonymous>", fn.displayName);
                       }
@@ -3143,8 +3159,7 @@ var require_react_dom_development = __commonJS((exports) => {
               var init = lazyComponent._init;
               try {
                 return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-              } catch (x) {
-              }
+              } catch (x) {}
             }
           }
         }
@@ -3184,7 +3199,9 @@ var require_react_dom_development = __commonJS((exports) => {
           } while (node);
           return info;
         } catch (x) {
-          return "\nError generating stack: " + x.message + "\n" + x.stack;
+          return `
+Error generating stack: ` + x.message + `
+` + x.stack;
         }
       }
       function getWrappedName(outerType, innerType, wrapperName) {
@@ -3204,7 +3221,7 @@ var require_react_dom_development = __commonJS((exports) => {
         }
         {
           if (typeof type.tag === "number") {
-            error("Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue.");
+            error("Received an unexpected object in getComponentNameFromType(). " + "This is likely a bug in React. Please file an issue.");
           }
         }
         if (typeof type === "function") {
@@ -3402,10 +3419,10 @@ var require_react_dom_development = __commonJS((exports) => {
       function checkControlledValueProps(tagName, props) {
         {
           if (!(hasReadOnlyValue[props.type] || props.onChange || props.onInput || props.readOnly || props.disabled || props.value == null)) {
-            error("You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`.");
+            error("You provided a `value` prop to a form field without an " + "`onChange` handler. This will render a read-only field. If " + "the field should be mutable use `defaultValue`. Otherwise, " + "set either `onChange` or `readOnly`.");
           }
           if (!(props.onChange || props.readOnly || props.disabled || props.checked == null)) {
-            error("You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.");
+            error("You provided a `checked` prop to a form field without an " + "`onChange` handler. This will render a read-only field. If " + "the field should be mutable use `defaultChecked`. Otherwise, " + "set either `onChange` or `readOnly`.");
           }
         }
       }
@@ -3532,11 +3549,11 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           checkControlledValueProps("input", props);
           if (props.checked !== undefined && props.defaultChecked !== undefined && !didWarnCheckedDefaultChecked) {
-            error("%s contains an input of type %s with both checked and defaultChecked props. Input elements must be either controlled or uncontrolled (specify either the checked prop, or the defaultChecked prop, but not both). Decide between using a controlled or uncontrolled input element and remove one of these props. More info: https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component", props.type);
+            error("%s contains an input of type %s with both checked and defaultChecked props. " + "Input elements must be either controlled or uncontrolled " + "(specify either the checked prop, or the defaultChecked prop, but not " + "both). Decide between using a controlled or uncontrolled input " + "element and remove one of these props. More info: " + "https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component", props.type);
             didWarnCheckedDefaultChecked = true;
           }
           if (props.value !== undefined && props.defaultValue !== undefined && !didWarnValueDefaultValue) {
-            error("%s contains an input of type %s with both value and defaultValue props. Input elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled input element and remove one of these props. More info: https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component", props.type);
+            error("%s contains an input of type %s with both value and defaultValue props. " + "Input elements must be either controlled or uncontrolled " + "(specify either the value prop, or the defaultValue prop, but not " + "both). Decide between using a controlled or uncontrolled input " + "element and remove one of these props. More info: " + "https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component", props.type);
             didWarnValueDefaultValue = true;
           }
         }
@@ -3560,11 +3577,11 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           var controlled = isControlled(props);
           if (!node._wrapperState.controlled && controlled && !didWarnUncontrolledToControlled) {
-            error("A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components");
+            error("A component is changing an uncontrolled input to be controlled. " + "This is likely caused by the value changing from undefined to " + "a defined value, which should not happen. " + "Decide between using a controlled or uncontrolled input " + "element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components");
             didWarnUncontrolledToControlled = true;
           }
           if (node._wrapperState.controlled && !controlled && !didWarnControlledToUncontrolled) {
-            error("A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components");
+            error("A component is changing a controlled input to be uncontrolled. " + "This is likely caused by the value changing from a defined to " + "undefined, which should not happen. " + "Decide between using a controlled or uncontrolled input " + "element for the lifetime of the component. More info: https://reactjs.org/link/controlled-components");
             didWarnControlledToUncontrolled = true;
           }
         }
@@ -3651,7 +3668,7 @@ var require_react_dom_development = __commonJS((exports) => {
             }
             var otherProps = getFiberCurrentPropsFromNode(otherNode);
             if (!otherProps) {
-              throw new Error("ReactDOMInput: Mixing React and non-React radio inputs with the same `name` is not supported.");
+              throw new Error("ReactDOMInput: Mixing React and non-React radio inputs with the " + "same `name` is not supported.");
             }
             updateValueIfChanged(otherNode);
             updateWrapper(otherNode, otherProps);
@@ -3683,18 +3700,18 @@ var require_react_dom_development = __commonJS((exports) => {
                 }
                 if (!didWarnInvalidChild) {
                   didWarnInvalidChild = true;
-                  error("Cannot infer the option value of complex children. Pass a `value` prop or use a plain string as children to <option>.");
+                  error("Cannot infer the option value of complex children. " + "Pass a `value` prop or use a plain string as children to <option>.");
                 }
               });
             } else if (props.dangerouslySetInnerHTML != null) {
               if (!didWarnInvalidInnerHTML) {
                 didWarnInvalidInnerHTML = true;
-                error("Pass a `value` prop if you set dangerouslyInnerHTML so React knows which value should be selected.");
+                error("Pass a `value` prop if you set dangerouslyInnerHTML so React knows " + "which value should be selected.");
               }
             }
           }
           if (props.selected != null && !didWarnSelectedSetOnOption) {
-            error("Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>.");
+            error("Use the `defaultValue` or `value` props on <select> instead of " + "setting `selected` on <option>.");
             didWarnSelectedSetOnOption = true;
           }
         }
@@ -3715,7 +3732,9 @@ var require_react_dom_development = __commonJS((exports) => {
       function getDeclarationErrorAddendum() {
         var ownerName = getCurrentFiberOwnerNameInDevOrNull();
         if (ownerName) {
-          return "\n\nCheck the render method of `" + ownerName + "`.";
+          return `
+
+Check the render method of \`` + ownerName + "`.";
         }
         return "";
       }
@@ -3730,9 +3749,9 @@ var require_react_dom_development = __commonJS((exports) => {
             }
             var propNameIsArray = isArray(props[propName]);
             if (props.multiple && !propNameIsArray) {
-              error("The `%s` prop supplied to <select> must be an array if `multiple` is true.%s", propName, getDeclarationErrorAddendum());
+              error("The `%s` prop supplied to <select> must be an array if " + "`multiple` is true.%s", propName, getDeclarationErrorAddendum());
             } else if (!props.multiple && propNameIsArray) {
-              error("The `%s` prop supplied to <select> must be a scalar value if `multiple` is false.%s", propName, getDeclarationErrorAddendum());
+              error("The `%s` prop supplied to <select> must be a scalar " + "value if `multiple` is false.%s", propName, getDeclarationErrorAddendum());
             }
           }
         }
@@ -3789,7 +3808,7 @@ var require_react_dom_development = __commonJS((exports) => {
         };
         {
           if (props.value !== undefined && props.defaultValue !== undefined && !didWarnValueDefaultValue$1) {
-            error("Select elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled select element and remove one of these props. More info: https://reactjs.org/link/controlled-components");
+            error("Select elements must be either controlled or uncontrolled " + "(specify either the value prop, or the defaultValue prop, but not " + "both). Decide between using a controlled or uncontrolled select " + "element and remove one of these props. More info: " + "https://reactjs.org/link/controlled-components");
             didWarnValueDefaultValue$1 = true;
           }
         }
@@ -3844,7 +3863,7 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           checkControlledValueProps("textarea", props);
           if (props.value !== undefined && props.defaultValue !== undefined && !didWarnValDefaultVal) {
-            error("%s contains a textarea with both value and defaultValue props. Textarea elements must be either controlled or uncontrolled (specify either the value prop, or the defaultValue prop, but not both). Decide between using a controlled or uncontrolled textarea and remove one of these props. More info: https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component");
+            error("%s contains a textarea with both value and defaultValue props. " + "Textarea elements must be either controlled or uncontrolled " + "(specify either the value prop, or the defaultValue prop, but not " + "both). Decide between using a controlled or uncontrolled textarea " + "and remove one of these props. More info: " + "https://reactjs.org/link/controlled-components", getCurrentFiberOwnerNameInDevOrNull() || "A component");
             didWarnValDefaultVal = true;
           }
         }
@@ -3853,7 +3872,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var { children, defaultValue } = props;
           if (children != null) {
             {
-              error("Use the `defaultValue` or `value` props instead of setting children on <textarea>.");
+              error("Use the `defaultValue` or `value` props instead of setting " + "children on <textarea>.");
             }
             {
               if (defaultValue != null) {
@@ -4093,8 +4112,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function hyphenateStyleName(name) {
         return name.replace(uppercasePattern, "-$1").toLowerCase().replace(msPattern, "-ms-");
       }
-      var warnValidStyle = function() {
-      };
+      var warnValidStyle = function() {};
       {
         var badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/;
         var msPattern$1 = /^-ms-/;
@@ -4128,7 +4146,7 @@ var require_react_dom_development = __commonJS((exports) => {
             return;
           }
           warnedStyleValues[value] = true;
-          error(`Style property values shouldn't contain a semicolon. Try "%s: %s" instead.`, name, value.replace(badStyleValueWithSemicolonPattern, ""));
+          error("Style property values shouldn't contain a semicolon. " + 'Try "%s: %s" instead.', name, value.replace(badStyleValueWithSemicolonPattern, ""));
         };
         var warnStyleValueIsNaN = function(name, value) {
           if (warnedForNaNValue) {
@@ -4234,7 +4252,7 @@ var require_react_dom_development = __commonJS((exports) => {
                 continue;
               }
               warnedAbout[warningKey] = true;
-              error("%s a style property during rerender (%s) when a conflicting property is set (%s) can lead to styling bugs. To avoid this, don't mix shorthand and non-shorthand properties for the same value; instead, replace the shorthand with separate values.", isValueEmpty(styleUpdates[originalKey]) ? "Removing" : "Updating", originalKey, correctOriginalKey);
+              error("%s a style property during rerender (%s) when a " + "conflicting property is set (%s) can lead to styling bugs. To " + "avoid this, don't mix shorthand and non-shorthand properties " + "for the same value; instead, replace the shorthand with " + "separate values.", isValueEmpty(styleUpdates[originalKey]) ? "Removing" : "Updating", originalKey, correctOriginalKey);
             }
           }
         }
@@ -4266,7 +4284,7 @@ var require_react_dom_development = __commonJS((exports) => {
         }
         if (voidElementTags[tag]) {
           if (props.children != null || props.dangerouslySetInnerHTML != null) {
-            throw new Error(tag + " is a void element tag and must neither have `children` nor use `dangerouslySetInnerHTML`.");
+            throw new Error(tag + " is a void element tag and must neither have `children` nor " + "use `dangerouslySetInnerHTML`.");
           }
         }
         if (props.dangerouslySetInnerHTML != null) {
@@ -4274,16 +4292,16 @@ var require_react_dom_development = __commonJS((exports) => {
             throw new Error("Can only set one of `children` or `props.dangerouslySetInnerHTML`.");
           }
           if (typeof props.dangerouslySetInnerHTML !== "object" || !(HTML in props.dangerouslySetInnerHTML)) {
-            throw new Error("`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. Please visit https://reactjs.org/link/dangerously-set-inner-html for more information.");
+            throw new Error("`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. " + "Please visit https://reactjs.org/link/dangerously-set-inner-html " + "for more information.");
           }
         }
         {
           if (!props.suppressContentEditableWarning && props.contentEditable && props.children != null) {
-            error("A component is `contentEditable` and contains `children` managed by React. It is now your responsibility to guarantee that none of those nodes are unexpectedly modified or duplicated. This is probably not intentional.");
+            error("A component is `contentEditable` and contains `children` managed by " + "React. It is now your responsibility to guarantee that none of " + "those nodes are unexpectedly modified or duplicated. This is " + "probably not intentional.");
           }
         }
         if (props.style != null && typeof props.style !== "object") {
-          throw new Error("The `style` prop expects a mapping from style properties to values, not a string. For example, style={{marginRight: spacing + 'em'}} when using JSX.");
+          throw new Error("The `style` prop expects a mapping from style properties to values, " + "not a string. For example, style={{marginRight: spacing + 'em'}} when " + "using JSX.");
         }
       }
       function isCustomComponent(tagName, props) {
@@ -4893,9 +4911,9 @@ var require_react_dom_development = __commonJS((exports) => {
             return "`" + prop + "`";
           }).join(", ");
           if (invalidProps.length === 1) {
-            error("Invalid aria prop %s on <%s> tag. For details, see https://reactjs.org/link/invalid-aria-props", unknownPropString, type);
+            error("Invalid aria prop %s on <%s> tag. " + "For details, see https://reactjs.org/link/invalid-aria-props", unknownPropString, type);
           } else if (invalidProps.length > 1) {
-            error("Invalid aria props %s on <%s> tag. For details, see https://reactjs.org/link/invalid-aria-props", unknownPropString, type);
+            error("Invalid aria props %s on <%s> tag. " + "For details, see https://reactjs.org/link/invalid-aria-props", unknownPropString, type);
           }
         }
       }
@@ -4914,15 +4932,14 @@ var require_react_dom_development = __commonJS((exports) => {
           if (props != null && props.value === null && !didWarnValueNull) {
             didWarnValueNull = true;
             if (type === "select" && props.multiple) {
-              error("`value` prop on `%s` should not be null. Consider using an empty array when `multiple` is set to `true` to clear the component or `undefined` for uncontrolled components.", type);
+              error("`value` prop on `%s` should not be null. " + "Consider using an empty array when `multiple` is set to `true` " + "to clear the component or `undefined` for uncontrolled components.", type);
             } else {
-              error("`value` prop on `%s` should not be null. Consider using an empty string to clear the component or `undefined` for uncontrolled components.", type);
+              error("`value` prop on `%s` should not be null. " + "Consider using an empty string to clear the component or `undefined` " + "for uncontrolled components.", type);
             }
           }
         }
       }
-      var validateProperty$1 = function() {
-      };
+      var validateProperty$1 = function() {};
       {
         var warnedProperties$1 = {};
         var EVENT_NAME_REGEX = /^on./;
@@ -4935,7 +4952,7 @@ var require_react_dom_development = __commonJS((exports) => {
           }
           var lowerCasedName = name.toLowerCase();
           if (lowerCasedName === "onfocusin" || lowerCasedName === "onfocusout") {
-            error("React uses onFocus and onBlur instead of onFocusIn and onFocusOut. All React events are normalized to bubble, so onFocusIn and onFocusOut are not needed/supported by React.");
+            error("React uses onFocus and onBlur instead of onFocusIn and onFocusOut. " + "All React events are normalized to bubble, so onFocusIn and onFocusOut " + "are not needed/supported by React.");
             warnedProperties$1[name] = true;
             return true;
           }
@@ -4957,7 +4974,7 @@ var require_react_dom_development = __commonJS((exports) => {
             }
           } else if (EVENT_NAME_REGEX.test(name)) {
             if (INVALID_EVENT_NAME_REGEX.test(name)) {
-              error("Invalid event handler property `%s`. React events use the camelCase naming convention, for example `onClick`.", name);
+              error("Invalid event handler property `%s`. " + "React events use the camelCase naming convention, for example `onClick`.", name);
             }
             warnedProperties$1[name] = true;
             return true;
@@ -4966,22 +4983,22 @@ var require_react_dom_development = __commonJS((exports) => {
             return true;
           }
           if (lowerCasedName === "innerhtml") {
-            error("Directly setting property `innerHTML` is not permitted. For more information, lookup documentation on `dangerouslySetInnerHTML`.");
+            error("Directly setting property `innerHTML` is not permitted. " + "For more information, lookup documentation on `dangerouslySetInnerHTML`.");
             warnedProperties$1[name] = true;
             return true;
           }
           if (lowerCasedName === "aria") {
-            error("The `aria` attribute is reserved for future use in React. Pass individual `aria-` attributes instead.");
+            error("The `aria` attribute is reserved for future use in React. " + "Pass individual `aria-` attributes instead.");
             warnedProperties$1[name] = true;
             return true;
           }
           if (lowerCasedName === "is" && value !== null && value !== undefined && typeof value !== "string") {
-            error("Received a `%s` for a string attribute `is`. If this is expected, cast the value to a string.", typeof value);
+            error("Received a `%s` for a string attribute `is`. If this is expected, cast " + "the value to a string.", typeof value);
             warnedProperties$1[name] = true;
             return true;
           }
           if (typeof value === "number" && isNaN(value)) {
-            error("Received NaN for the `%s` attribute. If this is expected, cast the value to a string.", name);
+            error("Received NaN for the `%s` attribute. If this is expected, cast " + "the value to a string.", name);
             warnedProperties$1[name] = true;
             return true;
           }
@@ -4995,15 +5012,17 @@ var require_react_dom_development = __commonJS((exports) => {
               return true;
             }
           } else if (!isReserved && name !== lowerCasedName) {
-            error("React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.", name, lowerCasedName);
+            error("React does not recognize the `%s` prop on a DOM element. If you " + "intentionally want it to appear in the DOM as a custom " + "attribute, spell it as lowercase `%s` instead. " + "If you accidentally passed it from a parent component, remove " + "it from the DOM element.", name, lowerCasedName);
             warnedProperties$1[name] = true;
             return true;
           }
           if (typeof value === "boolean" && shouldRemoveAttributeWithWarning(name, value, propertyInfo, false)) {
             if (value) {
-              error('Received `%s` for a non-boolean attribute `%s`.\n\nIf you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.', value, name, name, value, name);
+              error("Received `%s` for a non-boolean attribute `%s`.\n\n" + "If you want to write it to the DOM, pass a string instead: " + '%s="%s" or %s={value.toString()}.', value, name, name, value, name);
             } else {
-              error('Received `%s` for a non-boolean attribute `%s`.\n\nIf you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.\n\nIf you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead.', value, name, name, value, name, name, name);
+              error("Received `%s` for a non-boolean attribute `%s`.\n\n" + "If you want to write it to the DOM, pass a string instead: " + `%s="%s" or %s={value.toString()}.
+
+` + "If you used to conditionally omit it with %s={condition && value}, " + "pass %s={condition ? value : undefined} instead.", value, name, name, value, name, name, name);
             }
             warnedProperties$1[name] = true;
             return true;
@@ -5016,7 +5035,7 @@ var require_react_dom_development = __commonJS((exports) => {
             return false;
           }
           if ((value === "false" || value === "true") && propertyInfo !== null && propertyInfo.type === BOOLEAN) {
-            error("Received the string `%s` for the boolean attribute `%s`. %s Did you mean %s={%s}?", value, name, value === "false" ? "The browser will interpret it as a truthy value." : 'Although this works, it will not work as expected if you pass the string "false".', name, value);
+            error("Received the string `%s` for the boolean attribute `%s`. " + "%s " + "Did you mean %s={%s}?", value, name, value === "false" ? "The browser will interpret it as a truthy value." : 'Although this works, it will not work as expected if you pass the string "false".', name, value);
             warnedProperties$1[name] = true;
             return true;
           }
@@ -5036,9 +5055,9 @@ var require_react_dom_development = __commonJS((exports) => {
             return "`" + prop + "`";
           }).join(", ");
           if (unknownProps.length === 1) {
-            error("Invalid value for prop %s on <%s> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type);
+            error("Invalid value for prop %s on <%s> tag. Either remove it from the element, " + "or pass a string or number value to keep it in the DOM. " + "For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type);
           } else if (unknownProps.length > 1) {
-            error("Invalid values for props %s on <%s> tag. Either remove them from the element, or pass a string or number value to keep them in the DOM. For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type);
+            error("Invalid values for props %s on <%s> tag. Either remove them from the element, " + "or pass a string or number value to keep them in the DOM. " + "For details, see https://reactjs.org/link/attribute-behavior ", unknownPropString, type);
           }
         }
       };
@@ -5056,7 +5075,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function setReplayingEvent(event) {
         {
           if (currentReplayingEvent !== null) {
-            error("Expected currently replaying event to be null. This error is likely caused by a bug in React. Please file an issue.");
+            error("Expected currently replaying event to be null. This error " + "is likely caused by a bug in React. Please file an issue.");
           }
         }
         currentReplayingEvent = event;
@@ -5064,7 +5083,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function resetReplayingEvent() {
         {
           if (currentReplayingEvent === null) {
-            error("Expected currently replaying event to not be null. This error is likely caused by a bug in React. Please file an issue.");
+            error("Expected currently replaying event to not be null. This error " + "is likely caused by a bug in React. Please file an issue.");
           }
         }
         currentReplayingEvent = null;
@@ -5088,7 +5107,7 @@ var require_react_dom_development = __commonJS((exports) => {
           return;
         }
         if (typeof restoreImpl !== "function") {
-          throw new Error("setRestoreImplementation() needs to be called to handle a target for controlled events. This error is likely caused by a bug in React. Please file an issue.");
+          throw new Error("setRestoreImplementation() needs to be called to handle a target for controlled " + "events. This error is likely caused by a bug in React. Please file an issue.");
         }
         var stateNode = internalInstance.stateNode;
         if (stateNode) {
@@ -5131,8 +5150,7 @@ var require_react_dom_development = __commonJS((exports) => {
       var batchedUpdatesImpl = function(fn, bookkeeping) {
         return fn(bookkeeping);
       };
-      var flushSyncImpl = function() {
-      };
+      var flushSyncImpl = function() {};
       var isInsideEventHandler = false;
       function finishEventHandler() {
         var controlledComponentsHavePendingUpdates = needsStateRestore();
@@ -5225,7 +5243,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var fakeNode = document.createElement("react");
           invokeGuardedCallbackImpl = function invokeGuardedCallbackDev(name, func, context, a, b, c, d, e, f) {
             if (typeof document === "undefined" || document === null) {
-              throw new Error("The `document` global was defined when React was initialized, but is not defined anymore. This can happen in a test environment if a component schedules an update from an asynchronous callback, but the test has already finished running. To solve this, you can either unmount the component at the end of your test (and ensure that any asynchronous operations get canceled in `componentWillUnmount`), or you can change the test itself to be asynchronous.");
+              throw new Error("The `document` global was defined when React was initialized, but is not " + "defined anymore. This can happen in a test environment if a component " + "schedules an update from an asynchronous callback, but the test has already " + "finished running. To solve this, you can either unmount the component at " + "the end of your test (and ensure that any asynchronous operations get " + "canceled in `componentWillUnmount`), or you can change the test itself " + "to be asynchronous.");
             }
             var evt = document.createEvent("Event");
             var didCall = false;
@@ -5258,8 +5276,7 @@ var require_react_dom_development = __commonJS((exports) => {
                 if (error2 != null && typeof error2 === "object") {
                   try {
                     error2._suppressLogging = true;
-                  } catch (inner) {
-                  }
+                  } catch (inner) {}
                 }
               }
             }
@@ -5273,9 +5290,9 @@ var require_react_dom_development = __commonJS((exports) => {
             }
             if (didCall && didError) {
               if (!didSetError) {
-                error2 = new Error(`An error was thrown inside one of your components, but React doesn't know what it was. This is likely due to browser flakiness. React does its best to preserve the "Pause on exceptions" behavior of the DevTools, which requires some DEV-mode only tricks. It's possible that these don't work in your browser. Try triggering the error in production mode, or switching to a modern browser. If you suspect that this is actually an issue with React, please file an issue.`);
+                error2 = new Error("An error was thrown inside one of your components, but React " + "doesn't know what it was. This is likely due to browser " + 'flakiness. React does its best to preserve the "Pause on ' + 'exceptions" behavior of the DevTools, which requires some ' + "DEV-mode only tricks. It's possible that these don't work in " + "your browser. Try triggering the error in production mode, " + "or switching to a modern browser. If you suspect that this is " + "actually an issue with React, please file an issue.");
               } else if (isCrossOriginError) {
-                error2 = new Error("A cross-origin error was thrown. React doesn't have access to the actual error object in development. See https://reactjs.org/link/crossorigin-error for more information.");
+                error2 = new Error("A cross-origin error was thrown. React doesn't have access to " + "the actual error object in development. " + "See https://reactjs.org/link/crossorigin-error for more information.");
               }
               this.onError(error2);
             }
@@ -5331,7 +5348,7 @@ var require_react_dom_development = __commonJS((exports) => {
           caughtError = null;
           return error2;
         } else {
-          throw new Error("clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue.");
+          throw new Error("clearCaughtError was called but no error was captured. This error " + "is likely caused by a bug in React. Please file an issue.");
         }
       }
       function get(key) {
@@ -5425,7 +5442,7 @@ var require_react_dom_development = __commonJS((exports) => {
             var ownerFiber = owner;
             var instance = ownerFiber.stateNode;
             if (!instance._warnedAboutRefsInRender) {
-              error("%s is accessing isMounted inside its render() function. render() should be a pure function of props and state. It should never access something that requires stale data from the previous render, such as refs. Move this logic to componentDidMount and componentDidUpdate instead.", getComponentNameFromFiber(ownerFiber) || "A component");
+              error("%s is accessing isMounted inside its render() function. " + "render() should be a pure function of props and state. It should " + "never access something that requires stale data from the previous " + "render, such as refs. Move this logic to componentDidMount and " + "componentDidUpdate instead.", getComponentNameFromFiber(ownerFiber) || "A component");
             }
             instance._warnedAboutRefsInRender = true;
           }
@@ -5523,12 +5540,12 @@ var require_react_dom_development = __commonJS((exports) => {
                 _child = _child.sibling;
               }
               if (!didFindChild) {
-                throw new Error("Child was not found in either parent set. This indicates a bug in React related to the return pointer. Please file an issue.");
+                throw new Error("Child was not found in either parent set. This indicates a bug " + "in React related to the return pointer. Please file an issue.");
               }
             }
           }
           if (a.alternate !== b) {
-            throw new Error("Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue.");
+            throw new Error("Return fibers should always be each others' alternates. " + "This error is likely caused by a bug in React. Please file an issue.");
           }
         }
         if (a.tag !== HostRoot) {
@@ -5605,7 +5622,7 @@ var require_react_dom_development = __commonJS((exports) => {
         }
         if (!hook.supportsFiber) {
           {
-            error("The installed version of React DevTools is too old and will not work with the current version of React. Please update React DevTools. https://reactjs.org/link/react-devtools");
+            error("The installed version of React DevTools is too old and will not work " + "with the current version of React. Please update React DevTools. " + "https://reactjs.org/link/react-devtools");
           }
           return true;
         }
@@ -7130,8 +7147,7 @@ var require_react_dom_development = __commonJS((exports) => {
             }
             this.isPropagationStopped = functionThatReturnsTrue;
           },
-          persist: function() {
-          },
+          persist: function() {},
           isPersistent: functionThatReturnsTrue
         });
         return SyntheticBaseEvent;
@@ -8381,7 +8397,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function listenToNonDelegatedEvent(domEventName, targetElement) {
         {
           if (!nonDelegatedEvents.has(domEventName)) {
-            error('Did not expect a listenToNonDelegatedEvent() call for "%s". This is a bug in React. Please file an issue.', domEventName);
+            error('Did not expect a listenToNonDelegatedEvent() call for "%s". ' + "This is a bug in React. Please file an issue.", domEventName);
           }
         }
         var isCapturePhaseListener = false;
@@ -8395,7 +8411,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function listenToNativeEvent(domEventName, isCapturePhaseListener, target) {
         {
           if (nonDelegatedEvents.has(domEventName) && !isCapturePhaseListener) {
-            error('Did not expect a listenToNativeEvent() call for "%s" in the bubble phase. This is a bug in React. Please file an issue.', domEventName);
+            error('Did not expect a listenToNativeEvent() call for "%s" in the bubble phase. ' + "This is a bug in React. Please file an issue.", domEventName);
           }
         }
         var eventSystemFlags = 0;
@@ -8697,7 +8713,7 @@ var require_react_dom_development = __commonJS((exports) => {
         };
         warnForInvalidEventListener = function(registrationName, listener) {
           if (listener === false) {
-            error("Expected `%s` listener to be a function, instead got `false`.\n\nIf you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead.", registrationName, registrationName, registrationName);
+            error("Expected `%s` listener to be a function, instead got `false`.\n\n" + "If you used to conditionally omit it with %s={condition && value}, " + "pass %s={condition ? value : undefined} instead.", registrationName, registrationName, registrationName);
           } else {
             error("Expected `%s` listener to be a function, instead got a value of `%s` type.", registrationName, typeof listener);
           }
@@ -8715,7 +8731,8 @@ var require_react_dom_development = __commonJS((exports) => {
           checkHtmlStringCoercion(markup);
         }
         var markupString = typeof markup === "string" ? markup : "" + markup;
-        return markupString.replace(NORMALIZE_NEWLINES_REGEX, "\n").replace(NORMALIZE_NULL_AND_REPLACEMENT_REGEX, "");
+        return markupString.replace(NORMALIZE_NEWLINES_REGEX, `
+`).replace(NORMALIZE_NULL_AND_REPLACEMENT_REGEX, "");
       }
       function checkForUnmatchedText(serverText, clientText, isConcurrentMode, shouldWarnDev) {
         var normalizedClientText = normalizeMarkupForTextOrAttribute(clientText);
@@ -8738,8 +8755,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function getOwnerDocumentFromRootContainer(rootContainerElement) {
         return rootContainerElement.nodeType === DOCUMENT_NODE ? rootContainerElement : rootContainerElement.ownerDocument;
       }
-      function noop() {
-      }
+      function noop() {}
       function trapClickOnNonInteractiveElement(node) {
         node.onclick = noop;
       }
@@ -8815,12 +8831,12 @@ var require_react_dom_development = __commonJS((exports) => {
           {
             isCustomComponentTag = isCustomComponent(type, props);
             if (!isCustomComponentTag && type !== type.toLowerCase()) {
-              error("<%s /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.", type);
+              error("<%s /> is using incorrect casing. " + "Use PascalCase for React components, " + "or lowercase for HTML elements.", type);
             }
           }
           if (type === "script") {
             var div = ownerDocument.createElement("div");
-            div.innerHTML = "<script></script>";
+            div.innerHTML = "<script><" + "/script>";
             var firstChild = div.firstChild;
             domElement = div.removeChild(firstChild);
           } else if (typeof props.is === "string") {
@@ -8845,7 +8861,7 @@ var require_react_dom_development = __commonJS((exports) => {
           if (namespaceURI === HTML_NAMESPACE) {
             if (!isCustomComponentTag && Object.prototype.toString.call(domElement) === "[object HTMLUnknownElement]" && !hasOwnProperty.call(warnedUnknownTags, type)) {
               warnedUnknownTags[type] = true;
-              error("The tag <%s> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.", type);
+              error("The tag <%s> is unrecognized in this browser. " + "If you meant to render a React component, start its name with " + "an uppercase letter.", type);
             }
           }
         }
@@ -9350,10 +9366,8 @@ var require_react_dom_development = __commonJS((exports) => {
             return;
         }
       }
-      var validateDOMNesting = function() {
-      };
-      var updatedAncestorInfo = function() {
-      };
+      var validateDOMNesting = function() {};
+      var updatedAncestorInfo = function() {};
       {
         var specialTags = ["address", "applet", "area", "article", "aside", "base", "basefont", "bgsound", "blockquote", "body", "br", "button", "caption", "center", "col", "colgroup", "dd", "details", "dir", "div", "dl", "dt", "embed", "fieldset", "figcaption", "figure", "footer", "form", "frame", "frameset", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "iframe", "img", "input", "isindex", "li", "link", "listing", "main", "marquee", "menu", "menuitem", "meta", "nav", "noembed", "noframes", "noscript", "object", "ol", "p", "param", "plaintext", "pre", "script", "section", "select", "source", "style", "summary", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "title", "tr", "track", "ul", "wbr", "xmp"];
         var inScopeTags = [
@@ -9563,7 +9577,7 @@ var require_react_dom_development = __commonJS((exports) => {
               tagDisplayName = "Text nodes";
             } else {
               tagDisplayName = "Whitespace text nodes";
-              whitespaceInfo = " Make sure you don't have any extra whitespace between tags on each line of your source code.";
+              whitespaceInfo = " Make sure you don't have any extra whitespace between tags on " + "each line of your source code.";
             }
           } else {
             tagDisplayName = "<" + childTag + ">";
@@ -9571,11 +9585,11 @@ var require_react_dom_development = __commonJS((exports) => {
           if (invalidParent) {
             var info = "";
             if (ancestorTag === "table" && childTag === "tr") {
-              info += " Add a <tbody>, <thead> or <tfoot> to your code to match the DOM tree generated by the browser.";
+              info += " Add a <tbody>, <thead> or <tfoot> to your code to match the DOM tree generated by " + "the browser.";
             }
             error("validateDOMNesting(...): %s cannot appear as a child of <%s>.%s%s", tagDisplayName, ancestorTag, whitespaceInfo, info);
           } else {
-            error("validateDOMNesting(...): %s cannot appear as a descendant of <%s>.", tagDisplayName, ancestorTag);
+            error("validateDOMNesting(...): %s cannot appear as a descendant of " + "<%s>.", tagDisplayName, ancestorTag);
           }
         };
       }
@@ -10187,7 +10201,7 @@ var require_react_dom_development = __commonJS((exports) => {
               var error$1 = undefined;
               try {
                 if (typeof typeSpecs[typeSpecName] !== "function") {
-                  var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                  var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; " + "it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`." + "This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                   err.name = "Invariant Violation";
                   throw err;
                 }
@@ -10197,7 +10211,7 @@ var require_react_dom_development = __commonJS((exports) => {
               }
               if (error$1 && !(error$1 instanceof Error)) {
                 setCurrentlyValidatingElement(element);
-                error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
+                error("%s: type specification of %s" + " `%s` is invalid; the type checker " + "function must return `null` or an `Error` but returned a %s. " + "You may have forgotten to pass an argument to the type checker " + "creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and " + "shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
                 setCurrentlyValidatingElement(null);
               }
               if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
@@ -10325,7 +10339,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function pushTopLevelContextObject(fiber, context, didChange) {
         {
           if (contextStackCursor.current !== emptyContextObject) {
-            throw new Error("Unexpected context found on stack. This error is likely caused by a bug in React. Please file an issue.");
+            throw new Error("Unexpected context found on stack. " + "This error is likely caused by a bug in React. Please file an issue.");
           }
           push(contextStackCursor, context, fiber);
           push(didPerformWorkStackCursor, didChange, fiber);
@@ -10340,7 +10354,7 @@ var require_react_dom_development = __commonJS((exports) => {
               var componentName = getComponentNameFromFiber(fiber) || "Unknown";
               if (!warnedAboutMissingGetChildContext[componentName]) {
                 warnedAboutMissingGetChildContext[componentName] = true;
-                error("%s.childContextTypes is specified but there is no getChildContext() method on the instance. You can either define getChildContext() on %s or remove childContextTypes from it.", componentName, componentName);
+                error("%s.childContextTypes is specified but there is no getChildContext() method " + "on the instance. You can either define getChildContext() on %s or remove " + "childContextTypes from it.", componentName, componentName);
               }
             }
             return parentContext;
@@ -10348,7 +10362,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var childContext = instance.getChildContext();
           for (var contextKey in childContext) {
             if (!(contextKey in childContextTypes)) {
-              throw new Error((getComponentNameFromFiber(fiber) || "Unknown") + ".getChildContext(): key \"" + contextKey + "\" is not defined in childContextTypes.");
+              throw new Error((getComponentNameFromFiber(fiber) || "Unknown") + '.getChildContext(): key "' + contextKey + '" is not defined in childContextTypes.');
             }
           }
           {
@@ -10372,7 +10386,7 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           var instance = workInProgress2.stateNode;
           if (!instance) {
-            throw new Error("Expected to have an instance by this point. This error is likely caused by a bug in React. Please file an issue.");
+            throw new Error("Expected to have an instance by this point. " + "This error is likely caused by a bug in React. Please file an issue.");
           }
           if (didChange) {
             var mergedContext = processChildContext(workInProgress2, type, previousContext);
@@ -10390,7 +10404,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function findCurrentUnmaskedContext(fiber) {
         {
           if (!isFiberMounted(fiber) || fiber.tag !== ClassComponent) {
-            throw new Error("Expected subtree parent to be a mounted class component. This error is likely caused by a bug in React. Please file an issue.");
+            throw new Error("Expected subtree parent to be a mounted class component. " + "This error is likely caused by a bug in React. Please file an issue.");
           }
           var node = fiber;
           do {
@@ -10407,7 +10421,7 @@ var require_react_dom_development = __commonJS((exports) => {
             }
             node = node.return;
           } while (node !== null);
-          throw new Error("Found unexpected detached subtree parent. This error is likely caused by a bug in React. Please file an issue.");
+          throw new Error("Found unexpected detached subtree parent. " + "This error is likely caused by a bug in React. Please file an issue.");
         }
       }
       var LegacyRoot = 0;
@@ -10578,7 +10592,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function warnIfNotHydrating() {
         {
           if (!getIsHydrating()) {
-            error("Expected to be hydrating. This is a bug in React. Please file an issue.");
+            error("Expected to be hydrating. This is a bug in React. Please file " + "an issue.");
           }
         }
       }
@@ -10777,7 +10791,7 @@ var require_react_dom_development = __commonJS((exports) => {
         return (fiber.mode & ConcurrentMode) !== NoMode && (fiber.flags & DidCapture) === NoFlags;
       }
       function throwOnHydrationMismatch(fiber) {
-        throw new Error("Hydration failed because the initial UI does not match what was rendered on the server.");
+        throw new Error("Hydration failed because the initial UI does not match what was " + "rendered on the server.");
       }
       function tryToClaimNextHydratableInstance(fiber) {
         if (!isHydrating) {
@@ -10852,7 +10866,7 @@ var require_react_dom_development = __commonJS((exports) => {
         var suspenseState = fiber.memoizedState;
         var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
         if (!suspenseInstance) {
-          throw new Error("Expected to have a hydrated suspense instance. This error is likely caused by a bug in React. Please file an issue.");
+          throw new Error("Expected to have a hydrated suspense instance. " + "This error is likely caused by a bug in React. Please file an issue.");
         }
         hydrateSuspenseInstance(suspenseInstance, fiber);
       }
@@ -10860,7 +10874,7 @@ var require_react_dom_development = __commonJS((exports) => {
         var suspenseState = fiber.memoizedState;
         var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
         if (!suspenseInstance) {
-          throw new Error("Expected to have a hydrated suspense instance. This error is likely caused by a bug in React. Please file an issue.");
+          throw new Error("Expected to have a hydrated suspense instance. " + "This error is likely caused by a bug in React. Please file an issue.");
         }
         return getNextHydratableInstanceAfterSuspenseInstance(suspenseInstance);
       }
@@ -10940,16 +10954,11 @@ var require_react_dom_development = __commonJS((exports) => {
         return ReactCurrentBatchConfig$1.transition;
       }
       var ReactStrictModeWarnings = {
-        recordUnsafeLifecycleWarnings: function(fiber, instance) {
-        },
-        flushPendingUnsafeLifecycleWarnings: function() {
-        },
-        recordLegacyContextWarning: function(fiber, instance) {
-        },
-        flushLegacyContextWarning: function() {
-        },
-        discardPendingWarnings: function() {
-        }
+        recordUnsafeLifecycleWarnings: function(fiber, instance) {},
+        flushPendingUnsafeLifecycleWarnings: function() {},
+        recordLegacyContextWarning: function(fiber, instance) {},
+        flushLegacyContextWarning: function() {},
+        discardPendingWarnings: function() {}
       };
       {
         var findStrictRoot = function(fiber) {
@@ -11051,27 +11060,53 @@ var require_react_dom_development = __commonJS((exports) => {
           }
           if (UNSAFE_componentWillMountUniqueNames.size > 0) {
             var sortedNames = setToSortedString(UNSAFE_componentWillMountUniqueNames);
-            error("Using UNSAFE_componentWillMount in strict mode is not recommended and may indicate bugs in your code. See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n* Move code with side effects to componentDidMount, and set initial state in the constructor.\n\nPlease update the following components: %s", sortedNames);
+            error("Using UNSAFE_componentWillMount in strict mode is not recommended and may indicate bugs in your code. " + `See https://reactjs.org/link/unsafe-component-lifecycles for details.
+
+` + `* Move code with side effects to componentDidMount, and set initial state in the constructor.
+` + `
+Please update the following components: %s`, sortedNames);
           }
           if (UNSAFE_componentWillReceivePropsUniqueNames.size > 0) {
             var _sortedNames = setToSortedString(UNSAFE_componentWillReceivePropsUniqueNames);
-            error("Using UNSAFE_componentWillReceiveProps in strict mode is not recommended and may indicate bugs in your code. See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n* Move data fetching code or side effects to componentDidUpdate.\n* If you're updating state whenever props change, refactor your code to use memoization techniques or move it to static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state\n\nPlease update the following components: %s", _sortedNames);
+            error("Using UNSAFE_componentWillReceiveProps in strict mode is not recommended " + "and may indicate bugs in your code. " + `See https://reactjs.org/link/unsafe-component-lifecycles for details.
+
+` + `* Move data fetching code or side effects to componentDidUpdate.
+` + "* If you're updating state whenever props change, " + "refactor your code to use memoization techniques or move it to " + `static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state
+` + `
+Please update the following components: %s`, _sortedNames);
           }
           if (UNSAFE_componentWillUpdateUniqueNames.size > 0) {
             var _sortedNames2 = setToSortedString(UNSAFE_componentWillUpdateUniqueNames);
-            error("Using UNSAFE_componentWillUpdate in strict mode is not recommended and may indicate bugs in your code. See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n* Move data fetching code or side effects to componentDidUpdate.\n\nPlease update the following components: %s", _sortedNames2);
+            error("Using UNSAFE_componentWillUpdate in strict mode is not recommended " + "and may indicate bugs in your code. " + `See https://reactjs.org/link/unsafe-component-lifecycles for details.
+
+` + `* Move data fetching code or side effects to componentDidUpdate.
+` + `
+Please update the following components: %s`, _sortedNames2);
           }
           if (componentWillMountUniqueNames.size > 0) {
             var _sortedNames3 = setToSortedString(componentWillMountUniqueNames);
-            warn("componentWillMount has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n* Move code with side effects to componentDidMount, and set initial state in the constructor.\n* Rename componentWillMount to UNSAFE_componentWillMount to suppress this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. To rename all deprecated lifecycles to their new names, you can run `npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n\nPlease update the following components: %s", _sortedNames3);
+            warn("componentWillMount has been renamed, and is not recommended for use. " + `See https://reactjs.org/link/unsafe-component-lifecycles for details.
+
+` + `* Move code with side effects to componentDidMount, and set initial state in the constructor.
+` + "* Rename componentWillMount to UNSAFE_componentWillMount to suppress " + "this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. " + "To rename all deprecated lifecycles to their new names, you can run " + "`npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n" + `
+Please update the following components: %s`, _sortedNames3);
           }
           if (componentWillReceivePropsUniqueNames.size > 0) {
             var _sortedNames4 = setToSortedString(componentWillReceivePropsUniqueNames);
-            warn("componentWillReceiveProps has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n* Move data fetching code or side effects to componentDidUpdate.\n* If you're updating state whenever props change, refactor your code to use memoization techniques or move it to static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state\n* Rename componentWillReceiveProps to UNSAFE_componentWillReceiveProps to suppress this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. To rename all deprecated lifecycles to their new names, you can run `npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n\nPlease update the following components: %s", _sortedNames4);
+            warn("componentWillReceiveProps has been renamed, and is not recommended for use. " + `See https://reactjs.org/link/unsafe-component-lifecycles for details.
+
+` + `* Move data fetching code or side effects to componentDidUpdate.
+` + "* If you're updating state whenever props change, refactor your " + "code to use memoization techniques or move it to " + `static getDerivedStateFromProps. Learn more at: https://reactjs.org/link/derived-state
+` + "* Rename componentWillReceiveProps to UNSAFE_componentWillReceiveProps to suppress " + "this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. " + "To rename all deprecated lifecycles to their new names, you can run " + "`npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n" + `
+Please update the following components: %s`, _sortedNames4);
           }
           if (componentWillUpdateUniqueNames.size > 0) {
             var _sortedNames5 = setToSortedString(componentWillUpdateUniqueNames);
-            warn("componentWillUpdate has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n* Move data fetching code or side effects to componentDidUpdate.\n* Rename componentWillUpdate to UNSAFE_componentWillUpdate to suppress this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. To rename all deprecated lifecycles to their new names, you can run `npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n\nPlease update the following components: %s", _sortedNames5);
+            warn("componentWillUpdate has been renamed, and is not recommended for use. " + `See https://reactjs.org/link/unsafe-component-lifecycles for details.
+
+` + `* Move data fetching code or side effects to componentDidUpdate.
+` + "* Rename componentWillUpdate to UNSAFE_componentWillUpdate to suppress " + "this warning in non-strict mode. In React 18.x, only the UNSAFE_ name will work. " + "To rename all deprecated lifecycles to their new names, you can run " + "`npx react-codemod rename-unsafe-lifecycles` in your project source folder.\n" + `
+Please update the following components: %s`, _sortedNames5);
           }
         };
         var pendingLegacyContextWarning = new Map;
@@ -11079,7 +11114,7 @@ var require_react_dom_development = __commonJS((exports) => {
         ReactStrictModeWarnings.recordLegacyContextWarning = function(fiber, instance) {
           var strictRoot = findStrictRoot(fiber);
           if (strictRoot === null) {
-            error("Expected to find a StrictMode component in a strict mode tree. This error is likely caused by a bug in React. Please file an issue.");
+            error("Expected to find a StrictMode component in a strict mode tree. " + "This error is likely caused by a bug in React. Please file an issue.");
             return;
           }
           if (didWarnAboutLegacyContext.has(fiber.type)) {
@@ -11108,7 +11143,13 @@ var require_react_dom_development = __commonJS((exports) => {
             var sortedNames = setToSortedString(uniqueNames);
             try {
               setCurrentFiber(firstFiber);
-              error("Legacy context API has been detected within a strict-mode tree.\n\nThe old API will be supported in all 16.x releases, but applications using it should migrate to the new version.\n\nPlease update the following components: %s\n\nLearn more about this warning here: https://reactjs.org/link/legacy-context", sortedNames);
+              error("Legacy context API has been detected within a strict-mode tree." + `
+
+The old API will be supported in all 16.x releases, but applications ` + "using it should migrate to the new version." + `
+
+Please update the following components: %s` + `
+
+Learn more about this warning here: https://reactjs.org/link/legacy-context`, sortedNames);
             } finally {
               resetCurrentFiber();
             }
@@ -11170,7 +11211,7 @@ var require_react_dom_development = __commonJS((exports) => {
           context._currentValue = nextValue;
           {
             if (context._currentRenderer !== undefined && context._currentRenderer !== null && context._currentRenderer !== rendererSigil) {
-              error("Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.");
+              error("Detected multiple renderers concurrently rendering the " + "same context provider. This is currently unsupported.");
             }
             context._currentRenderer = rendererSigil;
           }
@@ -11204,7 +11245,7 @@ var require_react_dom_development = __commonJS((exports) => {
         }
         {
           if (node !== propagationRoot) {
-            error("Expected to find the propagation root when scheduling context work. This error is likely caused by a bug in React. Please file an issue.");
+            error("Expected to find the propagation root when scheduling context work. " + "This error is likely caused by a bug in React. Please file an issue.");
           }
         }
       }
@@ -11314,7 +11355,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function readContext(context) {
         {
           if (isDisallowedContextReadInDEV) {
-            error("Context can only be read while React is rendering. In classes, you can read it in the render method or getDerivedStateFromProps. In function components, you can read it directly in the function body, but not inside Hooks like useReducer() or useMemo().");
+            error("Context can only be read while React is rendering. " + "In classes, you can read it in the render method or getDerivedStateFromProps. " + "In function components, you can read it directly in the function body, but not " + "inside Hooks like useReducer() or useMemo().");
           }
         }
         var value = context._currentValue;
@@ -11328,7 +11369,7 @@ var require_react_dom_development = __commonJS((exports) => {
           };
           if (lastContextDependency === null) {
             if (currentlyRenderingFiber === null) {
-              throw new Error("Context can only be read while React is rendering. In classes, you can read it in the render method or getDerivedStateFromProps. In function components, you can read it directly in the function body, but not inside Hooks like useReducer() or useMemo().");
+              throw new Error("Context can only be read while React is rendering. " + "In classes, you can read it in the render method or getDerivedStateFromProps. " + "In function components, you can read it directly in the function body, but not " + "inside Hooks like useReducer() or useMemo().");
             }
             lastContextDependency = contextItem;
             currentlyRenderingFiber.dependencies = {
@@ -11501,7 +11542,7 @@ var require_react_dom_development = __commonJS((exports) => {
         var sharedQueue = updateQueue.shared;
         {
           if (currentlyProcessingQueue === sharedQueue && !didWarnUpdateInsideUpdate) {
-            error("An update (setState, replaceState, or forceUpdate) was scheduled from inside an update function. Update functions should be pure, with zero side-effects. Consider using componentDidUpdate or a callback.");
+            error("An update (setState, replaceState, or forceUpdate) was scheduled " + "from inside an update function. Update functions should be pure, " + "with zero side-effects. Consider using componentDidUpdate or a " + "callback.");
             didWarnUpdateInsideUpdate = true;
           }
         }
@@ -11828,7 +11869,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var key = callerName + "_" + callback;
           if (!didWarnOnInvalidCallback.has(key)) {
             didWarnOnInvalidCallback.add(key);
-            error("%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.", callerName, callback);
+            error("%s(...): Expected the last optional `callback` argument to be a " + "function. Instead received: %s.", callerName, callback);
           }
         };
         warnOnUndefinedDerivedState = function(type, partialState) {
@@ -11836,14 +11877,14 @@ var require_react_dom_development = __commonJS((exports) => {
             var componentName = getComponentNameFromType(type) || "Component";
             if (!didWarnAboutUndefinedDerivedState.has(componentName)) {
               didWarnAboutUndefinedDerivedState.add(componentName);
-              error("%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. You have returned undefined.", componentName);
+              error("%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. " + "You have returned undefined.", componentName);
             }
           }
         };
         Object.defineProperty(fakeInternalInstance, "_processChildContext", {
           enumerable: false,
           value: function() {
-            throw new Error("_processChildContext is not available in React 16+. This likely means you have multiple copies of React and are attempting to nest a React 15 tree inside a React 16 tree using unstable_renderSubtreeIntoContainer, which isn't supported. Try to make sure you have only one copy of React (and ideally, switch to ReactDOM.createPortal).");
+            throw new Error("_processChildContext is not available in React 16+. This likely " + "means you have multiple copies of React and are attempting to nest " + "a React 15 tree inside a React 16 tree using " + "unstable_renderSubtreeIntoContainer, which isn't supported. Try " + "to make sure you have only one copy of React (and ideally, switch " + "to ReactDOM.createPortal).");
           }
         });
         Object.freeze(fakeInternalInstance);
@@ -11950,7 +11991,7 @@ var require_react_dom_development = __commonJS((exports) => {
               }
             }
             if (shouldUpdate === undefined) {
-              error("%s.shouldComponentUpdate(): Returned undefined instead of a boolean value. Make sure to return true or false.", getComponentNameFromType(ctor) || "Component");
+              error("%s.shouldComponentUpdate(): Returned undefined instead of a " + "boolean value. Make sure to return true or false.", getComponentNameFromType(ctor) || "Component");
             }
           }
           return shouldUpdate;
@@ -11967,76 +12008,76 @@ var require_react_dom_development = __commonJS((exports) => {
           var renderPresent = instance.render;
           if (!renderPresent) {
             if (ctor.prototype && typeof ctor.prototype.render === "function") {
-              error("%s(...): No `render` method found on the returned component instance: did you accidentally return an object from the constructor?", name);
+              error("%s(...): No `render` method found on the returned component " + "instance: did you accidentally return an object from the constructor?", name);
             } else {
-              error("%s(...): No `render` method found on the returned component instance: you may have forgotten to define `render`.", name);
+              error("%s(...): No `render` method found on the returned component " + "instance: you may have forgotten to define `render`.", name);
             }
           }
           if (instance.getInitialState && !instance.getInitialState.isReactClassApproved && !instance.state) {
-            error("getInitialState was defined on %s, a plain JavaScript class. This is only supported for classes created using React.createClass. Did you mean to define a state property instead?", name);
+            error("getInitialState was defined on %s, a plain JavaScript class. " + "This is only supported for classes created using React.createClass. " + "Did you mean to define a state property instead?", name);
           }
           if (instance.getDefaultProps && !instance.getDefaultProps.isReactClassApproved) {
-            error("getDefaultProps was defined on %s, a plain JavaScript class. This is only supported for classes created using React.createClass. Use a static property to define defaultProps instead.", name);
+            error("getDefaultProps was defined on %s, a plain JavaScript class. " + "This is only supported for classes created using React.createClass. " + "Use a static property to define defaultProps instead.", name);
           }
           if (instance.propTypes) {
-            error("propTypes was defined as an instance property on %s. Use a static property to define propTypes instead.", name);
+            error("propTypes was defined as an instance property on %s. Use a static " + "property to define propTypes instead.", name);
           }
           if (instance.contextType) {
-            error("contextType was defined as an instance property on %s. Use a static property to define contextType instead.", name);
+            error("contextType was defined as an instance property on %s. Use a static " + "property to define contextType instead.", name);
           }
           {
             if (instance.contextTypes) {
-              error("contextTypes was defined as an instance property on %s. Use a static property to define contextTypes instead.", name);
+              error("contextTypes was defined as an instance property on %s. Use a static " + "property to define contextTypes instead.", name);
             }
             if (ctor.contextType && ctor.contextTypes && !didWarnAboutContextTypeAndContextTypes.has(ctor)) {
               didWarnAboutContextTypeAndContextTypes.add(ctor);
-              error("%s declares both contextTypes and contextType static properties. The legacy contextTypes property will be ignored.", name);
+              error("%s declares both contextTypes and contextType static properties. " + "The legacy contextTypes property will be ignored.", name);
             }
           }
           if (typeof instance.componentShouldUpdate === "function") {
-            error("%s has a method called componentShouldUpdate(). Did you mean shouldComponentUpdate()? The name is phrased as a question because the function is expected to return a value.", name);
+            error("%s has a method called " + "componentShouldUpdate(). Did you mean shouldComponentUpdate()? " + "The name is phrased as a question because the function is " + "expected to return a value.", name);
           }
           if (ctor.prototype && ctor.prototype.isPureReactComponent && typeof instance.shouldComponentUpdate !== "undefined") {
-            error("%s has a method called shouldComponentUpdate(). shouldComponentUpdate should not be used when extending React.PureComponent. Please extend React.Component if shouldComponentUpdate is used.", getComponentNameFromType(ctor) || "A pure component");
+            error("%s has a method called shouldComponentUpdate(). " + "shouldComponentUpdate should not be used when extending React.PureComponent. " + "Please extend React.Component if shouldComponentUpdate is used.", getComponentNameFromType(ctor) || "A pure component");
           }
           if (typeof instance.componentDidUnmount === "function") {
-            error("%s has a method called componentDidUnmount(). But there is no such lifecycle method. Did you mean componentWillUnmount()?", name);
+            error("%s has a method called " + "componentDidUnmount(). But there is no such lifecycle method. " + "Did you mean componentWillUnmount()?", name);
           }
           if (typeof instance.componentDidReceiveProps === "function") {
-            error("%s has a method called componentDidReceiveProps(). But there is no such lifecycle method. If you meant to update the state in response to changing props, use componentWillReceiveProps(). If you meant to fetch data or run side-effects or mutations after React has updated the UI, use componentDidUpdate().", name);
+            error("%s has a method called " + "componentDidReceiveProps(). But there is no such lifecycle method. " + "If you meant to update the state in response to changing props, " + "use componentWillReceiveProps(). If you meant to fetch data or " + "run side-effects or mutations after React has updated the UI, use componentDidUpdate().", name);
           }
           if (typeof instance.componentWillRecieveProps === "function") {
-            error("%s has a method called componentWillRecieveProps(). Did you mean componentWillReceiveProps()?", name);
+            error("%s has a method called " + "componentWillRecieveProps(). Did you mean componentWillReceiveProps()?", name);
           }
           if (typeof instance.UNSAFE_componentWillRecieveProps === "function") {
-            error("%s has a method called UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?", name);
+            error("%s has a method called " + "UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?", name);
           }
           var hasMutatedProps = instance.props !== newProps;
           if (instance.props !== undefined && hasMutatedProps) {
-            error("%s(...): When calling super() in `%s`, make sure to pass up the same props that your component's constructor was passed.", name, name);
+            error("%s(...): When calling super() in `%s`, make sure to pass " + "up the same props that your component's constructor was passed.", name, name);
           }
           if (instance.defaultProps) {
-            error("Setting defaultProps as an instance property on %s is not supported and will be ignored. Instead, define defaultProps as a static property on %s.", name, name);
+            error("Setting defaultProps as an instance property on %s is not supported and will be ignored." + " Instead, define defaultProps as a static property on %s.", name, name);
           }
           if (typeof instance.getSnapshotBeforeUpdate === "function" && typeof instance.componentDidUpdate !== "function" && !didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate.has(ctor)) {
             didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate.add(ctor);
-            error("%s: getSnapshotBeforeUpdate() should be used with componentDidUpdate(). This component defines getSnapshotBeforeUpdate() only.", getComponentNameFromType(ctor));
+            error("%s: getSnapshotBeforeUpdate() should be used with componentDidUpdate(). " + "This component defines getSnapshotBeforeUpdate() only.", getComponentNameFromType(ctor));
           }
           if (typeof instance.getDerivedStateFromProps === "function") {
-            error("%s: getDerivedStateFromProps() is defined as an instance method and will be ignored. Instead, declare it as a static method.", name);
+            error("%s: getDerivedStateFromProps() is defined as an instance method " + "and will be ignored. Instead, declare it as a static method.", name);
           }
           if (typeof instance.getDerivedStateFromError === "function") {
-            error("%s: getDerivedStateFromError() is defined as an instance method and will be ignored. Instead, declare it as a static method.", name);
+            error("%s: getDerivedStateFromError() is defined as an instance method " + "and will be ignored. Instead, declare it as a static method.", name);
           }
           if (typeof ctor.getSnapshotBeforeUpdate === "function") {
-            error("%s: getSnapshotBeforeUpdate() is defined as a static method and will be ignored. Instead, declare it as an instance method.", name);
+            error("%s: getSnapshotBeforeUpdate() is defined as a static method " + "and will be ignored. Instead, declare it as an instance method.", name);
           }
           var _state = instance.state;
           if (_state && (typeof _state !== "object" || isArray(_state))) {
             error("%s.state: must be set to an object or null", name);
           }
           if (typeof instance.getChildContext === "function" && typeof ctor.childContextTypes !== "object") {
-            error("%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().", name);
+            error("%s.getChildContext(): childContextTypes must be defined in order to " + "use getChildContext().", name);
           }
         }
       }
@@ -12060,7 +12101,7 @@ var require_react_dom_development = __commonJS((exports) => {
               didWarnAboutInvalidateContextType.add(ctor);
               var addendum = "";
               if (contextType === undefined) {
-                addendum = " However, it is set to undefined. This can be caused by a typo or by mixing up named and default imports. This can also happen due to a circular dependency, so try moving the createContext() call to a separate file.";
+                addendum = " However, it is set to undefined. " + "This can be caused by a typo or by mixing up named and default imports. " + "This can also happen due to a circular dependency, so " + "try moving the createContext() call to a separate file.";
               } else if (typeof contextType !== "object") {
                 addendum = " However, it is set to a " + typeof contextType + ".";
               } else if (contextType.$$typeof === REACT_PROVIDER_TYPE) {
@@ -12070,7 +12111,7 @@ var require_react_dom_development = __commonJS((exports) => {
               } else {
                 addendum = " However, it is set to an object with keys {" + Object.keys(contextType).join(", ") + "}.";
               }
-              error("%s defines an invalid contextType. contextType should point to the Context object returned by React.createContext().%s", getComponentNameFromType(ctor) || "Component", addendum);
+              error("%s defines an invalid contextType. " + "contextType should point to the Context object returned by React.createContext().%s", getComponentNameFromType(ctor) || "Component", addendum);
             }
           }
         }
@@ -12100,7 +12141,7 @@ var require_react_dom_development = __commonJS((exports) => {
             var componentName = getComponentNameFromType(ctor) || "Component";
             if (!didWarnAboutUninitializedState.has(componentName)) {
               didWarnAboutUninitializedState.add(componentName);
-              error("`%s` uses `getDerivedStateFromProps` but its initial state is %s. This is not recommended. Instead, define the initial state by assigning an object to `this.state` in the constructor of `%s`. This ensures that `getDerivedStateFromProps` arguments have a consistent shape.", componentName, instance.state === null ? "null" : "undefined", componentName);
+              error("`%s` uses `getDerivedStateFromProps` but its initial state is " + "%s. This is not recommended. Instead, define the initial state by " + "assigning an object to `this.state` in the constructor of `%s`. " + "This ensures that `getDerivedStateFromProps` arguments have a consistent shape.", componentName, instance.state === null ? "null" : "undefined", componentName);
             }
           }
           if (typeof ctor.getDerivedStateFromProps === "function" || typeof instance.getSnapshotBeforeUpdate === "function") {
@@ -12127,7 +12168,15 @@ var require_react_dom_development = __commonJS((exports) => {
               var newApiName = typeof ctor.getDerivedStateFromProps === "function" ? "getDerivedStateFromProps()" : "getSnapshotBeforeUpdate()";
               if (!didWarnAboutLegacyLifecyclesAndDerivedState.has(_componentName)) {
                 didWarnAboutLegacyLifecyclesAndDerivedState.add(_componentName);
-                error("Unsafe legacy lifecycles will not be called for components using new component APIs.\n\n%s uses %s but also contains the following legacy lifecycles:%s%s%s\n\nThe above lifecycles should be removed. Learn more about this warning here:\nhttps://reactjs.org/link/unsafe-component-lifecycles", _componentName, newApiName, foundWillMountName !== null ? "\n  " + foundWillMountName : "", foundWillReceivePropsName !== null ? "\n  " + foundWillReceivePropsName : "", foundWillUpdateName !== null ? "\n  " + foundWillUpdateName : "");
+                error(`Unsafe legacy lifecycles will not be called for components using new component APIs.
+
+` + `%s uses %s but also contains the following legacy lifecycles:%s%s%s
+
+` + `The above lifecycles should be removed. Learn more about this warning here:
+` + "https://reactjs.org/link/unsafe-component-lifecycles", _componentName, newApiName, foundWillMountName !== null ? `
+  ` + foundWillMountName : "", foundWillReceivePropsName !== null ? `
+  ` + foundWillReceivePropsName : "", foundWillUpdateName !== null ? `
+  ` + foundWillUpdateName : "");
               }
             }
           }
@@ -12147,7 +12196,7 @@ var require_react_dom_development = __commonJS((exports) => {
         }
         if (oldState !== instance.state) {
           {
-            error("%s.componentWillMount(): Assigning directly to this.state is deprecated (except inside a component's constructor). Use setState instead.", getComponentNameFromFiber(workInProgress2) || "Component");
+            error("%s.componentWillMount(): Assigning directly to this.state is " + "deprecated (except inside a component's " + "constructor). Use setState instead.", getComponentNameFromFiber(workInProgress2) || "Component");
           }
           classComponentUpdater.enqueueReplaceState(instance, instance.state, null);
         }
@@ -12165,7 +12214,7 @@ var require_react_dom_development = __commonJS((exports) => {
             var componentName = getComponentNameFromFiber(workInProgress2) || "Component";
             if (!didWarnAboutStateAssignmentForComponent.has(componentName)) {
               didWarnAboutStateAssignmentForComponent.add(componentName);
-              error("%s.componentWillReceiveProps(): Assigning directly to this.state is deprecated (except inside a component's constructor). Use setState instead.", componentName);
+              error("%s.componentWillReceiveProps(): Assigning directly to " + "this.state is deprecated (except inside a component's " + "constructor). Use setState instead.", componentName);
             }
           }
           classComponentUpdater.enqueueReplaceState(instance, instance.state, null);
@@ -12192,7 +12241,7 @@ var require_react_dom_development = __commonJS((exports) => {
             var componentName = getComponentNameFromType(ctor) || "Component";
             if (!didWarnAboutDirectlyAssigningPropsToState.has(componentName)) {
               didWarnAboutDirectlyAssigningPropsToState.add(componentName);
-              error("%s: It is not recommended to assign props directly to state because updates to props won't be reflected in state. In most cases, it is better to use props directly.", componentName);
+              error("%s: It is not recommended to assign props directly to state " + "because updates to props won't be reflected in state. " + "In most cases, it is better to use props directly.", componentName);
             }
           }
           if (workInProgress2.mode & StrictLegacyMode) {
@@ -12390,8 +12439,7 @@ var require_react_dom_development = __commonJS((exports) => {
       var didWarnAboutStringRefs;
       var ownerHasKeyUseWarning;
       var ownerHasFunctionTypeWarning;
-      var warnForMissingKey = function(child, returnFiber) {
-      };
+      var warnForMissingKey = function(child, returnFiber) {};
       {
         didWarnAboutMaps = false;
         didWarnAboutGenerators = false;
@@ -12406,7 +12454,7 @@ var require_react_dom_development = __commonJS((exports) => {
             return;
           }
           if (typeof child._store !== "object") {
-            throw new Error("React Component in warnForMissingKey should have a _store. This error is likely caused by a bug in React. Please file an issue.");
+            throw new Error("React Component in warnForMissingKey should have a _store. " + "This error is likely caused by a bug in React. Please file an issue.");
           }
           child._store.validated = true;
           var componentName = getComponentNameFromFiber(returnFiber) || "Component";
@@ -12414,7 +12462,7 @@ var require_react_dom_development = __commonJS((exports) => {
             return;
           }
           ownerHasKeyUseWarning[componentName] = true;
-          error('Each child in a list should have a unique "key" prop. See https://reactjs.org/link/warning-keys for more information.');
+          error("Each child in a list should have a unique " + '"key" prop. See https://reactjs.org/link/warning-keys for ' + "more information.");
         };
       }
       function coerceRef(returnFiber, current2, element) {
@@ -12425,7 +12473,7 @@ var require_react_dom_development = __commonJS((exports) => {
               var componentName = getComponentNameFromFiber(returnFiber) || "Component";
               if (!didWarnAboutStringRefs[componentName]) {
                 {
-                  error('A string ref, "%s", has been found within a strict mode tree. String refs are a source of potential bugs and should be avoided. We recommend using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', mixedRef);
+                  error('A string ref, "%s", has been found within a strict mode tree. ' + "String refs are a source of potential bugs and should be avoided. " + "We recommend using useRef() or createRef() instead. " + "Learn more about using refs safely here: " + "https://reactjs.org/link/strict-mode-string-ref", mixedRef);
                 }
                 didWarnAboutStringRefs[componentName] = true;
               }
@@ -12437,12 +12485,12 @@ var require_react_dom_development = __commonJS((exports) => {
             if (owner) {
               var ownerFiber = owner;
               if (ownerFiber.tag !== ClassComponent) {
-                throw new Error("Function components cannot have string refs. We recommend using useRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref");
+                throw new Error("Function components cannot have string refs. " + "We recommend using useRef() instead. " + "Learn more about using refs safely here: " + "https://reactjs.org/link/strict-mode-string-ref");
               }
               inst = ownerFiber.stateNode;
             }
             if (!inst) {
-              throw new Error("Missing owner for string ref " + mixedRef + ". This error is likely caused by a bug in React. Please file an issue.");
+              throw new Error("Missing owner for string ref " + mixedRef + ". This error is likely caused by a " + "bug in React. Please file an issue.");
             }
             var resolvedInst = inst;
             {
@@ -12470,7 +12518,11 @@ var require_react_dom_development = __commonJS((exports) => {
               throw new Error("Expected ref to be a function, a string, an object returned by React.createRef(), or null.");
             }
             if (!element._owner) {
-              throw new Error("Element ref was specified as a string (" + mixedRef + ") but no owner was set. This could happen for one of the following reasons:\n1. You may be adding a ref to a function component\n2. You may be adding a ref to a component that was not created inside a component's render method\n3. You have multiple copies of React loaded\nSee https://reactjs.org/link/refs-must-have-owner for more information.");
+              throw new Error("Element ref was specified as a string (" + mixedRef + ") but no owner was set. This could happen for one of" + ` the following reasons:
+` + `1. You may be adding a ref to a function component
+` + `2. You may be adding a ref to a component that was not created inside a component's render method
+` + `3. You have multiple copies of React loaded
+` + "See https://reactjs.org/link/refs-must-have-owner for more information.");
             }
           }
         }
@@ -12478,7 +12530,7 @@ var require_react_dom_development = __commonJS((exports) => {
       }
       function throwOnInvalidObjectType(returnFiber, newChild) {
         var childString = Object.prototype.toString.call(newChild);
-        throw new Error("Objects are not valid as a React child (found: " + (childString === "[object Object]" ? "object with keys {" + Object.keys(newChild).join(", ") + "}" : childString) + "). If you meant to render a collection of children, use an array instead.");
+        throw new Error("Objects are not valid as a React child (found: " + (childString === "[object Object]" ? "object with keys {" + Object.keys(newChild).join(", ") + "}" : childString) + "). " + "If you meant to render a collection of children, use an array " + "instead.");
       }
       function warnOnFunctionType(returnFiber) {
         {
@@ -12487,7 +12539,7 @@ var require_react_dom_development = __commonJS((exports) => {
             return;
           }
           ownerHasFunctionTypeWarning[componentName] = true;
-          error("Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it.");
+          error("Functions are not valid as a React child. This may happen if " + "you return a Component instead of <Component /> from render. " + "Or maybe you meant to call this function rather than return it.");
         }
       }
       function resolveLazy(lazyType) {
@@ -12758,7 +12810,7 @@ var require_react_dom_development = __commonJS((exports) => {
                   knownKeys.add(key);
                   break;
                 }
-                error("Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be " + "duplicated and/or omitted \u2014 the behavior is unsupported and " + "could change in a future version.", key);
+                error("Encountered two children with the same key, `%s`. " + "Keys should be unique so that components maintain their identity " + "across updates. Non-unique keys may cause children to be " + "duplicated and/or omitted — the behavior is unsupported and " + "could change in a future version.", key);
                 break;
               case REACT_LAZY_TYPE:
                 var payload = child._payload;
@@ -12871,18 +12923,18 @@ var require_react_dom_development = __commonJS((exports) => {
         function reconcileChildrenIterator(returnFiber, currentFirstChild, newChildrenIterable, lanes) {
           var iteratorFn = getIteratorFn(newChildrenIterable);
           if (typeof iteratorFn !== "function") {
-            throw new Error("An object is not an iterable. This error is likely caused by a bug in React. Please file an issue.");
+            throw new Error("An object is not an iterable. This error is likely caused by a bug in " + "React. Please file an issue.");
           }
           {
             if (typeof Symbol === "function" && newChildrenIterable[Symbol.toStringTag] === "Generator") {
               if (!didWarnAboutGenerators) {
-                error("Using Generators as children is unsupported and will likely yield unexpected results because enumerating a generator mutates it. You may convert it to an array with `Array.from()` or the `[...spread]` operator before rendering. Keep in mind you might need to polyfill these features for older browsers.");
+                error("Using Generators as children is unsupported and will likely yield " + "unexpected results because enumerating a generator mutates it. " + "You may convert it to an array with `Array.from()` or the " + "`[...spread]` operator before rendering. Keep in mind " + "you might need to polyfill these features for older browsers.");
               }
               didWarnAboutGenerators = true;
             }
             if (newChildrenIterable.entries === iteratorFn) {
               if (!didWarnAboutMaps) {
-                error("Using Maps as children is not supported. Use an array of keyed ReactElements instead.");
+                error("Using Maps as children is not supported. " + "Use an array of keyed ReactElements instead.");
               }
               didWarnAboutMaps = true;
             }
@@ -13144,7 +13196,7 @@ var require_react_dom_development = __commonJS((exports) => {
       var rootInstanceStackCursor = createCursor(NO_CONTEXT);
       function requiredContext(c) {
         if (c === NO_CONTEXT) {
-          throw new Error("Expected host context to exist. This error is likely caused by a bug in React. Please file an issue.");
+          throw new Error("Expected host context to exist. This error is likely caused by a bug " + "in React. Please file an issue.");
         }
         return c;
       }
@@ -13324,7 +13376,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function checkDepsAreArrayDev(deps) {
         {
           if (deps !== undefined && deps !== null && !isArray(deps)) {
-            error("%s received a final argument that is not an array (instead, received `%s`). When specified, the final argument must be an array.", currentHookNameInDev, typeof deps);
+            error("%s received a final argument that is not an array (instead, received `%s`). When " + "specified, the final argument must be an array.", currentHookNameInDev, typeof deps);
           }
         }
       }
@@ -13343,16 +13395,26 @@ var require_react_dom_development = __commonJS((exports) => {
                 while (row.length < secondColumnStart) {
                   row += " ";
                 }
-                row += newHookName + "\n";
+                row += newHookName + `
+`;
                 table += row;
               }
-              error("React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://reactjs.org/link/rules-of-hooks\n\n   Previous render            Next render\n   ------------------------------------------------------\n%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n", componentName, table);
+              error("React has detected a change in the order of Hooks called by %s. " + "This will lead to bugs and errors if not fixed. " + `For more information, read the Rules of Hooks: https://reactjs.org/link/rules-of-hooks
+
+` + `   Previous render            Next render
+` + `   ------------------------------------------------------
+` + "%s" + `   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+`, componentName, table);
             }
           }
         }
       }
       function throwInvalidHookError() {
-        throw new Error("Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.");
+        throw new Error("Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for" + ` one of the following reasons:
+` + `1. You might have mismatching versions of React and the renderer (such as React DOM)
+` + `2. You might be breaking the Rules of Hooks
+` + `3. You might have more than one copy of React in the same app
+` + "See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.");
       }
       function areHookInputsEqual(nextDeps, prevDeps) {
         {
@@ -13362,13 +13424,16 @@ var require_react_dom_development = __commonJS((exports) => {
         }
         if (prevDeps === null) {
           {
-            error("%s received a final argument during this render, but not during the previous render. Even though the final argument is optional, its type cannot change between renders.", currentHookNameInDev);
+            error("%s received a final argument during this render, but not during " + "the previous render. Even though the final argument is optional, " + "its type cannot change between renders.", currentHookNameInDev);
           }
           return false;
         }
         {
           if (nextDeps.length !== prevDeps.length) {
-            error("The final argument passed to %s changed size between renders. The order and size of this array must remain constant.\n\nPrevious: %s\nIncoming: %s", currentHookNameInDev, "[" + prevDeps.join(", ") + "]", "[" + nextDeps.join(", ") + "]");
+            error("The final argument passed to %s changed size between renders. The " + `order and size of this array must remain constant.
+
+` + `Previous: %s
+` + "Incoming: %s", currentHookNameInDev, "[" + prevDeps.join(", ") + "]", "[" + nextDeps.join(", ") + "]");
           }
         }
         for (var i = 0;i < prevDeps.length && i < nextDeps.length; i++) {
@@ -13406,7 +13471,7 @@ var require_react_dom_development = __commonJS((exports) => {
             didScheduleRenderPhaseUpdateDuringThisPass = false;
             localIdCounter = 0;
             if (numberOfReRenders >= RE_RENDER_LIMIT) {
-              throw new Error("Too many re-renders. React limits the number of renders to prevent an infinite loop.");
+              throw new Error("Too many re-renders. React limits the number of renders to prevent " + "an infinite loop.");
             }
             numberOfReRenders += 1;
             {
@@ -13436,12 +13501,12 @@ var require_react_dom_development = __commonJS((exports) => {
           hookTypesDev = null;
           hookTypesUpdateIndexDev = -1;
           if (current2 !== null && (current2.flags & StaticMask) !== (workInProgress2.flags & StaticMask) && (current2.mode & ConcurrentMode) !== NoMode) {
-            error("Internal React error: Expected static flag was missing. Please notify the React team.");
+            error("Internal React error: Expected static flag was missing. Please " + "notify the React team.");
           }
         }
         didScheduleRenderPhaseUpdate = false;
         if (didRenderTooFewHooks) {
-          throw new Error("Rendered fewer hooks than expected. This may be caused by an accidental early return statement.");
+          throw new Error("Rendered fewer hooks than expected. This may be caused by an accidental " + "early return statement.");
         }
         return children;
       }
@@ -13591,7 +13656,7 @@ var require_react_dom_development = __commonJS((exports) => {
           }
           {
             if (current2.baseQueue !== baseQueue) {
-              error("Internal error: Expected work-in-progress queue to be a clone. This is a bug in React.");
+              error("Internal error: Expected work-in-progress queue to be a clone. " + "This is a bug in React.");
             }
           }
           current2.baseQueue = baseQueue = pendingQueue;
@@ -13717,7 +13782,7 @@ var require_react_dom_development = __commonJS((exports) => {
         var isHydrating2 = getIsHydrating();
         if (isHydrating2) {
           if (getServerSnapshot === undefined) {
-            throw new Error("Missing getServerSnapshot, which is required for server-rendered content. Will revert to client rendering.");
+            throw new Error("Missing getServerSnapshot, which is required for " + "server-rendered content. Will revert to client rendering.");
           }
           nextSnapshot = getServerSnapshot();
           {
@@ -13972,7 +14037,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var refObject = ref;
           {
             if (!refObject.hasOwnProperty("current")) {
-              error("Expected useImperativeHandle() first argument to either be a ref callback or React.createRef() object. Instead received: %s.", "an object with keys {" + Object.keys(refObject).join(", ") + "}");
+              error("Expected useImperativeHandle() first argument to either be a " + "ref callback or React.createRef() object. Instead received: %s.", "an object with keys {" + Object.keys(refObject).join(", ") + "}");
             }
           }
           var _inst2 = create();
@@ -13985,7 +14050,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function mountImperativeHandle(ref, create, deps) {
         {
           if (typeof create !== "function") {
-            error("Expected useImperativeHandle() second argument to be a function that creates a handle. Instead received: %s.", create !== null ? typeof create : "null");
+            error("Expected useImperativeHandle() second argument to be a function " + "that creates a handle. Instead received: %s.", create !== null ? typeof create : "null");
           }
         }
         var effectDeps = deps !== null && deps !== undefined ? deps.concat([ref]) : null;
@@ -14001,14 +14066,13 @@ var require_react_dom_development = __commonJS((exports) => {
       function updateImperativeHandle(ref, create, deps) {
         {
           if (typeof create !== "function") {
-            error("Expected useImperativeHandle() second argument to be a function that creates a handle. Instead received: %s.", create !== null ? typeof create : "null");
+            error("Expected useImperativeHandle() second argument to be a function " + "that creates a handle. Instead received: %s.", create !== null ? typeof create : "null");
           }
         }
         var effectDeps = deps !== null && deps !== undefined ? deps.concat([ref]) : null;
         return updateEffectImpl(Update, Layout, imperativeHandleEffect.bind(null, create, ref), effectDeps);
       }
-      function mountDebugValue(value, formatterFn) {
-      }
+      function mountDebugValue(value, formatterFn) {}
       var updateDebugValue = mountDebugValue;
       function mountCallback(callback, deps) {
         var hook = mountWorkInProgressHook();
@@ -14114,7 +14178,7 @@ var require_react_dom_development = __commonJS((exports) => {
             if (prevTransition === null && currentTransition._updatedFibers) {
               var updatedFibersCount = currentTransition._updatedFibers.size;
               if (updatedFibersCount > 10) {
-                warn("Detected a large number of updates inside startTransition. If this is due to a subscription please re-write it to use React provided hooks. Otherwise concurrent mode guarantees are off the table.");
+                warn("Detected a large number of updates inside startTransition. " + "If this is due to a subscription please re-write it to use React provided hooks. " + "Otherwise concurrent mode guarantees are off the table.");
               }
               currentTransition._updatedFibers.clear();
             }
@@ -14174,7 +14238,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function dispatchReducerAction(fiber, queue, action) {
         {
           if (typeof arguments[3] === "function") {
-            error("State updates from the useState() and useReducer() Hooks don't support the second callback argument. To execute a side effect after rendering, declare it in the component body with useEffect().");
+            error("State updates from the useState() and useReducer() Hooks don't support the " + "second callback argument. To execute a side effect after " + "rendering, declare it in the component body with useEffect().");
           }
         }
         var lane = requestUpdateLane(fiber);
@@ -14200,7 +14264,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function dispatchSetState(fiber, queue, action) {
         {
           if (typeof arguments[3] === "function") {
-            error("State updates from the useState() and useReducer() Hooks don't support the second callback argument. To execute a side effect after rendering, declare it in the component body with useEffect().");
+            error("State updates from the useState() and useReducer() Hooks don't support the " + "second callback argument. To execute a side effect after " + "rendering, declare it in the component body with useEffect().");
           }
         }
         var lane = requestUpdateLane(fiber);
@@ -14232,8 +14296,7 @@ var require_react_dom_development = __commonJS((exports) => {
                   enqueueConcurrentHookUpdateAndEagerlyBailout(fiber, queue, update, lane);
                   return;
                 }
-              } catch (error2) {
-              } finally {
+              } catch (error2) {} finally {
                 {
                   ReactCurrentDispatcher$1.current = prevDispatcher;
                 }
@@ -14307,10 +14370,10 @@ var require_react_dom_development = __commonJS((exports) => {
       var InvalidNestedHooksDispatcherOnRerenderInDEV = null;
       {
         var warnInvalidContextAccess = function() {
-          error("Context can only be read while React is rendering. In classes, you can read it in the render method or getDerivedStateFromProps. In function components, you can read it directly in the function body, but not inside Hooks like useReducer() or useMemo().");
+          error("Context can only be read while React is rendering. " + "In classes, you can read it in the render method or getDerivedStateFromProps. " + "In function components, you can read it directly in the function body, but not " + "inside Hooks like useReducer() or useMemo().");
         };
         var warnInvalidHookAccess = function() {
-          error("Do not call Hooks inside useEffect(...), useMemo(...), or other built-in Hooks. You can only call Hooks at the top level of your React function. For more information, see https://reactjs.org/link/rules-of-hooks");
+          error("Do not call Hooks inside useEffect(...), useMemo(...), or other built-in Hooks. " + "You can only call Hooks at the top level of your React function. " + "For more information, see " + "https://reactjs.org/link/rules-of-hooks");
         };
         HooksDispatcherOnMountInDEV = {
           readContext: function(context) {
@@ -15247,15 +15310,18 @@ var require_react_dom_development = __commonJS((exports) => {
             var componentNameMessage = componentName ? "The above error occurred in the <" + componentName + "> component:" : "The above error occurred in one of your React components:";
             var errorBoundaryMessage;
             if (boundary.tag === HostRoot) {
-              errorBoundaryMessage = "Consider adding an error boundary to your tree to customize error handling behavior.\nVisit https://reactjs.org/link/error-boundaries to learn more about error boundaries.";
+              errorBoundaryMessage = `Consider adding an error boundary to your tree to customize error handling behavior.
+` + "Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.";
             } else {
               var errorBoundaryName = getComponentNameFromFiber(boundary) || "Anonymous";
               errorBoundaryMessage = "React will try to recreate this component tree from scratch " + ("using the error boundary you provided, " + errorBoundaryName + ".");
             }
-            var combinedMessage = componentNameMessage + "\n" + componentStack + "\n\n" + ("" + errorBoundaryMessage);
+            var combinedMessage = componentNameMessage + `
+` + componentStack + `
+
+` + ("" + errorBoundaryMessage);
             console["error"](combinedMessage);
-          } else {
-          }
+          } else {}
         } catch (e) {
           setTimeout(function() {
             throw e;
@@ -15310,7 +15376,7 @@ var require_react_dom_development = __commonJS((exports) => {
             {
               if (typeof getDerivedStateFromError !== "function") {
                 if (!includesSomeLane(fiber.lanes, SyncLane)) {
-                  error("%s: Error boundaries should implement getDerivedStateFromError(). In that method, return a state update to display an error message or fallback UI.", getComponentNameFromFiber(fiber) || "Unknown");
+                  error("%s: Error boundaries should implement getDerivedStateFromError(). " + "In that method, return a state update to display an error message or fallback UI.", getComponentNameFromFiber(fiber) || "Unknown");
                 }
               }
             }
@@ -15433,7 +15499,7 @@ var require_react_dom_development = __commonJS((exports) => {
               renderDidSuspendDelayIfPossible();
               return;
             }
-            var uncaughtSuspenseError = new Error("A component suspended while responding to synchronous input. This will cause the UI to be replaced with a loading indicator. To fix, updates that suspend should be wrapped with startTransition.");
+            var uncaughtSuspenseError = new Error("A component suspended while responding to synchronous input. This " + "will cause the UI to be replaced with a loading indicator. To " + "fix, updates that suspend should be wrapped " + "with startTransition.");
             value = uncaughtSuspenseError;
           }
         } else {
@@ -15842,7 +15908,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var inst = workInProgress2.stateNode;
           if (shouldUpdate && inst.props !== nextProps) {
             if (!didWarnAboutReassigningProps) {
-              error("It looks like %s is reassigning its own `this.props` while rendering. This is not supported and can lead to confusing bugs.", getComponentNameFromFiber(workInProgress2) || "a component");
+              error("It looks like %s is reassigning its own `this.props` while rendering. " + "This is not supported and can lead to confusing bugs.", getComponentNameFromFiber(workInProgress2) || "a component");
             }
             didWarnAboutReassigningProps = true;
           }
@@ -15933,10 +15999,10 @@ var require_react_dom_development = __commonJS((exports) => {
           updateQueue.baseState = overrideState;
           workInProgress2.memoizedState = overrideState;
           if (workInProgress2.flags & ForceClientRender) {
-            var recoverableError = createCapturedValueAtFiber(new Error("There was an error while hydrating. Because the error happened outside of a Suspense boundary, the entire root will switch to client rendering."), workInProgress2);
+            var recoverableError = createCapturedValueAtFiber(new Error("There was an error while hydrating. Because the error happened outside " + "of a Suspense boundary, the entire root will switch to " + "client rendering."), workInProgress2);
             return mountHostRootWithoutHydrating(current2, workInProgress2, nextChildren, renderLanes2, recoverableError);
           } else if (nextChildren !== prevChildren) {
-            var _recoverableError = createCapturedValueAtFiber(new Error("This root received an early update, before anything was able hydrate. Switched the entire root to client rendering."), workInProgress2);
+            var _recoverableError = createCapturedValueAtFiber(new Error("This root received an early update, before anything was able " + "hydrate. Switched the entire root to client rendering."), workInProgress2);
             return mountHostRootWithoutHydrating(current2, workInProgress2, nextChildren, renderLanes2, _recoverableError);
           } else {
             enterHydrationState(workInProgress2);
@@ -16077,7 +16143,7 @@ var require_react_dom_development = __commonJS((exports) => {
           if (Component2.prototype && typeof Component2.prototype.render === "function") {
             var componentName = getComponentNameFromType(Component2) || "Unknown";
             if (!didWarnAboutBadClass[componentName]) {
-              error("The <%s /> component appears to have a render method, but doesn't extend React.Component. This is likely to cause errors. Change %s to extend React.Component instead.", componentName, componentName);
+              error("The <%s /> component appears to have a render method, but doesn't extend React.Component. " + "This is likely to cause errors. Change %s to extend React.Component instead.", componentName, componentName);
               didWarnAboutBadClass[componentName] = true;
             }
           }
@@ -16098,7 +16164,7 @@ var require_react_dom_development = __commonJS((exports) => {
           if (typeof value === "object" && value !== null && typeof value.render === "function" && value.$$typeof === undefined) {
             var _componentName = getComponentNameFromType(Component2) || "Unknown";
             if (!didWarnAboutModulePatternComponent[_componentName]) {
-              error("The <%s /> component appears to be a function component that returns a class instance. Change %s to a class that extends React.Component instead. If you can't use a class try assigning the prototype on the function as a workaround. `%s.prototype = React.Component.prototype`. Don't use an arrow function since it cannot be called with `new` by React.", _componentName, _componentName, _componentName);
+              error("The <%s /> component appears to be a function component that returns a class instance. " + "Change %s to a class that extends React.Component instead. " + "If you can't use a class try assigning the prototype on the function as a workaround. " + "`%s.prototype = React.Component.prototype`. Don't use an arrow function since it " + "cannot be called with `new` by React.", _componentName, _componentName, _componentName);
               didWarnAboutModulePatternComponent[_componentName] = true;
             }
           }
@@ -16107,7 +16173,7 @@ var require_react_dom_development = __commonJS((exports) => {
           {
             var _componentName2 = getComponentNameFromType(Component2) || "Unknown";
             if (!didWarnAboutModulePatternComponent[_componentName2]) {
-              error("The <%s /> component appears to be a function component that returns a class instance. Change %s to a class that extends React.Component instead. If you can't use a class try assigning the prototype on the function as a workaround. `%s.prototype = React.Component.prototype`. Don't use an arrow function since it cannot be called with `new` by React.", _componentName2, _componentName2, _componentName2);
+              error("The <%s /> component appears to be a function component that returns a class instance. " + "Change %s to a class that extends React.Component instead. " + "If you can't use a class try assigning the prototype on the function as a workaround. " + "`%s.prototype = React.Component.prototype`. Don't use an arrow function since it " + "cannot be called with `new` by React.", _componentName2, _componentName2, _componentName2);
               didWarnAboutModulePatternComponent[_componentName2] = true;
             }
           }
@@ -16160,7 +16226,9 @@ var require_react_dom_development = __commonJS((exports) => {
             var info = "";
             var ownerName = getCurrentFiberOwnerNameInDevOrNull();
             if (ownerName) {
-              info += "\n\nCheck the render method of `" + ownerName + "`.";
+              info += `
+
+Check the render method of \`` + ownerName + "`.";
             }
             var warningKey = ownerName || "";
             var debugSource = workInProgress2._debugSource;
@@ -16169,7 +16237,7 @@ var require_react_dom_development = __commonJS((exports) => {
             }
             if (!didWarnAboutFunctionRefs[warningKey]) {
               didWarnAboutFunctionRefs[warningKey] = true;
-              error("Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?%s", info);
+              error("Function components cannot be given refs. " + "Attempts to access this ref will fail. " + "Did you mean to use React.forwardRef()?%s", info);
             }
           }
           if (typeof Component2.getDerivedStateFromProps === "function") {
@@ -16430,7 +16498,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function mountDehydratedSuspenseComponent(workInProgress2, suspenseInstance, renderLanes2) {
         if ((workInProgress2.mode & ConcurrentMode) === NoMode) {
           {
-            error("Cannot hydrate Suspense in legacy mode. Switch from ReactDOM.hydrate(element, container) to ReactDOMClient.hydrateRoot(container, <App />).render(element) or remove the Suspense components from the server rendered components.");
+            error("Cannot hydrate Suspense in legacy mode. Switch from " + "ReactDOM.hydrate(element, container) to " + "ReactDOMClient.hydrateRoot(container, <App />)" + ".render(element) or remove the Suspense components from " + "the server rendered components.");
           }
           workInProgress2.lanes = laneToLanes(SyncLane);
         } else if (isSuspenseInstanceFallback(suspenseInstance)) {
@@ -16458,7 +16526,7 @@ var require_react_dom_development = __commonJS((exports) => {
             if (message) {
               error2 = new Error(message);
             } else {
-              error2 = new Error("The server could not finish this Suspense boundary, likely due to an error during server rendering. Switched to client rendering.");
+              error2 = new Error("The server could not finish this Suspense boundary, likely " + "due to an error during server rendering. Switched to " + "client rendering.");
             }
             var capturedValue = createCapturedValue(error2, digest, stack);
             return retrySuspenseComponentWithoutHydrating(current2, workInProgress2, renderLanes2, capturedValue);
@@ -16476,7 +16544,7 @@ var require_react_dom_development = __commonJS((exports) => {
               }
             }
             renderDidSuspendDelayIfPossible();
-            var _capturedValue = createCapturedValue(new Error("This Suspense boundary received an update before it finished hydrating. This caused the boundary to switch to client rendering. The usual way to fix this is to wrap the original update in startTransition."));
+            var _capturedValue = createCapturedValue(new Error("This Suspense boundary received an update before it finished " + "hydrating. This caused the boundary to switch to client rendering. " + "The usual way to fix this is to wrap the original update " + "in startTransition."));
             return retrySuspenseComponentWithoutHydrating(current2, workInProgress2, renderLanes2, _capturedValue);
           } else if (isSuspenseInstancePending(suspenseInstance)) {
             workInProgress2.flags |= DidCapture;
@@ -16494,7 +16562,7 @@ var require_react_dom_development = __commonJS((exports) => {
         } else {
           if (workInProgress2.flags & ForceClientRender) {
             workInProgress2.flags &= ~ForceClientRender;
-            var _capturedValue2 = createCapturedValue(new Error("There was an error while hydrating this Suspense boundary. Switched to client rendering."));
+            var _capturedValue2 = createCapturedValue(new Error("There was an error while hydrating this Suspense boundary. " + "Switched to client rendering."));
             return retrySuspenseComponentWithoutHydrating(current2, workInProgress2, renderLanes2, _capturedValue2);
           } else if (workInProgress2.memoizedState !== null) {
             workInProgress2.child = current2.child;
@@ -16568,20 +16636,20 @@ var require_react_dom_development = __commonJS((exports) => {
                 case "together":
                 case "forwards":
                 case "backwards": {
-                  error('"%s" is not a valid value for revealOrder on <SuspenseList />. Use lowercase "%s" instead.', revealOrder, revealOrder.toLowerCase());
+                  error('"%s" is not a valid value for revealOrder on <SuspenseList />. ' + 'Use lowercase "%s" instead.', revealOrder, revealOrder.toLowerCase());
                   break;
                 }
                 case "forward":
                 case "backward": {
-                  error('"%s" is not a valid value for revealOrder on <SuspenseList />. React uses the -s suffix in the spelling. Use "%ss" instead.', revealOrder, revealOrder.toLowerCase());
+                  error('"%s" is not a valid value for revealOrder on <SuspenseList />. ' + 'React uses the -s suffix in the spelling. Use "%ss" instead.', revealOrder, revealOrder.toLowerCase());
                   break;
                 }
                 default:
-                  error('"%s" is not a supported revealOrder on <SuspenseList />. Did you mean "together", "forwards" or "backwards"?', revealOrder);
+                  error('"%s" is not a supported revealOrder on <SuspenseList />. ' + 'Did you mean "together", "forwards" or "backwards"?', revealOrder);
                   break;
               }
             } else {
-              error('%s is not a supported value for revealOrder on <SuspenseList />. Did you mean "together", "forwards" or "backwards"?', revealOrder);
+              error("%s is not a supported value for revealOrder on <SuspenseList />. " + 'Did you mean "together", "forwards" or "backwards"?', revealOrder);
             }
           }
         }
@@ -16591,10 +16659,10 @@ var require_react_dom_development = __commonJS((exports) => {
           if (tailMode !== undefined && !didWarnAboutTailOptions[tailMode]) {
             if (tailMode !== "collapsed" && tailMode !== "hidden") {
               didWarnAboutTailOptions[tailMode] = true;
-              error('"%s" is not a supported value for tail on <SuspenseList />. Did you mean "collapsed" or "hidden"?', tailMode);
+              error('"%s" is not a supported value for tail on <SuspenseList />. ' + 'Did you mean "collapsed" or "hidden"?', tailMode);
             } else if (revealOrder !== "forwards" && revealOrder !== "backwards") {
               didWarnAboutTailOptions[tailMode] = true;
-              error('<SuspenseList tail="%s" /> is only valid if revealOrder is "forwards" or "backwards". Did you mean to specify revealOrder="forwards"?', tailMode);
+              error('<SuspenseList tail="%s" /> is only valid if revealOrder is ' + '"forwards" or "backwards". ' + 'Did you mean to specify revealOrder="forwards"?', tailMode);
             }
           }
         }
@@ -16605,7 +16673,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var isIterable = !isAnArray && typeof getIteratorFn(childSlot) === "function";
           if (isAnArray || isIterable) {
             var type = isAnArray ? "array" : "iterable";
-            error("A nested %s was passed to row #%s in <SuspenseList />. Wrap it in an additional SuspenseList to configure its revealOrder: <SuspenseList revealOrder=...> ... <SuspenseList revealOrder=...>{%s}</SuspenseList> ... </SuspenseList>", type, index2, type);
+            error("A nested %s was passed to row #%s in <SuspenseList />. Wrap it in " + "an additional SuspenseList to configure its revealOrder: " + "<SuspenseList revealOrder=...> ... " + "<SuspenseList revealOrder=...>{%s}</SuspenseList> ... " + "</SuspenseList>", type, index2, type);
             return false;
           }
         }
@@ -16635,7 +16703,7 @@ var require_react_dom_development = __commonJS((exports) => {
                   }
                 }
               } else {
-                error('A single row was passed to a <SuspenseList revealOrder="%s" />. This is not useful since it needs multiple rows. Did you mean to pass multiple children or an array?', revealOrder);
+                error('A single row was passed to a <SuspenseList revealOrder="%s" />. ' + "This is not useful since it needs multiple rows. " + "Did you mean to pass multiple children or an array?", revealOrder);
               }
             }
           }
@@ -16783,7 +16851,7 @@ var require_react_dom_development = __commonJS((exports) => {
             if (context !== context.Consumer) {
               if (!hasWarnedAboutUsingContextAsConsumer) {
                 hasWarnedAboutUsingContextAsConsumer = true;
-                error("Rendering <Context> directly is not supported and will be removed in a future major release. Did you mean to render <Context.Consumer> instead?");
+                error("Rendering <Context> directly is not supported and will be removed in " + "a future major release. Did you mean to render <Context.Consumer> instead?");
               }
             }
           } else {
@@ -16794,7 +16862,7 @@ var require_react_dom_development = __commonJS((exports) => {
         var render2 = newProps.children;
         {
           if (typeof render2 !== "function") {
-            error("A context consumer was rendered with multiple children, or a child that isn't a function. A context consumer expects a single child that is a function. If you did pass a function, make sure there is no trailing or leading whitespace around it.");
+            error("A context consumer was rendered with multiple children, or a child " + "that isn't a function. A context consumer expects a single child " + "that is a function. If you did pass a function, make sure there " + "is no trailing or leading whitespace around it.");
           }
         }
         prepareToReadContext(workInProgress2, renderLanes2);
@@ -17096,7 +17164,7 @@ var require_react_dom_development = __commonJS((exports) => {
             return updateOffscreenComponent(current2, workInProgress2, renderLanes2);
           }
         }
-        throw new Error("Unknown unit of work tag (" + workInProgress2.tag + "). This error is likely caused by a bug in React. Please file an issue.");
+        throw new Error("Unknown unit of work tag (" + workInProgress2.tag + "). This error is likely caused by a bug in " + "React. Please file an issue.");
       }
       function markUpdate(workInProgress2) {
         workInProgress2.flags |= Update;
@@ -17137,8 +17205,7 @@ var require_react_dom_development = __commonJS((exports) => {
             node = node.sibling;
           }
         };
-        updateHostContainer = function(current2, workInProgress2) {
-        };
+        updateHostContainer = function(current2, workInProgress2) {};
         updateHostComponent$1 = function(current2, workInProgress2, type, newProps, rootContainerInstance) {
           var oldProps = current2.memoizedProps;
           if (oldProps === newProps) {
@@ -17269,7 +17336,7 @@ var require_react_dom_development = __commonJS((exports) => {
         if (nextState !== null && nextState.dehydrated !== null) {
           if (current2 === null) {
             if (!wasHydrated) {
-              throw new Error("A dehydrated suspense component was completed without a hydrated node. This is probably a bug in React.");
+              throw new Error("A dehydrated suspense component was completed without a hydrated node. " + "This is probably a bug in React.");
             }
             prepareToHydrateHostSuspenseInstance(workInProgress2);
             bubbleProperties(workInProgress2);
@@ -17373,7 +17440,7 @@ var require_react_dom_development = __commonJS((exports) => {
             } else {
               if (!newProps) {
                 if (workInProgress2.stateNode === null) {
-                  throw new Error("We must have new props for new mounts. This error is likely caused by a bug in React. Please file an issue.");
+                  throw new Error("We must have new props for new mounts. This error is likely " + "caused by a bug in React. Please file an issue.");
                 }
                 bubbleProperties(workInProgress2);
                 return null;
@@ -17407,7 +17474,7 @@ var require_react_dom_development = __commonJS((exports) => {
             } else {
               if (typeof newText !== "string") {
                 if (workInProgress2.stateNode === null) {
-                  throw new Error("We must have new props for new mounts. This error is likely caused by a bug in React. Please file an issue.");
+                  throw new Error("We must have new props for new mounts. This error is likely " + "caused by a bug in React. Please file an issue.");
                 }
               }
               var _rootContainerInstance = getRootHostContainer();
@@ -17630,7 +17697,7 @@ var require_react_dom_development = __commonJS((exports) => {
             return null;
           }
         }
-        throw new Error("Unknown unit of work tag (" + workInProgress2.tag + "). This error is likely caused by a bug in React. Please file an issue.");
+        throw new Error("Unknown unit of work tag (" + workInProgress2.tag + "). This error is likely caused by a bug in " + "React. Please file an issue.");
       }
       function unwindWork(current2, workInProgress2, renderLanes2) {
         popTreeContext(workInProgress2);
@@ -17671,7 +17738,7 @@ var require_react_dom_development = __commonJS((exports) => {
             var suspenseState = workInProgress2.memoizedState;
             if (suspenseState !== null && suspenseState.dehydrated !== null) {
               if (workInProgress2.alternate === null) {
-                throw new Error("Threw in newly mounted dehydrated component. This is likely a bug in React. Please file an issue.");
+                throw new Error("Threw in newly mounted dehydrated component. This is likely a bug in " + "React. Please file an issue.");
               }
               resetHydrationState();
             }
@@ -17827,7 +17894,7 @@ var require_react_dom_development = __commonJS((exports) => {
             }
             {
               if (typeof retVal === "function") {
-                error("Unexpected return value from a callback ref in %s. A callback ref should not return a function.", getComponentNameFromFiber(current2));
+                error("Unexpected return value from a callback ref in %s. " + "A callback ref should not return a function.", getComponentNameFromFiber(current2));
               }
             }
           } else {
@@ -17903,10 +17970,10 @@ var require_react_dom_development = __commonJS((exports) => {
                 {
                   if (finishedWork.type === finishedWork.elementType && !didWarnAboutReassigningProps) {
                     if (instance.props !== finishedWork.memoizedProps) {
-                      error("Expected %s props to match memoized props before getSnapshotBeforeUpdate. This might either be because of a bug in React, or because a component reassigns its own `this.props`. Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
+                      error("Expected %s props to match memoized props before " + "getSnapshotBeforeUpdate. " + "This might either be because of a bug in React, or because " + "a component reassigns its own `this.props`. " + "Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
                     }
                     if (instance.state !== finishedWork.memoizedState) {
-                      error("Expected %s state to match memoized state before getSnapshotBeforeUpdate. This might either be because of a bug in React, or because a component reassigns its own `this.state`. Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
+                      error("Expected %s state to match memoized state before " + "getSnapshotBeforeUpdate. " + "This might either be because of a bug in React, or because " + "a component reassigns its own `this.state`. " + "Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
                     }
                   }
                 }
@@ -17915,7 +17982,7 @@ var require_react_dom_development = __commonJS((exports) => {
                   var didWarnSet = didWarnAboutUndefinedSnapshotBeforeUpdate;
                   if (snapshot === undefined && !didWarnSet.has(finishedWork.type)) {
                     didWarnSet.add(finishedWork.type);
-                    error("%s.getSnapshotBeforeUpdate(): A snapshot value (or null) must be returned. You have returned undefined.", getComponentNameFromFiber(finishedWork));
+                    error("%s.getSnapshotBeforeUpdate(): A snapshot value (or null) " + "must be returned. You have returned undefined.", getComponentNameFromFiber(finishedWork));
                   }
                 }
                 instance.__reactInternalSnapshotBeforeUpdate = snapshot;
@@ -17935,7 +18002,7 @@ var require_react_dom_development = __commonJS((exports) => {
             case IncompleteClassComponent:
               break;
             default: {
-              throw new Error("This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.");
+              throw new Error("This unit of work tag should not have side-effects. This error is " + "likely caused by a bug in React. Please file an issue.");
             }
           }
           resetCurrentFiber();
@@ -18030,13 +18097,26 @@ var require_react_dom_development = __commonJS((exports) => {
                   }
                   var addendum = undefined;
                   if (destroy === null) {
-                    addendum = " You returned null. If your effect does not require clean up, return undefined (or nothing).";
+                    addendum = " You returned null. If your effect does not require clean " + "up, return undefined (or nothing).";
                   } else if (typeof destroy.then === "function") {
-                    addendum = "\n\nIt looks like you wrote " + hookName + "(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately:\n\n" + hookName + "(() => {\n  async function fetchData() {\n    // You can await here\n    const response = await MyAPI.getData(someId);\n    // ...\n  }\n  fetchData();\n}, [someId]); // Or [] if effect doesn't need props or state\n\nLearn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching";
+                    addendum = `
+
+It looks like you wrote ` + hookName + "(async () => ...) or returned a Promise. " + "Instead, write the async function inside your effect " + `and call it immediately:
+
+` + hookName + `(() => {
+` + `  async function fetchData() {
+` + `    // You can await here
+` + `    const response = await MyAPI.getData(someId);
+` + `    // ...
+` + `  }
+` + `  fetchData();
+` + `}, [someId]); // Or [] if effect doesn't need props or state
+
+` + "Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching";
                   } else {
                     addendum = " You returned: " + destroy;
                   }
-                  error("%s must not return anything besides a function, which is used for clean-up.%s", hookName, addendum);
+                  error("%s must not return anything besides a function, " + "which is used for clean-up.%s", hookName, addendum);
                 }
               }
             }
@@ -18110,10 +18190,10 @@ var require_react_dom_development = __commonJS((exports) => {
                     {
                       if (finishedWork.type === finishedWork.elementType && !didWarnAboutReassigningProps) {
                         if (instance.props !== finishedWork.memoizedProps) {
-                          error("Expected %s props to match memoized props before componentDidMount. This might either be because of a bug in React, or because a component reassigns its own `this.props`. Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
+                          error("Expected %s props to match memoized props before " + "componentDidMount. " + "This might either be because of a bug in React, or because " + "a component reassigns its own `this.props`. " + "Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
                         }
                         if (instance.state !== finishedWork.memoizedState) {
-                          error("Expected %s state to match memoized state before componentDidMount. This might either be because of a bug in React, or because a component reassigns its own `this.state`. Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
+                          error("Expected %s state to match memoized state before " + "componentDidMount. " + "This might either be because of a bug in React, or because " + "a component reassigns its own `this.state`. " + "Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
                         }
                       }
                     }
@@ -18133,10 +18213,10 @@ var require_react_dom_development = __commonJS((exports) => {
                     {
                       if (finishedWork.type === finishedWork.elementType && !didWarnAboutReassigningProps) {
                         if (instance.props !== finishedWork.memoizedProps) {
-                          error("Expected %s props to match memoized props before componentDidUpdate. This might either be because of a bug in React, or because a component reassigns its own `this.props`. Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
+                          error("Expected %s props to match memoized props before " + "componentDidUpdate. " + "This might either be because of a bug in React, or because " + "a component reassigns its own `this.props`. " + "Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
                         }
                         if (instance.state !== finishedWork.memoizedState) {
-                          error("Expected %s state to match memoized state before componentDidUpdate. This might either be because of a bug in React, or because a component reassigns its own `this.state`. Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
+                          error("Expected %s state to match memoized state before " + "componentDidUpdate. " + "This might either be because of a bug in React, or because " + "a component reassigns its own `this.state`. " + "Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
                         }
                       }
                     }
@@ -18158,10 +18238,10 @@ var require_react_dom_development = __commonJS((exports) => {
                 {
                   if (finishedWork.type === finishedWork.elementType && !didWarnAboutReassigningProps) {
                     if (instance.props !== finishedWork.memoizedProps) {
-                      error("Expected %s props to match memoized props before processing the update queue. This might either be because of a bug in React, or because a component reassigns its own `this.props`. Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
+                      error("Expected %s props to match memoized props before " + "processing the update queue. " + "This might either be because of a bug in React, or because " + "a component reassigns its own `this.props`. " + "Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
                     }
                     if (instance.state !== finishedWork.memoizedState) {
-                      error("Expected %s state to match memoized state before processing the update queue. This might either be because of a bug in React, or because a component reassigns its own `this.state`. Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
+                      error("Expected %s state to match memoized state before " + "processing the update queue. " + "This might either be because of a bug in React, or because " + "a component reassigns its own `this.state`. " + "Please file an issue.", getComponentNameFromFiber(finishedWork) || "instance");
                     }
                   }
                 }
@@ -18253,7 +18333,7 @@ var require_react_dom_development = __commonJS((exports) => {
               break;
             }
             default:
-              throw new Error("This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.");
+              throw new Error("This unit of work tag should not have side-effects. This error is " + "likely caused by a bug in React. Please file an issue.");
           }
         }
         if (!offscreenSubtreeWasHidden) {
@@ -18380,13 +18460,13 @@ var require_react_dom_development = __commonJS((exports) => {
             }
             {
               if (typeof retVal === "function") {
-                error("Unexpected return value from a callback ref in %s. A callback ref should not return a function.", getComponentNameFromFiber(finishedWork));
+                error("Unexpected return value from a callback ref in %s. " + "A callback ref should not return a function.", getComponentNameFromFiber(finishedWork));
               }
             }
           } else {
             {
               if (!ref.hasOwnProperty("current")) {
-                error("Unexpected ref object provided for %s. Use either a ref-setter function or React.createRef().", getComponentNameFromFiber(finishedWork));
+                error("Unexpected ref object provided for %s. " + "Use either a ref-setter function or React.createRef().", getComponentNameFromFiber(finishedWork));
               }
             }
             ref.current = instanceToUse;
@@ -18439,7 +18519,7 @@ var require_react_dom_development = __commonJS((exports) => {
           }
           parent = parent.return;
         }
-        throw new Error("Expected to find a host parent. This error is likely caused by a bug in React. Please file an issue.");
+        throw new Error("Expected to find a host parent. This error is likely caused by a bug " + "in React. Please file an issue.");
       }
       function isHostParent(fiber) {
         return fiber.tag === HostComponent || fiber.tag === HostRoot || fiber.tag === HostPortal;
@@ -18493,7 +18573,7 @@ var require_react_dom_development = __commonJS((exports) => {
             break;
           }
           default:
-            throw new Error("Invalid host parent fiber. This error is likely caused by a bug in React. Please file an issue.");
+            throw new Error("Invalid host parent fiber. This error is likely caused by a bug " + "in React. Please file an issue.");
         }
       }
       function insertOrAppendPlacementNodeIntoContainer(node, before, parent) {
@@ -18571,7 +18651,7 @@ var require_react_dom_development = __commonJS((exports) => {
               parent = parent.return;
             }
           if (hostParent === null) {
-            throw new Error("Expected to find a host parent. This error is likely caused by a bug in React. Please file an issue.");
+            throw new Error("Expected to find a host parent. This error is likely caused by " + "a bug in React. Please file an issue.");
           }
           commitDeletionEffectsOnFiber(root2, returnFiber, deletedFiber);
           hostParent = null;
@@ -18872,7 +18952,7 @@ var require_react_dom_development = __commonJS((exports) => {
             if (flags & Update) {
               {
                 if (finishedWork.stateNode === null) {
-                  throw new Error("This should have a text node initialized. This error is likely caused by a bug in React. Please file an issue.");
+                  throw new Error("This should have a text node initialized. This error is likely " + "caused by a bug in React. Please file an issue.");
                 }
                 var textInstance = finishedWork.stateNode;
                 var newText = finishedWork.memoizedProps;
@@ -19489,7 +19569,7 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           var isReactActEnvironmentGlobal = typeof IS_REACT_ACT_ENVIRONMENT !== "undefined" ? IS_REACT_ACT_ENVIRONMENT : undefined;
           if (!isReactActEnvironmentGlobal && ReactCurrentActQueue.current !== null) {
-            error("The current testing environment is not configured to support act(...)");
+            error("The current testing environment is not configured to support " + "act(...)");
           }
           return isReactActEnvironmentGlobal;
         }
@@ -20183,7 +20263,7 @@ var require_react_dom_development = __commonJS((exports) => {
         executionContext = prevExecutionContext;
         popDispatcher(prevDispatcher);
         if (workInProgress !== null) {
-          throw new Error("Cannot commit an incomplete root. This error is likely caused by a bug in React. Please file an issue.");
+          throw new Error("Cannot commit an incomplete root. This error is likely caused by a " + "bug in React. Please file an issue.");
         }
         {
           markRenderStopped();
@@ -20362,14 +20442,14 @@ var require_react_dom_development = __commonJS((exports) => {
         } else {
           {
             if (lanes === NoLanes) {
-              error("root.finishedLanes should not be empty during a commit. This is a bug in React.");
+              error("root.finishedLanes should not be empty during a commit. This is a " + "bug in React.");
             }
           }
         }
         root2.finishedWork = null;
         root2.finishedLanes = NoLanes;
         if (finishedWork === root2.current) {
-          throw new Error("Cannot commit the same tree as before. This error is likely caused by a bug in React. Please file an issue.");
+          throw new Error("Cannot commit the same tree as before. This error is likely caused by " + "a bug in React. Please file an issue.");
         }
         root2.callbackNode = null;
         root2.callbackPriority = NoLane;
@@ -20648,7 +20728,11 @@ var require_react_dom_development = __commonJS((exports) => {
           fiber = fiber.return;
         }
         {
-          error("Internal React error: Attempted to capture a commit phase error inside a detached tree. This indicates a bug in React. Likely causes include deleting the same fiber more than once, committing an already-finished tree, or an inconsistent return pointer.\n\nError message:\n\n%s", error$1);
+          error("Internal React error: Attempted to capture a commit phase error " + "inside a detached tree. This indicates a bug in React. Likely " + "causes include deleting the same fiber more than once, committing an " + `already-finished tree, or an inconsistent return pointer.
+
+` + `Error message:
+
+%s`, error$1);
         }
       }
       function pingSuspendedRoot(root2, wakeable, pingedLanes) {
@@ -20702,7 +20786,7 @@ var require_react_dom_development = __commonJS((exports) => {
             retryCache = boundaryFiber.stateNode;
             break;
           default:
-            throw new Error("Pinged unknown suspense boundary type. This is probably a bug in React.");
+            throw new Error("Pinged unknown suspense boundary type. " + "This is probably a bug in React.");
         }
         if (retryCache !== null) {
           retryCache.delete(wakeable);
@@ -20716,13 +20800,13 @@ var require_react_dom_development = __commonJS((exports) => {
         if (nestedUpdateCount > NESTED_UPDATE_LIMIT) {
           nestedUpdateCount = 0;
           rootWithNestedUpdates = null;
-          throw new Error("Maximum update depth exceeded. This can happen when a component repeatedly calls setState inside componentWillUpdate or componentDidUpdate. React limits the number of nested updates to prevent infinite loops.");
+          throw new Error("Maximum update depth exceeded. This can happen when a component " + "repeatedly calls setState inside componentWillUpdate or " + "componentDidUpdate. React limits the number of nested updates to " + "prevent infinite loops.");
         }
         {
           if (nestedPassiveUpdateCount > NESTED_PASSIVE_UPDATE_LIMIT) {
             nestedPassiveUpdateCount = 0;
             rootWithPassiveNestedUpdates = null;
-            error("Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.");
+            error("Maximum update depth exceeded. This can happen when a component " + "calls setState inside useEffect, but useEffect either doesn't " + "have a dependency array, or one of the dependencies changes on " + "every render.");
           }
         }
       }
@@ -20794,7 +20878,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var previousFiber = current;
           try {
             setCurrentFiber(fiber);
-            error("Can't perform a React state update on a component that hasn't mounted yet. This indicates that you have a side-effect in your render function that asynchronously later calls tries to update the component. Move this work to useEffect instead.");
+            error("Can't perform a React state update on a component that hasn't mounted yet. " + "This indicates that you have a side-effect in your render function that " + "asynchronously later calls tries to update the component. Move this work to " + "useEffect instead.");
           } finally {
             if (previousFiber) {
               setCurrentFiber(fiber);
@@ -20850,13 +20934,13 @@ var require_react_dom_development = __commonJS((exports) => {
                 if (!didWarnAboutUpdateInRenderForAnotherComponent.has(dedupeKey)) {
                   didWarnAboutUpdateInRenderForAnotherComponent.add(dedupeKey);
                   var setStateComponentName = getComponentNameFromFiber(fiber) || "Unknown";
-                  error("Cannot update a component (`%s`) while rendering a different component (`%s`). To locate the bad setState() call inside `%s`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render", setStateComponentName, renderingComponentName, renderingComponentName);
+                  error("Cannot update a component (`%s`) while rendering a " + "different component (`%s`). To locate the bad setState() call inside `%s`, " + "follow the stack trace as described in https://reactjs.org/link/setstate-in-render", setStateComponentName, renderingComponentName, renderingComponentName);
                 }
                 break;
               }
               case ClassComponent: {
                 if (!didWarnAboutUpdateInRender) {
-                  error("Cannot update during an existing state transition (such as within `render`). Render methods should be a pure function of props and state.");
+                  error("Cannot update during an existing state transition (such as " + "within `render`). Render methods should be a pure " + "function of props and state.");
                   didWarnAboutUpdateInRender = true;
                 }
                 break;
@@ -20917,7 +21001,16 @@ var require_react_dom_development = __commonJS((exports) => {
             var previousFiber = current;
             try {
               setCurrentFiber(fiber);
-              error("An update to %s inside a test was not wrapped in act(...).\n\nWhen testing, code that causes React state updates should be wrapped into act(...):\n\nact(() => {\n  /* fire events that update state */\n});\n/* assert on the output */\n\nThis ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act", getComponentNameFromFiber(fiber));
+              error(`An update to %s inside a test was not wrapped in act(...).
+
+` + "When testing, code that causes React state updates should be " + `wrapped into act(...):
+
+` + `act(() => {
+` + `  /* fire events that update state */
+` + `});
+` + `/* assert on the output */
+
+` + "This ensures that you're testing the behavior the user would see " + "in the browser." + " Learn more at https://reactjs.org/link/wrap-tests-with-act", getComponentNameFromFiber(fiber));
             } finally {
               if (previousFiber) {
                 setCurrentFiber(fiber);
@@ -20931,7 +21024,16 @@ var require_react_dom_development = __commonJS((exports) => {
       function warnIfSuspenseResolutionNotWrappedWithActDEV(root2) {
         {
           if (root2.tag !== LegacyRoot && isConcurrentActEnvironment() && ReactCurrentActQueue$1.current === null) {
-            error("A suspended resource finished loading inside a test, but the event was not wrapped in act(...).\n\nWhen testing, code that resolves suspended data should be wrapped into act(...):\n\nact(() => {\n  /* finish loading suspended data */\n});\n/* assert on the output */\n\nThis ensures that you're testing the behavior the user would see in the browser. Learn more at https://reactjs.org/link/wrap-tests-with-act");
+            error("A suspended resource finished loading inside a test, but the event " + `was not wrapped in act(...).
+
+` + "When testing, code that resolves suspended data should be wrapped " + `into act(...):
+
+` + `act(() => {
+` + `  /* finish loading suspended data */
+` + `});
+` + `/* assert on the output */
+
+` + "This ensures that you're testing the behavior the user would see " + "in the browser." + " Learn more at https://reactjs.org/link/wrap-tests-with-act");
           }
         }
       }
@@ -21493,14 +21595,16 @@ var require_react_dom_development = __commonJS((exports) => {
                 var info = "";
                 {
                   if (type === undefined || typeof type === "object" && type !== null && Object.keys(type).length === 0) {
-                    info += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.";
+                    info += " You likely forgot to export your component from the file " + "it's defined in, or you might have mixed up default and " + "named imports.";
                   }
                   var ownerName = owner ? getComponentNameFromFiber(owner) : null;
                   if (ownerName) {
-                    info += "\n\nCheck the render method of `" + ownerName + "`.";
+                    info += `
+
+Check the render method of \`` + ownerName + "`.";
                   }
                 }
-                throw new Error("Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) " + ("but got: " + (type == null ? type : typeof type) + "." + info));
+                throw new Error("Element type is invalid: expected a string (for built-in " + "components) or a class/function (for composite components) " + ("but got: " + (type == null ? type : typeof type) + "." + info));
               }
             }
         }
@@ -21760,9 +21864,9 @@ var require_react_dom_development = __commonJS((exports) => {
               try {
                 setCurrentFiber(hostFiber);
                 if (fiber.mode & StrictLegacyMode) {
-                  error("%s is deprecated in StrictMode. %s was passed an instance of %s which is inside StrictMode. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node", methodName, methodName, componentName);
+                  error("%s is deprecated in StrictMode. " + "%s was passed an instance of %s which is inside StrictMode. " + "Instead, add a ref directly to the element you want to reference. " + "Learn more about using refs safely here: " + "https://reactjs.org/link/strict-mode-find-node", methodName, methodName, componentName);
                 } else {
-                  error("%s is deprecated in StrictMode. %s was passed an instance of %s which renders StrictMode children. Instead, add a ref directly to the element you want to reference. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-find-node", methodName, methodName, componentName);
+                  error("%s is deprecated in StrictMode. " + "%s was passed an instance of %s which renders StrictMode children. " + "Instead, add a ref directly to the element you want to reference. " + "Learn more about using refs safely here: " + "https://reactjs.org/link/strict-mode-find-node", methodName, methodName, componentName);
                 }
               } finally {
                 if (previousFiber) {
@@ -21813,7 +21917,9 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           if (isRendering && current !== null && !didWarnAboutNestedUpdates) {
             didWarnAboutNestedUpdates = true;
-            error("Render methods should be a pure function of props and state; triggering nested component updates from render is not allowed. If necessary, trigger nested updates in componentDidUpdate.\n\nCheck the render method of %s.", getComponentNameFromFiber(current) || "Unknown");
+            error("Render methods should be a pure function of props and state; " + "triggering nested component updates from render is not allowed. " + `If necessary, trigger nested updates in componentDidUpdate.
+
+` + "Check the render method of %s.", getComponentNameFromFiber(current) || "Unknown");
           }
         }
         var update = createUpdate(eventTime, lane);
@@ -21824,7 +21930,7 @@ var require_react_dom_development = __commonJS((exports) => {
         if (callback !== null) {
           {
             if (typeof callback !== "function") {
-              error("render(...): Expected the last optional `callback` argument to be a function. Instead received: %s.", callback);
+              error("render(...): Expected the last optional `callback` argument to be a " + "function. Instead received: %s.", callback);
             }
           }
           update.callback = callback;
@@ -22141,18 +22247,18 @@ var require_react_dom_development = __commonJS((exports) => {
         }
         {
           if (typeof arguments[1] === "function") {
-            error("render(...): does not support the second callback argument. To execute a side effect after rendering, declare it in a component body with useEffect().");
+            error("render(...): does not support the second callback argument. " + "To execute a side effect after rendering, declare it in a component body with useEffect().");
           } else if (isValidContainer(arguments[1])) {
-            error("You passed a container to the second argument of root.render(...). You don't need to pass it again since you already passed it to create the root.");
+            error("You passed a container to the second argument of root.render(...). " + "You don't need to pass it again since you already passed it to create the root.");
           } else if (typeof arguments[1] !== "undefined") {
-            error("You passed a second argument to root.render(...) but it only accepts one argument.");
+            error("You passed a second argument to root.render(...) but it only accepts " + "one argument.");
           }
           var container = root2.containerInfo;
           if (container.nodeType !== COMMENT_NODE) {
             var hostInstance = findHostInstanceWithNoPortals(root2.current);
             if (hostInstance) {
               if (hostInstance.parentNode !== container) {
-                error("render(...): It looks like the React-rendered content of the root container was removed without using React. This is not supported and will cause errors. Instead, call root.unmount() to empty a root's container.");
+                error("render(...): It looks like the React-rendered content of the " + "root container was removed without using React. This is not " + "supported and will cause errors. Instead, call " + "root.unmount() to empty a root's container.");
               }
             }
           }
@@ -22162,7 +22268,7 @@ var require_react_dom_development = __commonJS((exports) => {
       ReactDOMHydrationRoot.prototype.unmount = ReactDOMRoot.prototype.unmount = function() {
         {
           if (typeof arguments[0] === "function") {
-            error("unmount(...): does not support a callback argument. To execute a side effect after rendering, declare it in a component body with useEffect().");
+            error("unmount(...): does not support a callback argument. " + "To execute a side effect after rendering, declare it in a component body with useEffect().");
           }
         }
         var root2 = this._internalRoot;
@@ -22171,7 +22277,7 @@ var require_react_dom_development = __commonJS((exports) => {
           var container = root2.containerInfo;
           {
             if (isAlreadyRendering()) {
-              error("Attempted to synchronously unmount a root while React was already rendering. React cannot finish unmounting the root until the current render has completed, which may lead to a race condition.");
+              error("Attempted to synchronously unmount a root while React was already " + "rendering. React cannot finish unmounting the root until the " + "current render has completed, which may lead to a race condition.");
             }
           }
           flushSync(function() {
@@ -22196,7 +22302,10 @@ var require_react_dom_development = __commonJS((exports) => {
               warn("hydrate through createRoot is deprecated. Use ReactDOMClient.hydrateRoot(container, <App />) instead.");
             } else {
               if (typeof options2 === "object" && options2 !== null && options2.$$typeof === REACT_ELEMENT_TYPE) {
-                error("You passed a JSX element to createRoot. You probably meant to call root.render instead. Example usage:\n\n  let root = createRoot(domContainer);\n  root.render(<App />);");
+                error("You passed a JSX element to createRoot. You probably meant to " + "call root.render instead. " + `Example usage:
+
+` + `  let root = createRoot(domContainer);
+` + "  root.render(<App />);");
               }
             }
           }
@@ -22235,7 +22344,7 @@ var require_react_dom_development = __commonJS((exports) => {
         warnIfReactDOMContainerInDEV(container);
         {
           if (initialChildren === undefined) {
-            error("Must provide initial children as second argument to hydrateRoot. Example usage: hydrateRoot(domContainer, <App />)");
+            error("Must provide initial children as second argument to hydrateRoot. " + "Example usage: hydrateRoot(domContainer, <App />)");
           }
         }
         var hydrationCallbacks = options2 != null ? options2 : null;
@@ -22275,13 +22384,13 @@ var require_react_dom_development = __commonJS((exports) => {
       function warnIfReactDOMContainerInDEV(container) {
         {
           if (container.nodeType === ELEMENT_NODE && container.tagName && container.tagName.toUpperCase() === "BODY") {
-            error("createRoot(): Creating roots directly with document.body is discouraged, since its children are often manipulated by third-party scripts and browser extensions. This may lead to subtle reconciliation issues. Try using a container element created for your app.");
+            error("createRoot(): Creating roots directly with document.body is " + "discouraged, since its children are often manipulated by third-party " + "scripts and browser extensions. This may lead to subtle " + "reconciliation issues. Try using a container element created " + "for your app.");
           }
           if (isContainerMarkedAsRoot(container)) {
             if (container._reactRootContainer) {
-              error("You are calling ReactDOMClient.createRoot() on a container that was previously passed to ReactDOM.render(). This is not supported.");
+              error("You are calling ReactDOMClient.createRoot() on a container that was previously " + "passed to ReactDOM.render(). This is not supported.");
             } else {
-              error("You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.");
+              error("You are calling ReactDOMClient.createRoot() on a container that " + "has already been passed to createRoot() before. Instead, call " + "root.render() on the existing root instead if you want to update it.");
             }
           }
         }
@@ -22294,7 +22403,7 @@ var require_react_dom_development = __commonJS((exports) => {
             var hostInstance = findHostInstanceWithNoPortals(container._reactRootContainer.current);
             if (hostInstance) {
               if (hostInstance.parentNode !== container) {
-                error("render(...): It looks like the React-rendered content of this container was removed without using React. This is not supported and will cause errors. Instead, call ReactDOM.unmountComponentAtNode to empty a container.");
+                error("render(...): It looks like the React-rendered content of this " + "container was removed without using React. This is not " + "supported and will cause errors. Instead, call " + "ReactDOM.unmountComponentAtNode to empty a container.");
               }
             }
           }
@@ -22302,10 +22411,10 @@ var require_react_dom_development = __commonJS((exports) => {
           var rootEl = getReactRootElementInContainer(container);
           var hasNonRootReactChild = !!(rootEl && getInstanceFromNode(rootEl));
           if (hasNonRootReactChild && !isRootRenderedBySomeReact) {
-            error("render(...): Replacing React-rendered children with a new root component. If you intended to update the children of this node, you should instead have the existing children update their state and render the new components instead of calling ReactDOM.render.");
+            error("render(...): Replacing React-rendered children with a new root " + "component. If you intended to update the children of this node, " + "you should instead have the existing children update their state " + "and render the new components instead of calling ReactDOM.render.");
           }
           if (container.nodeType === ELEMENT_NODE && container.tagName && container.tagName.toUpperCase() === "BODY") {
-            error("render(): Rendering components directly into document.body is discouraged, since its children are often manipulated by third-party scripts and browser extensions. This may lead to subtle reconciliation issues. Try rendering into a container element created for your app.");
+            error("render(): Rendering components directly into document.body is " + "discouraged, since its children are often manipulated by third-party " + "scripts and browser extensions. This may lead to subtle " + "reconciliation issues. Try rendering into a container element created " + "for your app.");
           }
         };
       }
@@ -22319,8 +22428,7 @@ var require_react_dom_development = __commonJS((exports) => {
           return container.firstChild;
         }
       }
-      function noopOnRecoverableError() {
-      }
+      function noopOnRecoverableError() {}
       function legacyCreateRootFromDOMContainer(container, initialChildren, parentComponent, callback, isHydrationContainer) {
         if (isHydrationContainer) {
           if (typeof callback === "function") {
@@ -22363,7 +22471,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function warnOnInvalidCallback$1(callback, callerName) {
         {
           if (callback !== null && typeof callback !== "function") {
-            error("%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.", callerName, callback);
+            error("%s(...): Expected the last optional `callback` argument to be a " + "function. Instead received: %s.", callerName, callback);
           }
         }
       }
@@ -22395,7 +22503,7 @@ var require_react_dom_development = __commonJS((exports) => {
           if (owner !== null && owner.stateNode !== null) {
             var warnedAboutRefsInRender = owner.stateNode._warnedAboutRefsInRender;
             if (!warnedAboutRefsInRender) {
-              error("%s is accessing findDOMNode inside its render(). render() should be a pure function of props and state. It should never access something that requires stale data from the previous render, such as refs. Move this logic to componentDidMount and componentDidUpdate instead.", getComponentNameFromType(owner.type) || "A component");
+              error("%s is accessing findDOMNode inside its render(). " + "render() should be a pure function of props and state. It should " + "never access something that requires stale data from the previous " + "render, such as refs. Move this logic to componentDidMount and " + "componentDidUpdate instead.", getComponentNameFromType(owner.type) || "A component");
             }
             owner.stateNode._warnedAboutRefsInRender = true;
           }
@@ -22412,7 +22520,7 @@ var require_react_dom_development = __commonJS((exports) => {
       }
       function hydrate(element, container, callback) {
         {
-          error("ReactDOM.hydrate is no longer supported in React 18. Use hydrateRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot");
+          error("ReactDOM.hydrate is no longer supported in React 18. Use hydrateRoot " + "instead. Until you switch to the new API, your app will behave as " + "if it's running React 17. Learn " + "more: https://reactjs.org/link/switch-to-createroot");
         }
         if (!isValidContainerLegacy(container)) {
           throw new Error("Target container is not a DOM element.");
@@ -22420,14 +22528,14 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           var isModernRoot = isContainerMarkedAsRoot(container) && container._reactRootContainer === undefined;
           if (isModernRoot) {
-            error("You are calling ReactDOM.hydrate() on a container that was previously passed to ReactDOMClient.createRoot(). This is not supported. Did you mean to call hydrateRoot(container, element)?");
+            error("You are calling ReactDOM.hydrate() on a container that was previously " + "passed to ReactDOMClient.createRoot(). This is not supported. " + "Did you mean to call hydrateRoot(container, element)?");
           }
         }
         return legacyRenderSubtreeIntoContainer(null, element, container, true, callback);
       }
       function render(element, container, callback) {
         {
-          error("ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot");
+          error("ReactDOM.render is no longer supported in React 18. Use createRoot " + "instead. Until you switch to the new API, your app will behave as " + "if it's running React 17. Learn " + "more: https://reactjs.org/link/switch-to-createroot");
         }
         if (!isValidContainerLegacy(container)) {
           throw new Error("Target container is not a DOM element.");
@@ -22435,14 +22543,14 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           var isModernRoot = isContainerMarkedAsRoot(container) && container._reactRootContainer === undefined;
           if (isModernRoot) {
-            error("You are calling ReactDOM.render() on a container that was previously passed to ReactDOMClient.createRoot(). This is not supported. Did you mean to call root.render(element)?");
+            error("You are calling ReactDOM.render() on a container that was previously " + "passed to ReactDOMClient.createRoot(). This is not supported. " + "Did you mean to call root.render(element)?");
           }
         }
         return legacyRenderSubtreeIntoContainer(null, element, container, false, callback);
       }
       function unstable_renderSubtreeIntoContainer(parentComponent, element, containerNode, callback) {
         {
-          error("ReactDOM.unstable_renderSubtreeIntoContainer() is no longer supported in React 18. Consider using a portal instead. Until you switch to the createRoot API, your app will behave as if it's running React 17. Learn more: https://reactjs.org/link/switch-to-createroot");
+          error("ReactDOM.unstable_renderSubtreeIntoContainer() is no longer supported " + "in React 18. Consider using a portal instead. Until you switch to " + "the createRoot API, your app will behave as if it's running React " + "17. Learn more: https://reactjs.org/link/switch-to-createroot");
         }
         if (!isValidContainerLegacy(containerNode)) {
           throw new Error("Target container is not a DOM element.");
@@ -22459,7 +22567,7 @@ var require_react_dom_development = __commonJS((exports) => {
         {
           var isModernRoot = isContainerMarkedAsRoot(container) && container._reactRootContainer === undefined;
           if (isModernRoot) {
-            error("You are calling ReactDOM.unmountComponentAtNode() on a container that was previously passed to ReactDOMClient.createRoot(). This is not supported. Did you mean to call root.unmount()?");
+            error("You are calling ReactDOM.unmountComponentAtNode() on a container that was previously " + "passed to ReactDOMClient.createRoot(). This is not supported. Did you mean to call root.unmount()?");
           }
         }
         if (container._reactRootContainer) {
@@ -22467,7 +22575,7 @@ var require_react_dom_development = __commonJS((exports) => {
             var rootEl = getReactRootElementInContainer(container);
             var renderedByDifferentReact = rootEl && !getInstanceFromNode(rootEl);
             if (renderedByDifferentReact) {
-              error("unmountComponentAtNode(): The node you're attempting to unmount was rendered by another copy of React.");
+              error("unmountComponentAtNode(): The node you're attempting to unmount " + "was rendered by another copy of React.");
             }
           }
           flushSync(function() {
@@ -22483,7 +22591,7 @@ var require_react_dom_development = __commonJS((exports) => {
             var hasNonRootReactChild = !!(_rootEl && getInstanceFromNode(_rootEl));
             var isContainerReactRoot = container.nodeType === ELEMENT_NODE && isValidContainerLegacy(container.parentNode) && !!container.parentNode._reactRootContainer;
             if (hasNonRootReactChild) {
-              error("unmountComponentAtNode(): The node you're attempting to unmount was rendered by React and is not a top-level container. %s", isContainerReactRoot ? "You may have accidentally passed in a React root node instead of its container." : "Instead, have the parent component update its state and rerender in order to remove this component.");
+              error("unmountComponentAtNode(): The node you're attempting to unmount " + "was rendered by React and is not a top-level container. %s", isContainerReactRoot ? "You may have accidentally passed in a React root node instead " + "of its container." : "Instead, have the parent component update its state and " + "rerender in order to remove this component.");
             }
           }
           return false;
@@ -22496,7 +22604,7 @@ var require_react_dom_development = __commonJS((exports) => {
       setAttemptHydrationAtPriority(runWithPriority);
       {
         if (typeof Map !== "function" || Map.prototype == null || typeof Map.prototype.forEach !== "function" || typeof Set !== "function" || Set.prototype == null || typeof Set.prototype.clear !== "function" || typeof Set.prototype.forEach !== "function") {
-          error("React depends on Map and Set built-in types. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills");
+          error("React depends on Map and Set built-in types. Make sure that you load a " + "polyfill in older browsers. https://reactjs.org/link/react-polyfills");
         }
       }
       setRestoreImplementation(restoreControlledState$3);
@@ -22518,7 +22626,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function createRoot$1(container, options2) {
         {
           if (!Internals.usingClientEntryPoint && true) {
-            error('You are importing createRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
+            error('You are importing createRoot from "react-dom" which is not supported. ' + 'You should instead import it from "react-dom/client".');
           }
         }
         return createRoot(container, options2);
@@ -22526,7 +22634,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function hydrateRoot$1(container, initialChildren, options2) {
         {
           if (!Internals.usingClientEntryPoint && true) {
-            error('You are importing hydrateRoot from "react-dom" which is not supported. You should instead import it from "react-dom/client".');
+            error('You are importing hydrateRoot from "react-dom" which is not supported. ' + 'You should instead import it from "react-dom/client".');
           }
         }
         return hydrateRoot(container, initialChildren, options2);
@@ -22534,7 +22642,7 @@ var require_react_dom_development = __commonJS((exports) => {
       function flushSync$1(fn) {
         {
           if (isAlreadyRendering()) {
-            error("flushSync was called from inside a lifecycle method. React cannot flush when React is already rendering. Consider moving this call to a scheduler task or micro task.");
+            error("flushSync was called from inside a lifecycle method. React cannot " + "flush when React is already rendering. Consider moving this call to " + "a scheduler task or micro task.");
           }
         }
         return flushSync(fn);
@@ -22550,7 +22658,8 @@ var require_react_dom_development = __commonJS((exports) => {
           if (navigator.userAgent.indexOf("Chrome") > -1 && navigator.userAgent.indexOf("Edge") === -1 || navigator.userAgent.indexOf("Firefox") > -1) {
             var protocol = window.location.protocol;
             if (/^(https?|file):$/.test(protocol)) {
-              console.info("%cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools" + (protocol === "file:" ? "\nYou might need to use a local HTTP server (instead of file://): https://reactjs.org/link/react-devtools-faq" : ""), "font-weight:bold");
+              console.info("%cDownload the React DevTools " + "for a better development experience: " + "https://reactjs.org/link/react-devtools" + (protocol === "file:" ? `
+You might need to use a local HTTP server (instead of file://): ` + "https://reactjs.org/link/react-devtools-faq" : ""), "font-weight:bold");
             }
           }
         }
@@ -22577,8 +22686,7 @@ var require_react_dom_development = __commonJS((exports) => {
 // node_modules/react-dom/index.js
 var require_react_dom = __commonJS((exports, module) => {
   var react_dom_development = __toESM(require_react_dom_development(), 1);
-  if (false) {
-  } else {
+  if (false) {} else {
     module.exports = react_dom_development;
   }
 });
@@ -22586,8 +22694,7 @@ var require_react_dom = __commonJS((exports, module) => {
 // node_modules/react-dom/client.js
 var require_client = __commonJS((exports) => {
   var m = __toESM(require_react_dom(), 1);
-  if (false) {
-  } else {
+  if (false) {} else {
     i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     exports.createRoot = function(c, o) {
       i.usingClientEntryPoint = true;
@@ -22640,7 +22747,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
         return null;
       }
       var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-      function error9(format) {
+      function error(format) {
         {
           {
             for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1;_key2 < _len2; _key2++) {
@@ -22705,7 +22812,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
         }
         {
           if (typeof type.tag === "number") {
-            error9("Received an unexpected object in getComponentNameFromType(). This is likely a bug in React. Please file an issue.");
+            error("Received an unexpected object in getComponentNameFromType(). " + "This is likely a bug in React. Please file an issue.");
           }
         }
         if (typeof type === "function") {
@@ -22747,9 +22854,9 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
             case REACT_LAZY_TYPE: {
               var lazyComponent = type;
               var payload = lazyComponent._payload;
-              var init = lazyComponent._init;
+              var init2 = lazyComponent._init;
               try {
-                return getComponentNameFromType(init(payload));
+                return getComponentNameFromType(init2(payload));
               } catch (x) {
                 return null;
               }
@@ -22767,8 +22874,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
       var prevGroup;
       var prevGroupCollapsed;
       var prevGroupEnd;
-      function disabledLog() {
-      }
+      function disabledLog() {}
       disabledLog.__reactDisabledLog = true;
       function disableLogs() {
         {
@@ -22833,7 +22939,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
             });
           }
           if (disabledDepth < 0) {
-            error9("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
+            error("disabledDepth fell below zero. " + "This is a bug in React. Please file an issue.");
           }
         }
       }
@@ -22849,7 +22955,8 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
               prefix = match && match[1] || "";
             }
           }
-          return "\n" + prefix + name;
+          return `
+` + prefix + name;
         }
       }
       var reentry = false;
@@ -22913,8 +23020,10 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           }
         } catch (sample) {
           if (sample && control && typeof sample.stack === "string") {
-            var sampleLines = sample.stack.split("\n");
-            var controlLines = control.stack.split("\n");
+            var sampleLines = sample.stack.split(`
+`);
+            var controlLines = control.stack.split(`
+`);
             var s = sampleLines.length - 1;
             var c = controlLines.length - 1;
             while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
@@ -22927,7 +23036,8 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
                     s--;
                     c--;
                     if (c < 0 || sampleLines[s] !== controlLines[c]) {
-                      var _frame = "\n" + sampleLines[s].replace(" at new ", " at ");
+                      var _frame = `
+` + sampleLines[s].replace(" at new ", " at ");
                       if (fn.displayName && _frame.includes("<anonymous>")) {
                         _frame = _frame.replace("<anonymous>", fn.displayName);
                       }
@@ -22997,11 +23107,10 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
             case REACT_LAZY_TYPE: {
               var lazyComponent = type;
               var payload = lazyComponent._payload;
-              var init = lazyComponent._init;
+              var init2 = lazyComponent._init;
               try {
-                return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-              } catch (x) {
-              }
+                return describeUnknownElementTypeFrameInDEV(init2(payload), source, ownerFn);
+              } catch (x) {}
             }
           }
         }
@@ -23023,13 +23132,13 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
       }
       function checkPropTypes(typeSpecs, values, location, componentName, element) {
         {
-          var has = Function.call.bind(hasOwnProperty);
+          var has2 = Function.call.bind(hasOwnProperty);
           for (var typeSpecName in typeSpecs) {
-            if (has(typeSpecs, typeSpecName)) {
+            if (has2(typeSpecs, typeSpecName)) {
               var error$1 = undefined;
               try {
                 if (typeof typeSpecs[typeSpecName] !== "function") {
-                  var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                  var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; " + "it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`." + "This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                   err.name = "Invariant Violation";
                   throw err;
                 }
@@ -23039,13 +23148,13 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
               }
               if (error$1 && !(error$1 instanceof Error)) {
                 setCurrentlyValidatingElement(element);
-                error9("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
+                error("%s: type specification of %s" + " `%s` is invalid; the type checker " + "function must return `null` or an `Error` but returned a %s. " + "You may have forgotten to pass an argument to the type checker " + "creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and " + "shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
                 setCurrentlyValidatingElement(null);
               }
               if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
                 loggedTypeFailures[error$1.message] = true;
                 setCurrentlyValidatingElement(element);
-                error9("Failed %s type: %s", location, error$1.message);
+                error("Failed %s type: %s", location, error$1.message);
                 setCurrentlyValidatingElement(null);
               }
             }
@@ -23079,7 +23188,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
       function checkKeyStringCoercion(value) {
         {
           if (willCoercionThrow(value)) {
-            error9("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", typeName(value));
+            error("The provided key is an unsupported type %s." + " This value must be coerced to a string before before using it here.", typeName(value));
             return testStringCoercion(value);
           }
         }
@@ -23124,7 +23233,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           if (typeof config.ref === "string" && ReactCurrentOwner.current && self && ReactCurrentOwner.current.stateNode !== self) {
             var componentName = getComponentNameFromType(ReactCurrentOwner.current.type);
             if (!didWarnAboutStringRefs[componentName]) {
-              error9('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', getComponentNameFromType(ReactCurrentOwner.current.type), config.ref);
+              error('Component "%s" contains the string ref "%s". ' + "Support for string refs will be removed in a future major release. " + "This case cannot be automatically converted to an arrow function. " + "We ask you to manually fix this case by using useRef() or createRef() instead. " + "Learn more about using refs safely here: " + "https://reactjs.org/link/strict-mode-string-ref", getComponentNameFromType(ReactCurrentOwner.current.type), config.ref);
               didWarnAboutStringRefs[componentName] = true;
             }
           }
@@ -23135,7 +23244,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           var warnAboutAccessingKey = function() {
             if (!specialPropKeyWarningShown) {
               specialPropKeyWarningShown = true;
-              error9("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", displayName);
+              error("%s: `key` is not a prop. Trying to access it will result " + "in `undefined` being returned. If you need to access the same " + "value within the child component, you should pass it as a different " + "prop. (https://reactjs.org/link/special-props)", displayName);
             }
           };
           warnAboutAccessingKey.isReactWarning = true;
@@ -23150,7 +23259,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           var warnAboutAccessingRef = function() {
             if (!specialPropRefWarningShown) {
               specialPropRefWarningShown = true;
-              error9("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", displayName);
+              error("%s: `ref` is not a prop. Trying to access it will result " + "in `undefined` being returned. If you need to access the same " + "value within the child component, you should pass it as a different " + "prop. (https://reactjs.org/link/special-props)", displayName);
             }
           };
           warnAboutAccessingRef.isReactWarning = true;
@@ -23270,7 +23379,9 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           if (ReactCurrentOwner$1.current) {
             var name = getComponentNameFromType(ReactCurrentOwner$1.current.type);
             if (name) {
-              return "\n\nCheck the render method of `" + name + "`.";
+              return `
+
+Check the render method of \`` + name + "`.";
             }
           }
           return "";
@@ -23281,7 +23392,9 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           if (source !== undefined) {
             var fileName = source.fileName.replace(/^.*[\\\/]/, "");
             var lineNumber = source.lineNumber;
-            return "\n\nCheck your code at " + fileName + ":" + lineNumber + ".";
+            return `
+
+Check your code at ` + fileName + ":" + lineNumber + ".";
           }
           return "";
         }
@@ -23293,7 +23406,9 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           if (!info) {
             var parentName = typeof parentType === "string" ? parentType : parentType.displayName || parentType.name;
             if (parentName) {
-              info = "\n\nCheck the top-level render call using <" + parentName + ">.";
+              info = `
+
+Check the top-level render call using <` + parentName + ">.";
             }
           }
           return info;
@@ -23315,7 +23430,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
             childOwner = " It was passed a child from " + getComponentNameFromType(element._owner.type) + ".";
           }
           setCurrentlyValidatingElement$1(element);
-          error9('Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.', currentComponentErrorInfo, childOwner);
+          error('Each child in a list should have a unique "key" prop.' + "%s%s See https://reactjs.org/link/warning-keys for more information.", currentComponentErrorInfo, childOwner);
           setCurrentlyValidatingElement$1(null);
         }
       }
@@ -23371,10 +23486,10 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           } else if (type.PropTypes !== undefined && !propTypesMisspellWarningShown) {
             propTypesMisspellWarningShown = true;
             var _name = getComponentNameFromType(type);
-            error9("Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?", _name || "Unknown");
+            error("Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?", _name || "Unknown");
           }
           if (typeof type.getDefaultProps === "function" && !type.getDefaultProps.isReactClassApproved) {
-            error9("getDefaultProps is only used on classic React.createClass definitions. Use a static property named `defaultProps` instead.");
+            error("getDefaultProps is only used on classic React.createClass " + "definitions. Use a static property named `defaultProps` instead.");
           }
         }
       }
@@ -23385,14 +23500,14 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
             var key = keys[i];
             if (key !== "children" && key !== "key") {
               setCurrentlyValidatingElement$1(fragment);
-              error9("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", key);
+              error("Invalid prop `%s` supplied to `React.Fragment`. " + "React.Fragment can only have `key` and `children` props.", key);
               setCurrentlyValidatingElement$1(null);
               break;
             }
           }
           if (fragment.ref !== null) {
             setCurrentlyValidatingElement$1(fragment);
-            error9("Invalid attribute `ref` supplied to `React.Fragment`.");
+            error("Invalid attribute `ref` supplied to `React.Fragment`.");
             setCurrentlyValidatingElement$1(null);
           }
         }
@@ -23403,7 +23518,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
           if (!validType) {
             var info = "";
             if (type === undefined || typeof type === "object" && type !== null && Object.keys(type).length === 0) {
-              info += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.";
+              info += " You likely forgot to export your component from the file " + "it's defined in, or you might have mixed up default and named imports.";
             }
             var sourceInfo = getSourceInfoErrorAddendum(source);
             if (sourceInfo) {
@@ -23422,7 +23537,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
             } else {
               typeString = typeof type;
             }
-            error9("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
+            error("React.jsx: type is invalid -- expected a string (for " + "built-in components) or a class/function (for composite " + "components) but got: %s.%s", typeString, info);
           }
           var element = jsxDEV(type, props, key, source, self);
           if (element == null) {
@@ -23440,7 +23555,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
                     Object.freeze(children);
                   }
                 } else {
-                  error9("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
+                  error("React.jsx: Static children should always be an array. " + "You are likely explicitly calling React.jsxs or React.jsxDEV. " + "Use the Babel transform instead.");
                 }
               } else {
                 validateChildKeys(children, type);
@@ -23465,8 +23580,7 @@ var require_react_jsx_dev_runtime_development = __commonJS((exports) => {
 // node_modules/react/jsx-dev-runtime.js
 var require_jsx_dev_runtime = __commonJS((exports, module) => {
   var react_jsx_dev_runtime_development = __toESM(require_react_jsx_dev_runtime_development(), 1);
-  if (false) {
-  } else {
+  if (false) {} else {
     module.exports = react_jsx_dev_runtime_development;
   }
 });
@@ -23548,7 +23662,7 @@ var require_react_is_development = __commonJS((exports) => {
         {
           if (!hasWarnedAboutDeprecatedIsAsyncMode) {
             hasWarnedAboutDeprecatedIsAsyncMode = true;
-            console["warn"]("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.");
+            console["warn"]("The ReactIs.isAsyncMode() alias has been deprecated, " + "and will be removed in React 17+. Update your code to use " + "ReactIs.isConcurrentMode() instead. It has the exact same API.");
           }
         }
         return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
@@ -23624,8 +23738,7 @@ var require_react_is_development = __commonJS((exports) => {
 // node_modules/hoist-non-react-statics/node_modules/react-is/index.js
 var require_react_is = __commonJS((exports, module) => {
   var react_is_development = __toESM(require_react_is_development(), 1);
-  if (false) {
-  } else {
+  if (false) {} else {
     module.exports = react_is_development;
   }
 });
@@ -23633,39 +23746,6 @@ var require_react_is = __commonJS((exports, module) => {
 // node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js
 var require_hoist_non_react_statics_cjs = __commonJS((exports, module) => {
   var reactIs = __toESM(require_react_is(), 1);
-  var getStatics = function(component) {
-    if (reactIs.isMemo(component)) {
-      return MEMO_STATICS;
-    }
-    return TYPE_STATICS[component["$$typeof"]] || REACT_STATICS;
-  };
-  var hoistNonReactStatics = function(targetComponent, sourceComponent, blacklist) {
-    if (typeof sourceComponent !== "string") {
-      if (objectPrototype) {
-        var inheritedComponent = getPrototypeOf(sourceComponent);
-        if (inheritedComponent && inheritedComponent !== objectPrototype) {
-          hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
-        }
-      }
-      var keys = getOwnPropertyNames(sourceComponent);
-      if (getOwnPropertySymbols) {
-        keys = keys.concat(getOwnPropertySymbols(sourceComponent));
-      }
-      var targetStatics = getStatics(targetComponent);
-      var sourceStatics = getStatics(sourceComponent);
-      for (var i = 0;i < keys.length; ++i) {
-        var key = keys[i];
-        if (!KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
-          var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
-          try {
-            defineProperty(targetComponent, key, descriptor);
-          } catch (e) {
-          }
-        }
-      }
-    }
-    return targetComponent;
-  };
   var REACT_STATICS = {
     childContextTypes: true,
     contextType: true,
@@ -23706,12 +23786,44 @@ var require_hoist_non_react_statics_cjs = __commonJS((exports, module) => {
   var TYPE_STATICS = {};
   TYPE_STATICS[reactIs.ForwardRef] = FORWARD_REF_STATICS;
   TYPE_STATICS[reactIs.Memo] = MEMO_STATICS;
+  function getStatics(component) {
+    if (reactIs.isMemo(component)) {
+      return MEMO_STATICS;
+    }
+    return TYPE_STATICS[component["$$typeof"]] || REACT_STATICS;
+  }
   var defineProperty = Object.defineProperty;
   var getOwnPropertyNames = Object.getOwnPropertyNames;
   var getOwnPropertySymbols = Object.getOwnPropertySymbols;
   var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
   var getPrototypeOf = Object.getPrototypeOf;
   var objectPrototype = Object.prototype;
+  function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+    if (typeof sourceComponent !== "string") {
+      if (objectPrototype) {
+        var inheritedComponent = getPrototypeOf(sourceComponent);
+        if (inheritedComponent && inheritedComponent !== objectPrototype) {
+          hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+        }
+      }
+      var keys = getOwnPropertyNames(sourceComponent);
+      if (getOwnPropertySymbols) {
+        keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+      }
+      var targetStatics = getStatics(targetComponent);
+      var sourceStatics = getStatics(sourceComponent);
+      for (var i = 0;i < keys.length; ++i) {
+        var key = keys[i];
+        if (!KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
+          var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+          try {
+            defineProperty(targetComponent, key, descriptor);
+          } catch (e) {}
+        }
+      }
+    }
+    return targetComponent;
+  }
   module.exports = hoistNonReactStatics;
 });
 
@@ -23724,7 +23836,7 @@ var require_use_sync_external_store_shim_development = __commonJS((exports) => {
         __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error);
       }
       var ReactSharedInternals = React7.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-      function error9(format) {
+      function error(format) {
         {
           {
             for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1;_key2 < _len2; _key2++) {
@@ -23761,7 +23873,7 @@ var require_use_sync_external_store_shim_development = __commonJS((exports) => {
           if (!didWarnOld18Alpha) {
             if (React7.startTransition !== undefined) {
               didWarnOld18Alpha = true;
-              error9("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
+              error("You are using an outdated, pre-release alpha of React 18 that " + "does not support useSyncExternalStore. The " + "use-sync-external-store shim will not work correctly. Upgrade " + "to a newer pre-release.");
             }
           }
         }
@@ -23770,7 +23882,7 @@ var require_use_sync_external_store_shim_development = __commonJS((exports) => {
           if (!didWarnUncachedGetSnapshot) {
             var cachedValue = getSnapshot();
             if (!objectIs(value, cachedValue)) {
-              error9("The result of getSnapshot should be cached to avoid an infinite loop");
+              error("The result of getSnapshot should be cached to avoid an infinite loop");
               didWarnUncachedGetSnapshot = true;
             }
           }
@@ -23814,7 +23926,7 @@ var require_use_sync_external_store_shim_development = __commonJS((exports) => {
         try {
           var nextValue = latestGetSnapshot();
           return !objectIs(prevValue, nextValue);
-        } catch (error10) {
+        } catch (error2) {
           return true;
         }
       }
@@ -23835,8 +23947,7 @@ var require_use_sync_external_store_shim_development = __commonJS((exports) => {
 
 // node_modules/use-sync-external-store/shim/index.js
 var require_shim = __commonJS((exports, module) => {
-  if (false) {
-  } else {
+  if (false) {} else {
     module.exports = require_use_sync_external_store_shim_development();
   }
 });
@@ -23929,8 +24040,7 @@ var require_with_selector_development = __commonJS((exports) => {
 
 // node_modules/use-sync-external-store/shim/with-selector.js
 var require_with_selector = __commonJS((exports, module) => {
-  if (false) {
-  } else {
+  if (false) {} else {
     module.exports = require_with_selector_development();
   }
 });
@@ -23939,15 +24049,339 @@ var require_with_selector = __commonJS((exports, module) => {
 var ReactDOM = __toESM(require_client(), 1);
 
 // src/App.tsx
-var import_react8 = __toESM(require_react(), 1);
+var import_react9 = __toESM(require_react(), 1);
 
 // src/Config.tsx
 var import_react3 = __toESM(require_react(), 1);
 
+// node_modules/openai/internal/qs/formats.mjs
+var default_format = "RFC3986";
+var formatters = {
+  RFC1738: (v) => String(v).replace(/%20/g, "+"),
+  RFC3986: (v) => String(v)
+};
+var RFC1738 = "RFC1738";
+
+// node_modules/openai/internal/qs/utils.mjs
+var is_array = Array.isArray;
+var hex_table = (() => {
+  const array = [];
+  for (let i = 0;i < 256; ++i) {
+    array.push("%" + ((i < 16 ? "0" : "") + i.toString(16)).toUpperCase());
+  }
+  return array;
+})();
+var limit = 1024;
+var encode = (str, _defaultEncoder, charset, _kind, format) => {
+  if (str.length === 0) {
+    return str;
+  }
+  let string = str;
+  if (typeof str === "symbol") {
+    string = Symbol.prototype.toString.call(str);
+  } else if (typeof str !== "string") {
+    string = String(str);
+  }
+  if (charset === "iso-8859-1") {
+    return escape(string).replace(/%u[0-9a-f]{4}/gi, function($0) {
+      return "%26%23" + parseInt($0.slice(2), 16) + "%3B";
+    });
+  }
+  let out = "";
+  for (let j = 0;j < string.length; j += limit) {
+    const segment = string.length >= limit ? string.slice(j, j + limit) : string;
+    const arr = [];
+    for (let i = 0;i < segment.length; ++i) {
+      let c = segment.charCodeAt(i);
+      if (c === 45 || c === 46 || c === 95 || c === 126 || c >= 48 && c <= 57 || c >= 65 && c <= 90 || c >= 97 && c <= 122 || format === RFC1738 && (c === 40 || c === 41)) {
+        arr[arr.length] = segment.charAt(i);
+        continue;
+      }
+      if (c < 128) {
+        arr[arr.length] = hex_table[c];
+        continue;
+      }
+      if (c < 2048) {
+        arr[arr.length] = hex_table[192 | c >> 6] + hex_table[128 | c & 63];
+        continue;
+      }
+      if (c < 55296 || c >= 57344) {
+        arr[arr.length] = hex_table[224 | c >> 12] + hex_table[128 | c >> 6 & 63] + hex_table[128 | c & 63];
+        continue;
+      }
+      i += 1;
+      c = 65536 + ((c & 1023) << 10 | segment.charCodeAt(i) & 1023);
+      arr[arr.length] = hex_table[240 | c >> 18] + hex_table[128 | c >> 12 & 63] + hex_table[128 | c >> 6 & 63] + hex_table[128 | c & 63];
+    }
+    out += arr.join("");
+  }
+  return out;
+};
+function is_buffer(obj) {
+  if (!obj || typeof obj !== "object") {
+    return false;
+  }
+  return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
+}
+function maybe_map(val, fn) {
+  if (is_array(val)) {
+    const mapped = [];
+    for (let i = 0;i < val.length; i += 1) {
+      mapped.push(fn(val[i]));
+    }
+    return mapped;
+  }
+  return fn(val);
+}
+
+// node_modules/openai/internal/qs/stringify.mjs
+var has = Object.prototype.hasOwnProperty;
+var array_prefix_generators = {
+  brackets(prefix) {
+    return String(prefix) + "[]";
+  },
+  comma: "comma",
+  indices(prefix, key) {
+    return String(prefix) + "[" + key + "]";
+  },
+  repeat(prefix) {
+    return String(prefix);
+  }
+};
+var is_array2 = Array.isArray;
+var push = Array.prototype.push;
+var push_to_array = function(arr, value_or_array) {
+  push.apply(arr, is_array2(value_or_array) ? value_or_array : [value_or_array]);
+};
+var to_ISO = Date.prototype.toISOString;
+var defaults = {
+  addQueryPrefix: false,
+  allowDots: false,
+  allowEmptyArrays: false,
+  arrayFormat: "indices",
+  charset: "utf-8",
+  charsetSentinel: false,
+  delimiter: "&",
+  encode: true,
+  encodeDotInKeys: false,
+  encoder: encode,
+  encodeValuesOnly: false,
+  format: default_format,
+  formatter: formatters[default_format],
+  indices: false,
+  serializeDate(date) {
+    return to_ISO.call(date);
+  },
+  skipNulls: false,
+  strictNullHandling: false
+};
+function is_non_nullish_primitive(v) {
+  return typeof v === "string" || typeof v === "number" || typeof v === "boolean" || typeof v === "symbol" || typeof v === "bigint";
+}
+var sentinel = {};
+function inner_stringify(object, prefix, generateArrayPrefix, commaRoundTrip, allowEmptyArrays, strictNullHandling, skipNulls, encodeDotInKeys, encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, sideChannel) {
+  let obj = object;
+  let tmp_sc = sideChannel;
+  let step = 0;
+  let find_flag = false;
+  while ((tmp_sc = tmp_sc.get(sentinel)) !== undefined && !find_flag) {
+    const pos = tmp_sc.get(object);
+    step += 1;
+    if (typeof pos !== "undefined") {
+      if (pos === step) {
+        throw new RangeError("Cyclic object value");
+      } else {
+        find_flag = true;
+      }
+    }
+    if (typeof tmp_sc.get(sentinel) === "undefined") {
+      step = 0;
+    }
+  }
+  if (typeof filter === "function") {
+    obj = filter(prefix, obj);
+  } else if (obj instanceof Date) {
+    obj = serializeDate?.(obj);
+  } else if (generateArrayPrefix === "comma" && is_array2(obj)) {
+    obj = maybe_map(obj, function(value) {
+      if (value instanceof Date) {
+        return serializeDate?.(value);
+      }
+      return value;
+    });
+  }
+  if (obj === null) {
+    if (strictNullHandling) {
+      return encoder && !encodeValuesOnly ? encoder(prefix, defaults.encoder, charset, "key", format) : prefix;
+    }
+    obj = "";
+  }
+  if (is_non_nullish_primitive(obj) || is_buffer(obj)) {
+    if (encoder) {
+      const key_value = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder, charset, "key", format);
+      return [
+        formatter?.(key_value) + "=" + formatter?.(encoder(obj, defaults.encoder, charset, "value", format))
+      ];
+    }
+    return [formatter?.(prefix) + "=" + formatter?.(String(obj))];
+  }
+  const values = [];
+  if (typeof obj === "undefined") {
+    return values;
+  }
+  let obj_keys;
+  if (generateArrayPrefix === "comma" && is_array2(obj)) {
+    if (encodeValuesOnly && encoder) {
+      obj = maybe_map(obj, encoder);
+    }
+    obj_keys = [{ value: obj.length > 0 ? obj.join(",") || null : undefined }];
+  } else if (is_array2(filter)) {
+    obj_keys = filter;
+  } else {
+    const keys = Object.keys(obj);
+    obj_keys = sort ? keys.sort(sort) : keys;
+  }
+  const encoded_prefix = encodeDotInKeys ? String(prefix).replace(/\./g, "%2E") : String(prefix);
+  const adjusted_prefix = commaRoundTrip && is_array2(obj) && obj.length === 1 ? encoded_prefix + "[]" : encoded_prefix;
+  if (allowEmptyArrays && is_array2(obj) && obj.length === 0) {
+    return adjusted_prefix + "[]";
+  }
+  for (let j = 0;j < obj_keys.length; ++j) {
+    const key = obj_keys[j];
+    const value = typeof key === "object" && typeof key.value !== "undefined" ? key.value : obj[key];
+    if (skipNulls && value === null) {
+      continue;
+    }
+    const encoded_key = allowDots && encodeDotInKeys ? key.replace(/\./g, "%2E") : key;
+    const key_prefix = is_array2(obj) ? typeof generateArrayPrefix === "function" ? generateArrayPrefix(adjusted_prefix, encoded_key) : adjusted_prefix : adjusted_prefix + (allowDots ? "." + encoded_key : "[" + encoded_key + "]");
+    sideChannel.set(object, step);
+    const valueSideChannel = new WeakMap;
+    valueSideChannel.set(sentinel, sideChannel);
+    push_to_array(values, inner_stringify(value, key_prefix, generateArrayPrefix, commaRoundTrip, allowEmptyArrays, strictNullHandling, skipNulls, encodeDotInKeys, generateArrayPrefix === "comma" && encodeValuesOnly && is_array2(obj) ? null : encoder, filter, sort, allowDots, serializeDate, format, formatter, encodeValuesOnly, charset, valueSideChannel));
+  }
+  return values;
+}
+function normalize_stringify_options(opts = defaults) {
+  if (typeof opts.allowEmptyArrays !== "undefined" && typeof opts.allowEmptyArrays !== "boolean") {
+    throw new TypeError("`allowEmptyArrays` option can only be `true` or `false`, when provided");
+  }
+  if (typeof opts.encodeDotInKeys !== "undefined" && typeof opts.encodeDotInKeys !== "boolean") {
+    throw new TypeError("`encodeDotInKeys` option can only be `true` or `false`, when provided");
+  }
+  if (opts.encoder !== null && typeof opts.encoder !== "undefined" && typeof opts.encoder !== "function") {
+    throw new TypeError("Encoder has to be a function.");
+  }
+  const charset = opts.charset || defaults.charset;
+  if (typeof opts.charset !== "undefined" && opts.charset !== "utf-8" && opts.charset !== "iso-8859-1") {
+    throw new TypeError("The charset option must be either utf-8, iso-8859-1, or undefined");
+  }
+  let format = default_format;
+  if (typeof opts.format !== "undefined") {
+    if (!has.call(formatters, opts.format)) {
+      throw new TypeError("Unknown format option provided.");
+    }
+    format = opts.format;
+  }
+  const formatter = formatters[format];
+  let filter = defaults.filter;
+  if (typeof opts.filter === "function" || is_array2(opts.filter)) {
+    filter = opts.filter;
+  }
+  let arrayFormat;
+  if (opts.arrayFormat && opts.arrayFormat in array_prefix_generators) {
+    arrayFormat = opts.arrayFormat;
+  } else if ("indices" in opts) {
+    arrayFormat = opts.indices ? "indices" : "repeat";
+  } else {
+    arrayFormat = defaults.arrayFormat;
+  }
+  if ("commaRoundTrip" in opts && typeof opts.commaRoundTrip !== "boolean") {
+    throw new TypeError("`commaRoundTrip` must be a boolean, or absent");
+  }
+  const allowDots = typeof opts.allowDots === "undefined" ? !!opts.encodeDotInKeys === true ? true : defaults.allowDots : !!opts.allowDots;
+  return {
+    addQueryPrefix: typeof opts.addQueryPrefix === "boolean" ? opts.addQueryPrefix : defaults.addQueryPrefix,
+    allowDots,
+    allowEmptyArrays: typeof opts.allowEmptyArrays === "boolean" ? !!opts.allowEmptyArrays : defaults.allowEmptyArrays,
+    arrayFormat,
+    charset,
+    charsetSentinel: typeof opts.charsetSentinel === "boolean" ? opts.charsetSentinel : defaults.charsetSentinel,
+    commaRoundTrip: !!opts.commaRoundTrip,
+    delimiter: typeof opts.delimiter === "undefined" ? defaults.delimiter : opts.delimiter,
+    encode: typeof opts.encode === "boolean" ? opts.encode : defaults.encode,
+    encodeDotInKeys: typeof opts.encodeDotInKeys === "boolean" ? opts.encodeDotInKeys : defaults.encodeDotInKeys,
+    encoder: typeof opts.encoder === "function" ? opts.encoder : defaults.encoder,
+    encodeValuesOnly: typeof opts.encodeValuesOnly === "boolean" ? opts.encodeValuesOnly : defaults.encodeValuesOnly,
+    filter,
+    format,
+    formatter,
+    serializeDate: typeof opts.serializeDate === "function" ? opts.serializeDate : defaults.serializeDate,
+    skipNulls: typeof opts.skipNulls === "boolean" ? opts.skipNulls : defaults.skipNulls,
+    sort: typeof opts.sort === "function" ? opts.sort : null,
+    strictNullHandling: typeof opts.strictNullHandling === "boolean" ? opts.strictNullHandling : defaults.strictNullHandling
+  };
+}
+function stringify(object, opts = {}) {
+  let obj = object;
+  const options = normalize_stringify_options(opts);
+  let obj_keys;
+  let filter;
+  if (typeof options.filter === "function") {
+    filter = options.filter;
+    obj = filter("", obj);
+  } else if (is_array2(options.filter)) {
+    filter = options.filter;
+    obj_keys = filter;
+  }
+  const keys = [];
+  if (typeof obj !== "object" || obj === null) {
+    return "";
+  }
+  const generateArrayPrefix = array_prefix_generators[options.arrayFormat];
+  const commaRoundTrip = generateArrayPrefix === "comma" && options.commaRoundTrip;
+  if (!obj_keys) {
+    obj_keys = Object.keys(obj);
+  }
+  if (options.sort) {
+    obj_keys.sort(options.sort);
+  }
+  const sideChannel = new WeakMap;
+  for (let i = 0;i < obj_keys.length; ++i) {
+    const key = obj_keys[i];
+    if (options.skipNulls && obj[key] === null) {
+      continue;
+    }
+    push_to_array(keys, inner_stringify(obj[key], key, generateArrayPrefix, commaRoundTrip, options.allowEmptyArrays, options.strictNullHandling, options.skipNulls, options.encodeDotInKeys, options.encode ? options.encoder : null, options.filter, options.sort, options.allowDots, options.serializeDate, options.format, options.formatter, options.encodeValuesOnly, options.charset, sideChannel));
+  }
+  const joined = keys.join(options.delimiter);
+  let prefix = options.addQueryPrefix === true ? "?" : "";
+  if (options.charsetSentinel) {
+    if (options.charset === "iso-8859-1") {
+      prefix += "utf8=%26%2310003%3B&";
+    } else {
+      prefix += "utf8=%E2%9C%93&";
+    }
+  }
+  return joined.length > 0 ? prefix + joined : "";
+}
 // node_modules/openai/version.mjs
-var VERSION = "4.30.0";
+var VERSION = "4.93.0";
 
 // node_modules/openai/_shims/registry.mjs
+var auto = false;
+var kind = undefined;
+var fetch2 = undefined;
+var Request2 = undefined;
+var Response2 = undefined;
+var Headers2 = undefined;
+var FormData2 = undefined;
+var Blob2 = undefined;
+var File2 = undefined;
+var ReadableStream2 = undefined;
+var getMultipartRequestOptions = undefined;
+var getDefaultAgent = undefined;
+var fileFromPath = undefined;
+var isFsReadStream = undefined;
 function setShims(shims, options = { auto: false }) {
   if (auto) {
     throw new Error(`you must \`import 'openai/shims/${shims.kind}'\` before importing anything else from openai`);
@@ -23970,20 +24404,6 @@ function setShims(shims, options = { auto: false }) {
   fileFromPath = shims.fileFromPath;
   isFsReadStream = shims.isFsReadStream;
 }
-var auto = false;
-var kind = undefined;
-var fetch2 = undefined;
-var Request2 = undefined;
-var Response2 = undefined;
-var Headers2 = undefined;
-var FormData2 = undefined;
-var Blob2 = undefined;
-var File2 = undefined;
-var ReadableStream2 = undefined;
-var getMultipartRequestOptions = undefined;
-var getDefaultAgent = undefined;
-var fileFromPath = undefined;
-var isFsReadStream = undefined;
 
 // node_modules/openai/_shims/MultipartBody.mjs
 class MultipartBody {
@@ -23997,7 +24417,7 @@ class MultipartBody {
 
 // node_modules/openai/_shims/web-runtime.mjs
 function getRuntime({ manuallyImported } = {}) {
-  const recommendation = manuallyImported ? `You may need to use polyfills` : `Add one of these imports before your first \`import \u2026 from 'openai'\`:
+  const recommendation = manuallyImported ? `You may need to use polyfills` : `Add one of these imports before your first \`import … from 'openai'\`:
 - \`import 'openai/shims/node'\` (if you're running on Node)
 - \`import 'openai/shims/web'\` (otherwise)
 `;
@@ -24051,8 +24471,11 @@ function getRuntime({ manuallyImported } = {}) {
 }
 
 // node_modules/openai/_shims/index.mjs
-if (!kind)
-  setShims(getRuntime(), { auto: true });
+var init = () => {
+  if (!kind)
+    setShims(getRuntime(), { auto: true });
+};
+init();
 
 // node_modules/openai/error.mjs
 class OpenAIError extends Error {
@@ -24063,8 +24486,9 @@ class APIError extends OpenAIError {
     super(`${APIError.makeMessage(status, error, message)}`);
     this.status = status;
     this.headers = headers;
+    this.request_id = headers?.["x-request-id"];
+    this.error = error;
     const data = error;
-    this.error = data;
     this.code = data?.["code"];
     this.param = data?.["param"];
     this.type = data?.["type"];
@@ -24083,8 +24507,8 @@ class APIError extends OpenAIError {
     return "(no status code or body)";
   }
   static generate(status, errorResponse, message, headers) {
-    if (!status) {
-      return new APIConnectionError({ cause: castToError(errorResponse) });
+    if (!status || !headers) {
+      return new APIConnectionError({ message, cause: castToError(errorResponse) });
     }
     const error = errorResponse?.["error"];
     if (status === 400) {
@@ -24118,14 +24542,12 @@ class APIError extends OpenAIError {
 class APIUserAbortError extends APIError {
   constructor({ message } = {}) {
     super(undefined, undefined, message || "Request was aborted.", undefined);
-    this.status = undefined;
   }
 }
 
 class APIConnectionError extends APIError {
   constructor({ message, cause }) {
     super(undefined, undefined, message || "Connection error.", undefined);
-    this.status = undefined;
     if (cause)
       this.cause = cause;
   }
@@ -24138,66 +24560,163 @@ class APIConnectionTimeoutError extends APIConnectionError {
 }
 
 class BadRequestError extends APIError {
-  constructor() {
-    super(...arguments);
-    this.status = 400;
-  }
 }
 
 class AuthenticationError extends APIError {
-  constructor() {
-    super(...arguments);
-    this.status = 401;
-  }
 }
 
 class PermissionDeniedError extends APIError {
-  constructor() {
-    super(...arguments);
-    this.status = 403;
-  }
 }
 
 class NotFoundError extends APIError {
-  constructor() {
-    super(...arguments);
-    this.status = 404;
-  }
 }
 
 class ConflictError extends APIError {
-  constructor() {
-    super(...arguments);
-    this.status = 409;
-  }
 }
 
 class UnprocessableEntityError extends APIError {
-  constructor() {
-    super(...arguments);
-    this.status = 422;
-  }
 }
 
 class RateLimitError extends APIError {
-  constructor() {
-    super(...arguments);
-    this.status = 429;
-  }
 }
 
 class InternalServerError extends APIError {
 }
 
-// node_modules/openai/streaming.mjs
-var partition = function(str, delimiter) {
-  const index = str.indexOf(delimiter);
-  if (index !== -1) {
-    return [str.substring(0, index), delimiter, str.substring(index + delimiter.length)];
+class LengthFinishReasonError extends OpenAIError {
+  constructor() {
+    super(`Could not parse response content as the length limit was reached`);
   }
-  return [str, "", ""];
+}
+
+class ContentFilterFinishReasonError extends OpenAIError {
+  constructor() {
+    super(`Could not parse response content as the request was rejected by the content filter`);
+  }
+}
+
+// node_modules/openai/internal/decoders/line.mjs
+var __classPrivateFieldSet = function(receiver, state, value, kind2, f) {
+  if (kind2 === "m")
+    throw new TypeError("Private method is not writable");
+  if (kind2 === "a" && !f)
+    throw new TypeError("Private accessor was defined without a setter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot write private member to an object whose class did not declare it");
+  return kind2 === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
 };
-function readableStreamAsyncIterable(stream) {
+var __classPrivateFieldGet = function(receiver, state, kind2, f) {
+  if (kind2 === "a" && !f)
+    throw new TypeError("Private accessor was defined without a getter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot read private member from an object whose class did not declare it");
+  return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _LineDecoder_carriageReturnIndex;
+
+class LineDecoder {
+  constructor() {
+    _LineDecoder_carriageReturnIndex.set(this, undefined);
+    this.buffer = new Uint8Array;
+    __classPrivateFieldSet(this, _LineDecoder_carriageReturnIndex, null, "f");
+  }
+  decode(chunk) {
+    if (chunk == null) {
+      return [];
+    }
+    const binaryChunk = chunk instanceof ArrayBuffer ? new Uint8Array(chunk) : typeof chunk === "string" ? new TextEncoder().encode(chunk) : chunk;
+    let newData = new Uint8Array(this.buffer.length + binaryChunk.length);
+    newData.set(this.buffer);
+    newData.set(binaryChunk, this.buffer.length);
+    this.buffer = newData;
+    const lines = [];
+    let patternIndex;
+    while ((patternIndex = findNewlineIndex(this.buffer, __classPrivateFieldGet(this, _LineDecoder_carriageReturnIndex, "f"))) != null) {
+      if (patternIndex.carriage && __classPrivateFieldGet(this, _LineDecoder_carriageReturnIndex, "f") == null) {
+        __classPrivateFieldSet(this, _LineDecoder_carriageReturnIndex, patternIndex.index, "f");
+        continue;
+      }
+      if (__classPrivateFieldGet(this, _LineDecoder_carriageReturnIndex, "f") != null && (patternIndex.index !== __classPrivateFieldGet(this, _LineDecoder_carriageReturnIndex, "f") + 1 || patternIndex.carriage)) {
+        lines.push(this.decodeText(this.buffer.slice(0, __classPrivateFieldGet(this, _LineDecoder_carriageReturnIndex, "f") - 1)));
+        this.buffer = this.buffer.slice(__classPrivateFieldGet(this, _LineDecoder_carriageReturnIndex, "f"));
+        __classPrivateFieldSet(this, _LineDecoder_carriageReturnIndex, null, "f");
+        continue;
+      }
+      const endIndex = __classPrivateFieldGet(this, _LineDecoder_carriageReturnIndex, "f") !== null ? patternIndex.preceding - 1 : patternIndex.preceding;
+      const line = this.decodeText(this.buffer.slice(0, endIndex));
+      lines.push(line);
+      this.buffer = this.buffer.slice(patternIndex.index);
+      __classPrivateFieldSet(this, _LineDecoder_carriageReturnIndex, null, "f");
+    }
+    return lines;
+  }
+  decodeText(bytes) {
+    if (bytes == null)
+      return "";
+    if (typeof bytes === "string")
+      return bytes;
+    if (typeof Buffer !== "undefined") {
+      if (bytes instanceof Buffer) {
+        return bytes.toString();
+      }
+      if (bytes instanceof Uint8Array) {
+        return Buffer.from(bytes).toString();
+      }
+      throw new OpenAIError(`Unexpected: received non-Uint8Array (${bytes.constructor.name}) stream chunk in an environment with a global "Buffer" defined, which this library assumes to be Node. Please report this error.`);
+    }
+    if (typeof TextDecoder !== "undefined") {
+      if (bytes instanceof Uint8Array || bytes instanceof ArrayBuffer) {
+        this.textDecoder ?? (this.textDecoder = new TextDecoder("utf8"));
+        return this.textDecoder.decode(bytes);
+      }
+      throw new OpenAIError(`Unexpected: received non-Uint8Array/ArrayBuffer (${bytes.constructor.name}) in a web platform. Please report this error.`);
+    }
+    throw new OpenAIError(`Unexpected: neither Buffer nor TextDecoder are available as globals. Please report this error.`);
+  }
+  flush() {
+    if (!this.buffer.length) {
+      return [];
+    }
+    return this.decode(`
+`);
+  }
+}
+_LineDecoder_carriageReturnIndex = new WeakMap;
+LineDecoder.NEWLINE_CHARS = new Set([`
+`, "\r"]);
+LineDecoder.NEWLINE_REGEXP = /\r\n|[\n\r]/g;
+function findNewlineIndex(buffer, startIndex) {
+  const newline = 10;
+  const carriage = 13;
+  for (let i = startIndex ?? 0;i < buffer.length; i++) {
+    if (buffer[i] === newline) {
+      return { preceding: i, index: i + 1, carriage: false };
+    }
+    if (buffer[i] === carriage) {
+      return { preceding: i, index: i + 1, carriage: true };
+    }
+  }
+  return null;
+}
+function findDoubleNewlineIndex(buffer) {
+  const newline = 10;
+  const carriage = 13;
+  for (let i = 0;i < buffer.length - 1; i++) {
+    if (buffer[i] === newline && buffer[i + 1] === newline) {
+      return i + 2;
+    }
+    if (buffer[i] === carriage && buffer[i + 1] === carriage) {
+      return i + 2;
+    }
+    if (buffer[i] === carriage && buffer[i + 1] === newline && i + 3 < buffer.length && buffer[i + 2] === carriage && buffer[i + 3] === newline) {
+      return i + 4;
+    }
+  }
+  return -1;
+}
+
+// node_modules/openai/internal/stream-utils.mjs
+function ReadableStreamToAsyncIterable(stream) {
   if (stream[Symbol.asyncIterator])
     return stream;
   const reader = stream.getReader();
@@ -24225,6 +24744,7 @@ function readableStreamAsyncIterable(stream) {
   };
 }
 
+// node_modules/openai/streaming.mjs
 class Stream {
   constructor(iterator, controller) {
     this.iterator = iterator;
@@ -24232,27 +24752,6 @@ class Stream {
   }
   static fromSSEResponse(response, controller) {
     let consumed = false;
-    const decoder = new SSEDecoder;
-    async function* iterMessages() {
-      if (!response.body) {
-        controller.abort();
-        throw new OpenAIError(`Attempted to iterate over a response with no body`);
-      }
-      const lineDecoder = new LineDecoder;
-      const iter = readableStreamAsyncIterable(response.body);
-      for await (const chunk of iter) {
-        for (const line of lineDecoder.decode(chunk)) {
-          const sse = decoder.decode(line);
-          if (sse)
-            yield sse;
-        }
-      }
-      for (const line of lineDecoder.flush()) {
-        const sse = decoder.decode(line);
-        if (sse)
-          yield sse;
-      }
-    }
     async function* iterator() {
       if (consumed) {
         throw new Error("Cannot iterate over a consumed stream, use `.tee()` to split the stream.");
@@ -24260,14 +24759,14 @@ class Stream {
       consumed = true;
       let done = false;
       try {
-        for await (const sse of iterMessages()) {
+        for await (const sse of _iterSSEMessages(response, controller)) {
           if (done)
             continue;
           if (sse.data.startsWith("[DONE]")) {
             done = true;
             continue;
           }
-          if (sse.event === null) {
+          if (sse.event === null || sse.event.startsWith("response.") || sse.event.startsWith("transcript.")) {
             let data;
             try {
               data = JSON.parse(sse.data);
@@ -24277,7 +24776,7 @@ class Stream {
               throw e;
             }
             if (data && data.error) {
-              throw new APIError(undefined, data.error, undefined, undefined);
+              throw new APIError(undefined, data.error, undefined, createResponseHeaders(response.headers));
             }
             yield data;
           } else {
@@ -24311,7 +24810,7 @@ class Stream {
     let consumed = false;
     async function* iterLines() {
       const lineDecoder = new LineDecoder;
-      const iter = readableStreamAsyncIterable(readableStream);
+      const iter = ReadableStreamToAsyncIterable(readableStream);
       for await (const chunk of iter) {
         for (const line of lineDecoder.decode(chunk)) {
           yield line;
@@ -24383,7 +24882,8 @@ class Stream {
           const { value, done } = await iter.next();
           if (done)
             return ctrl.close();
-          const bytes = encoder.encode(JSON.stringify(value) + "\n");
+          const bytes = encoder.encode(JSON.stringify(value) + `
+`);
           ctrl.enqueue(bytes);
         } catch (err) {
           ctrl.error(err);
@@ -24393,6 +24893,48 @@ class Stream {
         await iter.return?.();
       }
     });
+  }
+}
+async function* _iterSSEMessages(response, controller) {
+  if (!response.body) {
+    controller.abort();
+    throw new OpenAIError(`Attempted to iterate over a response with no body`);
+  }
+  const sseDecoder = new SSEDecoder;
+  const lineDecoder = new LineDecoder;
+  const iter = ReadableStreamToAsyncIterable(response.body);
+  for await (const sseChunk of iterSSEChunks(iter)) {
+    for (const line of lineDecoder.decode(sseChunk)) {
+      const sse = sseDecoder.decode(line);
+      if (sse)
+        yield sse;
+    }
+  }
+  for (const line of lineDecoder.flush()) {
+    const sse = sseDecoder.decode(line);
+    if (sse)
+      yield sse;
+  }
+}
+async function* iterSSEChunks(iterator) {
+  let data = new Uint8Array;
+  for await (const chunk of iterator) {
+    if (chunk == null) {
+      continue;
+    }
+    const binaryChunk = chunk instanceof ArrayBuffer ? new Uint8Array(chunk) : typeof chunk === "string" ? new TextEncoder().encode(chunk) : chunk;
+    let newData = new Uint8Array(data.length + binaryChunk.length);
+    newData.set(data);
+    newData.set(binaryChunk, data.length);
+    data = newData;
+    let patternIndex;
+    while ((patternIndex = findDoubleNewlineIndex(data)) !== -1) {
+      yield data.slice(0, patternIndex);
+      data = data.slice(patternIndex);
+    }
+  }
+  if (data.length > 0) {
+    yield data;
   }
 }
 
@@ -24411,7 +24953,8 @@ class SSEDecoder {
         return null;
       const sse = {
         event: this.event,
-        data: this.data.join("\n"),
+        data: this.data.join(`
+`),
         raw: this.chunks
       };
       this.event = null;
@@ -24435,91 +24978,35 @@ class SSEDecoder {
     return null;
   }
 }
-
-class LineDecoder {
-  constructor() {
-    this.buffer = [];
-    this.trailingCR = false;
+function partition(str, delimiter) {
+  const index = str.indexOf(delimiter);
+  if (index !== -1) {
+    return [str.substring(0, index), delimiter, str.substring(index + delimiter.length)];
   }
-  decode(chunk) {
-    let text = this.decodeText(chunk);
-    if (this.trailingCR) {
-      text = "\r" + text;
-      this.trailingCR = false;
-    }
-    if (text.endsWith("\r")) {
-      this.trailingCR = true;
-      text = text.slice(0, -1);
-    }
-    if (!text) {
-      return [];
-    }
-    const trailingNewline = LineDecoder.NEWLINE_CHARS.has(text[text.length - 1] || "");
-    let lines = text.split(LineDecoder.NEWLINE_REGEXP);
-    if (trailingNewline) {
-      lines.pop();
-    }
-    if (lines.length === 1 && !trailingNewline) {
-      this.buffer.push(lines[0]);
-      return [];
-    }
-    if (this.buffer.length > 0) {
-      lines = [this.buffer.join("") + lines[0], ...lines.slice(1)];
-      this.buffer = [];
-    }
-    if (!trailingNewline) {
-      this.buffer = [lines.pop() || ""];
-    }
-    return lines;
-  }
-  decodeText(bytes) {
-    if (bytes == null)
-      return "";
-    if (typeof bytes === "string")
-      return bytes;
-    if (typeof Buffer !== "undefined") {
-      if (bytes instanceof Buffer) {
-        return bytes.toString();
-      }
-      if (bytes instanceof Uint8Array) {
-        return Buffer.from(bytes).toString();
-      }
-      throw new OpenAIError(`Unexpected: received non-Uint8Array (${bytes.constructor.name}) stream chunk in an environment with a global "Buffer" defined, which this library assumes to be Node. Please report this error.`);
-    }
-    if (typeof TextDecoder !== "undefined") {
-      if (bytes instanceof Uint8Array || bytes instanceof ArrayBuffer) {
-        this.textDecoder ?? (this.textDecoder = new TextDecoder("utf8"));
-        return this.textDecoder.decode(bytes);
-      }
-      throw new OpenAIError(`Unexpected: received non-Uint8Array/ArrayBuffer (${bytes.constructor.name}) in a web platform. Please report this error.`);
-    }
-    throw new OpenAIError(`Unexpected: neither Buffer nor TextDecoder are available as globals. Please report this error.`);
-  }
-  flush() {
-    if (!this.buffer.length && !this.trailingCR) {
-      return [];
-    }
-    const lines = [this.buffer.join("")];
-    this.buffer = [];
-    this.trailingCR = false;
-    return lines;
-  }
+  return [str, "", ""];
 }
-LineDecoder.NEWLINE_CHARS = new Set(["\n", "\r", "\v", "\f", "\x1C", "\x1D", "\x1E", "\x85", "\u2028", "\u2029"]);
-LineDecoder.NEWLINE_REGEXP = /\r\n|[\n\r\x0b\x0c\x1c\x1d\x1e\x85\u2028\u2029]/g;
 
 // node_modules/openai/uploads.mjs
+var isResponseLike = (value) => value != null && typeof value === "object" && typeof value.url === "string" && typeof value.blob === "function";
+var isFileLike = (value) => value != null && typeof value === "object" && typeof value.name === "string" && typeof value.lastModified === "number" && isBlobLike(value);
+var isBlobLike = (value) => value != null && typeof value === "object" && typeof value.size === "number" && typeof value.type === "string" && typeof value.text === "function" && typeof value.slice === "function" && typeof value.arrayBuffer === "function";
+var isUploadable = (value) => {
+  return isFileLike(value) || isResponseLike(value) || isFsReadStream(value);
+};
 async function toFile(value, name, options) {
   value = await value;
-  options ?? (options = isFileLike(value) ? { lastModified: value.lastModified, type: value.type } : {});
+  if (isFileLike(value)) {
+    return value;
+  }
   if (isResponseLike(value)) {
     const blob = await value.blob();
     name || (name = new URL(value.url).pathname.split(/[\\/]/).pop() ?? "unknown_file");
-    return new File2([blob], name, options);
+    const data = isBlobLike(blob) ? [await blob.arrayBuffer()] : [blob];
+    return new File2(data, name, options);
   }
   const bits = await getBytes(value);
   name || (name = getName(value) ?? "unknown_file");
-  if (!options.type) {
+  if (!options?.type) {
     const type = bits[0]?.type;
     if (typeof type === "string") {
       options = { ...options, type };
@@ -24542,19 +25029,13 @@ async function getBytes(value) {
   }
   return parts;
 }
-var propsForError = function(value) {
+function propsForError(value) {
   const props = Object.getOwnPropertyNames(value);
   return `[${props.map((p) => `"${p}"`).join(", ")}]`;
-};
-var getName = function(value) {
+}
+function getName(value) {
   return getStringFromMaybeBuffer(value.name) || getStringFromMaybeBuffer(value.filename) || getStringFromMaybeBuffer(value.path)?.split(/[\\/]/).pop();
-};
-var isResponseLike = (value) => value != null && typeof value === "object" && typeof value.url === "string" && typeof value.blob === "function";
-var isFileLike = (value) => value != null && typeof value === "object" && typeof value.name === "string" && typeof value.lastModified === "number" && isBlobLike(value);
-var isBlobLike = (value) => value != null && typeof value === "object" && typeof value.size === "number" && typeof value.type === "string" && typeof value.text === "function" && typeof value.slice === "function" && typeof value.arrayBuffer === "function";
-var isUploadable = (value) => {
-  return isFileLike(value) || isResponseLike(value) || isFsReadStream(value);
-};
+}
 var getStringFromMaybeBuffer = (x) => {
   if (typeof x === "string")
     return x;
@@ -24594,6 +25075,24 @@ var addFormValue = async (form, key, value) => {
 };
 
 // node_modules/openai/core.mjs
+var __classPrivateFieldSet2 = function(receiver, state, value, kind2, f) {
+  if (kind2 === "m")
+    throw new TypeError("Private method is not writable");
+  if (kind2 === "a" && !f)
+    throw new TypeError("Private accessor was defined without a setter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot write private member to an object whose class did not declare it");
+  return kind2 === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+};
+var __classPrivateFieldGet2 = function(receiver, state, kind2, f) {
+  if (kind2 === "a" && !f)
+    throw new TypeError("Private accessor was defined without a getter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot read private member from an object whose class did not declare it");
+  return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _AbstractPage_client;
+init();
 async function defaultParseResponse(props) {
   const { response } = props;
   if (props.options.stream) {
@@ -24610,89 +25109,26 @@ async function defaultParseResponse(props) {
     return response;
   }
   const contentType = response.headers.get("content-type");
-  const isJSON = contentType?.includes("application/json") || contentType?.includes("application/vnd.api+json");
+  const mediaType = contentType?.split(";")[0]?.trim();
+  const isJSON = mediaType?.includes("application/json") || mediaType?.endsWith("+json");
   if (isJSON) {
     const json = await response.json();
     debug("response", response.status, response.url, response.headers, json);
-    return json;
+    return _addRequestID(json, response);
   }
   const text = await response.text();
   debug("response", response.status, response.url, response.headers, text);
   return text;
 }
-var getBrowserInfo = function() {
-  if (typeof navigator === "undefined" || !navigator) {
-    return null;
+function _addRequestID(value, response) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return value;
   }
-  const browserPatterns = [
-    { key: "edge", pattern: /Edge(?:\W+(\d+)\.(\d+)(?:\.(\d+))?)?/ },
-    { key: "ie", pattern: /MSIE(?:\W+(\d+)\.(\d+)(?:\.(\d+))?)?/ },
-    { key: "ie", pattern: /Trident(?:.*rv\:(\d+)\.(\d+)(?:\.(\d+))?)?/ },
-    { key: "chrome", pattern: /Chrome(?:\W+(\d+)\.(\d+)(?:\.(\d+))?)?/ },
-    { key: "firefox", pattern: /Firefox(?:\W+(\d+)\.(\d+)(?:\.(\d+))?)?/ },
-    { key: "safari", pattern: /(?:Version\W+(\d+)\.(\d+)(?:\.(\d+))?)?(?:\W+Mobile\S*)?\W+Safari/ }
-  ];
-  for (const { key, pattern } of browserPatterns) {
-    const match = pattern.exec(navigator.userAgent);
-    if (match) {
-      const major = match[1] || 0;
-      const minor = match[2] || 0;
-      const patch = match[3] || 0;
-      return { browser: key, version: `${major}.${minor}.${patch}` };
-    }
-  }
-  return null;
-};
-function isEmptyObj(obj) {
-  if (!obj)
-    return true;
-  for (const _k in obj)
-    return false;
-  return true;
+  return Object.defineProperty(value, "_request_id", {
+    value: response.headers.get("x-request-id"),
+    enumerable: false
+  });
 }
-function hasOwn(obj, key) {
-  return Object.prototype.hasOwnProperty.call(obj, key);
-}
-var applyHeadersMut = function(targetHeaders, newHeaders) {
-  for (const k in newHeaders) {
-    if (!hasOwn(newHeaders, k))
-      continue;
-    const lowerKey = k.toLowerCase();
-    if (!lowerKey)
-      continue;
-    const val = newHeaders[k];
-    if (val === null) {
-      delete targetHeaders[lowerKey];
-    } else if (val !== undefined) {
-      targetHeaders[lowerKey] = val;
-    }
-  }
-};
-function debug(action, ...args) {
-  if (typeof process !== "undefined" && process?.env?.["DEBUG"] === "true") {
-    console.log(`OpenAI:DEBUG:${action}`, ...args);
-  }
-}
-function isObj(obj) {
-  return obj != null && typeof obj === "object" && !Array.isArray(obj);
-}
-var __classPrivateFieldSet = function(receiver, state, value, kind2, f) {
-  if (kind2 === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind2 === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind2 === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet = function(receiver, state, kind2, f) {
-  if (kind2 === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _AbstractPage_client;
 
 class APIPromise extends Promise {
   constructor(responsePromise, parseResponse = defaultParseResponse) {
@@ -24703,14 +25139,14 @@ class APIPromise extends Promise {
     this.parseResponse = parseResponse;
   }
   _thenUnwrap(transform) {
-    return new APIPromise(this.responsePromise, async (props) => transform(await this.parseResponse(props)));
+    return new APIPromise(this.responsePromise, async (props) => _addRequestID(transform(await this.parseResponse(props), props), props.response));
   }
   asResponse() {
     return this.responsePromise.then((p) => p.response);
   }
   async withResponse() {
     const [data, response] = await Promise.all([this.parse(), this.asResponse()]);
-    return { data, response };
+    return { data, response, request_id: response.headers.get("x-request-id") };
   }
   parse() {
     if (!this.parsedPromise) {
@@ -24735,13 +25171,13 @@ class APIClient {
     maxRetries = 2,
     timeout = 600000,
     httpAgent,
-    fetch: overridenFetch
+    fetch: overriddenFetch
   }) {
     this.baseURL = baseURL;
     this.maxRetries = validatePositiveInteger("maxRetries", maxRetries);
     this.timeout = validatePositiveInteger("timeout", timeout);
     this.httpAgent = httpAgent;
-    this.fetch = overridenFetch ?? fetch2;
+    this.fetch = overriddenFetch ?? fetch2;
   }
   authHeaders(opts) {
     return {};
@@ -24755,8 +25191,7 @@ class APIClient {
       ...this.authHeaders(opts)
     };
   }
-  validateHeaders(headers, customHeaders) {
-  }
+  validateHeaders(headers, customHeaders) {}
   defaultIdempotencyKey() {
     return `stainless-node-retry-${uuid4()}`;
   }
@@ -24776,7 +25211,10 @@ class APIClient {
     return this.methodRequest("delete", path, opts);
   }
   methodRequest(method, path, opts) {
-    return this.request(Promise.resolve(opts).then((opts2) => ({ method, path, ...opts2 })));
+    return this.request(Promise.resolve(opts).then(async (opts2) => {
+      const body = opts2 && isBlobLike(opts2?.body) ? new DataView(await opts2.body.arrayBuffer()) : opts2?.body instanceof DataView ? opts2.body : opts2?.body instanceof ArrayBuffer ? new DataView(opts2.body) : opts2 && ArrayBuffer.isView(opts2?.body) ? new DataView(opts2.body.buffer) : opts2?.body;
+      return { method, path, ...opts2, body };
+    }));
   }
   getAPIList(path, Page, opts) {
     return this.requestAPIList(Page, { method: "get", path, ...opts });
@@ -24791,19 +25229,22 @@ class APIClient {
         const encoded = encoder.encode(body);
         return encoded.length.toString();
       }
+    } else if (ArrayBuffer.isView(body)) {
+      return body.byteLength.toString();
     }
     return null;
   }
-  buildRequest(options) {
+  buildRequest(options, { retryCount = 0 } = {}) {
+    options = { ...options };
     const { method, path, query, headers = {} } = options;
-    const body = isMultipartBody(options.body) ? options.body.body : options.body ? JSON.stringify(options.body, null, 2) : null;
+    const body = ArrayBuffer.isView(options.body) || options.__binaryRequest && typeof options.body === "string" ? options.body : isMultipartBody(options.body) ? options.body.body : options.body ? JSON.stringify(options.body, null, 2) : null;
     const contentLength = this.calculateContentLength(body);
     const url = this.buildURL(path, query);
     if ("timeout" in options)
       validatePositiveInteger("timeout", options.timeout);
-    const timeout = options.timeout ?? this.timeout;
+    options.timeout = options.timeout ?? this.timeout;
     const httpAgent = options.httpAgent ?? this.httpAgent ?? getDefaultAgent(url);
-    const minAgentTimeout = timeout + 1000;
+    const minAgentTimeout = options.timeout + 1000;
     if (typeof httpAgent?.options?.timeout === "number" && minAgentTimeout > (httpAgent.options.timeout ?? 0)) {
       httpAgent.options.timeout = minAgentTimeout;
     }
@@ -24812,7 +25253,7 @@ class APIClient {
         options.idempotencyKey = this.defaultIdempotencyKey();
       headers[this.idempotencyHeader] = options.idempotencyKey;
     }
-    const reqHeaders = this.buildHeaders({ options, headers, contentLength });
+    const reqHeaders = this.buildHeaders({ options, headers, contentLength, retryCount });
     const req = {
       method,
       ...body && { body },
@@ -24820,9 +25261,9 @@ class APIClient {
       ...httpAgent && { agent: httpAgent },
       signal: options.signal ?? null
     };
-    return { req, url, timeout };
+    return { req, url, timeout: options.timeout };
   }
-  buildHeaders({ options, headers, contentLength }) {
+  buildHeaders({ options, headers, contentLength, retryCount }) {
     const reqHeaders = {};
     if (contentLength) {
       reqHeaders["content-length"] = contentLength;
@@ -24833,29 +25274,34 @@ class APIClient {
     if (isMultipartBody(options.body) && kind !== "node") {
       delete reqHeaders["content-type"];
     }
+    if (getHeader(defaultHeaders, "x-stainless-retry-count") === undefined && getHeader(headers, "x-stainless-retry-count") === undefined) {
+      reqHeaders["x-stainless-retry-count"] = String(retryCount);
+    }
+    if (getHeader(defaultHeaders, "x-stainless-timeout") === undefined && getHeader(headers, "x-stainless-timeout") === undefined && options.timeout) {
+      reqHeaders["x-stainless-timeout"] = String(Math.trunc(options.timeout / 1000));
+    }
     this.validateHeaders(reqHeaders, headers);
     return reqHeaders;
   }
-  async prepareOptions(options) {
-  }
-  async prepareRequest(request, { url, options }) {
-  }
+  async prepareOptions(options) {}
+  async prepareRequest(request, { url, options }) {}
   parseHeaders(headers) {
     return !headers ? {} : (Symbol.iterator in headers) ? Object.fromEntries(Array.from(headers).map((header) => [...header])) : { ...headers };
   }
-  makeStatusError(status, error4, message, headers) {
-    return APIError.generate(status, error4, message, headers);
+  makeStatusError(status, error, message, headers) {
+    return APIError.generate(status, error, message, headers);
   }
   request(options, remainingRetries = null) {
     return new APIPromise(this.makeRequest(options, remainingRetries));
   }
   async makeRequest(optionsInput, retriesRemaining) {
     const options = await optionsInput;
+    const maxRetries = options.maxRetries ?? this.maxRetries;
     if (retriesRemaining == null) {
-      retriesRemaining = options.maxRetries ?? this.maxRetries;
+      retriesRemaining = maxRetries;
     }
     await this.prepareOptions(options);
-    const { req, url, timeout } = this.buildRequest(options);
+    const { req, url, timeout } = this.buildRequest(options, { retryCount: maxRetries - retriesRemaining });
     await this.prepareRequest(req, { url, options });
     debug("request", url, options, req.headers);
     if (options.signal?.aborted) {
@@ -24918,17 +25364,21 @@ class APIClient {
       throw new OpenAIError(`Cannot stringify type ${typeof value}; Expected string, number, boolean, or null. If you need to pass nested query parameters, you can manually encode them, e.g. { query: { 'foo[key1]': value1, 'foo[key2]': value2 } }, and please open a GitHub issue requesting better support for your use case.`);
     }).join("&");
   }
-  async fetchWithTimeout(url, init, ms, controller) {
-    const { signal, ...options } = init || {};
+  async fetchWithTimeout(url, init2, ms, controller) {
+    const { signal, ...options } = init2 || {};
     if (signal)
       signal.addEventListener("abort", () => controller.abort());
     const timeout = setTimeout(() => controller.abort(), ms);
-    return this.getRequestClient().fetch.call(undefined, url, { signal: controller.signal, ...options }).finally(() => {
+    const fetchOptions = {
+      signal: controller.signal,
+      ...options
+    };
+    if (fetchOptions.method) {
+      fetchOptions.method = fetchOptions.method.toUpperCase();
+    }
+    return this.fetch.call(undefined, url, fetchOptions).finally(() => {
       clearTimeout(timeout);
     });
-  }
-  getRequestClient() {
-    return { fetch: this.fetch };
   }
   shouldRetry(response) {
     const shouldRetryHeader = response.headers.get("x-should-retry");
@@ -24987,7 +25437,7 @@ class APIClient {
 class AbstractPage {
   constructor(client, response, body, options) {
     _AbstractPage_client.set(this, undefined);
-    __classPrivateFieldSet(this, _AbstractPage_client, client, "f");
+    __classPrivateFieldSet2(this, _AbstractPage_client, client, "f");
     this.options = options;
     this.response = response;
     this.body = body;
@@ -25014,7 +25464,7 @@ class AbstractPage {
       nextOptions.query = undefined;
       nextOptions.path = nextInfo.url.toString();
     }
-    return await __classPrivateFieldGet(this, _AbstractPage_client, "f").requestAPIList(this.constructor, nextOptions);
+    return await __classPrivateFieldGet2(this, _AbstractPage_client, "f").requestAPIList(this.constructor, nextOptions);
   }
   async* iterPages() {
     let page = this;
@@ -25064,6 +25514,8 @@ var requestOptionsKeys = {
   httpAgent: true,
   signal: true,
   idempotencyKey: true,
+  __metadata: true,
+  __binaryRequest: true,
   __binaryResponse: true,
   __streamClass: true
 };
@@ -25121,6 +25573,29 @@ var getPlatformProperties = () => {
     "X-Stainless-Runtime-Version": "unknown"
   };
 };
+function getBrowserInfo() {
+  if (typeof navigator === "undefined" || !navigator) {
+    return null;
+  }
+  const browserPatterns = [
+    { key: "edge", pattern: /Edge(?:\W+(\d+)\.(\d+)(?:\.(\d+))?)?/ },
+    { key: "ie", pattern: /MSIE(?:\W+(\d+)\.(\d+)(?:\.(\d+))?)?/ },
+    { key: "ie", pattern: /Trident(?:.*rv\:(\d+)\.(\d+)(?:\.(\d+))?)?/ },
+    { key: "chrome", pattern: /Chrome(?:\W+(\d+)\.(\d+)(?:\.(\d+))?)?/ },
+    { key: "firefox", pattern: /Firefox(?:\W+(\d+)\.(\d+)(?:\.(\d+))?)?/ },
+    { key: "safari", pattern: /(?:Version\W+(\d+)\.(\d+)(?:\.(\d+))?)?(?:\W+Mobile\S*)?\W+Safari/ }
+  ];
+  for (const { key, pattern } of browserPatterns) {
+    const match = pattern.exec(navigator.userAgent);
+    if (match) {
+      const major = match[1] || 0;
+      const minor = match[2] || 0;
+      const patch = match[3] || 0;
+      return { browser: key, version: `${major}.${minor}.${patch}` };
+    }
+  }
+  return null;
+}
 var normalizeArch = (arch) => {
   if (arch === "x32")
     return "x32";
@@ -25165,7 +25640,7 @@ var safeJSON = (text) => {
     return;
   }
 };
-var startsWithSchemeRegexp = new RegExp("^(?:[a-z]+:)?//", "i");
+var startsWithSchemeRegexp = /^[a-z][a-z0-9+.-]*:/i;
 var isAbsoluteURL = (url) => {
   return startsWithSchemeRegexp.test(url);
 };
@@ -25182,6 +25657,11 @@ var validatePositiveInteger = (name, n) => {
 var castToError = (err) => {
   if (err instanceof Error)
     return err;
+  if (typeof err === "object" && err !== null) {
+    try {
+      return new Error(JSON.stringify(err));
+    } catch {}
+  }
   return new Error(err);
 };
 var readEnv = (env) => {
@@ -25193,6 +25673,59 @@ var readEnv = (env) => {
   }
   return;
 };
+function isEmptyObj(obj) {
+  if (!obj)
+    return true;
+  for (const _k in obj)
+    return false;
+  return true;
+}
+function hasOwn(obj, key) {
+  return Object.prototype.hasOwnProperty.call(obj, key);
+}
+function applyHeadersMut(targetHeaders, newHeaders) {
+  for (const k in newHeaders) {
+    if (!hasOwn(newHeaders, k))
+      continue;
+    const lowerKey = k.toLowerCase();
+    if (!lowerKey)
+      continue;
+    const val = newHeaders[k];
+    if (val === null) {
+      delete targetHeaders[lowerKey];
+    } else if (val !== undefined) {
+      targetHeaders[lowerKey] = val;
+    }
+  }
+}
+var SENSITIVE_HEADERS = new Set(["authorization", "api-key"]);
+function debug(action, ...args) {
+  if (typeof process !== "undefined" && process?.env?.["DEBUG"] === "true") {
+    const modifiedArgs = args.map((arg) => {
+      if (!arg) {
+        return arg;
+      }
+      if (arg["headers"]) {
+        const modifiedArg2 = { ...arg, headers: { ...arg["headers"] } };
+        for (const header in arg["headers"]) {
+          if (SENSITIVE_HEADERS.has(header.toLowerCase())) {
+            modifiedArg2["headers"][header] = "REDACTED";
+          }
+        }
+        return modifiedArg2;
+      }
+      let modifiedArg = null;
+      for (const header in arg) {
+        if (SENSITIVE_HEADERS.has(header.toLowerCase())) {
+          modifiedArg ?? (modifiedArg = { ...arg });
+          modifiedArg[header] = "REDACTED";
+        }
+      }
+      return modifiedArg ?? arg;
+    });
+    console.log(`OpenAI:DEBUG:${action}`, ...modifiedArgs);
+  }
+}
 var uuid4 = () => {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = Math.random() * 16 | 0;
@@ -25203,6 +25736,50 @@ var uuid4 = () => {
 var isRunningInBrowser = () => {
   return typeof window !== "undefined" && typeof window.document !== "undefined" && typeof navigator !== "undefined";
 };
+var isHeadersProtocol = (headers) => {
+  return typeof headers?.get === "function";
+};
+var getHeader = (headers, header) => {
+  const lowerCasedHeader = header.toLowerCase();
+  if (isHeadersProtocol(headers)) {
+    const intercapsHeader = header[0]?.toUpperCase() + header.substring(1).replace(/([^\w])(\w)/g, (_m, g1, g2) => g1 + g2.toUpperCase());
+    for (const key of [header, lowerCasedHeader, header.toUpperCase(), intercapsHeader]) {
+      const value = headers.get(key);
+      if (value) {
+        return value;
+      }
+    }
+  }
+  for (const [key, value] of Object.entries(headers)) {
+    if (key.toLowerCase() === lowerCasedHeader) {
+      if (Array.isArray(value)) {
+        if (value.length <= 1)
+          return value[0];
+        console.warn(`Received ${value.length} entries for the ${header} header, using the first entry.`);
+        return value[0];
+      }
+      return value;
+    }
+  }
+  return;
+};
+var toFloat32Array = (base64Str) => {
+  if (typeof Buffer !== "undefined") {
+    const buf = Buffer.from(base64Str, "base64");
+    return Array.from(new Float32Array(buf.buffer, buf.byteOffset, buf.length / Float32Array.BYTES_PER_ELEMENT));
+  } else {
+    const binaryStr = atob(base64Str);
+    const len = binaryStr.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0;i < len; i++) {
+      bytes[i] = binaryStr.charCodeAt(i);
+    }
+    return Array.from(new Float32Array(bytes.buffer));
+  }
+};
+function isObj(obj) {
+  return obj != null && typeof obj === "object" && !Array.isArray(obj);
+}
 
 // node_modules/openai/pagination.mjs
 class Page extends AbstractPage {
@@ -25226,9 +25803,16 @@ class CursorPage extends AbstractPage {
   constructor(client, response, body, options) {
     super(client, response, body, options);
     this.data = body.data || [];
+    this.has_more = body.has_more || false;
   }
   getPaginatedItems() {
     return this.data ?? [];
+  }
+  hasNextPage() {
+    if (this.has_more === false) {
+      return false;
+    }
+    return super.hasNextPage();
   }
   nextPageParams() {
     const info = this.nextPageInfo();
@@ -25261,14 +25845,49 @@ class APIResource {
   }
 }
 
-// node_modules/openai/resources/chat/completions.mjs
+// node_modules/openai/resources/chat/completions/messages.mjs
+class Messages extends APIResource {
+  list(completionId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list(completionId, {}, query);
+    }
+    return this._client.getAPIList(`/chat/completions/${completionId}/messages`, ChatCompletionStoreMessagesPage, { query, ...options });
+  }
+}
+
+// node_modules/openai/resources/chat/completions/completions.mjs
 class Completions extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.messages = new Messages(this._client);
+  }
   create(body, options) {
     return this._client.post("/chat/completions", { body, ...options, stream: body.stream ?? false });
   }
+  retrieve(completionId, options) {
+    return this._client.get(`/chat/completions/${completionId}`, options);
+  }
+  update(completionId, body, options) {
+    return this._client.post(`/chat/completions/${completionId}`, { body, ...options });
+  }
+  list(query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
+    }
+    return this._client.getAPIList("/chat/completions", ChatCompletionsPage, { query, ...options });
+  }
+  del(completionId, options) {
+    return this._client.delete(`/chat/completions/${completionId}`, options);
+  }
 }
-(function(Completions2) {
-})(Completions || (Completions = {}));
+
+class ChatCompletionsPage extends CursorPage {
+}
+
+class ChatCompletionStoreMessagesPage extends CursorPage {
+}
+Completions.ChatCompletionsPage = ChatCompletionsPage;
+Completions.Messages = Messages;
 
 // node_modules/openai/resources/chat/chat.mjs
 class Chat extends APIResource {
@@ -25277,35 +25896,38 @@ class Chat extends APIResource {
     this.completions = new Completions(this._client);
   }
 }
-(function(Chat2) {
-  Chat2.Completions = Completions;
-})(Chat || (Chat = {}));
+Chat.Completions = Completions;
+Chat.ChatCompletionsPage = ChatCompletionsPage;
 // node_modules/openai/resources/audio/speech.mjs
 class Speech extends APIResource {
   create(body, options) {
-    return this._client.post("/audio/speech", { body, ...options, __binaryResponse: true });
+    return this._client.post("/audio/speech", {
+      body,
+      ...options,
+      headers: { Accept: "application/octet-stream", ...options?.headers },
+      __binaryResponse: true
+    });
   }
 }
-(function(Speech2) {
-})(Speech || (Speech = {}));
 
 // node_modules/openai/resources/audio/transcriptions.mjs
 class Transcriptions extends APIResource {
   create(body, options) {
-    return this._client.post("/audio/transcriptions", multipartFormRequestOptions({ body, ...options }));
+    return this._client.post("/audio/transcriptions", multipartFormRequestOptions({
+      body,
+      ...options,
+      stream: body.stream ?? false,
+      __metadata: { model: body.model }
+    }));
   }
 }
-(function(Transcriptions2) {
-})(Transcriptions || (Transcriptions = {}));
 
 // node_modules/openai/resources/audio/translations.mjs
 class Translations extends APIResource {
   create(body, options) {
-    return this._client.post("/audio/translations", multipartFormRequestOptions({ body, ...options }));
+    return this._client.post("/audio/translations", multipartFormRequestOptions({ body, ...options, __metadata: { model: body.model } }));
   }
 }
-(function(Translations2) {
-})(Translations || (Translations = {}));
 
 // node_modules/openai/resources/audio/audio.mjs
 class Audio extends APIResource {
@@ -25316,74 +25938,51 @@ class Audio extends APIResource {
     this.speech = new Speech(this._client);
   }
 }
-(function(Audio2) {
-  Audio2.Transcriptions = Transcriptions;
-  Audio2.Translations = Translations;
-  Audio2.Speech = Speech;
-})(Audio || (Audio = {}));
-// node_modules/openai/resources/beta/assistants/files.mjs
-class Files extends APIResource {
-  create(assistantId, body, options) {
-    return this._client.post(`/assistants/${assistantId}/files`, {
-      body,
-      ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
-    });
+Audio.Transcriptions = Transcriptions;
+Audio.Translations = Translations;
+Audio.Speech = Speech;
+// node_modules/openai/resources/batches.mjs
+class Batches extends APIResource {
+  create(body, options) {
+    return this._client.post("/batches", { body, ...options });
   }
-  retrieve(assistantId, fileId, options) {
-    return this._client.get(`/assistants/${assistantId}/files/${fileId}`, {
-      ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
-    });
+  retrieve(batchId, options) {
+    return this._client.get(`/batches/${batchId}`, options);
   }
-  list(assistantId, query = {}, options) {
+  list(query = {}, options) {
     if (isRequestOptions(query)) {
-      return this.list(assistantId, {}, query);
+      return this.list({}, query);
     }
-    return this._client.getAPIList(`/assistants/${assistantId}/files`, AssistantFilesPage, {
-      query,
-      ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
-    });
+    return this._client.getAPIList("/batches", BatchesPage, { query, ...options });
   }
-  del(assistantId, fileId, options) {
-    return this._client.delete(`/assistants/${assistantId}/files/${fileId}`, {
-      ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
-    });
+  cancel(batchId, options) {
+    return this._client.post(`/batches/${batchId}/cancel`, options);
   }
 }
 
-class AssistantFilesPage extends CursorPage {
+class BatchesPage extends CursorPage {
 }
-(function(Files2) {
-  Files2.AssistantFilesPage = AssistantFilesPage;
-})(Files || (Files = {}));
-
-// node_modules/openai/resources/beta/assistants/assistants.mjs
+Batches.BatchesPage = BatchesPage;
+// node_modules/openai/resources/beta/assistants.mjs
 class Assistants extends APIResource {
-  constructor() {
-    super(...arguments);
-    this.files = new Files(this._client);
-  }
   create(body, options) {
     return this._client.post("/assistants", {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   retrieve(assistantId, options) {
     return this._client.get(`/assistants/${assistantId}`, {
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   update(assistantId, body, options) {
     return this._client.post(`/assistants/${assistantId}`, {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   list(query = {}, options) {
@@ -25393,24 +25992,20 @@ class Assistants extends APIResource {
     return this._client.getAPIList("/assistants", AssistantsPage, {
       query,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   del(assistantId, options) {
     return this._client.delete(`/assistants/${assistantId}`, {
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
 }
 
 class AssistantsPage extends CursorPage {
 }
-(function(Assistants2) {
-  Assistants2.AssistantsPage = AssistantsPage;
-  Assistants2.Files = Files;
-  Assistants2.AssistantFilesPage = AssistantFilesPage;
-})(Assistants || (Assistants = {}));
+Assistants.AssistantsPage = AssistantsPage;
 
 // node_modules/openai/lib/RunnableFunction.mjs
 function isRunnableFunctionWithParse(fn) {
@@ -25428,8 +26023,8 @@ var isToolMessage = (message) => {
   return message?.role === "tool";
 };
 
-// node_modules/openai/lib/AbstractChatCompletionRunner.mjs
-var __classPrivateFieldSet2 = function(receiver, state, value, kind2, f) {
+// node_modules/openai/lib/EventStream.mjs
+var __classPrivateFieldSet3 = function(receiver, state, value, kind2, f) {
   if (kind2 === "m")
     throw new TypeError("Private method is not writable");
   if (kind2 === "a" && !f)
@@ -25438,7 +26033,260 @@ var __classPrivateFieldSet2 = function(receiver, state, value, kind2, f) {
     throw new TypeError("Cannot write private member to an object whose class did not declare it");
   return kind2 === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
 };
-var __classPrivateFieldGet2 = function(receiver, state, kind2, f) {
+var __classPrivateFieldGet3 = function(receiver, state, kind2, f) {
+  if (kind2 === "a" && !f)
+    throw new TypeError("Private accessor was defined without a getter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot read private member from an object whose class did not declare it");
+  return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _EventStream_instances;
+var _EventStream_connectedPromise;
+var _EventStream_resolveConnectedPromise;
+var _EventStream_rejectConnectedPromise;
+var _EventStream_endPromise;
+var _EventStream_resolveEndPromise;
+var _EventStream_rejectEndPromise;
+var _EventStream_listeners;
+var _EventStream_ended;
+var _EventStream_errored;
+var _EventStream_aborted;
+var _EventStream_catchingPromiseCreated;
+var _EventStream_handleError;
+
+class EventStream {
+  constructor() {
+    _EventStream_instances.add(this);
+    this.controller = new AbortController;
+    _EventStream_connectedPromise.set(this, undefined);
+    _EventStream_resolveConnectedPromise.set(this, () => {});
+    _EventStream_rejectConnectedPromise.set(this, () => {});
+    _EventStream_endPromise.set(this, undefined);
+    _EventStream_resolveEndPromise.set(this, () => {});
+    _EventStream_rejectEndPromise.set(this, () => {});
+    _EventStream_listeners.set(this, {});
+    _EventStream_ended.set(this, false);
+    _EventStream_errored.set(this, false);
+    _EventStream_aborted.set(this, false);
+    _EventStream_catchingPromiseCreated.set(this, false);
+    __classPrivateFieldSet3(this, _EventStream_connectedPromise, new Promise((resolve, reject) => {
+      __classPrivateFieldSet3(this, _EventStream_resolveConnectedPromise, resolve, "f");
+      __classPrivateFieldSet3(this, _EventStream_rejectConnectedPromise, reject, "f");
+    }), "f");
+    __classPrivateFieldSet3(this, _EventStream_endPromise, new Promise((resolve, reject) => {
+      __classPrivateFieldSet3(this, _EventStream_resolveEndPromise, resolve, "f");
+      __classPrivateFieldSet3(this, _EventStream_rejectEndPromise, reject, "f");
+    }), "f");
+    __classPrivateFieldGet3(this, _EventStream_connectedPromise, "f").catch(() => {});
+    __classPrivateFieldGet3(this, _EventStream_endPromise, "f").catch(() => {});
+  }
+  _run(executor) {
+    setTimeout(() => {
+      executor().then(() => {
+        this._emitFinal();
+        this._emit("end");
+      }, __classPrivateFieldGet3(this, _EventStream_instances, "m", _EventStream_handleError).bind(this));
+    }, 0);
+  }
+  _connected() {
+    if (this.ended)
+      return;
+    __classPrivateFieldGet3(this, _EventStream_resolveConnectedPromise, "f").call(this);
+    this._emit("connect");
+  }
+  get ended() {
+    return __classPrivateFieldGet3(this, _EventStream_ended, "f");
+  }
+  get errored() {
+    return __classPrivateFieldGet3(this, _EventStream_errored, "f");
+  }
+  get aborted() {
+    return __classPrivateFieldGet3(this, _EventStream_aborted, "f");
+  }
+  abort() {
+    this.controller.abort();
+  }
+  on(event, listener) {
+    const listeners = __classPrivateFieldGet3(this, _EventStream_listeners, "f")[event] || (__classPrivateFieldGet3(this, _EventStream_listeners, "f")[event] = []);
+    listeners.push({ listener });
+    return this;
+  }
+  off(event, listener) {
+    const listeners = __classPrivateFieldGet3(this, _EventStream_listeners, "f")[event];
+    if (!listeners)
+      return this;
+    const index = listeners.findIndex((l) => l.listener === listener);
+    if (index >= 0)
+      listeners.splice(index, 1);
+    return this;
+  }
+  once(event, listener) {
+    const listeners = __classPrivateFieldGet3(this, _EventStream_listeners, "f")[event] || (__classPrivateFieldGet3(this, _EventStream_listeners, "f")[event] = []);
+    listeners.push({ listener, once: true });
+    return this;
+  }
+  emitted(event) {
+    return new Promise((resolve, reject) => {
+      __classPrivateFieldSet3(this, _EventStream_catchingPromiseCreated, true, "f");
+      if (event !== "error")
+        this.once("error", reject);
+      this.once(event, resolve);
+    });
+  }
+  async done() {
+    __classPrivateFieldSet3(this, _EventStream_catchingPromiseCreated, true, "f");
+    await __classPrivateFieldGet3(this, _EventStream_endPromise, "f");
+  }
+  _emit(event, ...args) {
+    if (__classPrivateFieldGet3(this, _EventStream_ended, "f")) {
+      return;
+    }
+    if (event === "end") {
+      __classPrivateFieldSet3(this, _EventStream_ended, true, "f");
+      __classPrivateFieldGet3(this, _EventStream_resolveEndPromise, "f").call(this);
+    }
+    const listeners = __classPrivateFieldGet3(this, _EventStream_listeners, "f")[event];
+    if (listeners) {
+      __classPrivateFieldGet3(this, _EventStream_listeners, "f")[event] = listeners.filter((l) => !l.once);
+      listeners.forEach(({ listener }) => listener(...args));
+    }
+    if (event === "abort") {
+      const error = args[0];
+      if (!__classPrivateFieldGet3(this, _EventStream_catchingPromiseCreated, "f") && !listeners?.length) {
+        Promise.reject(error);
+      }
+      __classPrivateFieldGet3(this, _EventStream_rejectConnectedPromise, "f").call(this, error);
+      __classPrivateFieldGet3(this, _EventStream_rejectEndPromise, "f").call(this, error);
+      this._emit("end");
+      return;
+    }
+    if (event === "error") {
+      const error = args[0];
+      if (!__classPrivateFieldGet3(this, _EventStream_catchingPromiseCreated, "f") && !listeners?.length) {
+        Promise.reject(error);
+      }
+      __classPrivateFieldGet3(this, _EventStream_rejectConnectedPromise, "f").call(this, error);
+      __classPrivateFieldGet3(this, _EventStream_rejectEndPromise, "f").call(this, error);
+      this._emit("end");
+    }
+  }
+  _emitFinal() {}
+}
+_EventStream_connectedPromise = new WeakMap, _EventStream_resolveConnectedPromise = new WeakMap, _EventStream_rejectConnectedPromise = new WeakMap, _EventStream_endPromise = new WeakMap, _EventStream_resolveEndPromise = new WeakMap, _EventStream_rejectEndPromise = new WeakMap, _EventStream_listeners = new WeakMap, _EventStream_ended = new WeakMap, _EventStream_errored = new WeakMap, _EventStream_aborted = new WeakMap, _EventStream_catchingPromiseCreated = new WeakMap, _EventStream_instances = new WeakSet, _EventStream_handleError = function _EventStream_handleError2(error) {
+  __classPrivateFieldSet3(this, _EventStream_errored, true, "f");
+  if (error instanceof Error && error.name === "AbortError") {
+    error = new APIUserAbortError;
+  }
+  if (error instanceof APIUserAbortError) {
+    __classPrivateFieldSet3(this, _EventStream_aborted, true, "f");
+    return this._emit("abort", error);
+  }
+  if (error instanceof OpenAIError) {
+    return this._emit("error", error);
+  }
+  if (error instanceof Error) {
+    const openAIError = new OpenAIError(error.message);
+    openAIError.cause = error;
+    return this._emit("error", openAIError);
+  }
+  return this._emit("error", new OpenAIError(String(error)));
+};
+
+// node_modules/openai/lib/parser.mjs
+function isAutoParsableResponseFormat(response_format) {
+  return response_format?.["$brand"] === "auto-parseable-response-format";
+}
+function isAutoParsableTool(tool) {
+  return tool?.["$brand"] === "auto-parseable-tool";
+}
+function maybeParseChatCompletion(completion, params) {
+  if (!params || !hasAutoParseableInput(params)) {
+    return {
+      ...completion,
+      choices: completion.choices.map((choice) => ({
+        ...choice,
+        message: {
+          ...choice.message,
+          parsed: null,
+          ...choice.message.tool_calls ? {
+            tool_calls: choice.message.tool_calls
+          } : undefined
+        }
+      }))
+    };
+  }
+  return parseChatCompletion(completion, params);
+}
+function parseChatCompletion(completion, params) {
+  const choices = completion.choices.map((choice) => {
+    if (choice.finish_reason === "length") {
+      throw new LengthFinishReasonError;
+    }
+    if (choice.finish_reason === "content_filter") {
+      throw new ContentFilterFinishReasonError;
+    }
+    return {
+      ...choice,
+      message: {
+        ...choice.message,
+        ...choice.message.tool_calls ? {
+          tool_calls: choice.message.tool_calls?.map((toolCall) => parseToolCall(params, toolCall)) ?? undefined
+        } : undefined,
+        parsed: choice.message.content && !choice.message.refusal ? parseResponseFormat(params, choice.message.content) : null
+      }
+    };
+  });
+  return { ...completion, choices };
+}
+function parseResponseFormat(params, content) {
+  if (params.response_format?.type !== "json_schema") {
+    return null;
+  }
+  if (params.response_format?.type === "json_schema") {
+    if ("$parseRaw" in params.response_format) {
+      const response_format = params.response_format;
+      return response_format.$parseRaw(content);
+    }
+    return JSON.parse(content);
+  }
+  return null;
+}
+function parseToolCall(params, toolCall) {
+  const inputTool = params.tools?.find((inputTool2) => inputTool2.function?.name === toolCall.function.name);
+  return {
+    ...toolCall,
+    function: {
+      ...toolCall.function,
+      parsed_arguments: isAutoParsableTool(inputTool) ? inputTool.$parseRaw(toolCall.function.arguments) : inputTool?.function.strict ? JSON.parse(toolCall.function.arguments) : null
+    }
+  };
+}
+function shouldParseToolCall(params, toolCall) {
+  if (!params) {
+    return false;
+  }
+  const inputTool = params.tools?.find((inputTool2) => inputTool2.function?.name === toolCall.function.name);
+  return isAutoParsableTool(inputTool) || inputTool?.function.strict || false;
+}
+function hasAutoParseableInput(params) {
+  if (isAutoParsableResponseFormat(params.response_format)) {
+    return true;
+  }
+  return params.tools?.some((t) => isAutoParsableTool(t) || t.type === "function" && t.function.strict === true) ?? false;
+}
+function validateInputTools(tools) {
+  for (const tool of tools ?? []) {
+    if (tool.type !== "function") {
+      throw new OpenAIError(`Currently only \`function\` tool types support auto-parsing; Received \`${tool.type}\``);
+    }
+    if (tool.function.strict !== true) {
+      throw new OpenAIError(`The \`${tool.function.name}\` tool is not marked with \`strict: true\`. Only strict function tools can be auto-parsed`);
+    }
+  }
+}
+
+// node_modules/openai/lib/AbstractChatCompletionRunner.mjs
+var __classPrivateFieldGet4 = function(receiver, state, kind2, f) {
   if (kind2 === "a" && !f)
     throw new TypeError("Private accessor was defined without a getter");
   if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -25446,87 +26294,21 @@ var __classPrivateFieldGet2 = function(receiver, state, kind2, f) {
   return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _AbstractChatCompletionRunner_instances;
-var _AbstractChatCompletionRunner_connectedPromise;
-var _AbstractChatCompletionRunner_resolveConnectedPromise;
-var _AbstractChatCompletionRunner_rejectConnectedPromise;
-var _AbstractChatCompletionRunner_endPromise;
-var _AbstractChatCompletionRunner_resolveEndPromise;
-var _AbstractChatCompletionRunner_rejectEndPromise;
-var _AbstractChatCompletionRunner_listeners;
-var _AbstractChatCompletionRunner_ended;
-var _AbstractChatCompletionRunner_errored;
-var _AbstractChatCompletionRunner_aborted;
-var _AbstractChatCompletionRunner_catchingPromiseCreated;
 var _AbstractChatCompletionRunner_getFinalContent;
 var _AbstractChatCompletionRunner_getFinalMessage;
 var _AbstractChatCompletionRunner_getFinalFunctionCall;
 var _AbstractChatCompletionRunner_getFinalFunctionCallResult;
 var _AbstractChatCompletionRunner_calculateTotalUsage;
-var _AbstractChatCompletionRunner_handleError;
 var _AbstractChatCompletionRunner_validateParams;
 var _AbstractChatCompletionRunner_stringifyFunctionCallResult;
 var DEFAULT_MAX_CHAT_COMPLETIONS = 10;
 
-class AbstractChatCompletionRunner {
+class AbstractChatCompletionRunner extends EventStream {
   constructor() {
+    super(...arguments);
     _AbstractChatCompletionRunner_instances.add(this);
-    this.controller = new AbortController;
-    _AbstractChatCompletionRunner_connectedPromise.set(this, undefined);
-    _AbstractChatCompletionRunner_resolveConnectedPromise.set(this, () => {
-    });
-    _AbstractChatCompletionRunner_rejectConnectedPromise.set(this, () => {
-    });
-    _AbstractChatCompletionRunner_endPromise.set(this, undefined);
-    _AbstractChatCompletionRunner_resolveEndPromise.set(this, () => {
-    });
-    _AbstractChatCompletionRunner_rejectEndPromise.set(this, () => {
-    });
-    _AbstractChatCompletionRunner_listeners.set(this, {});
     this._chatCompletions = [];
     this.messages = [];
-    _AbstractChatCompletionRunner_ended.set(this, false);
-    _AbstractChatCompletionRunner_errored.set(this, false);
-    _AbstractChatCompletionRunner_aborted.set(this, false);
-    _AbstractChatCompletionRunner_catchingPromiseCreated.set(this, false);
-    _AbstractChatCompletionRunner_handleError.set(this, (error5) => {
-      __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_errored, true, "f");
-      if (error5 instanceof Error && error5.name === "AbortError") {
-        error5 = new APIUserAbortError;
-      }
-      if (error5 instanceof APIUserAbortError) {
-        __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_aborted, true, "f");
-        return this._emit("abort", error5);
-      }
-      if (error5 instanceof OpenAIError) {
-        return this._emit("error", error5);
-      }
-      if (error5 instanceof Error) {
-        const openAIError = new OpenAIError(error5.message);
-        openAIError.cause = error5;
-        return this._emit("error", openAIError);
-      }
-      return this._emit("error", new OpenAIError(String(error5)));
-    });
-    __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_connectedPromise, new Promise((resolve, reject) => {
-      __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_resolveConnectedPromise, resolve, "f");
-      __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_rejectConnectedPromise, reject, "f");
-    }), "f");
-    __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_endPromise, new Promise((resolve, reject) => {
-      __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_resolveEndPromise, resolve, "f");
-      __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_rejectEndPromise, reject, "f");
-    }), "f");
-    __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_connectedPromise, "f").catch(() => {
-    });
-    __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_endPromise, "f").catch(() => {
-    });
-  }
-  _run(executor) {
-    setTimeout(() => {
-      executor().then(() => {
-        this._emitFinal();
-        this._emit("end");
-      }, __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_handleError, "f"));
-    }, 0);
   }
   _addChatCompletion(chatCompletion) {
     this._chatCompletions.push(chatCompletion);
@@ -25555,55 +26337,6 @@ class AbstractChatCompletionRunner {
       }
     }
   }
-  _connected() {
-    if (this.ended)
-      return;
-    __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_resolveConnectedPromise, "f").call(this);
-    this._emit("connect");
-  }
-  get ended() {
-    return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_ended, "f");
-  }
-  get errored() {
-    return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_errored, "f");
-  }
-  get aborted() {
-    return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_aborted, "f");
-  }
-  abort() {
-    this.controller.abort();
-  }
-  on(event, listener) {
-    const listeners = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_listeners, "f")[event] || (__classPrivateFieldGet2(this, _AbstractChatCompletionRunner_listeners, "f")[event] = []);
-    listeners.push({ listener });
-    return this;
-  }
-  off(event, listener) {
-    const listeners = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_listeners, "f")[event];
-    if (!listeners)
-      return this;
-    const index = listeners.findIndex((l) => l.listener === listener);
-    if (index >= 0)
-      listeners.splice(index, 1);
-    return this;
-  }
-  once(event, listener) {
-    const listeners = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_listeners, "f")[event] || (__classPrivateFieldGet2(this, _AbstractChatCompletionRunner_listeners, "f")[event] = []);
-    listeners.push({ listener, once: true });
-    return this;
-  }
-  emitted(event) {
-    return new Promise((resolve, reject) => {
-      __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_catchingPromiseCreated, true, "f");
-      if (event !== "error")
-        this.once("error", reject);
-      this.once(event, resolve);
-    });
-  }
-  async done() {
-    __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_catchingPromiseCreated, true, "f");
-    await __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_endPromise, "f");
-  }
   async finalChatCompletion() {
     await this.done();
     const completion = this._chatCompletions[this._chatCompletions.length - 1];
@@ -25613,99 +26346,66 @@ class AbstractChatCompletionRunner {
   }
   async finalContent() {
     await this.done();
-    return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalContent).call(this);
+    return __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalContent).call(this);
   }
   async finalMessage() {
     await this.done();
-    return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalMessage).call(this);
+    return __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalMessage).call(this);
   }
   async finalFunctionCall() {
     await this.done();
-    return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalFunctionCall).call(this);
+    return __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalFunctionCall).call(this);
   }
   async finalFunctionCallResult() {
     await this.done();
-    return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalFunctionCallResult).call(this);
+    return __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalFunctionCallResult).call(this);
   }
   async totalUsage() {
     await this.done();
-    return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_calculateTotalUsage).call(this);
+    return __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_calculateTotalUsage).call(this);
   }
   allChatCompletions() {
     return [...this._chatCompletions];
-  }
-  _emit(event, ...args) {
-    if (__classPrivateFieldGet2(this, _AbstractChatCompletionRunner_ended, "f")) {
-      return;
-    }
-    if (event === "end") {
-      __classPrivateFieldSet2(this, _AbstractChatCompletionRunner_ended, true, "f");
-      __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_resolveEndPromise, "f").call(this);
-    }
-    const listeners = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_listeners, "f")[event];
-    if (listeners) {
-      __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_listeners, "f")[event] = listeners.filter((l) => !l.once);
-      listeners.forEach(({ listener }) => listener(...args));
-    }
-    if (event === "abort") {
-      const error5 = args[0];
-      if (!__classPrivateFieldGet2(this, _AbstractChatCompletionRunner_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error5);
-      }
-      __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_rejectConnectedPromise, "f").call(this, error5);
-      __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_rejectEndPromise, "f").call(this, error5);
-      this._emit("end");
-      return;
-    }
-    if (event === "error") {
-      const error5 = args[0];
-      if (!__classPrivateFieldGet2(this, _AbstractChatCompletionRunner_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error5);
-      }
-      __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_rejectConnectedPromise, "f").call(this, error5);
-      __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_rejectEndPromise, "f").call(this, error5);
-      this._emit("end");
-    }
   }
   _emitFinal() {
     const completion = this._chatCompletions[this._chatCompletions.length - 1];
     if (completion)
       this._emit("finalChatCompletion", completion);
-    const finalMessage = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalMessage).call(this);
+    const finalMessage = __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalMessage).call(this);
     if (finalMessage)
       this._emit("finalMessage", finalMessage);
-    const finalContent = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalContent).call(this);
+    const finalContent = __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalContent).call(this);
     if (finalContent)
       this._emit("finalContent", finalContent);
-    const finalFunctionCall = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalFunctionCall).call(this);
+    const finalFunctionCall = __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalFunctionCall).call(this);
     if (finalFunctionCall)
       this._emit("finalFunctionCall", finalFunctionCall);
-    const finalFunctionCallResult = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalFunctionCallResult).call(this);
+    const finalFunctionCallResult = __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalFunctionCallResult).call(this);
     if (finalFunctionCallResult != null)
       this._emit("finalFunctionCallResult", finalFunctionCallResult);
     if (this._chatCompletions.some((c) => c.usage)) {
-      this._emit("totalUsage", __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_calculateTotalUsage).call(this));
+      this._emit("totalUsage", __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_calculateTotalUsage).call(this));
     }
   }
-  async _createChatCompletion(completions, params, options) {
+  async _createChatCompletion(client, params, options) {
     const signal = options?.signal;
     if (signal) {
       if (signal.aborted)
         this.controller.abort();
       signal.addEventListener("abort", () => this.controller.abort());
     }
-    __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_validateParams).call(this, params);
-    const chatCompletion = await completions.create({ ...params, stream: false }, { ...options, signal: this.controller.signal });
+    __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_validateParams).call(this, params);
+    const chatCompletion = await client.chat.completions.create({ ...params, stream: false }, { ...options, signal: this.controller.signal });
     this._connected();
-    return this._addChatCompletion(chatCompletion);
+    return this._addChatCompletion(parseChatCompletion(chatCompletion, params));
   }
-  async _runChatCompletion(completions, params, options) {
+  async _runChatCompletion(client, params, options) {
     for (const message of params.messages) {
       this._addMessage(message, false);
     }
-    return await this._createChatCompletion(completions, params, options);
+    return await this._createChatCompletion(client, params, options);
   }
-  async _runFunctions(completions, params, options) {
+  async _runFunctions(client, params, options) {
     const role = "function";
     const { function_call = "auto", stream, ...restParams } = params;
     const singleFunctionToCall = typeof function_call !== "string" && function_call?.name;
@@ -25723,7 +26423,7 @@ class AbstractChatCompletionRunner {
       this._addMessage(message, false);
     }
     for (let i = 0;i < maxChatCompletions; ++i) {
-      const chatCompletion = await this._createChatCompletion(completions, {
+      const chatCompletion = await this._createChatCompletion(client, {
         ...restParams,
         function_call,
         functions,
@@ -25749,45 +26449,65 @@ class AbstractChatCompletionRunner {
       let parsed;
       try {
         parsed = isRunnableFunctionWithParse(fn) ? await fn.parse(args) : args;
-      } catch (error5) {
+      } catch (error) {
         this._addMessage({
           role,
           name,
-          content: error5 instanceof Error ? error5.message : String(error5)
+          content: error instanceof Error ? error.message : String(error)
         });
         continue;
       }
       const rawContent = await fn.function(parsed, this);
-      const content = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_stringifyFunctionCallResult).call(this, rawContent);
+      const content = __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_stringifyFunctionCallResult).call(this, rawContent);
       this._addMessage({ role, name, content });
       if (singleFunctionToCall)
         return;
     }
   }
-  async _runTools(completions, params, options) {
+  async _runTools(client, params, options) {
     const role = "tool";
     const { tool_choice = "auto", stream, ...restParams } = params;
     const singleFunctionToCall = typeof tool_choice !== "string" && tool_choice?.function?.name;
     const { maxChatCompletions = DEFAULT_MAX_CHAT_COMPLETIONS } = options || {};
+    const inputTools = params.tools.map((tool) => {
+      if (isAutoParsableTool(tool)) {
+        if (!tool.$callback) {
+          throw new OpenAIError("Tool given to `.runTools()` that does not have an associated function");
+        }
+        return {
+          type: "function",
+          function: {
+            function: tool.$callback,
+            name: tool.function.name,
+            description: tool.function.description || "",
+            parameters: tool.function.parameters,
+            parse: tool.$parseRaw,
+            strict: true
+          }
+        };
+      }
+      return tool;
+    });
     const functionsByName = {};
-    for (const f of params.tools) {
+    for (const f of inputTools) {
       if (f.type === "function") {
         functionsByName[f.function.name || f.function.function.name] = f.function;
       }
     }
-    const tools = "tools" in params ? params.tools.map((t) => t.type === "function" ? {
+    const tools = "tools" in params ? inputTools.map((t) => t.type === "function" ? {
       type: "function",
       function: {
         name: t.function.name || t.function.function.name,
         parameters: t.function.parameters,
-        description: t.function.description
+        description: t.function.description,
+        strict: t.function.strict
       }
     } : t) : undefined;
     for (const message of params.messages) {
       this._addMessage(message, false);
     }
     for (let i = 0;i < maxChatCompletions; ++i) {
-      const chatCompletion = await this._createChatCompletion(completions, {
+      const chatCompletion = await this._createChatCompletion(client, {
         ...restParams,
         tool_choice,
         tools,
@@ -25797,7 +26517,7 @@ class AbstractChatCompletionRunner {
       if (!message) {
         throw new OpenAIError(`missing message in ChatCompletion response`);
       }
-      if (!message.tool_calls) {
+      if (!message.tool_calls?.length) {
         return;
       }
       for (const tool_call of message.tool_calls) {
@@ -25807,7 +26527,7 @@ class AbstractChatCompletionRunner {
         const { name, arguments: args } = tool_call.function;
         const fn = functionsByName[name];
         if (!fn) {
-          const content2 = `Invalid tool_call: ${JSON.stringify(name)}. Available options are: ${tools.map((f) => JSON.stringify(f.function.name)).join(", ")}. Please try again`;
+          const content2 = `Invalid tool_call: ${JSON.stringify(name)}. Available options are: ${Object.keys(functionsByName).map((name2) => JSON.stringify(name2)).join(", ")}. Please try again`;
           this._addMessage({ role, tool_call_id, content: content2 });
           continue;
         } else if (singleFunctionToCall && singleFunctionToCall !== name) {
@@ -25818,13 +26538,13 @@ class AbstractChatCompletionRunner {
         let parsed;
         try {
           parsed = isRunnableFunctionWithParse(fn) ? await fn.parse(args) : args;
-        } catch (error5) {
-          const content2 = error5 instanceof Error ? error5.message : String(error5);
+        } catch (error) {
+          const content2 = error instanceof Error ? error.message : String(error);
           this._addMessage({ role, tool_call_id, content: content2 });
           continue;
         }
         const rawContent = await fn.function(parsed, this);
-        const content = __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_stringifyFunctionCallResult).call(this, rawContent);
+        const content = __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_stringifyFunctionCallResult).call(this, rawContent);
         this._addMessage({ role, tool_call_id, content });
         if (singleFunctionToCall) {
           return;
@@ -25834,14 +26554,23 @@ class AbstractChatCompletionRunner {
     return;
   }
 }
-_AbstractChatCompletionRunner_connectedPromise = new WeakMap, _AbstractChatCompletionRunner_resolveConnectedPromise = new WeakMap, _AbstractChatCompletionRunner_rejectConnectedPromise = new WeakMap, _AbstractChatCompletionRunner_endPromise = new WeakMap, _AbstractChatCompletionRunner_resolveEndPromise = new WeakMap, _AbstractChatCompletionRunner_rejectEndPromise = new WeakMap, _AbstractChatCompletionRunner_listeners = new WeakMap, _AbstractChatCompletionRunner_ended = new WeakMap, _AbstractChatCompletionRunner_errored = new WeakMap, _AbstractChatCompletionRunner_aborted = new WeakMap, _AbstractChatCompletionRunner_catchingPromiseCreated = new WeakMap, _AbstractChatCompletionRunner_handleError = new WeakMap, _AbstractChatCompletionRunner_instances = new WeakSet, _AbstractChatCompletionRunner_getFinalContent = function _AbstractChatCompletionRunner_getFinalContent2() {
-  return __classPrivateFieldGet2(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalMessage).call(this).content ?? null;
+_AbstractChatCompletionRunner_instances = new WeakSet, _AbstractChatCompletionRunner_getFinalContent = function _AbstractChatCompletionRunner_getFinalContent2() {
+  return __classPrivateFieldGet4(this, _AbstractChatCompletionRunner_instances, "m", _AbstractChatCompletionRunner_getFinalMessage).call(this).content ?? null;
 }, _AbstractChatCompletionRunner_getFinalMessage = function _AbstractChatCompletionRunner_getFinalMessage2() {
   let i = this.messages.length;
   while (i-- > 0) {
     const message = this.messages[i];
     if (isAssistantMessage(message)) {
-      return { ...message, content: message.content ?? null };
+      const { function_call, ...rest } = message;
+      const ret = {
+        ...rest,
+        content: message.content ?? null,
+        refusal: message.refusal ?? null
+      };
+      if (function_call) {
+        ret.function_call = function_call;
+      }
+      return ret;
     }
   }
   throw new OpenAIError("stream ended without producing a ChatCompletionMessage with role=assistant");
@@ -25862,7 +26591,7 @@ _AbstractChatCompletionRunner_connectedPromise = new WeakMap, _AbstractChatCompl
     if (isFunctionMessage(message) && message.content != null) {
       return message.content;
     }
-    if (isToolMessage(message) && message.content != null && this.messages.some((x) => x.role === "assistant" && x.tool_calls?.some((y) => y.type === "function" && y.id === message.tool_call_id))) {
+    if (isToolMessage(message) && message.content != null && typeof message.content === "string" && this.messages.some((x) => x.role === "assistant" && x.tool_calls?.some((y) => y.type === "function" && y.id === message.tool_call_id))) {
       return message.content;
     }
   }
@@ -25891,110 +26620,248 @@ _AbstractChatCompletionRunner_connectedPromise = new WeakMap, _AbstractChatCompl
 
 // node_modules/openai/lib/ChatCompletionRunner.mjs
 class ChatCompletionRunner extends AbstractChatCompletionRunner {
-  static runFunctions(completions, params, options) {
+  static runFunctions(client, params, options) {
     const runner = new ChatCompletionRunner;
     const opts = {
       ...options,
       headers: { ...options?.headers, "X-Stainless-Helper-Method": "runFunctions" }
     };
-    runner._run(() => runner._runFunctions(completions, params, opts));
+    runner._run(() => runner._runFunctions(client, params, opts));
     return runner;
   }
-  static runTools(completions, params, options) {
+  static runTools(client, params, options) {
     const runner = new ChatCompletionRunner;
     const opts = {
       ...options,
       headers: { ...options?.headers, "X-Stainless-Helper-Method": "runTools" }
     };
-    runner._run(() => runner._runTools(completions, params, opts));
+    runner._run(() => runner._runTools(client, params, opts));
     return runner;
   }
-  _addMessage(message) {
-    super._addMessage(message);
+  _addMessage(message, emit = true) {
+    super._addMessage(message, emit);
     if (isAssistantMessage(message) && message.content) {
       this._emit("content", message.content);
     }
   }
 }
 
-// node_modules/openai/lib/ChatCompletionStream.mjs
-var finalizeChatCompletion = function(snapshot) {
-  const { id, choices, created, model, system_fingerprint, ...rest } = snapshot;
-  return {
-    ...rest,
-    id,
-    choices: choices.map(({ message, finish_reason, index, logprobs, ...choiceRest }) => {
-      if (!finish_reason)
-        throw new OpenAIError(`missing finish_reason for choice ${index}`);
-      const { content = null, function_call, tool_calls, ...messageRest } = message;
-      const role = message.role;
-      if (!role)
-        throw new OpenAIError(`missing role for choice ${index}`);
-      if (function_call) {
-        const { arguments: args, name } = function_call;
-        if (args == null)
-          throw new OpenAIError(`missing function_call.arguments for choice ${index}`);
-        if (!name)
-          throw new OpenAIError(`missing function_call.name for choice ${index}`);
-        return {
-          ...choiceRest,
-          message: { content, function_call: { arguments: args, name }, role },
-          finish_reason,
-          index,
-          logprobs
-        };
-      }
-      if (tool_calls) {
-        return {
-          ...choiceRest,
-          index,
-          finish_reason,
-          logprobs,
-          message: {
-            ...messageRest,
-            role,
-            content,
-            tool_calls: tool_calls.map((tool_call, i) => {
-              const { function: fn, type, id: id2, ...toolRest } = tool_call;
-              const { arguments: args, name, ...fnRest } = fn || {};
-              if (id2 == null)
-                throw new OpenAIError(`missing choices[${index}].tool_calls[${i}].id\n${str(snapshot)}`);
-              if (type == null)
-                throw new OpenAIError(`missing choices[${index}].tool_calls[${i}].type\n${str(snapshot)}`);
-              if (name == null)
-                throw new OpenAIError(`missing choices[${index}].tool_calls[${i}].function.name\n${str(snapshot)}`);
-              if (args == null)
-                throw new OpenAIError(`missing choices[${index}].tool_calls[${i}].function.arguments\n${str(snapshot)}`);
-              return { ...toolRest, id: id2, type, function: { ...fnRest, name, arguments: args } };
-            })
-          }
-        };
-      }
-      return {
-        ...choiceRest,
-        message: { ...messageRest, content, role },
-        finish_reason,
-        index,
-        logprobs
-      };
-    }),
-    created,
-    model,
-    object: "chat.completion",
-    ...system_fingerprint ? { system_fingerprint } : {}
+// node_modules/openai/_vendor/partial-json-parser/parser.mjs
+var STR = 1;
+var NUM = 2;
+var ARR = 4;
+var OBJ = 8;
+var NULL = 16;
+var BOOL = 32;
+var NAN = 64;
+var INFINITY = 128;
+var MINUS_INFINITY = 256;
+var INF = INFINITY | MINUS_INFINITY;
+var SPECIAL = NULL | BOOL | INF | NAN;
+var ATOM = STR | NUM | SPECIAL;
+var COLLECTION = ARR | OBJ;
+var ALL = ATOM | COLLECTION;
+var Allow = {
+  STR,
+  NUM,
+  ARR,
+  OBJ,
+  NULL,
+  BOOL,
+  NAN,
+  INFINITY,
+  MINUS_INFINITY,
+  INF,
+  SPECIAL,
+  ATOM,
+  COLLECTION,
+  ALL
+};
+
+class PartialJSON extends Error {
+}
+
+class MalformedJSON extends Error {
+}
+function parseJSON(jsonString, allowPartial = Allow.ALL) {
+  if (typeof jsonString !== "string") {
+    throw new TypeError(`expecting str, got ${typeof jsonString}`);
+  }
+  if (!jsonString.trim()) {
+    throw new Error(`${jsonString} is empty`);
+  }
+  return _parseJSON(jsonString.trim(), allowPartial);
+}
+var _parseJSON = (jsonString, allow) => {
+  const length = jsonString.length;
+  let index = 0;
+  const markPartialJSON = (msg) => {
+    throw new PartialJSON(`${msg} at position ${index}`);
   };
+  const throwMalformedError = (msg) => {
+    throw new MalformedJSON(`${msg} at position ${index}`);
+  };
+  const parseAny = () => {
+    skipBlank();
+    if (index >= length)
+      markPartialJSON("Unexpected end of input");
+    if (jsonString[index] === '"')
+      return parseStr();
+    if (jsonString[index] === "{")
+      return parseObj();
+    if (jsonString[index] === "[")
+      return parseArr();
+    if (jsonString.substring(index, index + 4) === "null" || Allow.NULL & allow && length - index < 4 && "null".startsWith(jsonString.substring(index))) {
+      index += 4;
+      return null;
+    }
+    if (jsonString.substring(index, index + 4) === "true" || Allow.BOOL & allow && length - index < 4 && "true".startsWith(jsonString.substring(index))) {
+      index += 4;
+      return true;
+    }
+    if (jsonString.substring(index, index + 5) === "false" || Allow.BOOL & allow && length - index < 5 && "false".startsWith(jsonString.substring(index))) {
+      index += 5;
+      return false;
+    }
+    if (jsonString.substring(index, index + 8) === "Infinity" || Allow.INFINITY & allow && length - index < 8 && "Infinity".startsWith(jsonString.substring(index))) {
+      index += 8;
+      return Infinity;
+    }
+    if (jsonString.substring(index, index + 9) === "-Infinity" || Allow.MINUS_INFINITY & allow && 1 < length - index && length - index < 9 && "-Infinity".startsWith(jsonString.substring(index))) {
+      index += 9;
+      return -Infinity;
+    }
+    if (jsonString.substring(index, index + 3) === "NaN" || Allow.NAN & allow && length - index < 3 && "NaN".startsWith(jsonString.substring(index))) {
+      index += 3;
+      return NaN;
+    }
+    return parseNum();
+  };
+  const parseStr = () => {
+    const start = index;
+    let escape2 = false;
+    index++;
+    while (index < length && (jsonString[index] !== '"' || escape2 && jsonString[index - 1] === "\\")) {
+      escape2 = jsonString[index] === "\\" ? !escape2 : false;
+      index++;
+    }
+    if (jsonString.charAt(index) == '"') {
+      try {
+        return JSON.parse(jsonString.substring(start, ++index - Number(escape2)));
+      } catch (e) {
+        throwMalformedError(String(e));
+      }
+    } else if (Allow.STR & allow) {
+      try {
+        return JSON.parse(jsonString.substring(start, index - Number(escape2)) + '"');
+      } catch (e) {
+        return JSON.parse(jsonString.substring(start, jsonString.lastIndexOf("\\")) + '"');
+      }
+    }
+    markPartialJSON("Unterminated string literal");
+  };
+  const parseObj = () => {
+    index++;
+    skipBlank();
+    const obj = {};
+    try {
+      while (jsonString[index] !== "}") {
+        skipBlank();
+        if (index >= length && Allow.OBJ & allow)
+          return obj;
+        const key = parseStr();
+        skipBlank();
+        index++;
+        try {
+          const value = parseAny();
+          Object.defineProperty(obj, key, { value, writable: true, enumerable: true, configurable: true });
+        } catch (e) {
+          if (Allow.OBJ & allow)
+            return obj;
+          else
+            throw e;
+        }
+        skipBlank();
+        if (jsonString[index] === ",")
+          index++;
+      }
+    } catch (e) {
+      if (Allow.OBJ & allow)
+        return obj;
+      else
+        markPartialJSON("Expected '}' at end of object");
+    }
+    index++;
+    return obj;
+  };
+  const parseArr = () => {
+    index++;
+    const arr = [];
+    try {
+      while (jsonString[index] !== "]") {
+        arr.push(parseAny());
+        skipBlank();
+        if (jsonString[index] === ",") {
+          index++;
+        }
+      }
+    } catch (e) {
+      if (Allow.ARR & allow) {
+        return arr;
+      }
+      markPartialJSON("Expected ']' at end of array");
+    }
+    index++;
+    return arr;
+  };
+  const parseNum = () => {
+    if (index === 0) {
+      if (jsonString === "-" && Allow.NUM & allow)
+        markPartialJSON("Not sure what '-' is");
+      try {
+        return JSON.parse(jsonString);
+      } catch (e) {
+        if (Allow.NUM & allow) {
+          try {
+            if (jsonString[jsonString.length - 1] === ".")
+              return JSON.parse(jsonString.substring(0, jsonString.lastIndexOf(".")));
+            return JSON.parse(jsonString.substring(0, jsonString.lastIndexOf("e")));
+          } catch (e2) {}
+        }
+        throwMalformedError(String(e));
+      }
+    }
+    const start = index;
+    if (jsonString[index] === "-")
+      index++;
+    while (jsonString[index] && !",]}".includes(jsonString[index]))
+      index++;
+    if (index == length && !(Allow.NUM & allow))
+      markPartialJSON("Unterminated number literal");
+    try {
+      return JSON.parse(jsonString.substring(start, index));
+    } catch (e) {
+      if (jsonString.substring(start, index) === "-" && Allow.NUM & allow)
+        markPartialJSON("Not sure what '-' is");
+      try {
+        return JSON.parse(jsonString.substring(start, jsonString.lastIndexOf("e")));
+      } catch (e2) {
+        throwMalformedError(String(e2));
+      }
+    }
+  };
+  const skipBlank = () => {
+    while (index < length && ` 
+\r	`.includes(jsonString[index])) {
+      index++;
+    }
+  };
+  return parseAny();
 };
-var str = function(x) {
-  return JSON.stringify(x);
-};
-var __classPrivateFieldGet3 = function(receiver, state, kind2, f) {
-  if (kind2 === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __classPrivateFieldSet3 = function(receiver, state, value, kind2, f) {
+var partialParse = (input) => parseJSON(input, Allow.ALL ^ Allow.NUM);
+
+// node_modules/openai/lib/ChatCompletionStream.mjs
+var __classPrivateFieldSet4 = function(receiver, state, value, kind2, f) {
   if (kind2 === "m")
     throw new TypeError("Private method is not writable");
   if (kind2 === "a" && !f)
@@ -26003,49 +26870,67 @@ var __classPrivateFieldSet3 = function(receiver, state, value, kind2, f) {
     throw new TypeError("Cannot write private member to an object whose class did not declare it");
   return kind2 === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
 };
+var __classPrivateFieldGet5 = function(receiver, state, kind2, f) {
+  if (kind2 === "a" && !f)
+    throw new TypeError("Private accessor was defined without a getter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot read private member from an object whose class did not declare it");
+  return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
 var _ChatCompletionStream_instances;
+var _ChatCompletionStream_params;
+var _ChatCompletionStream_choiceEventStates;
 var _ChatCompletionStream_currentChatCompletionSnapshot;
 var _ChatCompletionStream_beginRequest;
+var _ChatCompletionStream_getChoiceEventState;
 var _ChatCompletionStream_addChunk;
+var _ChatCompletionStream_emitToolCallDoneEvent;
+var _ChatCompletionStream_emitContentDoneEvents;
 var _ChatCompletionStream_endRequest;
+var _ChatCompletionStream_getAutoParseableResponseFormat;
 var _ChatCompletionStream_accumulateChatCompletion;
 
 class ChatCompletionStream extends AbstractChatCompletionRunner {
-  constructor() {
-    super(...arguments);
+  constructor(params) {
+    super();
     _ChatCompletionStream_instances.add(this);
+    _ChatCompletionStream_params.set(this, undefined);
+    _ChatCompletionStream_choiceEventStates.set(this, undefined);
     _ChatCompletionStream_currentChatCompletionSnapshot.set(this, undefined);
+    __classPrivateFieldSet4(this, _ChatCompletionStream_params, params, "f");
+    __classPrivateFieldSet4(this, _ChatCompletionStream_choiceEventStates, [], "f");
   }
   get currentChatCompletionSnapshot() {
-    return __classPrivateFieldGet3(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f");
+    return __classPrivateFieldGet5(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f");
   }
   static fromReadableStream(stream) {
-    const runner = new ChatCompletionStream;
+    const runner = new ChatCompletionStream(null);
     runner._run(() => runner._fromReadableStream(stream));
     return runner;
   }
-  static createChatCompletion(completions, params, options) {
-    const runner = new ChatCompletionStream;
-    runner._run(() => runner._runChatCompletion(completions, { ...params, stream: true }, { ...options, headers: { ...options?.headers, "X-Stainless-Helper-Method": "stream" } }));
+  static createChatCompletion(client, params, options) {
+    const runner = new ChatCompletionStream(params);
+    runner._run(() => runner._runChatCompletion(client, { ...params, stream: true }, { ...options, headers: { ...options?.headers, "X-Stainless-Helper-Method": "stream" } }));
     return runner;
   }
-  async _createChatCompletion(completions, params, options) {
+  async _createChatCompletion(client, params, options) {
+    super._createChatCompletion;
     const signal = options?.signal;
     if (signal) {
       if (signal.aborted)
         this.controller.abort();
       signal.addEventListener("abort", () => this.controller.abort());
     }
-    __classPrivateFieldGet3(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_beginRequest).call(this);
-    const stream = await completions.create({ ...params, stream: true }, { ...options, signal: this.controller.signal });
+    __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_beginRequest).call(this);
+    const stream = await client.chat.completions.create({ ...params, stream: true }, { ...options, signal: this.controller.signal });
     this._connected();
     for await (const chunk of stream) {
-      __classPrivateFieldGet3(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_addChunk).call(this, chunk);
+      __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_addChunk).call(this, chunk);
     }
     if (stream.controller.signal?.aborted) {
       throw new APIUserAbortError;
     }
-    return this._addChatCompletion(__classPrivateFieldGet3(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
+    return this._addChatCompletion(__classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
   }
   async _fromReadableStream(readableStream, options) {
     const signal = options?.signal;
@@ -26054,52 +26939,176 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
         this.controller.abort();
       signal.addEventListener("abort", () => this.controller.abort());
     }
-    __classPrivateFieldGet3(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_beginRequest).call(this);
+    __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_beginRequest).call(this);
     this._connected();
     const stream = Stream.fromReadableStream(readableStream, this.controller);
     let chatId;
     for await (const chunk of stream) {
       if (chatId && chatId !== chunk.id) {
-        this._addChatCompletion(__classPrivateFieldGet3(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
+        this._addChatCompletion(__classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
       }
-      __classPrivateFieldGet3(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_addChunk).call(this, chunk);
+      __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_addChunk).call(this, chunk);
       chatId = chunk.id;
     }
     if (stream.controller.signal?.aborted) {
       throw new APIUserAbortError;
     }
-    return this._addChatCompletion(__classPrivateFieldGet3(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
+    return this._addChatCompletion(__classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_endRequest).call(this));
   }
-  [(_ChatCompletionStream_currentChatCompletionSnapshot = new WeakMap, _ChatCompletionStream_instances = new WeakSet, _ChatCompletionStream_beginRequest = function _ChatCompletionStream_beginRequest() {
+  [(_ChatCompletionStream_params = new WeakMap, _ChatCompletionStream_choiceEventStates = new WeakMap, _ChatCompletionStream_currentChatCompletionSnapshot = new WeakMap, _ChatCompletionStream_instances = new WeakSet, _ChatCompletionStream_beginRequest = function _ChatCompletionStream_beginRequest() {
     if (this.ended)
       return;
-    __classPrivateFieldSet3(this, _ChatCompletionStream_currentChatCompletionSnapshot, undefined, "f");
+    __classPrivateFieldSet4(this, _ChatCompletionStream_currentChatCompletionSnapshot, undefined, "f");
+  }, _ChatCompletionStream_getChoiceEventState = function _ChatCompletionStream_getChoiceEventState(choice) {
+    let state = __classPrivateFieldGet5(this, _ChatCompletionStream_choiceEventStates, "f")[choice.index];
+    if (state) {
+      return state;
+    }
+    state = {
+      content_done: false,
+      refusal_done: false,
+      logprobs_content_done: false,
+      logprobs_refusal_done: false,
+      done_tool_calls: new Set,
+      current_tool_call_index: null
+    };
+    __classPrivateFieldGet5(this, _ChatCompletionStream_choiceEventStates, "f")[choice.index] = state;
+    return state;
   }, _ChatCompletionStream_addChunk = function _ChatCompletionStream_addChunk(chunk) {
     if (this.ended)
       return;
-    const completion = __classPrivateFieldGet3(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_accumulateChatCompletion).call(this, chunk);
+    const completion = __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_accumulateChatCompletion).call(this, chunk);
     this._emit("chunk", chunk, completion);
-    const delta = chunk.choices[0]?.delta?.content;
-    const snapshot = completion.choices[0]?.message;
-    if (delta != null && snapshot?.role === "assistant" && snapshot?.content) {
-      this._emit("content", delta, snapshot.content);
+    for (const choice of chunk.choices) {
+      const choiceSnapshot = completion.choices[choice.index];
+      if (choice.delta.content != null && choiceSnapshot.message?.role === "assistant" && choiceSnapshot.message?.content) {
+        this._emit("content", choice.delta.content, choiceSnapshot.message.content);
+        this._emit("content.delta", {
+          delta: choice.delta.content,
+          snapshot: choiceSnapshot.message.content,
+          parsed: choiceSnapshot.message.parsed
+        });
+      }
+      if (choice.delta.refusal != null && choiceSnapshot.message?.role === "assistant" && choiceSnapshot.message?.refusal) {
+        this._emit("refusal.delta", {
+          delta: choice.delta.refusal,
+          snapshot: choiceSnapshot.message.refusal
+        });
+      }
+      if (choice.logprobs?.content != null && choiceSnapshot.message?.role === "assistant") {
+        this._emit("logprobs.content.delta", {
+          content: choice.logprobs?.content,
+          snapshot: choiceSnapshot.logprobs?.content ?? []
+        });
+      }
+      if (choice.logprobs?.refusal != null && choiceSnapshot.message?.role === "assistant") {
+        this._emit("logprobs.refusal.delta", {
+          refusal: choice.logprobs?.refusal,
+          snapshot: choiceSnapshot.logprobs?.refusal ?? []
+        });
+      }
+      const state = __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_getChoiceEventState).call(this, choiceSnapshot);
+      if (choiceSnapshot.finish_reason) {
+        __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_emitContentDoneEvents).call(this, choiceSnapshot);
+        if (state.current_tool_call_index != null) {
+          __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_emitToolCallDoneEvent).call(this, choiceSnapshot, state.current_tool_call_index);
+        }
+      }
+      for (const toolCall of choice.delta.tool_calls ?? []) {
+        if (state.current_tool_call_index !== toolCall.index) {
+          __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_emitContentDoneEvents).call(this, choiceSnapshot);
+          if (state.current_tool_call_index != null) {
+            __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_emitToolCallDoneEvent).call(this, choiceSnapshot, state.current_tool_call_index);
+          }
+        }
+        state.current_tool_call_index = toolCall.index;
+      }
+      for (const toolCallDelta of choice.delta.tool_calls ?? []) {
+        const toolCallSnapshot = choiceSnapshot.message.tool_calls?.[toolCallDelta.index];
+        if (!toolCallSnapshot?.type) {
+          continue;
+        }
+        if (toolCallSnapshot?.type === "function") {
+          this._emit("tool_calls.function.arguments.delta", {
+            name: toolCallSnapshot.function?.name,
+            index: toolCallDelta.index,
+            arguments: toolCallSnapshot.function.arguments,
+            parsed_arguments: toolCallSnapshot.function.parsed_arguments,
+            arguments_delta: toolCallDelta.function?.arguments ?? ""
+          });
+        } else {
+          assertNever(toolCallSnapshot?.type);
+        }
+      }
+    }
+  }, _ChatCompletionStream_emitToolCallDoneEvent = function _ChatCompletionStream_emitToolCallDoneEvent(choiceSnapshot, toolCallIndex) {
+    const state = __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_getChoiceEventState).call(this, choiceSnapshot);
+    if (state.done_tool_calls.has(toolCallIndex)) {
+      return;
+    }
+    const toolCallSnapshot = choiceSnapshot.message.tool_calls?.[toolCallIndex];
+    if (!toolCallSnapshot) {
+      throw new Error("no tool call snapshot");
+    }
+    if (!toolCallSnapshot.type) {
+      throw new Error("tool call snapshot missing `type`");
+    }
+    if (toolCallSnapshot.type === "function") {
+      const inputTool = __classPrivateFieldGet5(this, _ChatCompletionStream_params, "f")?.tools?.find((tool) => tool.type === "function" && tool.function.name === toolCallSnapshot.function.name);
+      this._emit("tool_calls.function.arguments.done", {
+        name: toolCallSnapshot.function.name,
+        index: toolCallIndex,
+        arguments: toolCallSnapshot.function.arguments,
+        parsed_arguments: isAutoParsableTool(inputTool) ? inputTool.$parseRaw(toolCallSnapshot.function.arguments) : inputTool?.function.strict ? JSON.parse(toolCallSnapshot.function.arguments) : null
+      });
+    } else {
+      assertNever(toolCallSnapshot.type);
+    }
+  }, _ChatCompletionStream_emitContentDoneEvents = function _ChatCompletionStream_emitContentDoneEvents(choiceSnapshot) {
+    const state = __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_getChoiceEventState).call(this, choiceSnapshot);
+    if (choiceSnapshot.message.content && !state.content_done) {
+      state.content_done = true;
+      const responseFormat = __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_getAutoParseableResponseFormat).call(this);
+      this._emit("content.done", {
+        content: choiceSnapshot.message.content,
+        parsed: responseFormat ? responseFormat.$parseRaw(choiceSnapshot.message.content) : null
+      });
+    }
+    if (choiceSnapshot.message.refusal && !state.refusal_done) {
+      state.refusal_done = true;
+      this._emit("refusal.done", { refusal: choiceSnapshot.message.refusal });
+    }
+    if (choiceSnapshot.logprobs?.content && !state.logprobs_content_done) {
+      state.logprobs_content_done = true;
+      this._emit("logprobs.content.done", { content: choiceSnapshot.logprobs.content });
+    }
+    if (choiceSnapshot.logprobs?.refusal && !state.logprobs_refusal_done) {
+      state.logprobs_refusal_done = true;
+      this._emit("logprobs.refusal.done", { refusal: choiceSnapshot.logprobs.refusal });
     }
   }, _ChatCompletionStream_endRequest = function _ChatCompletionStream_endRequest() {
     if (this.ended) {
       throw new OpenAIError(`stream has ended, this shouldn't happen`);
     }
-    const snapshot = __classPrivateFieldGet3(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f");
+    const snapshot = __classPrivateFieldGet5(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f");
     if (!snapshot) {
       throw new OpenAIError(`request ended without sending any chunks`);
     }
-    __classPrivateFieldSet3(this, _ChatCompletionStream_currentChatCompletionSnapshot, undefined, "f");
-    return finalizeChatCompletion(snapshot);
+    __classPrivateFieldSet4(this, _ChatCompletionStream_currentChatCompletionSnapshot, undefined, "f");
+    __classPrivateFieldSet4(this, _ChatCompletionStream_choiceEventStates, [], "f");
+    return finalizeChatCompletion(snapshot, __classPrivateFieldGet5(this, _ChatCompletionStream_params, "f"));
+  }, _ChatCompletionStream_getAutoParseableResponseFormat = function _ChatCompletionStream_getAutoParseableResponseFormat() {
+    const responseFormat = __classPrivateFieldGet5(this, _ChatCompletionStream_params, "f")?.response_format;
+    if (isAutoParsableResponseFormat(responseFormat)) {
+      return responseFormat;
+    }
+    return null;
   }, _ChatCompletionStream_accumulateChatCompletion = function _ChatCompletionStream_accumulateChatCompletion(chunk) {
-    var _a, _b, _c;
-    let snapshot = __classPrivateFieldGet3(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f");
+    var _a, _b, _c, _d;
+    let snapshot = __classPrivateFieldGet5(this, _ChatCompletionStream_currentChatCompletionSnapshot, "f");
     const { choices, ...rest } = chunk;
     if (!snapshot) {
-      snapshot = __classPrivateFieldSet3(this, _ChatCompletionStream_currentChatCompletionSnapshot, {
+      snapshot = __classPrivateFieldSet4(this, _ChatCompletionStream_currentChatCompletionSnapshot, {
         ...rest,
         choices: []
       }, "f");
@@ -26115,23 +27124,39 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
         if (!choice.logprobs) {
           choice.logprobs = Object.assign({}, logprobs);
         } else {
-          const { content: content2, ...rest3 } = logprobs;
+          const { content: content2, refusal: refusal2, ...rest3 } = logprobs;
+          assertIsEmpty(rest3);
           Object.assign(choice.logprobs, rest3);
           if (content2) {
             (_a = choice.logprobs).content ?? (_a.content = []);
             choice.logprobs.content.push(...content2);
           }
+          if (refusal2) {
+            (_b = choice.logprobs).refusal ?? (_b.refusal = []);
+            choice.logprobs.refusal.push(...refusal2);
+          }
         }
       }
-      if (finish_reason)
+      if (finish_reason) {
         choice.finish_reason = finish_reason;
+        if (__classPrivateFieldGet5(this, _ChatCompletionStream_params, "f") && hasAutoParseableInput(__classPrivateFieldGet5(this, _ChatCompletionStream_params, "f"))) {
+          if (finish_reason === "length") {
+            throw new LengthFinishReasonError;
+          }
+          if (finish_reason === "content_filter") {
+            throw new ContentFilterFinishReasonError;
+          }
+        }
+      }
       Object.assign(choice, other);
       if (!delta)
         continue;
-      const { content, function_call, role, tool_calls, ...rest2 } = delta;
+      const { content, refusal, function_call, role, tool_calls, ...rest2 } = delta;
+      assertIsEmpty(rest2);
       Object.assign(choice.message, rest2);
-      if (content)
-        choice.message.content = (choice.message.content || "") + content;
+      if (refusal) {
+        choice.message.refusal = (choice.message.refusal || "") + refusal;
+      }
       if (role)
         choice.message.role = role;
       if (function_call) {
@@ -26141,27 +27166,37 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
           if (function_call.name)
             choice.message.function_call.name = function_call.name;
           if (function_call.arguments) {
-            (_b = choice.message.function_call).arguments ?? (_b.arguments = "");
+            (_c = choice.message.function_call).arguments ?? (_c.arguments = "");
             choice.message.function_call.arguments += function_call.arguments;
           }
+        }
+      }
+      if (content) {
+        choice.message.content = (choice.message.content || "") + content;
+        if (!choice.message.refusal && __classPrivateFieldGet5(this, _ChatCompletionStream_instances, "m", _ChatCompletionStream_getAutoParseableResponseFormat).call(this)) {
+          choice.message.parsed = partialParse(choice.message.content);
         }
       }
       if (tool_calls) {
         if (!choice.message.tool_calls)
           choice.message.tool_calls = [];
         for (const { index: index2, id, type, function: fn, ...rest3 } of tool_calls) {
-          const tool_call = (_c = choice.message.tool_calls)[index2] ?? (_c[index2] = {});
+          const tool_call = (_d = choice.message.tool_calls)[index2] ?? (_d[index2] = {});
           Object.assign(tool_call, rest3);
           if (id)
             tool_call.id = id;
           if (type)
             tool_call.type = type;
           if (fn)
-            tool_call.function ?? (tool_call.function = { arguments: "" });
+            tool_call.function ?? (tool_call.function = { name: fn.name ?? "", arguments: "" });
           if (fn?.name)
             tool_call.function.name = fn.name;
-          if (fn?.arguments)
+          if (fn?.arguments) {
             tool_call.function.arguments += fn.arguments;
+            if (shouldParseToolCall(__classPrivateFieldGet5(this, _ChatCompletionStream_params, "f"), tool_call)) {
+              tool_call.function.parsed_arguments = partialParse(tool_call.function.arguments);
+            }
+          }
         }
       }
     }
@@ -26221,50 +27256,152 @@ class ChatCompletionStream extends AbstractChatCompletionRunner {
     return stream.toReadableStream();
   }
 }
+function finalizeChatCompletion(snapshot, params) {
+  const { id, choices, created, model, system_fingerprint, ...rest } = snapshot;
+  const completion = {
+    ...rest,
+    id,
+    choices: choices.map(({ message, finish_reason, index, logprobs, ...choiceRest }) => {
+      if (!finish_reason) {
+        throw new OpenAIError(`missing finish_reason for choice ${index}`);
+      }
+      const { content = null, function_call, tool_calls, ...messageRest } = message;
+      const role = message.role;
+      if (!role) {
+        throw new OpenAIError(`missing role for choice ${index}`);
+      }
+      if (function_call) {
+        const { arguments: args, name } = function_call;
+        if (args == null) {
+          throw new OpenAIError(`missing function_call.arguments for choice ${index}`);
+        }
+        if (!name) {
+          throw new OpenAIError(`missing function_call.name for choice ${index}`);
+        }
+        return {
+          ...choiceRest,
+          message: {
+            content,
+            function_call: { arguments: args, name },
+            role,
+            refusal: message.refusal ?? null
+          },
+          finish_reason,
+          index,
+          logprobs
+        };
+      }
+      if (tool_calls) {
+        return {
+          ...choiceRest,
+          index,
+          finish_reason,
+          logprobs,
+          message: {
+            ...messageRest,
+            role,
+            content,
+            refusal: message.refusal ?? null,
+            tool_calls: tool_calls.map((tool_call, i) => {
+              const { function: fn, type, id: id2, ...toolRest } = tool_call;
+              const { arguments: args, name, ...fnRest } = fn || {};
+              if (id2 == null) {
+                throw new OpenAIError(`missing choices[${index}].tool_calls[${i}].id
+${str(snapshot)}`);
+              }
+              if (type == null) {
+                throw new OpenAIError(`missing choices[${index}].tool_calls[${i}].type
+${str(snapshot)}`);
+              }
+              if (name == null) {
+                throw new OpenAIError(`missing choices[${index}].tool_calls[${i}].function.name
+${str(snapshot)}`);
+              }
+              if (args == null) {
+                throw new OpenAIError(`missing choices[${index}].tool_calls[${i}].function.arguments
+${str(snapshot)}`);
+              }
+              return { ...toolRest, id: id2, type, function: { ...fnRest, name, arguments: args } };
+            })
+          }
+        };
+      }
+      return {
+        ...choiceRest,
+        message: { ...messageRest, content, role, refusal: message.refusal ?? null },
+        finish_reason,
+        index,
+        logprobs
+      };
+    }),
+    created,
+    model,
+    object: "chat.completion",
+    ...system_fingerprint ? { system_fingerprint } : {}
+  };
+  return maybeParseChatCompletion(completion, params);
+}
+function str(x) {
+  return JSON.stringify(x);
+}
+function assertIsEmpty(obj) {
+  return;
+}
+function assertNever(_x) {}
 
 // node_modules/openai/lib/ChatCompletionStreamingRunner.mjs
 class ChatCompletionStreamingRunner extends ChatCompletionStream {
   static fromReadableStream(stream) {
-    const runner = new ChatCompletionStreamingRunner;
+    const runner = new ChatCompletionStreamingRunner(null);
     runner._run(() => runner._fromReadableStream(stream));
     return runner;
   }
-  static runFunctions(completions, params, options) {
-    const runner = new ChatCompletionStreamingRunner;
+  static runFunctions(client, params, options) {
+    const runner = new ChatCompletionStreamingRunner(null);
     const opts = {
       ...options,
       headers: { ...options?.headers, "X-Stainless-Helper-Method": "runFunctions" }
     };
-    runner._run(() => runner._runFunctions(completions, params, opts));
+    runner._run(() => runner._runFunctions(client, params, opts));
     return runner;
   }
-  static runTools(completions, params, options) {
-    const runner = new ChatCompletionStreamingRunner;
+  static runTools(client, params, options) {
+    const runner = new ChatCompletionStreamingRunner(params);
     const opts = {
       ...options,
       headers: { ...options?.headers, "X-Stainless-Helper-Method": "runTools" }
     };
-    runner._run(() => runner._runTools(completions, params, opts));
+    runner._run(() => runner._runTools(client, params, opts));
     return runner;
   }
 }
 
 // node_modules/openai/resources/beta/chat/completions.mjs
 class Completions2 extends APIResource {
+  parse(body, options) {
+    validateInputTools(body.tools);
+    return this._client.chat.completions.create(body, {
+      ...options,
+      headers: {
+        ...options?.headers,
+        "X-Stainless-Helper-Method": "beta.chat.completions.parse"
+      }
+    })._thenUnwrap((completion) => parseChatCompletion(completion, body));
+  }
   runFunctions(body, options) {
     if (body.stream) {
-      return ChatCompletionStreamingRunner.runFunctions(this._client.chat.completions, body, options);
+      return ChatCompletionStreamingRunner.runFunctions(this._client, body, options);
     }
-    return ChatCompletionRunner.runFunctions(this._client.chat.completions, body, options);
+    return ChatCompletionRunner.runFunctions(this._client, body, options);
   }
   runTools(body, options) {
     if (body.stream) {
-      return ChatCompletionStreamingRunner.runTools(this._client.chat.completions, body, options);
+      return ChatCompletionStreamingRunner.runTools(this._client, body, options);
     }
-    return ChatCompletionRunner.runTools(this._client.chat.completions, body, options);
+    return ChatCompletionRunner.runTools(this._client, body, options);
   }
   stream(body, options) {
-    return ChatCompletionStream.createChatCompletion(this._client.chat.completions, body, options);
+    return ChatCompletionStream.createChatCompletion(this._client, body, options);
   }
 }
 
@@ -26279,225 +27416,41 @@ class Chat2 extends APIResource {
   Chat3.Completions = Completions2;
 })(Chat2 || (Chat2 = {}));
 
-// node_modules/openai/lib/AbstractAssistantStreamRunner.mjs
-var __classPrivateFieldSet4 = function(receiver, state, value, kind2, f) {
-  if (kind2 === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind2 === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind2 === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet4 = function(receiver, state, kind2, f) {
-  if (kind2 === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _AbstractAssistantStreamRunner_connectedPromise;
-var _AbstractAssistantStreamRunner_resolveConnectedPromise;
-var _AbstractAssistantStreamRunner_rejectConnectedPromise;
-var _AbstractAssistantStreamRunner_endPromise;
-var _AbstractAssistantStreamRunner_resolveEndPromise;
-var _AbstractAssistantStreamRunner_rejectEndPromise;
-var _AbstractAssistantStreamRunner_listeners;
-var _AbstractAssistantStreamRunner_ended;
-var _AbstractAssistantStreamRunner_errored;
-var _AbstractAssistantStreamRunner_aborted;
-var _AbstractAssistantStreamRunner_catchingPromiseCreated;
-var _AbstractAssistantStreamRunner_handleError;
-
-class AbstractAssistantStreamRunner {
-  constructor() {
-    this.controller = new AbortController;
-    _AbstractAssistantStreamRunner_connectedPromise.set(this, undefined);
-    _AbstractAssistantStreamRunner_resolveConnectedPromise.set(this, () => {
+// node_modules/openai/resources/beta/realtime/sessions.mjs
+class Sessions extends APIResource {
+  create(body, options) {
+    return this._client.post("/realtime/sessions", {
+      body,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
-    _AbstractAssistantStreamRunner_rejectConnectedPromise.set(this, () => {
-    });
-    _AbstractAssistantStreamRunner_endPromise.set(this, undefined);
-    _AbstractAssistantStreamRunner_resolveEndPromise.set(this, () => {
-    });
-    _AbstractAssistantStreamRunner_rejectEndPromise.set(this, () => {
-    });
-    _AbstractAssistantStreamRunner_listeners.set(this, {});
-    _AbstractAssistantStreamRunner_ended.set(this, false);
-    _AbstractAssistantStreamRunner_errored.set(this, false);
-    _AbstractAssistantStreamRunner_aborted.set(this, false);
-    _AbstractAssistantStreamRunner_catchingPromiseCreated.set(this, false);
-    _AbstractAssistantStreamRunner_handleError.set(this, (error7) => {
-      __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_errored, true, "f");
-      if (error7 instanceof Error && error7.name === "AbortError") {
-        error7 = new APIUserAbortError;
-      }
-      if (error7 instanceof APIUserAbortError) {
-        __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_aborted, true, "f");
-        return this._emit("abort", error7);
-      }
-      if (error7 instanceof OpenAIError) {
-        return this._emit("error", error7);
-      }
-      if (error7 instanceof Error) {
-        const openAIError = new OpenAIError(error7.message);
-        openAIError.cause = error7;
-        return this._emit("error", openAIError);
-      }
-      return this._emit("error", new OpenAIError(String(error7)));
-    });
-    __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_connectedPromise, new Promise((resolve, reject) => {
-      __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_resolveConnectedPromise, resolve, "f");
-      __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_rejectConnectedPromise, reject, "f");
-    }), "f");
-    __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_endPromise, new Promise((resolve, reject) => {
-      __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_resolveEndPromise, resolve, "f");
-      __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_rejectEndPromise, reject, "f");
-    }), "f");
-    __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_connectedPromise, "f").catch(() => {
-    });
-    __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_endPromise, "f").catch(() => {
-    });
-  }
-  _run(executor) {
-    setTimeout(() => {
-      executor().then(() => {
-        this._emit("end");
-      }, __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_handleError, "f"));
-    }, 0);
-  }
-  _addRun(run) {
-    return run;
-  }
-  _connected() {
-    if (this.ended)
-      return;
-    __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_resolveConnectedPromise, "f").call(this);
-    this._emit("connect");
-  }
-  get ended() {
-    return __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_ended, "f");
-  }
-  get errored() {
-    return __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_errored, "f");
-  }
-  get aborted() {
-    return __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_aborted, "f");
-  }
-  abort() {
-    this.controller.abort();
-  }
-  on(event, listener) {
-    const listeners = __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_listeners, "f")[event] || (__classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_listeners, "f")[event] = []);
-    listeners.push({ listener });
-    return this;
-  }
-  off(event, listener) {
-    const listeners = __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_listeners, "f")[event];
-    if (!listeners)
-      return this;
-    const index = listeners.findIndex((l) => l.listener === listener);
-    if (index >= 0)
-      listeners.splice(index, 1);
-    return this;
-  }
-  once(event, listener) {
-    const listeners = __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_listeners, "f")[event] || (__classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_listeners, "f")[event] = []);
-    listeners.push({ listener, once: true });
-    return this;
-  }
-  emitted(event) {
-    return new Promise((resolve, reject) => {
-      __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_catchingPromiseCreated, true, "f");
-      if (event !== "error")
-        this.once("error", reject);
-      this.once(event, resolve);
-    });
-  }
-  async done() {
-    __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_catchingPromiseCreated, true, "f");
-    await __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_endPromise, "f");
-  }
-  _emit(event, ...args) {
-    if (__classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_ended, "f")) {
-      return;
-    }
-    if (event === "end") {
-      __classPrivateFieldSet4(this, _AbstractAssistantStreamRunner_ended, true, "f");
-      __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_resolveEndPromise, "f").call(this);
-    }
-    const listeners = __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_listeners, "f")[event];
-    if (listeners) {
-      __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_listeners, "f")[event] = listeners.filter((l) => !l.once);
-      listeners.forEach(({ listener }) => listener(...args));
-    }
-    if (event === "abort") {
-      const error7 = args[0];
-      if (!__classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error7);
-      }
-      __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_rejectConnectedPromise, "f").call(this, error7);
-      __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_rejectEndPromise, "f").call(this, error7);
-      this._emit("end");
-      return;
-    }
-    if (event === "error") {
-      const error7 = args[0];
-      if (!__classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_catchingPromiseCreated, "f") && !listeners?.length) {
-        Promise.reject(error7);
-      }
-      __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_rejectConnectedPromise, "f").call(this, error7);
-      __classPrivateFieldGet4(this, _AbstractAssistantStreamRunner_rejectEndPromise, "f").call(this, error7);
-      this._emit("end");
-    }
-  }
-  async _threadAssistantStream(body, thread, options) {
-    return await this._createThreadAssistantStream(thread, body, options);
-  }
-  async _runAssistantStream(threadId, runs, params, options) {
-    return await this._createAssistantStream(runs, threadId, params, options);
-  }
-  async _runToolAssistantStream(threadId, runId, runs, params, options) {
-    return await this._createToolAssistantStream(runs, threadId, runId, params, options);
-  }
-  async _createThreadAssistantStream(thread, body, options) {
-    const signal = options?.signal;
-    if (signal) {
-      if (signal.aborted)
-        this.controller.abort();
-      signal.addEventListener("abort", () => this.controller.abort());
-    }
-    const runResult = await thread.createAndRun({ ...body, stream: false }, { ...options, signal: this.controller.signal });
-    this._connected();
-    return this._addRun(runResult);
-  }
-  async _createToolAssistantStream(run, threadId, runId, params, options) {
-    const signal = options?.signal;
-    if (signal) {
-      if (signal.aborted)
-        this.controller.abort();
-      signal.addEventListener("abort", () => this.controller.abort());
-    }
-    const runResult = await run.submitToolOutputs(threadId, runId, { ...params, stream: false }, { ...options, signal: this.controller.signal });
-    this._connected();
-    return this._addRun(runResult);
-  }
-  async _createAssistantStream(run, threadId, params, options) {
-    const signal = options?.signal;
-    if (signal) {
-      if (signal.aborted)
-        this.controller.abort();
-      signal.addEventListener("abort", () => this.controller.abort());
-    }
-    const runResult = await run.create(threadId, { ...params, stream: false }, { ...options, signal: this.controller.signal });
-    this._connected();
-    return this._addRun(runResult);
   }
 }
-_AbstractAssistantStreamRunner_connectedPromise = new WeakMap, _AbstractAssistantStreamRunner_resolveConnectedPromise = new WeakMap, _AbstractAssistantStreamRunner_rejectConnectedPromise = new WeakMap, _AbstractAssistantStreamRunner_endPromise = new WeakMap, _AbstractAssistantStreamRunner_resolveEndPromise = new WeakMap, _AbstractAssistantStreamRunner_rejectEndPromise = new WeakMap, _AbstractAssistantStreamRunner_listeners = new WeakMap, _AbstractAssistantStreamRunner_ended = new WeakMap, _AbstractAssistantStreamRunner_errored = new WeakMap, _AbstractAssistantStreamRunner_aborted = new WeakMap, _AbstractAssistantStreamRunner_catchingPromiseCreated = new WeakMap, _AbstractAssistantStreamRunner_handleError = new WeakMap;
+
+// node_modules/openai/resources/beta/realtime/transcription-sessions.mjs
+class TranscriptionSessions extends APIResource {
+  create(body, options) {
+    return this._client.post("/realtime/transcription_sessions", {
+      body,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+}
+
+// node_modules/openai/resources/beta/realtime/realtime.mjs
+class Realtime extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.sessions = new Sessions(this._client);
+    this.transcriptionSessions = new TranscriptionSessions(this._client);
+  }
+}
+Realtime.Sessions = Sessions;
+Realtime.TranscriptionSessions = TranscriptionSessions;
 
 // node_modules/openai/lib/AssistantStream.mjs
-var __classPrivateFieldGet5 = function(receiver, state, kind2, f) {
+var __classPrivateFieldGet6 = function(receiver, state, kind2, f) {
   if (kind2 === "a" && !f)
     throw new TypeError("Private accessor was defined without a getter");
   if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -26536,7 +27489,7 @@ var _AssistantStream_accumulateMessage;
 var _AssistantStream_accumulateContent;
 var _AssistantStream_handleRun;
 
-class AssistantStream extends AbstractAssistantStreamRunner {
+class AssistantStream extends EventStream {
   constructor() {
     super(...arguments);
     _AssistantStream_instances.add(this);
@@ -26618,20 +27571,20 @@ class AssistantStream extends AbstractAssistantStreamRunner {
     this._connected();
     const stream = Stream.fromReadableStream(readableStream, this.controller);
     for await (const event of stream) {
-      __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_handleEvent).call(this, event);
+      __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_addEvent).call(this, event);
     }
     if (stream.controller.signal?.aborted) {
       throw new APIUserAbortError;
     }
-    return this._addRun(__classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
+    return this._addRun(__classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
   }
   toReadableStream() {
     const stream = new Stream(this[Symbol.asyncIterator].bind(this), this.controller);
     return stream.toReadableStream();
   }
-  static createToolAssistantStream(threadId, runId, runs, body, options) {
+  static createToolAssistantStream(threadId, runId, runs, params, options) {
     const runner = new AssistantStream;
-    runner._run(() => runner._runToolAssistantStream(threadId, runId, runs, body, {
+    runner._run(() => runner._runToolAssistantStream(threadId, runId, runs, params, {
       ...options,
       headers: { ...options?.headers, "X-Stainless-Helper-Method": "stream" }
     }));
@@ -26651,16 +27604,16 @@ class AssistantStream extends AbstractAssistantStreamRunner {
     });
     this._connected();
     for await (const event of stream) {
-      __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_addEvent).call(this, event);
+      __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_addEvent).call(this, event);
     }
     if (stream.controller.signal?.aborted) {
       throw new APIUserAbortError;
     }
-    return this._addRun(__classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
+    return this._addRun(__classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
   }
-  static createThreadAssistantStream(body, thread, options) {
+  static createThreadAssistantStream(params, thread, options) {
     const runner = new AssistantStream;
-    runner._run(() => runner._threadAssistantStream(body, thread, {
+    runner._run(() => runner._threadAssistantStream(params, thread, {
       ...options,
       headers: { ...options?.headers, "X-Stainless-Helper-Method": "stream" }
     }));
@@ -26675,30 +27628,30 @@ class AssistantStream extends AbstractAssistantStreamRunner {
     return runner;
   }
   currentEvent() {
-    return __classPrivateFieldGet5(this, _AssistantStream_currentEvent, "f");
+    return __classPrivateFieldGet6(this, _AssistantStream_currentEvent, "f");
   }
   currentRun() {
-    return __classPrivateFieldGet5(this, _AssistantStream_currentRunSnapshot, "f");
+    return __classPrivateFieldGet6(this, _AssistantStream_currentRunSnapshot, "f");
   }
   currentMessageSnapshot() {
-    return __classPrivateFieldGet5(this, _AssistantStream_messageSnapshot, "f");
+    return __classPrivateFieldGet6(this, _AssistantStream_messageSnapshot, "f");
   }
   currentRunStepSnapshot() {
-    return __classPrivateFieldGet5(this, _AssistantStream_currentRunStepSnapshot, "f");
+    return __classPrivateFieldGet6(this, _AssistantStream_currentRunStepSnapshot, "f");
   }
   async finalRunSteps() {
     await this.done();
-    return Object.values(__classPrivateFieldGet5(this, _AssistantStream_runStepSnapshots, "f"));
+    return Object.values(__classPrivateFieldGet6(this, _AssistantStream_runStepSnapshots, "f"));
   }
   async finalMessages() {
     await this.done();
-    return Object.values(__classPrivateFieldGet5(this, _AssistantStream_messageSnapshots, "f"));
+    return Object.values(__classPrivateFieldGet6(this, _AssistantStream_messageSnapshots, "f"));
   }
   async finalRun() {
     await this.done();
-    if (!__classPrivateFieldGet5(this, _AssistantStream_finalRun, "f"))
+    if (!__classPrivateFieldGet6(this, _AssistantStream_finalRun, "f"))
       throw Error("Final run was not received.");
-    return __classPrivateFieldGet5(this, _AssistantStream_finalRun, "f");
+    return __classPrivateFieldGet6(this, _AssistantStream_finalRun, "f");
   }
   async _createThreadAssistantStream(thread, params, options) {
     const signal = options?.signal;
@@ -26711,12 +27664,12 @@ class AssistantStream extends AbstractAssistantStreamRunner {
     const stream = await thread.createAndRun(body, { ...options, signal: this.controller.signal });
     this._connected();
     for await (const event of stream) {
-      __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_addEvent).call(this, event);
+      __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_addEvent).call(this, event);
     }
     if (stream.controller.signal?.aborted) {
       throw new APIUserAbortError;
     }
-    return this._addRun(__classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
+    return this._addRun(__classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
   }
   async _createAssistantStream(run, threadId, params, options) {
     const signal = options?.signal;
@@ -26729,12 +27682,12 @@ class AssistantStream extends AbstractAssistantStreamRunner {
     const stream = await run.create(threadId, body, { ...options, signal: this.controller.signal });
     this._connected();
     for await (const event of stream) {
-      __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_addEvent).call(this, event);
+      __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_addEvent).call(this, event);
     }
     if (stream.controller.signal?.aborted) {
       throw new APIUserAbortError;
     }
-    return this._addRun(__classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
+    return this._addRun(__classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_endRequest).call(this));
   }
   static accumulateDelta(acc, delta) {
     for (const [key, deltaValue] of Object.entries(delta)) {
@@ -26762,6 +27715,26 @@ class AssistantStream extends AbstractAssistantStreamRunner {
           accValue.push(...deltaValue);
           continue;
         }
+        for (const deltaEntry of deltaValue) {
+          if (!isObj(deltaEntry)) {
+            throw new Error(`Expected array delta entry to be an object but got: ${deltaEntry}`);
+          }
+          const index = deltaEntry["index"];
+          if (index == null) {
+            console.error(deltaEntry);
+            throw new Error("Expected array delta entry to have an `index` property");
+          }
+          if (typeof index !== "number") {
+            throw new Error(`Expected array delta entry \`index\` property to be a number but got ${index}`);
+          }
+          const accEntry = accValue[index];
+          if (accEntry == null) {
+            accValue.push(deltaEntry);
+          } else {
+            accValue[index] = this.accumulateDelta(accEntry, deltaEntry);
+          }
+        }
+        continue;
       } else {
         throw Error(`Unhandled record type: ${key}, deltaValue: ${deltaValue}, accValue: ${accValue}`);
       }
@@ -26769,12 +27742,24 @@ class AssistantStream extends AbstractAssistantStreamRunner {
     }
     return acc;
   }
+  _addRun(run) {
+    return run;
+  }
+  async _threadAssistantStream(params, thread, options) {
+    return await this._createThreadAssistantStream(thread, params, options);
+  }
+  async _runAssistantStream(threadId, runs, params, options) {
+    return await this._createAssistantStream(runs, threadId, params, options);
+  }
+  async _runToolAssistantStream(threadId, runId, runs, params, options) {
+    return await this._createToolAssistantStream(runs, threadId, runId, params, options);
+  }
 }
 _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
   if (this.ended)
     return;
   __classPrivateFieldSet5(this, _AssistantStream_currentEvent, event, "f");
-  __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_handleEvent).call(this, event);
+  __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_handleEvent).call(this, event);
   switch (event.event) {
     case "thread.created":
       break;
@@ -26783,11 +27768,12 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
     case "thread.run.in_progress":
     case "thread.run.requires_action":
     case "thread.run.completed":
+    case "thread.run.incomplete":
     case "thread.run.failed":
     case "thread.run.cancelling":
     case "thread.run.cancelled":
     case "thread.run.expired":
-      __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_handleRun).call(this, event);
+      __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_handleRun).call(this, event);
       break;
     case "thread.run.step.created":
     case "thread.run.step.in_progress":
@@ -26796,29 +27782,31 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
     case "thread.run.step.failed":
     case "thread.run.step.cancelled":
     case "thread.run.step.expired":
-      __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_handleRunStep).call(this, event);
+      __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_handleRunStep).call(this, event);
       break;
     case "thread.message.created":
     case "thread.message.in_progress":
     case "thread.message.delta":
     case "thread.message.completed":
     case "thread.message.incomplete":
-      __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_handleMessage).call(this, event);
+      __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_handleMessage).call(this, event);
       break;
     case "error":
       throw new Error("Encountered an error event in event processing - errors should be processed earlier");
+    default:
+      assertNever2(event);
   }
 }, _AssistantStream_endRequest = function _AssistantStream_endRequest2() {
   if (this.ended) {
     throw new OpenAIError(`stream has ended, this shouldn't happen`);
   }
-  if (!__classPrivateFieldGet5(this, _AssistantStream_finalRun, "f"))
+  if (!__classPrivateFieldGet6(this, _AssistantStream_finalRun, "f"))
     throw Error("Final run has not been received");
-  return __classPrivateFieldGet5(this, _AssistantStream_finalRun, "f");
+  return __classPrivateFieldGet6(this, _AssistantStream_finalRun, "f");
 }, _AssistantStream_handleMessage = function _AssistantStream_handleMessage2(event) {
-  const [accumulatedMessage, newContent] = __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_accumulateMessage).call(this, event, __classPrivateFieldGet5(this, _AssistantStream_messageSnapshot, "f"));
+  const [accumulatedMessage, newContent] = __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_accumulateMessage).call(this, event, __classPrivateFieldGet6(this, _AssistantStream_messageSnapshot, "f"));
   __classPrivateFieldSet5(this, _AssistantStream_messageSnapshot, accumulatedMessage, "f");
-  __classPrivateFieldGet5(this, _AssistantStream_messageSnapshots, "f")[accumulatedMessage.id] = accumulatedMessage;
+  __classPrivateFieldGet6(this, _AssistantStream_messageSnapshots, "f")[accumulatedMessage.id] = accumulatedMessage;
   for (const content of newContent) {
     const snapshotContent = accumulatedMessage.content[content.index];
     if (snapshotContent?.type == "text") {
@@ -26844,14 +27832,14 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
               throw Error("The snapshot associated with this text delta is not text or missing");
             }
           }
-          if (content.index != __classPrivateFieldGet5(this, _AssistantStream_currentContentIndex, "f")) {
-            if (__classPrivateFieldGet5(this, _AssistantStream_currentContent, "f")) {
-              switch (__classPrivateFieldGet5(this, _AssistantStream_currentContent, "f").type) {
+          if (content.index != __classPrivateFieldGet6(this, _AssistantStream_currentContentIndex, "f")) {
+            if (__classPrivateFieldGet6(this, _AssistantStream_currentContent, "f")) {
+              switch (__classPrivateFieldGet6(this, _AssistantStream_currentContent, "f").type) {
                 case "text":
-                  this._emit("textDone", __classPrivateFieldGet5(this, _AssistantStream_currentContent, "f").text, __classPrivateFieldGet5(this, _AssistantStream_messageSnapshot, "f"));
+                  this._emit("textDone", __classPrivateFieldGet6(this, _AssistantStream_currentContent, "f").text, __classPrivateFieldGet6(this, _AssistantStream_messageSnapshot, "f"));
                   break;
                 case "image_file":
-                  this._emit("imageFileDone", __classPrivateFieldGet5(this, _AssistantStream_currentContent, "f").image_file, __classPrivateFieldGet5(this, _AssistantStream_messageSnapshot, "f"));
+                  this._emit("imageFileDone", __classPrivateFieldGet6(this, _AssistantStream_currentContent, "f").image_file, __classPrivateFieldGet6(this, _AssistantStream_messageSnapshot, "f"));
                   break;
               }
             }
@@ -26863,26 +27851,26 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
       break;
     case "thread.message.completed":
     case "thread.message.incomplete":
-      if (__classPrivateFieldGet5(this, _AssistantStream_currentContentIndex, "f") !== undefined) {
-        const currentContent = event.data.content[__classPrivateFieldGet5(this, _AssistantStream_currentContentIndex, "f")];
+      if (__classPrivateFieldGet6(this, _AssistantStream_currentContentIndex, "f") !== undefined) {
+        const currentContent = event.data.content[__classPrivateFieldGet6(this, _AssistantStream_currentContentIndex, "f")];
         if (currentContent) {
           switch (currentContent.type) {
             case "image_file":
-              this._emit("imageFileDone", currentContent.image_file, __classPrivateFieldGet5(this, _AssistantStream_messageSnapshot, "f"));
+              this._emit("imageFileDone", currentContent.image_file, __classPrivateFieldGet6(this, _AssistantStream_messageSnapshot, "f"));
               break;
             case "text":
-              this._emit("textDone", currentContent.text, __classPrivateFieldGet5(this, _AssistantStream_messageSnapshot, "f"));
+              this._emit("textDone", currentContent.text, __classPrivateFieldGet6(this, _AssistantStream_messageSnapshot, "f"));
               break;
           }
         }
       }
-      if (__classPrivateFieldGet5(this, _AssistantStream_messageSnapshot, "f")) {
+      if (__classPrivateFieldGet6(this, _AssistantStream_messageSnapshot, "f")) {
         this._emit("messageDone", event.data);
       }
       __classPrivateFieldSet5(this, _AssistantStream_messageSnapshot, undefined, "f");
   }
 }, _AssistantStream_handleRunStep = function _AssistantStream_handleRunStep2(event) {
-  const accumulatedRunStep = __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_accumulateRunStep).call(this, event);
+  const accumulatedRunStep = __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_accumulateRunStep).call(this, event);
   __classPrivateFieldSet5(this, _AssistantStream_currentRunStepSnapshot, accumulatedRunStep, "f");
   switch (event.event) {
     case "thread.run.step.created":
@@ -26892,16 +27880,16 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
       const delta = event.data.delta;
       if (delta.step_details && delta.step_details.type == "tool_calls" && delta.step_details.tool_calls && accumulatedRunStep.step_details.type == "tool_calls") {
         for (const toolCall of delta.step_details.tool_calls) {
-          if (toolCall.index == __classPrivateFieldGet5(this, _AssistantStream_currentToolCallIndex, "f")) {
+          if (toolCall.index == __classPrivateFieldGet6(this, _AssistantStream_currentToolCallIndex, "f")) {
             this._emit("toolCallDelta", toolCall, accumulatedRunStep.step_details.tool_calls[toolCall.index]);
           } else {
-            if (__classPrivateFieldGet5(this, _AssistantStream_currentToolCall, "f")) {
-              this._emit("toolCallDone", __classPrivateFieldGet5(this, _AssistantStream_currentToolCall, "f"));
+            if (__classPrivateFieldGet6(this, _AssistantStream_currentToolCall, "f")) {
+              this._emit("toolCallDone", __classPrivateFieldGet6(this, _AssistantStream_currentToolCall, "f"));
             }
             __classPrivateFieldSet5(this, _AssistantStream_currentToolCallIndex, toolCall.index, "f");
             __classPrivateFieldSet5(this, _AssistantStream_currentToolCall, accumulatedRunStep.step_details.tool_calls[toolCall.index], "f");
-            if (__classPrivateFieldGet5(this, _AssistantStream_currentToolCall, "f"))
-              this._emit("toolCallCreated", __classPrivateFieldGet5(this, _AssistantStream_currentToolCall, "f"));
+            if (__classPrivateFieldGet6(this, _AssistantStream_currentToolCall, "f"))
+              this._emit("toolCallCreated", __classPrivateFieldGet6(this, _AssistantStream_currentToolCall, "f"));
           }
         }
       }
@@ -26914,8 +27902,8 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
       __classPrivateFieldSet5(this, _AssistantStream_currentRunStepSnapshot, undefined, "f");
       const details = event.data.step_details;
       if (details.type == "tool_calls") {
-        if (__classPrivateFieldGet5(this, _AssistantStream_currentToolCall, "f")) {
-          this._emit("toolCallDone", __classPrivateFieldGet5(this, _AssistantStream_currentToolCall, "f"));
+        if (__classPrivateFieldGet6(this, _AssistantStream_currentToolCall, "f")) {
+          this._emit("toolCallDone", __classPrivateFieldGet6(this, _AssistantStream_currentToolCall, "f"));
           __classPrivateFieldSet5(this, _AssistantStream_currentToolCall, undefined, "f");
         }
       }
@@ -26925,34 +27913,34 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
       break;
   }
 }, _AssistantStream_handleEvent = function _AssistantStream_handleEvent2(event) {
-  __classPrivateFieldGet5(this, _AssistantStream_events, "f").push(event);
+  __classPrivateFieldGet6(this, _AssistantStream_events, "f").push(event);
   this._emit("event", event);
 }, _AssistantStream_accumulateRunStep = function _AssistantStream_accumulateRunStep2(event) {
   switch (event.event) {
     case "thread.run.step.created":
-      __classPrivateFieldGet5(this, _AssistantStream_runStepSnapshots, "f")[event.data.id] = event.data;
+      __classPrivateFieldGet6(this, _AssistantStream_runStepSnapshots, "f")[event.data.id] = event.data;
       return event.data;
     case "thread.run.step.delta":
-      let snapshot = __classPrivateFieldGet5(this, _AssistantStream_runStepSnapshots, "f")[event.data.id];
+      let snapshot = __classPrivateFieldGet6(this, _AssistantStream_runStepSnapshots, "f")[event.data.id];
       if (!snapshot) {
         throw Error("Received a RunStepDelta before creation of a snapshot");
       }
       let data = event.data;
       if (data.delta) {
         const accumulated = AssistantStream.accumulateDelta(snapshot, data.delta);
-        __classPrivateFieldGet5(this, _AssistantStream_runStepSnapshots, "f")[event.data.id] = accumulated;
+        __classPrivateFieldGet6(this, _AssistantStream_runStepSnapshots, "f")[event.data.id] = accumulated;
       }
-      return __classPrivateFieldGet5(this, _AssistantStream_runStepSnapshots, "f")[event.data.id];
+      return __classPrivateFieldGet6(this, _AssistantStream_runStepSnapshots, "f")[event.data.id];
     case "thread.run.step.completed":
     case "thread.run.step.failed":
     case "thread.run.step.cancelled":
     case "thread.run.step.expired":
     case "thread.run.step.in_progress":
-      __classPrivateFieldGet5(this, _AssistantStream_runStepSnapshots, "f")[event.data.id] = event.data;
+      __classPrivateFieldGet6(this, _AssistantStream_runStepSnapshots, "f")[event.data.id] = event.data;
       break;
   }
-  if (__classPrivateFieldGet5(this, _AssistantStream_runStepSnapshots, "f")[event.data.id])
-    return __classPrivateFieldGet5(this, _AssistantStream_runStepSnapshots, "f")[event.data.id];
+  if (__classPrivateFieldGet6(this, _AssistantStream_runStepSnapshots, "f")[event.data.id])
+    return __classPrivateFieldGet6(this, _AssistantStream_runStepSnapshots, "f")[event.data.id];
   throw new Error("No snapshot available");
 }, _AssistantStream_accumulateMessage = function _AssistantStream_accumulateMessage2(event, snapshot) {
   let newContent = [];
@@ -26968,7 +27956,7 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
         for (const contentElement of data.delta.content) {
           if (contentElement.index in snapshot.content) {
             let currentContent = snapshot.content[contentElement.index];
-            snapshot.content[contentElement.index] = __classPrivateFieldGet5(this, _AssistantStream_instances, "m", _AssistantStream_accumulateContent).call(this, contentElement, currentContent);
+            snapshot.content[contentElement.index] = __classPrivateFieldGet6(this, _AssistantStream_instances, "m", _AssistantStream_accumulateContent).call(this, contentElement, currentContent);
           } else {
             snapshot.content[contentElement.index] = contentElement;
             newContent.push(contentElement);
@@ -27003,8 +27991,8 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
     case "thread.run.completed":
     case "thread.run.expired":
       __classPrivateFieldSet5(this, _AssistantStream_finalRun, event.data, "f");
-      if (__classPrivateFieldGet5(this, _AssistantStream_currentToolCall, "f")) {
-        this._emit("toolCallDone", __classPrivateFieldGet5(this, _AssistantStream_currentToolCall, "f"));
+      if (__classPrivateFieldGet6(this, _AssistantStream_currentToolCall, "f")) {
+        this._emit("toolCallDone", __classPrivateFieldGet6(this, _AssistantStream_currentToolCall, "f"));
         __classPrivateFieldSet5(this, _AssistantStream_currentToolCall, undefined, "f");
       }
       break;
@@ -27012,57 +28000,28 @@ _AssistantStream_addEvent = function _AssistantStream_addEvent2(event) {
       break;
   }
 };
+function assertNever2(_x) {}
 
-// node_modules/openai/resources/beta/threads/messages/files.mjs
-class Files2 extends APIResource {
-  retrieve(threadId, messageId, fileId, options) {
-    return this._client.get(`/threads/${threadId}/messages/${messageId}/files/${fileId}`, {
-      ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
-    });
-  }
-  list(threadId, messageId, query = {}, options) {
-    if (isRequestOptions(query)) {
-      return this.list(threadId, messageId, {}, query);
-    }
-    return this._client.getAPIList(`/threads/${threadId}/messages/${messageId}/files`, MessageFilesPage, {
-      query,
-      ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
-    });
-  }
-}
-
-class MessageFilesPage extends CursorPage {
-}
-(function(Files3) {
-  Files3.MessageFilesPage = MessageFilesPage;
-})(Files2 || (Files2 = {}));
-
-// node_modules/openai/resources/beta/threads/messages/messages.mjs
-class Messages extends APIResource {
-  constructor() {
-    super(...arguments);
-    this.files = new Files2(this._client);
-  }
+// node_modules/openai/resources/beta/threads/messages.mjs
+class Messages2 extends APIResource {
   create(threadId, body, options) {
     return this._client.post(`/threads/${threadId}/messages`, {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   retrieve(threadId, messageId, options) {
     return this._client.get(`/threads/${threadId}/messages/${messageId}`, {
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   update(threadId, messageId, body, options) {
     return this._client.post(`/threads/${threadId}/messages/${messageId}`, {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   list(threadId, query = {}, options) {
@@ -27072,25 +28031,31 @@ class Messages extends APIResource {
     return this._client.getAPIList(`/threads/${threadId}/messages`, MessagesPage, {
       query,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  del(threadId, messageId, options) {
+    return this._client.delete(`/threads/${threadId}/messages/${messageId}`, {
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
 }
 
 class MessagesPage extends CursorPage {
 }
-(function(Messages2) {
-  Messages2.MessagesPage = MessagesPage;
-  Messages2.Files = Files2;
-  Messages2.MessageFilesPage = MessageFilesPage;
-})(Messages || (Messages = {}));
+Messages2.MessagesPage = MessagesPage;
 
 // node_modules/openai/resources/beta/threads/runs/steps.mjs
 class Steps extends APIResource {
-  retrieve(threadId, runId, stepId, options) {
+  retrieve(threadId, runId, stepId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.retrieve(threadId, runId, stepId, {}, query);
+    }
     return this._client.get(`/threads/${threadId}/runs/${runId}/steps/${stepId}`, {
+      query,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   list(threadId, runId, query = {}, options) {
@@ -27100,16 +28065,14 @@ class Steps extends APIResource {
     return this._client.getAPIList(`/threads/${threadId}/runs/${runId}/steps`, RunStepsPage, {
       query,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
 }
 
 class RunStepsPage extends CursorPage {
 }
-(function(Steps2) {
-  Steps2.RunStepsPage = RunStepsPage;
-})(Steps || (Steps = {}));
+Steps.RunStepsPage = RunStepsPage;
 
 // node_modules/openai/resources/beta/threads/runs/runs.mjs
 class Runs extends APIResource {
@@ -27117,25 +28080,27 @@ class Runs extends APIResource {
     super(...arguments);
     this.steps = new Steps(this._client);
   }
-  create(threadId, body, options) {
+  create(threadId, params, options) {
+    const { include, ...body } = params;
     return this._client.post(`/threads/${threadId}/runs`, {
+      query: { include },
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers },
-      stream: body.stream ?? false
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers },
+      stream: params.stream ?? false
     });
   }
   retrieve(threadId, runId, options) {
     return this._client.get(`/threads/${threadId}/runs/${runId}`, {
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   update(threadId, runId, body, options) {
     return this._client.post(`/threads/${threadId}/runs/${runId}`, {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   list(threadId, query = {}, options) {
@@ -27145,25 +28110,74 @@ class Runs extends APIResource {
     return this._client.getAPIList(`/threads/${threadId}/runs`, RunsPage, {
       query,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   cancel(threadId, runId, options) {
     return this._client.post(`/threads/${threadId}/runs/${runId}/cancel`, {
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
+  async createAndPoll(threadId, body, options) {
+    const run = await this.create(threadId, body, options);
+    return await this.poll(threadId, run.id, options);
+  }
   createAndStream(threadId, body, options) {
+    return AssistantStream.createAssistantStream(threadId, this._client.beta.threads.runs, body, options);
+  }
+  async poll(threadId, runId, options) {
+    const headers = { ...options?.headers, "X-Stainless-Poll-Helper": "true" };
+    if (options?.pollIntervalMs) {
+      headers["X-Stainless-Custom-Poll-Interval"] = options.pollIntervalMs.toString();
+    }
+    while (true) {
+      const { data: run, response } = await this.retrieve(threadId, runId, {
+        ...options,
+        headers: { ...options?.headers, ...headers }
+      }).withResponse();
+      switch (run.status) {
+        case "queued":
+        case "in_progress":
+        case "cancelling":
+          let sleepInterval = 5000;
+          if (options?.pollIntervalMs) {
+            sleepInterval = options.pollIntervalMs;
+          } else {
+            const headerInterval = response.headers.get("openai-poll-after-ms");
+            if (headerInterval) {
+              const headerIntervalMs = parseInt(headerInterval);
+              if (!isNaN(headerIntervalMs)) {
+                sleepInterval = headerIntervalMs;
+              }
+            }
+          }
+          await sleep(sleepInterval);
+          break;
+        case "requires_action":
+        case "incomplete":
+        case "cancelled":
+        case "completed":
+        case "failed":
+        case "expired":
+          return run;
+      }
+    }
+  }
+  stream(threadId, body, options) {
     return AssistantStream.createAssistantStream(threadId, this._client.beta.threads.runs, body, options);
   }
   submitToolOutputs(threadId, runId, body, options) {
     return this._client.post(`/threads/${threadId}/runs/${runId}/submit_tool_outputs`, {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers },
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers },
       stream: body.stream ?? false
     });
+  }
+  async submitToolOutputsAndPoll(threadId, runId, body, options) {
+    const run = await this.submitToolOutputs(threadId, runId, body, options);
+    return await this.poll(threadId, run.id, options);
   }
   submitToolOutputsStream(threadId, runId, body, options) {
     return AssistantStream.createToolAssistantStream(threadId, runId, this._client.beta.threads.runs, body, options);
@@ -27172,18 +28186,16 @@ class Runs extends APIResource {
 
 class RunsPage extends CursorPage {
 }
-(function(Runs2) {
-  Runs2.RunsPage = RunsPage;
-  Runs2.Steps = Steps;
-  Runs2.RunStepsPage = RunStepsPage;
-})(Runs || (Runs = {}));
+Runs.RunsPage = RunsPage;
+Runs.Steps = Steps;
+Runs.RunStepsPage = RunStepsPage;
 
 // node_modules/openai/resources/beta/threads/threads.mjs
 class Threads extends APIResource {
   constructor() {
     super(...arguments);
     this.runs = new Runs(this._client);
-    this.messages = new Messages(this._client);
+    this.messages = new Messages2(this._client);
   }
   create(body = {}, options) {
     if (isRequestOptions(body)) {
@@ -27192,80 +28204,181 @@ class Threads extends APIResource {
     return this._client.post("/threads", {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   retrieve(threadId, options) {
     return this._client.get(`/threads/${threadId}`, {
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   update(threadId, body, options) {
     return this._client.post(`/threads/${threadId}`, {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   del(threadId, options) {
     return this._client.delete(`/threads/${threadId}`, {
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers }
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
     });
   }
   createAndRun(body, options) {
     return this._client.post("/threads/runs", {
       body,
       ...options,
-      headers: { "OpenAI-Beta": "assistants=v1", ...options?.headers },
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers },
       stream: body.stream ?? false
     });
+  }
+  async createAndRunPoll(body, options) {
+    const run = await this.createAndRun(body, options);
+    return await this.runs.poll(run.thread_id, run.id, options);
   }
   createAndRunStream(body, options) {
     return AssistantStream.createThreadAssistantStream(body, this._client.beta.threads, options);
   }
 }
-(function(Threads2) {
-  Threads2.Runs = Runs;
-  Threads2.RunsPage = RunsPage;
-  Threads2.Messages = Messages;
-  Threads2.MessagesPage = MessagesPage;
-})(Threads || (Threads = {}));
+Threads.Runs = Runs;
+Threads.RunsPage = RunsPage;
+Threads.Messages = Messages2;
+Threads.MessagesPage = MessagesPage;
 
 // node_modules/openai/resources/beta/beta.mjs
 class Beta extends APIResource {
   constructor() {
     super(...arguments);
+    this.realtime = new Realtime(this._client);
     this.chat = new Chat2(this._client);
     this.assistants = new Assistants(this._client);
     this.threads = new Threads(this._client);
   }
 }
-(function(Beta2) {
-  Beta2.Chat = Chat2;
-  Beta2.Assistants = Assistants;
-  Beta2.AssistantsPage = AssistantsPage;
-  Beta2.Threads = Threads;
-})(Beta || (Beta = {}));
+Beta.Realtime = Realtime;
+Beta.Assistants = Assistants;
+Beta.AssistantsPage = AssistantsPage;
+Beta.Threads = Threads;
 // node_modules/openai/resources/completions.mjs
 class Completions3 extends APIResource {
   create(body, options) {
     return this._client.post("/completions", { body, ...options, stream: body.stream ?? false });
   }
 }
-(function(Completions4) {
-})(Completions3 || (Completions3 = {}));
 // node_modules/openai/resources/embeddings.mjs
 class Embeddings extends APIResource {
   create(body, options) {
-    return this._client.post("/embeddings", { body, ...options });
+    const hasUserProvidedEncodingFormat = !!body.encoding_format;
+    let encoding_format = hasUserProvidedEncodingFormat ? body.encoding_format : "base64";
+    if (hasUserProvidedEncodingFormat) {
+      debug("Request", "User defined encoding_format:", body.encoding_format);
+    }
+    const response = this._client.post("/embeddings", {
+      body: {
+        ...body,
+        encoding_format
+      },
+      ...options
+    });
+    if (hasUserProvidedEncodingFormat) {
+      return response;
+    }
+    debug("response", "Decoding base64 embeddings to float32 array");
+    return response._thenUnwrap((response2) => {
+      if (response2 && response2.data) {
+        response2.data.forEach((embeddingBase64Obj) => {
+          const embeddingBase64Str = embeddingBase64Obj.embedding;
+          embeddingBase64Obj.embedding = toFloat32Array(embeddingBase64Str);
+        });
+      }
+      return response2;
+    });
   }
 }
-(function(Embeddings2) {
-})(Embeddings || (Embeddings = {}));
+// node_modules/openai/resources/evals/runs/output-items.mjs
+class OutputItems extends APIResource {
+  retrieve(evalId, runId, outputItemId, options) {
+    return this._client.get(`/evals/${evalId}/runs/${runId}/output_items/${outputItemId}`, options);
+  }
+  list(evalId, runId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list(evalId, runId, {}, query);
+    }
+    return this._client.getAPIList(`/evals/${evalId}/runs/${runId}/output_items`, OutputItemListResponsesPage, { query, ...options });
+  }
+}
+
+class OutputItemListResponsesPage extends CursorPage {
+}
+OutputItems.OutputItemListResponsesPage = OutputItemListResponsesPage;
+
+// node_modules/openai/resources/evals/runs/runs.mjs
+class Runs2 extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.outputItems = new OutputItems(this._client);
+  }
+  create(evalId, body, options) {
+    return this._client.post(`/evals/${evalId}/runs`, { body, ...options });
+  }
+  retrieve(evalId, runId, options) {
+    return this._client.get(`/evals/${evalId}/runs/${runId}`, options);
+  }
+  list(evalId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list(evalId, {}, query);
+    }
+    return this._client.getAPIList(`/evals/${evalId}/runs`, RunListResponsesPage, { query, ...options });
+  }
+  del(evalId, runId, options) {
+    return this._client.delete(`/evals/${evalId}/runs/${runId}`, options);
+  }
+  cancel(evalId, runId, options) {
+    return this._client.post(`/evals/${evalId}/runs/${runId}`, options);
+  }
+}
+
+class RunListResponsesPage extends CursorPage {
+}
+Runs2.RunListResponsesPage = RunListResponsesPage;
+Runs2.OutputItems = OutputItems;
+Runs2.OutputItemListResponsesPage = OutputItemListResponsesPage;
+
+// node_modules/openai/resources/evals/evals.mjs
+class Evals extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.runs = new Runs2(this._client);
+  }
+  create(body, options) {
+    return this._client.post("/evals", { body, ...options });
+  }
+  retrieve(evalId, options) {
+    return this._client.get(`/evals/${evalId}`, options);
+  }
+  update(evalId, body, options) {
+    return this._client.post(`/evals/${evalId}`, { body, ...options });
+  }
+  list(query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
+    }
+    return this._client.getAPIList("/evals", EvalListResponsesPage, { query, ...options });
+  }
+  del(evalId, options) {
+    return this._client.delete(`/evals/${evalId}`, options);
+  }
+}
+
+class EvalListResponsesPage extends CursorPage {
+}
+Evals.EvalListResponsesPage = EvalListResponsesPage;
+Evals.Runs = Runs2;
+Evals.RunListResponsesPage = RunListResponsesPage;
 // node_modules/openai/resources/files.mjs
-class Files3 extends APIResource {
+class Files extends APIResource {
   create(body, options) {
     return this._client.post("/files", multipartFormRequestOptions({ body, ...options }));
   }
@@ -27282,13 +28395,14 @@ class Files3 extends APIResource {
     return this._client.delete(`/files/${fileId}`, options);
   }
   content(fileId, options) {
-    return this._client.get(`/files/${fileId}/content`, { ...options, __binaryResponse: true });
-  }
-  retrieveContent(fileId, options) {
     return this._client.get(`/files/${fileId}/content`, {
       ...options,
-      headers: { Accept: "application/json", ...options?.headers }
+      headers: { Accept: "application/binary", ...options?.headers },
+      __binaryResponse: true
     });
+  }
+  retrieveContent(fileId, options) {
+    return this._client.get(`/files/${fileId}/content`, options);
   }
   async waitForProcessing(id, { pollInterval = 5000, maxWait = 30 * 60 * 1000 } = {}) {
     const TERMINAL_STATES = new Set(["processed", "error", "deleted"]);
@@ -27307,13 +28421,62 @@ class Files3 extends APIResource {
   }
 }
 
-class FileObjectsPage extends Page {
+class FileObjectsPage extends CursorPage {
 }
-(function(Files4) {
-  Files4.FileObjectsPage = FileObjectsPage;
-})(Files3 || (Files3 = {}));
-// node_modules/openai/resources/fine-tuning/jobs.mjs
+Files.FileObjectsPage = FileObjectsPage;
+// node_modules/openai/resources/fine-tuning/checkpoints/permissions.mjs
+class Permissions extends APIResource {
+  create(fineTunedModelCheckpoint, body, options) {
+    return this._client.getAPIList(`/fine_tuning/checkpoints/${fineTunedModelCheckpoint}/permissions`, PermissionCreateResponsesPage, { body, method: "post", ...options });
+  }
+  retrieve(fineTunedModelCheckpoint, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.retrieve(fineTunedModelCheckpoint, {}, query);
+    }
+    return this._client.get(`/fine_tuning/checkpoints/${fineTunedModelCheckpoint}/permissions`, {
+      query,
+      ...options
+    });
+  }
+  del(fineTunedModelCheckpoint, options) {
+    return this._client.delete(`/fine_tuning/checkpoints/${fineTunedModelCheckpoint}/permissions`, options);
+  }
+}
+
+class PermissionCreateResponsesPage extends Page {
+}
+Permissions.PermissionCreateResponsesPage = PermissionCreateResponsesPage;
+
+// node_modules/openai/resources/fine-tuning/checkpoints/checkpoints.mjs
+class Checkpoints extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.permissions = new Permissions(this._client);
+  }
+}
+Checkpoints.Permissions = Permissions;
+Checkpoints.PermissionCreateResponsesPage = PermissionCreateResponsesPage;
+
+// node_modules/openai/resources/fine-tuning/jobs/checkpoints.mjs
+class Checkpoints2 extends APIResource {
+  list(fineTuningJobId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list(fineTuningJobId, {}, query);
+    }
+    return this._client.getAPIList(`/fine_tuning/jobs/${fineTuningJobId}/checkpoints`, FineTuningJobCheckpointsPage, { query, ...options });
+  }
+}
+
+class FineTuningJobCheckpointsPage extends CursorPage {
+}
+Checkpoints2.FineTuningJobCheckpointsPage = FineTuningJobCheckpointsPage;
+
+// node_modules/openai/resources/fine-tuning/jobs/jobs.mjs
 class Jobs extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.checkpoints = new Checkpoints2(this._client);
+  }
   create(body, options) {
     return this._client.post("/fine_tuning/jobs", { body, ...options });
   }
@@ -27345,23 +28508,23 @@ class FineTuningJobsPage extends CursorPage {
 
 class FineTuningJobEventsPage extends CursorPage {
 }
-(function(Jobs2) {
-  Jobs2.FineTuningJobsPage = FineTuningJobsPage;
-  Jobs2.FineTuningJobEventsPage = FineTuningJobEventsPage;
-})(Jobs || (Jobs = {}));
+Jobs.FineTuningJobsPage = FineTuningJobsPage;
+Jobs.FineTuningJobEventsPage = FineTuningJobEventsPage;
+Jobs.Checkpoints = Checkpoints2;
+Jobs.FineTuningJobCheckpointsPage = FineTuningJobCheckpointsPage;
 
 // node_modules/openai/resources/fine-tuning/fine-tuning.mjs
 class FineTuning extends APIResource {
   constructor() {
     super(...arguments);
     this.jobs = new Jobs(this._client);
+    this.checkpoints = new Checkpoints(this._client);
   }
 }
-(function(FineTuning2) {
-  FineTuning2.Jobs = Jobs;
-  FineTuning2.FineTuningJobsPage = FineTuningJobsPage;
-  FineTuning2.FineTuningJobEventsPage = FineTuningJobEventsPage;
-})(FineTuning || (FineTuning = {}));
+FineTuning.Jobs = Jobs;
+FineTuning.FineTuningJobsPage = FineTuningJobsPage;
+FineTuning.FineTuningJobEventsPage = FineTuningJobEventsPage;
+FineTuning.Checkpoints = Checkpoints;
 // node_modules/openai/resources/images.mjs
 class Images extends APIResource {
   createVariation(body, options) {
@@ -27374,8 +28537,6 @@ class Images extends APIResource {
     return this._client.post("/images/generations", { body, ...options });
   }
 }
-(function(Images2) {
-})(Images || (Images = {}));
 // node_modules/openai/resources/models.mjs
 class Models extends APIResource {
   retrieve(model, options) {
@@ -27391,33 +28552,739 @@ class Models extends APIResource {
 
 class ModelsPage extends Page {
 }
-(function(Models2) {
-  Models2.ModelsPage = ModelsPage;
-})(Models || (Models = {}));
+Models.ModelsPage = ModelsPage;
 // node_modules/openai/resources/moderations.mjs
 class Moderations extends APIResource {
   create(body, options) {
     return this._client.post("/moderations", { body, ...options });
   }
 }
-(function(Moderations2) {
-})(Moderations || (Moderations = {}));
+// node_modules/openai/lib/ResponsesParser.mjs
+function maybeParseResponse(response, params) {
+  if (!params || !hasAutoParseableInput2(params)) {
+    return {
+      ...response,
+      output_parsed: null,
+      output: response.output.map((item) => {
+        if (item.type === "function_call") {
+          return {
+            ...item,
+            parsed_arguments: null
+          };
+        }
+        if (item.type === "message") {
+          return {
+            ...item,
+            content: item.content.map((content) => ({
+              ...content,
+              parsed: null
+            }))
+          };
+        } else {
+          return item;
+        }
+      })
+    };
+  }
+  return parseResponse(response, params);
+}
+function parseResponse(response, params) {
+  const output = response.output.map((item) => {
+    if (item.type === "function_call") {
+      return {
+        ...item,
+        parsed_arguments: parseToolCall2(params, item)
+      };
+    }
+    if (item.type === "message") {
+      const content = item.content.map((content2) => {
+        if (content2.type === "output_text") {
+          return {
+            ...content2,
+            parsed: parseTextFormat(params, content2.text)
+          };
+        }
+        return content2;
+      });
+      return {
+        ...item,
+        content
+      };
+    }
+    return item;
+  });
+  const parsed = Object.assign({}, response, { output });
+  if (!Object.getOwnPropertyDescriptor(response, "output_text")) {
+    addOutputText(parsed);
+  }
+  Object.defineProperty(parsed, "output_parsed", {
+    enumerable: true,
+    get() {
+      for (const output2 of parsed.output) {
+        if (output2.type !== "message") {
+          continue;
+        }
+        for (const content of output2.content) {
+          if (content.type === "output_text" && content.parsed !== null) {
+            return content.parsed;
+          }
+        }
+      }
+      return null;
+    }
+  });
+  return parsed;
+}
+function parseTextFormat(params, content) {
+  if (params.text?.format?.type !== "json_schema") {
+    return null;
+  }
+  if ("$parseRaw" in params.text?.format) {
+    const text_format = params.text?.format;
+    return text_format.$parseRaw(content);
+  }
+  return JSON.parse(content);
+}
+function hasAutoParseableInput2(params) {
+  if (isAutoParsableResponseFormat(params.text?.format)) {
+    return true;
+  }
+  return false;
+}
+function isAutoParsableTool2(tool) {
+  return tool?.["$brand"] === "auto-parseable-tool";
+}
+function getInputToolByName(input_tools, name) {
+  return input_tools.find((tool) => tool.type === "function" && tool.name === name);
+}
+function parseToolCall2(params, toolCall) {
+  const inputTool = getInputToolByName(params.tools ?? [], toolCall.name);
+  return {
+    ...toolCall,
+    ...toolCall,
+    parsed_arguments: isAutoParsableTool2(inputTool) ? inputTool.$parseRaw(toolCall.arguments) : inputTool?.strict ? JSON.parse(toolCall.arguments) : null
+  };
+}
+function addOutputText(rsp) {
+  const texts = [];
+  for (const output of rsp.output) {
+    if (output.type !== "message") {
+      continue;
+    }
+    for (const content of output.content) {
+      if (content.type === "output_text") {
+        texts.push(content.text);
+      }
+    }
+  }
+  rsp.output_text = texts.join("");
+}
+
+// node_modules/openai/resources/responses/input-items.mjs
+class InputItems extends APIResource {
+  list(responseId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list(responseId, {}, query);
+    }
+    return this._client.getAPIList(`/responses/${responseId}/input_items`, ResponseItemsPage, {
+      query,
+      ...options
+    });
+  }
+}
+
+// node_modules/openai/lib/responses/ResponseStream.mjs
+var __classPrivateFieldSet6 = function(receiver, state, value, kind2, f) {
+  if (kind2 === "m")
+    throw new TypeError("Private method is not writable");
+  if (kind2 === "a" && !f)
+    throw new TypeError("Private accessor was defined without a setter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot write private member to an object whose class did not declare it");
+  return kind2 === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+};
+var __classPrivateFieldGet7 = function(receiver, state, kind2, f) {
+  if (kind2 === "a" && !f)
+    throw new TypeError("Private accessor was defined without a getter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot read private member from an object whose class did not declare it");
+  return kind2 === "m" ? f : kind2 === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _ResponseStream_instances;
+var _ResponseStream_params;
+var _ResponseStream_currentResponseSnapshot;
+var _ResponseStream_finalResponse;
+var _ResponseStream_beginRequest;
+var _ResponseStream_addEvent;
+var _ResponseStream_endRequest;
+var _ResponseStream_accumulateResponse;
+
+class ResponseStream extends EventStream {
+  constructor(params) {
+    super();
+    _ResponseStream_instances.add(this);
+    _ResponseStream_params.set(this, undefined);
+    _ResponseStream_currentResponseSnapshot.set(this, undefined);
+    _ResponseStream_finalResponse.set(this, undefined);
+    __classPrivateFieldSet6(this, _ResponseStream_params, params, "f");
+  }
+  static createResponse(client, params, options) {
+    const runner = new ResponseStream(params);
+    runner._run(() => runner._createResponse(client, params, {
+      ...options,
+      headers: { ...options?.headers, "X-Stainless-Helper-Method": "stream" }
+    }));
+    return runner;
+  }
+  async _createResponse(client, params, options) {
+    const signal = options?.signal;
+    if (signal) {
+      if (signal.aborted)
+        this.controller.abort();
+      signal.addEventListener("abort", () => this.controller.abort());
+    }
+    __classPrivateFieldGet7(this, _ResponseStream_instances, "m", _ResponseStream_beginRequest).call(this);
+    const stream = await client.responses.create({ ...params, stream: true }, { ...options, signal: this.controller.signal });
+    this._connected();
+    for await (const event of stream) {
+      __classPrivateFieldGet7(this, _ResponseStream_instances, "m", _ResponseStream_addEvent).call(this, event);
+    }
+    if (stream.controller.signal?.aborted) {
+      throw new APIUserAbortError;
+    }
+    return __classPrivateFieldGet7(this, _ResponseStream_instances, "m", _ResponseStream_endRequest).call(this);
+  }
+  [(_ResponseStream_params = new WeakMap, _ResponseStream_currentResponseSnapshot = new WeakMap, _ResponseStream_finalResponse = new WeakMap, _ResponseStream_instances = new WeakSet, _ResponseStream_beginRequest = function _ResponseStream_beginRequest() {
+    if (this.ended)
+      return;
+    __classPrivateFieldSet6(this, _ResponseStream_currentResponseSnapshot, undefined, "f");
+  }, _ResponseStream_addEvent = function _ResponseStream_addEvent(event) {
+    if (this.ended)
+      return;
+    const response = __classPrivateFieldGet7(this, _ResponseStream_instances, "m", _ResponseStream_accumulateResponse).call(this, event);
+    this._emit("event", event);
+    switch (event.type) {
+      case "response.output_text.delta": {
+        const output = response.output[event.output_index];
+        if (!output) {
+          throw new OpenAIError(`missing output at index ${event.output_index}`);
+        }
+        if (output.type === "message") {
+          const content = output.content[event.content_index];
+          if (!content) {
+            throw new OpenAIError(`missing content at index ${event.content_index}`);
+          }
+          if (content.type !== "output_text") {
+            throw new OpenAIError(`expected content to be 'output_text', got ${content.type}`);
+          }
+          this._emit("response.output_text.delta", {
+            ...event,
+            snapshot: content.text
+          });
+        }
+        break;
+      }
+      case "response.function_call_arguments.delta": {
+        const output = response.output[event.output_index];
+        if (!output) {
+          throw new OpenAIError(`missing output at index ${event.output_index}`);
+        }
+        if (output.type === "function_call") {
+          this._emit("response.function_call_arguments.delta", {
+            ...event,
+            snapshot: output.arguments
+          });
+        }
+        break;
+      }
+      default:
+        this._emit(event.type, event);
+        break;
+    }
+  }, _ResponseStream_endRequest = function _ResponseStream_endRequest() {
+    if (this.ended) {
+      throw new OpenAIError(`stream has ended, this shouldn't happen`);
+    }
+    const snapshot = __classPrivateFieldGet7(this, _ResponseStream_currentResponseSnapshot, "f");
+    if (!snapshot) {
+      throw new OpenAIError(`request ended without sending any events`);
+    }
+    __classPrivateFieldSet6(this, _ResponseStream_currentResponseSnapshot, undefined, "f");
+    const parsedResponse = finalizeResponse(snapshot, __classPrivateFieldGet7(this, _ResponseStream_params, "f"));
+    __classPrivateFieldSet6(this, _ResponseStream_finalResponse, parsedResponse, "f");
+    return parsedResponse;
+  }, _ResponseStream_accumulateResponse = function _ResponseStream_accumulateResponse(event) {
+    let snapshot = __classPrivateFieldGet7(this, _ResponseStream_currentResponseSnapshot, "f");
+    if (!snapshot) {
+      if (event.type !== "response.created") {
+        throw new OpenAIError(`When snapshot hasn't been set yet, expected 'response.created' event, got ${event.type}`);
+      }
+      snapshot = __classPrivateFieldSet6(this, _ResponseStream_currentResponseSnapshot, event.response, "f");
+      return snapshot;
+    }
+    switch (event.type) {
+      case "response.output_item.added": {
+        snapshot.output.push(event.item);
+        break;
+      }
+      case "response.content_part.added": {
+        const output = snapshot.output[event.output_index];
+        if (!output) {
+          throw new OpenAIError(`missing output at index ${event.output_index}`);
+        }
+        if (output.type === "message") {
+          output.content.push(event.part);
+        }
+        break;
+      }
+      case "response.output_text.delta": {
+        const output = snapshot.output[event.output_index];
+        if (!output) {
+          throw new OpenAIError(`missing output at index ${event.output_index}`);
+        }
+        if (output.type === "message") {
+          const content = output.content[event.content_index];
+          if (!content) {
+            throw new OpenAIError(`missing content at index ${event.content_index}`);
+          }
+          if (content.type !== "output_text") {
+            throw new OpenAIError(`expected content to be 'output_text', got ${content.type}`);
+          }
+          content.text += event.delta;
+        }
+        break;
+      }
+      case "response.function_call_arguments.delta": {
+        const output = snapshot.output[event.output_index];
+        if (!output) {
+          throw new OpenAIError(`missing output at index ${event.output_index}`);
+        }
+        if (output.type === "function_call") {
+          output.arguments += event.delta;
+        }
+        break;
+      }
+      case "response.completed": {
+        __classPrivateFieldSet6(this, _ResponseStream_currentResponseSnapshot, event.response, "f");
+        break;
+      }
+    }
+    return snapshot;
+  }, Symbol.asyncIterator)]() {
+    const pushQueue = [];
+    const readQueue = [];
+    let done = false;
+    this.on("event", (event) => {
+      const reader = readQueue.shift();
+      if (reader) {
+        reader.resolve(event);
+      } else {
+        pushQueue.push(event);
+      }
+    });
+    this.on("end", () => {
+      done = true;
+      for (const reader of readQueue) {
+        reader.resolve(undefined);
+      }
+      readQueue.length = 0;
+    });
+    this.on("abort", (err) => {
+      done = true;
+      for (const reader of readQueue) {
+        reader.reject(err);
+      }
+      readQueue.length = 0;
+    });
+    this.on("error", (err) => {
+      done = true;
+      for (const reader of readQueue) {
+        reader.reject(err);
+      }
+      readQueue.length = 0;
+    });
+    return {
+      next: async () => {
+        if (!pushQueue.length) {
+          if (done) {
+            return { value: undefined, done: true };
+          }
+          return new Promise((resolve, reject) => readQueue.push({ resolve, reject })).then((event2) => event2 ? { value: event2, done: false } : { value: undefined, done: true });
+        }
+        const event = pushQueue.shift();
+        return { value: event, done: false };
+      },
+      return: async () => {
+        this.abort();
+        return { value: undefined, done: true };
+      }
+    };
+  }
+  async finalResponse() {
+    await this.done();
+    const response = __classPrivateFieldGet7(this, _ResponseStream_finalResponse, "f");
+    if (!response)
+      throw new OpenAIError("stream ended without producing a ChatCompletion");
+    return response;
+  }
+}
+function finalizeResponse(snapshot, params) {
+  return maybeParseResponse(snapshot, params);
+}
+
+// node_modules/openai/resources/responses/responses.mjs
+class Responses extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.inputItems = new InputItems(this._client);
+  }
+  create(body, options) {
+    return this._client.post("/responses", { body, ...options, stream: body.stream ?? false })._thenUnwrap((rsp) => {
+      if ("object" in rsp && rsp.object === "response") {
+        addOutputText(rsp);
+      }
+      return rsp;
+    });
+  }
+  retrieve(responseId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.retrieve(responseId, {}, query);
+    }
+    return this._client.get(`/responses/${responseId}`, { query, ...options });
+  }
+  del(responseId, options) {
+    return this._client.delete(`/responses/${responseId}`, {
+      ...options,
+      headers: { Accept: "*/*", ...options?.headers }
+    });
+  }
+  parse(body, options) {
+    return this._client.responses.create(body, options)._thenUnwrap((response) => parseResponse(response, body));
+  }
+  stream(body, options) {
+    return ResponseStream.createResponse(this._client, body, options);
+  }
+}
+
+class ResponseItemsPage extends CursorPage {
+}
+Responses.InputItems = InputItems;
+// node_modules/openai/resources/uploads/parts.mjs
+class Parts extends APIResource {
+  create(uploadId, body, options) {
+    return this._client.post(`/uploads/${uploadId}/parts`, multipartFormRequestOptions({ body, ...options }));
+  }
+}
+
+// node_modules/openai/resources/uploads/uploads.mjs
+class Uploads extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.parts = new Parts(this._client);
+  }
+  create(body, options) {
+    return this._client.post("/uploads", { body, ...options });
+  }
+  cancel(uploadId, options) {
+    return this._client.post(`/uploads/${uploadId}/cancel`, options);
+  }
+  complete(uploadId, body, options) {
+    return this._client.post(`/uploads/${uploadId}/complete`, { body, ...options });
+  }
+}
+Uploads.Parts = Parts;
+// node_modules/openai/lib/Util.mjs
+var allSettledWithThrow = async (promises) => {
+  const results = await Promise.allSettled(promises);
+  const rejected = results.filter((result) => result.status === "rejected");
+  if (rejected.length) {
+    for (const result of rejected) {
+      console.error(result.reason);
+    }
+    throw new Error(`${rejected.length} promise(s) failed - see the above errors`);
+  }
+  const values = [];
+  for (const result of results) {
+    if (result.status === "fulfilled") {
+      values.push(result.value);
+    }
+  }
+  return values;
+};
+
+// node_modules/openai/resources/vector-stores/files.mjs
+class Files2 extends APIResource {
+  create(vectorStoreId, body, options) {
+    return this._client.post(`/vector_stores/${vectorStoreId}/files`, {
+      body,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  retrieve(vectorStoreId, fileId, options) {
+    return this._client.get(`/vector_stores/${vectorStoreId}/files/${fileId}`, {
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  update(vectorStoreId, fileId, body, options) {
+    return this._client.post(`/vector_stores/${vectorStoreId}/files/${fileId}`, {
+      body,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  list(vectorStoreId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list(vectorStoreId, {}, query);
+    }
+    return this._client.getAPIList(`/vector_stores/${vectorStoreId}/files`, VectorStoreFilesPage, {
+      query,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  del(vectorStoreId, fileId, options) {
+    return this._client.delete(`/vector_stores/${vectorStoreId}/files/${fileId}`, {
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  async createAndPoll(vectorStoreId, body, options) {
+    const file = await this.create(vectorStoreId, body, options);
+    return await this.poll(vectorStoreId, file.id, options);
+  }
+  async poll(vectorStoreId, fileId, options) {
+    const headers = { ...options?.headers, "X-Stainless-Poll-Helper": "true" };
+    if (options?.pollIntervalMs) {
+      headers["X-Stainless-Custom-Poll-Interval"] = options.pollIntervalMs.toString();
+    }
+    while (true) {
+      const fileResponse = await this.retrieve(vectorStoreId, fileId, {
+        ...options,
+        headers
+      }).withResponse();
+      const file = fileResponse.data;
+      switch (file.status) {
+        case "in_progress":
+          let sleepInterval = 5000;
+          if (options?.pollIntervalMs) {
+            sleepInterval = options.pollIntervalMs;
+          } else {
+            const headerInterval = fileResponse.response.headers.get("openai-poll-after-ms");
+            if (headerInterval) {
+              const headerIntervalMs = parseInt(headerInterval);
+              if (!isNaN(headerIntervalMs)) {
+                sleepInterval = headerIntervalMs;
+              }
+            }
+          }
+          await sleep(sleepInterval);
+          break;
+        case "failed":
+        case "completed":
+          return file;
+      }
+    }
+  }
+  async upload(vectorStoreId, file, options) {
+    const fileInfo = await this._client.files.create({ file, purpose: "assistants" }, options);
+    return this.create(vectorStoreId, { file_id: fileInfo.id }, options);
+  }
+  async uploadAndPoll(vectorStoreId, file, options) {
+    const fileInfo = await this.upload(vectorStoreId, file, options);
+    return await this.poll(vectorStoreId, fileInfo.id, options);
+  }
+  content(vectorStoreId, fileId, options) {
+    return this._client.getAPIList(`/vector_stores/${vectorStoreId}/files/${fileId}/content`, FileContentResponsesPage, { ...options, headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers } });
+  }
+}
+
+class VectorStoreFilesPage extends CursorPage {
+}
+
+class FileContentResponsesPage extends Page {
+}
+Files2.VectorStoreFilesPage = VectorStoreFilesPage;
+Files2.FileContentResponsesPage = FileContentResponsesPage;
+
+// node_modules/openai/resources/vector-stores/file-batches.mjs
+class FileBatches extends APIResource {
+  create(vectorStoreId, body, options) {
+    return this._client.post(`/vector_stores/${vectorStoreId}/file_batches`, {
+      body,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  retrieve(vectorStoreId, batchId, options) {
+    return this._client.get(`/vector_stores/${vectorStoreId}/file_batches/${batchId}`, {
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  cancel(vectorStoreId, batchId, options) {
+    return this._client.post(`/vector_stores/${vectorStoreId}/file_batches/${batchId}/cancel`, {
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  async createAndPoll(vectorStoreId, body, options) {
+    const batch = await this.create(vectorStoreId, body);
+    return await this.poll(vectorStoreId, batch.id, options);
+  }
+  listFiles(vectorStoreId, batchId, query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.listFiles(vectorStoreId, batchId, {}, query);
+    }
+    return this._client.getAPIList(`/vector_stores/${vectorStoreId}/file_batches/${batchId}/files`, VectorStoreFilesPage, { query, ...options, headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers } });
+  }
+  async poll(vectorStoreId, batchId, options) {
+    const headers = { ...options?.headers, "X-Stainless-Poll-Helper": "true" };
+    if (options?.pollIntervalMs) {
+      headers["X-Stainless-Custom-Poll-Interval"] = options.pollIntervalMs.toString();
+    }
+    while (true) {
+      const { data: batch, response } = await this.retrieve(vectorStoreId, batchId, {
+        ...options,
+        headers
+      }).withResponse();
+      switch (batch.status) {
+        case "in_progress":
+          let sleepInterval = 5000;
+          if (options?.pollIntervalMs) {
+            sleepInterval = options.pollIntervalMs;
+          } else {
+            const headerInterval = response.headers.get("openai-poll-after-ms");
+            if (headerInterval) {
+              const headerIntervalMs = parseInt(headerInterval);
+              if (!isNaN(headerIntervalMs)) {
+                sleepInterval = headerIntervalMs;
+              }
+            }
+          }
+          await sleep(sleepInterval);
+          break;
+        case "failed":
+        case "cancelled":
+        case "completed":
+          return batch;
+      }
+    }
+  }
+  async uploadAndPoll(vectorStoreId, { files, fileIds = [] }, options) {
+    if (files == null || files.length == 0) {
+      throw new Error(`No \`files\` provided to process. If you've already uploaded files you should use \`.createAndPoll()\` instead`);
+    }
+    const configuredConcurrency = options?.maxConcurrency ?? 5;
+    const concurrencyLimit = Math.min(configuredConcurrency, files.length);
+    const client = this._client;
+    const fileIterator = files.values();
+    const allFileIds = [...fileIds];
+    async function processFiles(iterator) {
+      for (let item of iterator) {
+        const fileObj = await client.files.create({ file: item, purpose: "assistants" }, options);
+        allFileIds.push(fileObj.id);
+      }
+    }
+    const workers = Array(concurrencyLimit).fill(fileIterator).map(processFiles);
+    await allSettledWithThrow(workers);
+    return await this.createAndPoll(vectorStoreId, {
+      file_ids: allFileIds
+    });
+  }
+}
+
+// node_modules/openai/resources/vector-stores/vector-stores.mjs
+class VectorStores extends APIResource {
+  constructor() {
+    super(...arguments);
+    this.files = new Files2(this._client);
+    this.fileBatches = new FileBatches(this._client);
+  }
+  create(body, options) {
+    return this._client.post("/vector_stores", {
+      body,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  retrieve(vectorStoreId, options) {
+    return this._client.get(`/vector_stores/${vectorStoreId}`, {
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  update(vectorStoreId, body, options) {
+    return this._client.post(`/vector_stores/${vectorStoreId}`, {
+      body,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  list(query = {}, options) {
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
+    }
+    return this._client.getAPIList("/vector_stores", VectorStoresPage, {
+      query,
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  del(vectorStoreId, options) {
+    return this._client.delete(`/vector_stores/${vectorStoreId}`, {
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+  search(vectorStoreId, body, options) {
+    return this._client.getAPIList(`/vector_stores/${vectorStoreId}/search`, VectorStoreSearchResponsesPage, {
+      body,
+      method: "post",
+      ...options,
+      headers: { "OpenAI-Beta": "assistants=v2", ...options?.headers }
+    });
+  }
+}
+
+class VectorStoresPage extends CursorPage {
+}
+
+class VectorStoreSearchResponsesPage extends Page {
+}
+VectorStores.VectorStoresPage = VectorStoresPage;
+VectorStores.VectorStoreSearchResponsesPage = VectorStoreSearchResponsesPage;
+VectorStores.Files = Files2;
+VectorStores.VectorStoreFilesPage = VectorStoreFilesPage;
+VectorStores.FileContentResponsesPage = FileContentResponsesPage;
+VectorStores.FileBatches = FileBatches;
 // node_modules/openai/index.mjs
 var _a;
 
 class OpenAI extends APIClient {
-  constructor({ baseURL = readEnv("OPENAI_BASE_URL"), apiKey = readEnv("OPENAI_API_KEY"), organization = readEnv("OPENAI_ORG_ID") ?? null, ...opts } = {}) {
+  constructor({ baseURL = readEnv("OPENAI_BASE_URL"), apiKey = readEnv("OPENAI_API_KEY"), organization = readEnv("OPENAI_ORG_ID") ?? null, project = readEnv("OPENAI_PROJECT_ID") ?? null, ...opts } = {}) {
     if (apiKey === undefined) {
       throw new OpenAIError("The OPENAI_API_KEY environment variable is missing or empty; either provide it, or instantiate the OpenAI client with an apiKey option, like new OpenAI({ apiKey: 'My API Key' }).");
     }
     const options = {
       apiKey,
       organization,
+      project,
       ...opts,
       baseURL: baseURL || `https://api.openai.com/v1`
     };
     if (!options.dangerouslyAllowBrowser && isRunningInBrowser()) {
-      throw new OpenAIError("It looks like you're running in a browser-like environment.\n\nThis is disabled by default, as it risks exposing your secret API credentials to attackers.\nIf you understand the risks and have appropriate mitigations in place,\nyou can set the `dangerouslyAllowBrowser` option to `true`, e.g.,\n\nnew OpenAI({ apiKey, dangerouslyAllowBrowser: true });\n\nhttps://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety\n");
+      throw new OpenAIError(`It looks like you're running in a browser-like environment.
+
+This is disabled by default, as it risks exposing your secret API credentials to attackers.
+If you understand the risks and have appropriate mitigations in place,
+you can set the \`dangerouslyAllowBrowser\` option to \`true\`, e.g.,
+
+new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
+
+https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety
+`);
     }
     super({
       baseURL: options.baseURL,
@@ -27429,16 +29296,22 @@ class OpenAI extends APIClient {
     this.completions = new Completions3(this);
     this.chat = new Chat(this);
     this.embeddings = new Embeddings(this);
-    this.files = new Files3(this);
+    this.files = new Files(this);
     this.images = new Images(this);
     this.audio = new Audio(this);
     this.moderations = new Moderations(this);
     this.models = new Models(this);
     this.fineTuning = new FineTuning(this);
+    this.vectorStores = new VectorStores(this);
     this.beta = new Beta(this);
+    this.batches = new Batches(this);
+    this.uploads = new Uploads(this);
+    this.responses = new Responses(this);
+    this.evals = new Evals(this);
     this._options = options;
     this.apiKey = apiKey;
     this.organization = organization;
+    this.project = project;
   }
   defaultQuery() {
     return this._options.defaultQuery;
@@ -27447,15 +29320,20 @@ class OpenAI extends APIClient {
     return {
       ...super.defaultHeaders(opts),
       "OpenAI-Organization": this.organization,
+      "OpenAI-Project": this.project,
       ...this._options.defaultHeaders
     };
   }
   authHeaders(opts) {
     return { Authorization: `Bearer ${this.apiKey}` };
   }
+  stringifyQuery(query) {
+    return stringify(query, { arrayFormat: "brackets" });
+  }
 }
 _a = OpenAI;
 OpenAI.OpenAI = _a;
+OpenAI.DEFAULT_TIMEOUT = 600000;
 OpenAI.OpenAIError = OpenAIError;
 OpenAI.APIError = APIError;
 OpenAI.APIConnectionError = APIConnectionError;
@@ -27469,24 +29347,39 @@ OpenAI.AuthenticationError = AuthenticationError;
 OpenAI.InternalServerError = InternalServerError;
 OpenAI.PermissionDeniedError = PermissionDeniedError;
 OpenAI.UnprocessableEntityError = UnprocessableEntityError;
-(function(OpenAI2) {
-  OpenAI2.toFile = toFile;
-  OpenAI2.fileFromPath = fileFromPath;
-  OpenAI2.Page = Page;
-  OpenAI2.CursorPage = CursorPage;
-  OpenAI2.Completions = Completions3;
-  OpenAI2.Chat = Chat;
-  OpenAI2.Embeddings = Embeddings;
-  OpenAI2.Files = Files3;
-  OpenAI2.FileObjectsPage = FileObjectsPage;
-  OpenAI2.Images = Images;
-  OpenAI2.Audio = Audio;
-  OpenAI2.Moderations = Moderations;
-  OpenAI2.Models = Models;
-  OpenAI2.ModelsPage = ModelsPage;
-  OpenAI2.FineTuning = FineTuning;
-  OpenAI2.Beta = Beta;
-})(OpenAI || (OpenAI = {}));
+OpenAI.toFile = toFile;
+OpenAI.fileFromPath = fileFromPath;
+OpenAI.Completions = Completions3;
+OpenAI.Chat = Chat;
+OpenAI.ChatCompletionsPage = ChatCompletionsPage;
+OpenAI.Embeddings = Embeddings;
+OpenAI.Files = Files;
+OpenAI.FileObjectsPage = FileObjectsPage;
+OpenAI.Images = Images;
+OpenAI.Audio = Audio;
+OpenAI.Moderations = Moderations;
+OpenAI.Models = Models;
+OpenAI.ModelsPage = ModelsPage;
+OpenAI.FineTuning = FineTuning;
+OpenAI.VectorStores = VectorStores;
+OpenAI.VectorStoresPage = VectorStoresPage;
+OpenAI.VectorStoreSearchResponsesPage = VectorStoreSearchResponsesPage;
+OpenAI.Beta = Beta;
+OpenAI.Batches = Batches;
+OpenAI.BatchesPage = BatchesPage;
+OpenAI.Uploads = Uploads;
+OpenAI.Responses = Responses;
+OpenAI.Evals = Evals;
+OpenAI.EvalListResponsesPage = EvalListResponsesPage;
+var _deployments_endpoints = new Set([
+  "/completions",
+  "/chat/completions",
+  "/embeddings",
+  "/audio/transcriptions",
+  "/audio/translations",
+  "/audio/speech",
+  "/images/generations"
+]);
 var openai_default = OpenAI;
 
 // src/lib/audio.ts
@@ -27553,7 +29446,22 @@ var audioAPI = new AudioAPI;
 await audioAPI.initialize();
 
 // src/lib/openai.ts
-var openDB = function() {
+var voiceOptions = [
+  "alloy",
+  "ash",
+  "ballad",
+  "coral",
+  "echo",
+  "fable",
+  "onyx",
+  "nova",
+  "sage",
+  "shimmer",
+  "verse"
+];
+var dbName = "BufferCacheDB";
+var storeName = "buffers";
+function openDB() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(dbName, 1);
     request.onupgradeneeded = (event) => {
@@ -27569,36 +29477,28 @@ var openDB = function() {
       reject(request.error);
     };
   });
-};
-var voiceOptions = [
-  "alloy",
-  "echo",
-  "fable",
-  "onyx",
-  "nova",
-  "shimmer"
-];
-var dbName = "BufferCacheDB";
-var storeName = "buffers";
+}
 
 class API {
   static bufferCache = new Map;
   static bufferChanged = false;
-  static async getOrCreateBuffer(voice, text) {
-    const key = `${voice}+${text}`;
+  static ttsModel = "gpt-4o-mini-tts";
+  static async getOrCreateBuffer(voice, text, instructions) {
+    const key = `${voice}+${text}-${instructions}`;
     if (API.bufferCache.has(key)) {
       console.log("Cache hit");
       return API.bufferCache.get(key);
     }
     console.log("Cache miss");
-    return await this.createBuffer(voice, text);
+    return await this.createBuffer(voice, text, instructions);
   }
-  static async createBuffer(voice, text) {
+  static async createBuffer(voice, text, instructions) {
     const response = await this.openaiInstance.audio.speech.create({
-      model: "tts-1",
+      model: API.ttsModel,
       voice,
       input: text,
-      response_format: "opus"
+      response_format: "opus",
+      instructions: instructions || "Please speak in a slow and clear manner. Add emotion and personality to the text."
     });
     const buffer = await response.arrayBuffer();
     API.bufferCache.set(`${voice}+${text}`, buffer);
@@ -27663,7 +29563,6 @@ class API {
   }
   static completionModel = "gpt-3.5-turbo-16k-0613";
   static completionSystemPrompt = "";
-  static ttsModel = "tts-1";
   static async completeChat(text) {
     const response = await this.openaiInstance.chat.completions.create({
       model: this.completionModel,
@@ -27694,7 +29593,7 @@ class API {
     if (text.length == 0) {
       return;
     }
-    const buffer = await this.getOrCreateBuffer(config.voice, text);
+    const buffer = await this.getOrCreateBuffer(config.voice, text, config.voiceInstructions);
     await audioAPI.play(buffer.slice(0), config.deviceId, config.volume, config.pan);
   }
   static async sayStream(text, voice = "alloy") {
@@ -27709,28 +29608,6 @@ class API {
 }
 API.bufferCache = await API.loadFromCache();
 
-// src/Config.tsx
-function Config() {
-  const [apiKey, setApiKey] = import_react3.default.useState(() => localStorage.getItem("OPENAI_KEY") || "");
-  import_react3.default.useEffect(() => {
-    localStorage.setItem("OPENAI_KEY", apiKey);
-    API.setApiKey(apiKey);
-  }, [apiKey]);
-  return jsxDEV2("div", {
-    children: [
-      jsxDEV2("span", {
-        children: "API Key:"
-      }, undefined, false, undefined, this),
-      jsxDEV2("input", {
-        value: apiKey,
-        onChange: (e) => setApiKey(e.target.value),
-        placeholder: "API Key",
-        style: { width: "450px" }
-      }, undefined, false, undefined, this)
-    ]
-  }, undefined, true, undefined, this);
-}
-
 // node_modules/@emotion/react/jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js
 var ReactJSXRuntimeDev = __toESM(require_jsx_dev_runtime(), 1);
 
@@ -27739,7 +29616,7 @@ var React2 = __toESM(require_react(), 1);
 var import_react = __toESM(require_react(), 1);
 
 // node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
-var sheetForTag = function(tag) {
+function sheetForTag(tag) {
   if (tag.sheet) {
     return tag.sheet;
   }
@@ -27748,8 +29625,8 @@ var sheetForTag = function(tag) {
       return document.styleSheets[i];
     }
   }
-};
-var createStyleElement = function(options) {
+}
+function createStyleElement(options) {
   var tag = document.createElement("style");
   tag.setAttribute("data-emotion", options.key);
   if (options.nonce !== undefined) {
@@ -27758,8 +29635,8 @@ var createStyleElement = function(options) {
   tag.appendChild(document.createTextNode(""));
   tag.setAttribute("data-s", "");
   return tag;
-};
-var StyleSheet = function() {
+}
+var StyleSheet = /* @__PURE__ */ function() {
   function StyleSheet2(options) {
     var _this = this;
     this._insertTag = function(tag) {
@@ -27800,7 +29677,8 @@ var StyleSheet = function() {
     if (true) {
       var isImportRule = rule.charCodeAt(0) === 64 && rule.charCodeAt(1) === 105;
       if (isImportRule && this._alreadyInsertedOrderInsensitiveRule) {
-        console.error("You're attempting to insert the following rule:\n" + rule + "\n\n`@import` rules must be before all other types of rules in a stylesheet but other rules have already been inserted. Please ensure that `@import` rules are before all other rules.");
+        console.error(`You're attempting to insert the following rule:
+` + rule + "\n\n`@import` rules must be before all other types of rules in a stylesheet but other rules have already been inserted. Please ensure that `@import` rules are before all other rules.");
       }
       this._alreadyInsertedOrderInsensitiveRule = this._alreadyInsertedOrderInsensitiveRule || !isImportRule;
     }
@@ -27810,7 +29688,7 @@ var StyleSheet = function() {
         sheet.insertRule(rule, sheet.cssRules.length);
       } catch (e) {
         if (!/:(-moz-placeholder|-moz-focus-inner|-moz-focusring|-ms-input-placeholder|-moz-read-write|-moz-read-only|-ms-clear|-ms-expand|-ms-reveal){/.test(rule)) {
-          console.error("There was a problem inserting the following rule: \"" + rule + "\"", e);
+          console.error('There was a problem inserting the following rule: "' + rule + '"', e);
         }
       }
     } else {
@@ -27843,6 +29721,9 @@ var KEYFRAMES = "@keyframes";
 var LAYER = "@layer";
 
 // node_modules/stylis/src/Utility.js
+var abs = Math.abs;
+var from = String.fromCharCode;
+var assign = Object.assign;
 function hash(value, length) {
   return charat(value, 0) ^ 45 ? (((length << 2 ^ charat(value, 0)) << 2 ^ charat(value, 1)) << 2 ^ charat(value, 2)) << 2 ^ charat(value, 3) : 0;
 }
@@ -27876,13 +29757,16 @@ function append(value, array) {
 function combine(array, callback) {
   return array.map(callback).join("");
 }
-var abs = Math.abs;
-var from = String.fromCharCode;
-var assign = Object.assign;
 
 // node_modules/stylis/src/Tokenizer.js
-function node(value, root, parent, type, props, children, length) {
-  return { value, root, parent, type, props, children, line, column, length, return: "" };
+var line = 1;
+var column = 1;
+var length = 0;
+var position = 0;
+var character = 0;
+var characters = "";
+function node(value, root, parent, type, props, children, length2) {
+  return { value, root, parent, type, props, children, line, column, length: length2, return: "" };
 }
 function copy(root, props) {
   return assign(node("", null, null, "", null, null, 0), root, { length: -root.length }, props);
@@ -27999,12 +29883,6 @@ function identifier(index) {
     next();
   return slice(index, position);
 }
-var line = 1;
-var column = 1;
-var length = 0;
-var position = 0;
-var character = 0;
-var characters = "";
 
 // node_modules/stylis/src/Parser.js
 function compile(value) {
@@ -28147,7 +30025,7 @@ function serialize(children, callback) {
     output += callback(children[i], i, children, callback) || "";
   return output;
 }
-function stringify(element, index, children, callback) {
+function stringify2(element, index, children, callback) {
   switch (element.type) {
     case LAYER:
       if (element.children.length)
@@ -28177,130 +30055,16 @@ function middleware(collection) {
 }
 
 // node_modules/@emotion/memoize/dist/emotion-memoize.esm.js
-var memoize = function(fn) {
+function memoize(fn) {
   var cache = Object.create(null);
   return function(arg) {
     if (cache[arg] === undefined)
       cache[arg] = fn(arg);
     return cache[arg];
   };
-};
+}
 
 // node_modules/@emotion/cache/dist/emotion-cache.browser.esm.js
-var prefix = function(value, length2) {
-  switch (hash(value, length2)) {
-    case 5103:
-      return WEBKIT + "print-" + value + value;
-    case 5737:
-    case 4201:
-    case 3177:
-    case 3433:
-    case 1641:
-    case 4457:
-    case 2921:
-    case 5572:
-    case 6356:
-    case 5844:
-    case 3191:
-    case 6645:
-    case 3005:
-    case 6391:
-    case 5879:
-    case 5623:
-    case 6135:
-    case 4599:
-    case 4855:
-    case 4215:
-    case 6389:
-    case 5109:
-    case 5365:
-    case 5621:
-    case 3829:
-      return WEBKIT + value + value;
-    case 5349:
-    case 4246:
-    case 4810:
-    case 6968:
-    case 2756:
-      return WEBKIT + value + MOZ + value + MS + value + value;
-    case 6828:
-    case 4268:
-      return WEBKIT + value + MS + value + value;
-    case 6165:
-      return WEBKIT + value + MS + "flex-" + value + value;
-    case 5187:
-      return WEBKIT + value + replace(value, /(\w+).+(:[^]+)/, WEBKIT + "box-$1$2" + MS + "flex-$1$2") + value;
-    case 5443:
-      return WEBKIT + value + MS + "flex-item-" + replace(value, /flex-|-self/, "") + value;
-    case 4675:
-      return WEBKIT + value + MS + "flex-line-pack" + replace(value, /align-content|flex-|-self/, "") + value;
-    case 5548:
-      return WEBKIT + value + MS + replace(value, "shrink", "negative") + value;
-    case 5292:
-      return WEBKIT + value + MS + replace(value, "basis", "preferred-size") + value;
-    case 6060:
-      return WEBKIT + "box-" + replace(value, "-grow", "") + WEBKIT + value + MS + replace(value, "grow", "positive") + value;
-    case 4554:
-      return WEBKIT + replace(value, /([^-])(transform)/g, "$1" + WEBKIT + "$2") + value;
-    case 6187:
-      return replace(replace(replace(value, /(zoom-|grab)/, WEBKIT + "$1"), /(image-set)/, WEBKIT + "$1"), value, "") + value;
-    case 5495:
-    case 3959:
-      return replace(value, /(image-set\([^]*)/, WEBKIT + "$1$`$1");
-    case 4968:
-      return replace(replace(value, /(.+:)(flex-)?(.*)/, WEBKIT + "box-pack:$3" + MS + "flex-pack:$3"), /s.+-b[^;]+/, "justify") + WEBKIT + value + value;
-    case 4095:
-    case 3583:
-    case 4068:
-    case 2532:
-      return replace(value, /(.+)-inline(.+)/, WEBKIT + "$1$2") + value;
-    case 8116:
-    case 7059:
-    case 5753:
-    case 5535:
-    case 5445:
-    case 5701:
-    case 4933:
-    case 4677:
-    case 5533:
-    case 5789:
-    case 5021:
-    case 4765:
-      if (strlen(value) - 1 - length2 > 6)
-        switch (charat(value, length2 + 1)) {
-          case 109:
-            if (charat(value, length2 + 4) !== 45)
-              break;
-          case 102:
-            return replace(value, /(.+:)(.+)-([^]+)/, "$1" + WEBKIT + "$2-$3$1" + MOZ + (charat(value, length2 + 3) == 108 ? "$3" : "$2-$3")) + value;
-          case 115:
-            return ~indexof(value, "stretch") ? prefix(replace(value, "stretch", "fill-available"), length2) + value : value;
-        }
-      break;
-    case 4949:
-      if (charat(value, length2 + 1) !== 115)
-        break;
-    case 6444:
-      switch (charat(value, strlen(value) - 3 - (~indexof(value, "!important") && 10))) {
-        case 107:
-          return replace(value, ":", ":" + WEBKIT) + value;
-        case 101:
-          return replace(value, /(.+:)([^;!]+)(;|!.+)?/, "$1" + WEBKIT + (charat(value, 14) === 45 ? "inline-" : "") + "box$3$1" + WEBKIT + "$2$3$1" + MS + "$2box$3") + value;
-      }
-      break;
-    case 5936:
-      switch (charat(value, length2 + 11)) {
-        case 114:
-          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb") + value;
-        case 108:
-          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb-rl") + value;
-        case 45:
-          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "lr") + value;
-      }
-      return WEBKIT + value + MS + value + value;
-  }
-  return value;
-};
 var identifierWithPointTracking = function identifierWithPointTracking2(begin, points, index) {
   var previous = 0;
   var character2 = 0;
@@ -28346,7 +30110,7 @@ var toRules = function toRules2(parsed, points) {
 var getRules = function getRules2(value, points) {
   return dealloc(toRules(alloc(value), points));
 };
-var fixedElements = new WeakMap;
+var fixedElements = /* @__PURE__ */ new WeakMap;
 var compat = function compat2(element) {
   if (element.type !== "rule" || !element.parent || element.length < 1) {
     return;
@@ -28408,7 +30172,7 @@ var createUnsafeSelectorsAlarm = function createUnsafeSelectorsAlarm2(cache) {
         }
       }
       unsafePseudoClasses.forEach(function(unsafePseudoClass) {
-        console.error("The pseudo class \"" + unsafePseudoClass + "\" is potentially unsafe when doing server-side rendering. Try changing it to \"" + unsafePseudoClass.split("-child")[0] + "-of-type\".");
+        console.error('The pseudo class "' + unsafePseudoClass + '" is potentially unsafe when doing server-side rendering. Try changing it to "' + unsafePseudoClass.split("-child")[0] + '-of-type".');
       });
     }
   };
@@ -28443,6 +30207,120 @@ var incorrectImportAlarm = function incorrectImportAlarm2(element, index, childr
     nullifyElement(element);
   }
 };
+function prefix(value, length2) {
+  switch (hash(value, length2)) {
+    case 5103:
+      return WEBKIT + "print-" + value + value;
+    case 5737:
+    case 4201:
+    case 3177:
+    case 3433:
+    case 1641:
+    case 4457:
+    case 2921:
+    case 5572:
+    case 6356:
+    case 5844:
+    case 3191:
+    case 6645:
+    case 3005:
+    case 6391:
+    case 5879:
+    case 5623:
+    case 6135:
+    case 4599:
+    case 4855:
+    case 4215:
+    case 6389:
+    case 5109:
+    case 5365:
+    case 5621:
+    case 3829:
+      return WEBKIT + value + value;
+    case 5349:
+    case 4246:
+    case 4810:
+    case 6968:
+    case 2756:
+      return WEBKIT + value + MOZ + value + MS + value + value;
+    case 6828:
+    case 4268:
+      return WEBKIT + value + MS + value + value;
+    case 6165:
+      return WEBKIT + value + MS + "flex-" + value + value;
+    case 5187:
+      return WEBKIT + value + replace(value, /(\w+).+(:[^]+)/, WEBKIT + "box-$1$2" + MS + "flex-$1$2") + value;
+    case 5443:
+      return WEBKIT + value + MS + "flex-item-" + replace(value, /flex-|-self/, "") + value;
+    case 4675:
+      return WEBKIT + value + MS + "flex-line-pack" + replace(value, /align-content|flex-|-self/, "") + value;
+    case 5548:
+      return WEBKIT + value + MS + replace(value, "shrink", "negative") + value;
+    case 5292:
+      return WEBKIT + value + MS + replace(value, "basis", "preferred-size") + value;
+    case 6060:
+      return WEBKIT + "box-" + replace(value, "-grow", "") + WEBKIT + value + MS + replace(value, "grow", "positive") + value;
+    case 4554:
+      return WEBKIT + replace(value, /([^-])(transform)/g, "$1" + WEBKIT + "$2") + value;
+    case 6187:
+      return replace(replace(replace(value, /(zoom-|grab)/, WEBKIT + "$1"), /(image-set)/, WEBKIT + "$1"), value, "") + value;
+    case 5495:
+    case 3959:
+      return replace(value, /(image-set\([^]*)/, WEBKIT + "$1" + "$`$1");
+    case 4968:
+      return replace(replace(value, /(.+:)(flex-)?(.*)/, WEBKIT + "box-pack:$3" + MS + "flex-pack:$3"), /s.+-b[^;]+/, "justify") + WEBKIT + value + value;
+    case 4095:
+    case 3583:
+    case 4068:
+    case 2532:
+      return replace(value, /(.+)-inline(.+)/, WEBKIT + "$1$2") + value;
+    case 8116:
+    case 7059:
+    case 5753:
+    case 5535:
+    case 5445:
+    case 5701:
+    case 4933:
+    case 4677:
+    case 5533:
+    case 5789:
+    case 5021:
+    case 4765:
+      if (strlen(value) - 1 - length2 > 6)
+        switch (charat(value, length2 + 1)) {
+          case 109:
+            if (charat(value, length2 + 4) !== 45)
+              break;
+          case 102:
+            return replace(value, /(.+:)(.+)-([^]+)/, "$1" + WEBKIT + "$2-$3" + "$1" + MOZ + (charat(value, length2 + 3) == 108 ? "$3" : "$2-$3")) + value;
+          case 115:
+            return ~indexof(value, "stretch") ? prefix(replace(value, "stretch", "fill-available"), length2) + value : value;
+        }
+      break;
+    case 4949:
+      if (charat(value, length2 + 1) !== 115)
+        break;
+    case 6444:
+      switch (charat(value, strlen(value) - 3 - (~indexof(value, "!important") && 10))) {
+        case 107:
+          return replace(value, ":", ":" + WEBKIT) + value;
+        case 101:
+          return replace(value, /(.+:)([^;!]+)(;|!.+)?/, "$1" + WEBKIT + (charat(value, 14) === 45 ? "inline-" : "") + "box$3" + "$1" + WEBKIT + "$2$3" + "$1" + MS + "$2box$3") + value;
+      }
+      break;
+    case 5936:
+      switch (charat(value, length2 + 11)) {
+        case 114:
+          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb") + value;
+        case 108:
+          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "tb-rl") + value;
+        case 45:
+          return WEBKIT + value + MS + replace(value, /[svh]\w+-[tblr]{2}/, "lr") + value;
+      }
+      return WEBKIT + value + MS + value + value;
+  }
+  return value;
+}
 var prefixer = function prefixer2(element, index, children, callback) {
   if (element.length > -1) {
     if (!element["return"])
@@ -28481,7 +30359,7 @@ var defaultStylisPlugins = [prefixer];
 var createCache = function createCache2(options) {
   var key = options.key;
   if (!key) {
-    throw new Error("You have to configure `key` for your cache. Please make sure it's unique (and not equal to 'css') as it's used for linking styles to your cache.\nIf multiple caches share the same key they might \"fight\" for each other's style elements.");
+    throw new Error("You have to configure `key` for your cache. Please make sure it's unique (and not equal to 'css') as it's used for linking styles to your cache.\n" + `If multiple caches share the same key they might "fight" for each other's style elements.`);
   }
   if (key === "css") {
     var ssrStyles = document.querySelectorAll("style[data-emotion]:not([data-s])");
@@ -28497,7 +30375,7 @@ var createCache = function createCache2(options) {
   var stylisPlugins = options.stylisPlugins || defaultStylisPlugins;
   if (true) {
     if (/[^a-z-]/.test(key)) {
-      throw new Error("Emotion key must only contain lower case alphabetical characters and - but \"" + key + "\" was passed");
+      throw new Error('Emotion key must only contain lower case alphabetical characters and - but "' + key + '" was passed');
     }
   }
   var inserted = {};
@@ -28505,7 +30383,7 @@ var createCache = function createCache2(options) {
   var nodesToHydrate = [];
   {
     container = options.container || document.head;
-    Array.prototype.forEach.call(document.querySelectorAll("style[data-emotion^=\"" + key + " \"]"), function(node2) {
+    Array.prototype.forEach.call(document.querySelectorAll('style[data-emotion^="' + key + ' "]'), function(node2) {
       var attrib = node2.getAttribute("data-emotion").split(" ");
       for (var i = 1;i < attrib.length; i++) {
         inserted[attrib[i]] = true;
@@ -28524,7 +30402,7 @@ var createCache = function createCache2(options) {
   }
   {
     var currentSheet;
-    var finalizingPlugins = [stringify, function(element) {
+    var finalizingPlugins = [stringify2, function(element) {
       if (!element.root) {
         if (element["return"]) {
           currentSheet.insert(element["return"]);
@@ -28537,12 +30415,12 @@ var createCache = function createCache2(options) {
     var stylis = function stylis(styles) {
       return serialize(compile(styles), serializer);
     };
-    _insert = function insert(selector, serialized, sheet2, shouldCache) {
-      currentSheet = sheet2;
+    _insert = function insert(selector, serialized, sheet, shouldCache) {
+      currentSheet = sheet;
       if (serialized.map !== undefined) {
         currentSheet = {
           insert: function insert(rule) {
-            sheet2.insert(rule + serialized.map);
+            sheet.insert(rule + serialized.map);
           }
         };
       }
@@ -28572,7 +30450,8 @@ var createCache = function createCache2(options) {
 };
 
 // node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js
-var getRegisteredStyles = function(registered, registeredStyles, classNames) {
+var isBrowser = true;
+function getRegisteredStyles(registered, registeredStyles, classNames) {
   var rawClassName = "";
   classNames.split(" ").forEach(function(className) {
     if (registered[className] !== undefined) {
@@ -28582,8 +30461,7 @@ var getRegisteredStyles = function(registered, registeredStyles, classNames) {
     }
   });
   return rawClassName;
-};
-var isBrowser = true;
+}
 var registerStyles = function registerStyles2(cache, serialized, isStringTag) {
   var className = cache.key + "-" + serialized.name;
   if ((isStringTag === false || isBrowser === false) && cache.registered[className] === undefined) {
@@ -28603,7 +30481,7 @@ var insertStyles = function insertStyles2(cache, serialized, isStringTag) {
 };
 
 // node_modules/@emotion/hash/dist/emotion-hash.esm.js
-var murmur2 = function(str2) {
+function murmur2(str2) {
   var h = 0;
   var k, i = 0, len = str2.length;
   for (;len >= 4; ++i, len -= 4) {
@@ -28624,7 +30502,7 @@ var murmur2 = function(str2) {
   h ^= h >>> 13;
   h = (h & 65535) * 1540483477 + ((h >>> 16) * 59797 << 16);
   return ((h ^ h >>> 15) >>> 0).toString(36);
-};
+}
 
 // node_modules/@emotion/unitless/dist/emotion-unitless.esm.js
 var unitlessKeys = {
@@ -28677,127 +30555,10 @@ var unitlessKeys = {
 };
 
 // node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
-var handleInterpolation = function(mergedProps, registered, interpolation) {
-  if (interpolation == null) {
-    return "";
-  }
-  if (interpolation.__emotion_styles !== undefined) {
-    if (interpolation.toString() === "NO_COMPONENT_SELECTOR") {
-      throw new Error(noComponentSelectorMessage);
-    }
-    return interpolation;
-  }
-  switch (typeof interpolation) {
-    case "boolean": {
-      return "";
-    }
-    case "object": {
-      if (interpolation.anim === 1) {
-        cursor = {
-          name: interpolation.name,
-          styles: interpolation.styles,
-          next: cursor
-        };
-        return interpolation.name;
-      }
-      if (interpolation.styles !== undefined) {
-        var next2 = interpolation.next;
-        if (next2 !== undefined) {
-          while (next2 !== undefined) {
-            cursor = {
-              name: next2.name,
-              styles: next2.styles,
-              next: cursor
-            };
-            next2 = next2.next;
-          }
-        }
-        var styles = interpolation.styles + ";";
-        if (interpolation.map !== undefined) {
-          styles += interpolation.map;
-        }
-        return styles;
-      }
-      return createStringFromObject(mergedProps, registered, interpolation);
-    }
-    case "function": {
-      if (mergedProps !== undefined) {
-        var previousCursor = cursor;
-        var result = interpolation(mergedProps);
-        cursor = previousCursor;
-        return handleInterpolation(mergedProps, registered, result);
-      } else if (true) {
-        console.error("Functions that are interpolated in css calls will be stringified.\nIf you want to have a css call based on props, create a function that returns a css call like this\nlet dynamicStyle = (props) => css`color: ${props.color}`\nIt can be called directly with props or interpolated in a styled call like this\nlet SomeComponent = styled('div')`${dynamicStyle}`");
-      }
-      break;
-    }
-    case "string":
-      if (true) {
-        var matched = [];
-        var replaced = interpolation.replace(animationRegex, function(match2, p1, p2) {
-          var fakeVarName = "animation" + matched.length;
-          matched.push("const " + fakeVarName + " = keyframes`" + p2.replace(/^@keyframes animation-\w+/, "") + "`");
-          return "${" + fakeVarName + "}";
-        });
-        if (matched.length) {
-          console.error("`keyframes` output got interpolated into plain string, please wrap it with `css`.\n\nInstead of doing this:\n\n" + [].concat(matched, ["`" + replaced + "`"]).join("\n") + "\n\nYou should wrap it with `css` like this:\n\n" + ("css`" + replaced + "`"));
-        }
-      }
-      break;
-  }
-  if (registered == null) {
-    return interpolation;
-  }
-  var cached = registered[interpolation];
-  return cached !== undefined ? cached : interpolation;
-};
-var createStringFromObject = function(mergedProps, registered, obj) {
-  var string = "";
-  if (Array.isArray(obj)) {
-    for (var i = 0;i < obj.length; i++) {
-      string += handleInterpolation(mergedProps, registered, obj[i]) + ";";
-    }
-  } else {
-    for (var _key in obj) {
-      var value = obj[_key];
-      if (typeof value !== "object") {
-        if (registered != null && registered[value] !== undefined) {
-          string += _key + "{" + registered[value] + "}";
-        } else if (isProcessableValue(value)) {
-          string += processStyleName(_key) + ":" + processStyleValue(_key, value) + ";";
-        }
-      } else {
-        if (_key === "NO_COMPONENT_SELECTOR" && true) {
-          throw new Error(noComponentSelectorMessage);
-        }
-        if (Array.isArray(value) && typeof value[0] === "string" && (registered == null || registered[value[0]] === undefined)) {
-          for (var _i = 0;_i < value.length; _i++) {
-            if (isProcessableValue(value[_i])) {
-              string += processStyleName(_key) + ":" + processStyleValue(_key, value[_i]) + ";";
-            }
-          }
-        } else {
-          var interpolated = handleInterpolation(mergedProps, registered, value);
-          switch (_key) {
-            case "animation":
-            case "animationName": {
-              string += processStyleName(_key) + ":" + interpolated + ";";
-              break;
-            }
-            default: {
-              if (_key === "undefined") {
-                console.error(UNDEFINED_AS_OBJECT_KEY_ERROR);
-              }
-              string += _key + "{" + interpolated + "}";
-            }
-          }
-        }
-      }
-    }
-  }
-  return string;
-};
-var ILLEGAL_ESCAPE_SEQUENCE_ERROR = "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
+var ILLEGAL_ESCAPE_SEQUENCE_ERROR = `You have illegal escape sequence in your template literal, most likely inside content's property value.
+Because you write your CSS inside a JavaScript string you actually have to do double escaping, so for example "content: '\\00d7';" should become "content: '\\\\00d7';".
+You can read more about this here:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences`;
 var UNDEFINED_AS_OBJECT_KEY_ERROR = "You have passed in falsy value as style object's key (can happen when in example you pass unexported component as computed key).";
 var hyphenateRegex = /[A-Z]|^ms/g;
 var animationRegex = /_EMO_([^_]+?)_([^]*?)_EMO_/g;
@@ -28807,7 +30568,7 @@ var isCustomProperty = function isCustomProperty2(property) {
 var isProcessableValue = function isProcessableValue2(value) {
   return value != null && typeof value !== "boolean";
 };
-var processStyleName = memoize(function(styleName) {
+var processStyleName = /* @__PURE__ */ memoize(function(styleName) {
   return isCustomProperty(styleName) ? styleName : styleName.replace(hyphenateRegex, "-$&").toLowerCase();
 });
 var processStyleValue = function processStyleValue2(key, value) {
@@ -28860,7 +30621,137 @@ var oldProcessStyleValue;
 var msPattern;
 var hyphenPattern;
 var hyphenatedCache;
-var noComponentSelectorMessage = "Component selectors can only be used in conjunction with @emotion/babel-plugin, the swc Emotion plugin, or another Emotion-aware compiler transform.";
+var noComponentSelectorMessage = "Component selectors can only be used in conjunction with " + "@emotion/babel-plugin, the swc Emotion plugin, or another Emotion-aware " + "compiler transform.";
+function handleInterpolation(mergedProps, registered, interpolation) {
+  if (interpolation == null) {
+    return "";
+  }
+  if (interpolation.__emotion_styles !== undefined) {
+    if (interpolation.toString() === "NO_COMPONENT_SELECTOR") {
+      throw new Error(noComponentSelectorMessage);
+    }
+    return interpolation;
+  }
+  switch (typeof interpolation) {
+    case "boolean": {
+      return "";
+    }
+    case "object": {
+      if (interpolation.anim === 1) {
+        cursor = {
+          name: interpolation.name,
+          styles: interpolation.styles,
+          next: cursor
+        };
+        return interpolation.name;
+      }
+      if (interpolation.styles !== undefined) {
+        var next2 = interpolation.next;
+        if (next2 !== undefined) {
+          while (next2 !== undefined) {
+            cursor = {
+              name: next2.name,
+              styles: next2.styles,
+              next: cursor
+            };
+            next2 = next2.next;
+          }
+        }
+        var styles = interpolation.styles + ";";
+        if (interpolation.map !== undefined) {
+          styles += interpolation.map;
+        }
+        return styles;
+      }
+      return createStringFromObject(mergedProps, registered, interpolation);
+    }
+    case "function": {
+      if (mergedProps !== undefined) {
+        var previousCursor = cursor;
+        var result = interpolation(mergedProps);
+        cursor = previousCursor;
+        return handleInterpolation(mergedProps, registered, result);
+      } else if (true) {
+        console.error(`Functions that are interpolated in css calls will be stringified.
+` + `If you want to have a css call based on props, create a function that returns a css call like this
+` + "let dynamicStyle = (props) => css`color: ${props.color}`\n" + `It can be called directly with props or interpolated in a styled call like this
+` + "let SomeComponent = styled('div')`${dynamicStyle}`");
+      }
+      break;
+    }
+    case "string":
+      if (true) {
+        var matched = [];
+        var replaced = interpolation.replace(animationRegex, function(match2, p1, p2) {
+          var fakeVarName = "animation" + matched.length;
+          matched.push("const " + fakeVarName + " = keyframes`" + p2.replace(/^@keyframes animation-\w+/, "") + "`");
+          return "${" + fakeVarName + "}";
+        });
+        if (matched.length) {
+          console.error("`keyframes` output got interpolated into plain string, please wrap it with `css`.\n\n" + `Instead of doing this:
+
+` + [].concat(matched, ["`" + replaced + "`"]).join(`
+`) + `
+
+You should wrap it with \`css\` like this:
+
+` + ("css`" + replaced + "`"));
+        }
+      }
+      break;
+  }
+  if (registered == null) {
+    return interpolation;
+  }
+  var cached = registered[interpolation];
+  return cached !== undefined ? cached : interpolation;
+}
+function createStringFromObject(mergedProps, registered, obj) {
+  var string = "";
+  if (Array.isArray(obj)) {
+    for (var i = 0;i < obj.length; i++) {
+      string += handleInterpolation(mergedProps, registered, obj[i]) + ";";
+    }
+  } else {
+    for (var _key in obj) {
+      var value = obj[_key];
+      if (typeof value !== "object") {
+        if (registered != null && registered[value] !== undefined) {
+          string += _key + "{" + registered[value] + "}";
+        } else if (isProcessableValue(value)) {
+          string += processStyleName(_key) + ":" + processStyleValue(_key, value) + ";";
+        }
+      } else {
+        if (_key === "NO_COMPONENT_SELECTOR" && true) {
+          throw new Error(noComponentSelectorMessage);
+        }
+        if (Array.isArray(value) && typeof value[0] === "string" && (registered == null || registered[value[0]] === undefined)) {
+          for (var _i = 0;_i < value.length; _i++) {
+            if (isProcessableValue(value[_i])) {
+              string += processStyleName(_key) + ":" + processStyleValue(_key, value[_i]) + ";";
+            }
+          }
+        } else {
+          var interpolated = handleInterpolation(mergedProps, registered, value);
+          switch (_key) {
+            case "animation":
+            case "animationName": {
+              string += processStyleName(_key) + ":" + interpolated + ";";
+              break;
+            }
+            default: {
+              if (_key === "undefined") {
+                console.error(UNDEFINED_AS_OBJECT_KEY_ERROR);
+              }
+              string += _key + "{" + interpolated + "}";
+            }
+          }
+        }
+      }
+    }
+  }
+  return string;
+}
 var labelPattern = /label:\s*([^\s;\n{]+)\s*(;|$)/g;
 var sourceMapPattern;
 if (true) {
@@ -28930,14 +30821,14 @@ var React = __toESM(require_react(), 1);
 var syncFallback = function syncFallback2(create) {
   return create();
 };
-var useInsertionEffect2 = React.useInsertionEffect ? React.useInsertionEffect : false;
-var useInsertionEffectAlwaysWithSyncFallback = useInsertionEffect2 || syncFallback;
-var useInsertionEffectWithLayoutFallback = useInsertionEffect2 || React.useLayoutEffect;
+var useInsertionEffect = React["useInsertion" + "Effect"] ? React["useInsertion" + "Effect"] : false;
+var useInsertionEffectAlwaysWithSyncFallback = useInsertionEffect || syncFallback;
+var useInsertionEffectWithLayoutFallback = useInsertionEffect || React.useLayoutEffect;
 
 // node_modules/@emotion/react/dist/emotion-element-43c6fea0.browser.esm.js
 var isBrowser2 = true;
 var hasOwn2 = {}.hasOwnProperty;
-var EmotionCacheContext = React2.createContext(typeof HTMLElement !== "undefined" ? createCache({
+var EmotionCacheContext = /* @__PURE__ */ React2.createContext(typeof HTMLElement !== "undefined" ? /* @__PURE__ */ createCache({
   key: "css"
 }) : null);
 if (true) {
@@ -28945,29 +30836,29 @@ if (true) {
 }
 var CacheProvider = EmotionCacheContext.Provider;
 var withEmotionCache = function withEmotionCache2(func) {
-  return import_react.forwardRef(function(props, ref) {
-    var cache2 = import_react.useContext(EmotionCacheContext);
-    return func(props, cache2, ref);
+  return /* @__PURE__ */ import_react.forwardRef(function(props, ref) {
+    var cache = import_react.useContext(EmotionCacheContext);
+    return func(props, cache, ref);
   });
 };
 if (!isBrowser2) {
   withEmotionCache = function withEmotionCache(func) {
     return function(props) {
-      var cache2 = import_react.useContext(EmotionCacheContext);
-      if (cache2 === null) {
-        cache2 = createCache({
+      var cache = import_react.useContext(EmotionCacheContext);
+      if (cache === null) {
+        cache = createCache({
           key: "css"
         });
-        return React2.createElement(EmotionCacheContext.Provider, {
-          value: cache2
-        }, func(props, cache2));
+        return /* @__PURE__ */ React2.createElement(EmotionCacheContext.Provider, {
+          value: cache
+        }, func(props, cache));
       } else {
-        return func(props, cache2);
+        return func(props, cache);
       }
     };
   };
 }
-var ThemeContext = React2.createContext({});
+var ThemeContext = /* @__PURE__ */ React2.createContext({});
 if (true) {
   ThemeContext.displayName = "EmotionThemeContext";
 }
@@ -28984,14 +30875,15 @@ var getFunctionNameFromStackTraceLine = function getFunctionNameFromStackTraceLi
     return getLastPart(match2[1]);
   return;
 };
-var internalReactFunctionNames = new Set(["renderWithHooks", "processChild", "finishClassComponent", "renderToString"]);
+var internalReactFunctionNames = /* @__PURE__ */ new Set(["renderWithHooks", "processChild", "finishClassComponent", "renderToString"]);
 var sanitizeIdentifier = function sanitizeIdentifier2(identifier2) {
   return identifier2.replace(/\$/g, "-");
 };
 var getLabelFromStackTrace = function getLabelFromStackTrace2(stackTrace) {
   if (!stackTrace)
     return;
-  var lines = stackTrace.split("\n");
+  var lines = stackTrace.split(`
+`);
   for (var i = 0;i < lines.length; i++) {
     var functionName = getFunctionNameFromStackTraceLine(lines[i]);
     if (!functionName)
@@ -29024,23 +30916,23 @@ var createEmotionProps = function createEmotionProps2(type, props) {
   return newProps;
 };
 var Insertion = function Insertion2(_ref) {
-  var { cache: cache2, serialized, isStringTag } = _ref;
-  registerStyles(cache2, serialized, isStringTag);
+  var { cache, serialized, isStringTag } = _ref;
+  registerStyles(cache, serialized, isStringTag);
   useInsertionEffectAlwaysWithSyncFallback(function() {
-    return insertStyles(cache2, serialized, isStringTag);
+    return insertStyles(cache, serialized, isStringTag);
   });
   return null;
 };
-var Emotion = withEmotionCache(function(props, cache2, ref) {
+var Emotion = /* @__PURE__ */ withEmotionCache(function(props, cache, ref) {
   var cssProp = props.css;
-  if (typeof cssProp === "string" && cache2.registered[cssProp] !== undefined) {
-    cssProp = cache2.registered[cssProp];
+  if (typeof cssProp === "string" && cache.registered[cssProp] !== undefined) {
+    cssProp = cache.registered[cssProp];
   }
   var WrappedComponent = props[typePropName];
   var registeredStyles = [cssProp];
   var className = "";
   if (typeof props.className === "string") {
-    className = getRegisteredStyles(cache2.registered, registeredStyles, props.className);
+    className = getRegisteredStyles(cache.registered, registeredStyles, props.className);
   } else if (props.className != null) {
     className = props.className + " ";
   }
@@ -29051,7 +30943,7 @@ var Emotion = withEmotionCache(function(props, cache2, ref) {
       serialized = serializeStyles([serialized, "label:" + labelFromStack + ";"]);
     }
   }
-  className += cache2.key + "-" + serialized.name;
+  className += cache.key + "-" + serialized.name;
   var newProps = {};
   for (var key in props) {
     if (hasOwn2.call(props, key) && key !== "css" && key !== typePropName && key !== labelPropName) {
@@ -29060,11 +30952,11 @@ var Emotion = withEmotionCache(function(props, cache2, ref) {
   }
   newProps.ref = ref;
   newProps.className = className;
-  return React2.createElement(React2.Fragment, null, React2.createElement(Insertion, {
-    cache: cache2,
+  return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement(Insertion, {
+    cache,
     serialized,
     isStringTag: typeof WrappedComponent === "string"
-  }), React2.createElement(WrappedComponent, newProps));
+  }), /* @__PURE__ */ React2.createElement(WrappedComponent, newProps));
 });
 if (true) {
   Emotion.displayName = "EmotionCssPropInternal";
@@ -29074,19 +30966,42 @@ var Emotion$1 = Emotion;
 // node_modules/@emotion/react/jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js
 var import_react2 = __toESM(require_react(), 1);
 var import_hoist_non_react_statics = __toESM(require_hoist_non_react_statics_cjs(), 1);
-var jsxDEV2 = function(type, props, key, isStaticChildren, source, self) {
+function jsxDEV2(type, props, key, isStaticChildren, source, self) {
   if (!hasOwn2.call(props, "css")) {
     return ReactJSXRuntimeDev.jsxDEV(type, props, key, isStaticChildren, source, self);
   }
   return ReactJSXRuntimeDev.jsxDEV(Emotion$1, createEmotionProps(type, props), key, isStaticChildren, source, self);
-};
+}
+
+// src/Config.tsx
+function Config() {
+  const [apiKey, setApiKey] = import_react3.default.useState(() => localStorage.getItem("OPENAI_KEY") || "");
+  import_react3.default.useEffect(() => {
+    localStorage.setItem("OPENAI_KEY", apiKey);
+    API.setApiKey(apiKey);
+  }, [apiKey]);
+  return /* @__PURE__ */ jsxDEV2("div", {
+    children: [
+      /* @__PURE__ */ jsxDEV2("span", {
+        children: "API Key:"
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsxDEV2("input", {
+        value: apiKey,
+        onChange: (e) => setApiKey(e.target.value),
+        placeholder: "API Key",
+        style: { width: "450px" }
+      }, undefined, false, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
+}
 
 // src/Conversation.tsx
 var import_react4 = __toESM(require_react(), 1);
 
 // src/types.ts
 function parseConversation(conversationText) {
-  const lines = conversationText.split("\n");
+  const lines = conversationText.split(`
+`);
   const parsed = [];
   let currentSpeaker = "";
   let currentText = "";
@@ -29098,7 +31013,8 @@ function parseConversation(conversationText) {
       currentSpeaker = line2.match(/\[.*\]/)?.[0] || currentSpeaker;
       currentText = "";
     } else {
-      currentText += line2 + "\n";
+      currentText += line2 + `
+`;
     }
   }
   if (currentSpeaker) {
@@ -29207,7 +31123,7 @@ function Conversation({
       midi_default.removeNoteOnListener(handleMidiNote);
     };
   }, [conversationQueueMidiNote, parsedConversation]);
-  return jsxDEV2("div", {
+  return /* @__PURE__ */ jsxDEV2("div", {
     style: {
       display: "flex",
       flexDirection: "column",
@@ -29217,22 +31133,22 @@ function Conversation({
       backgroundColor: "white"
     },
     children: [
-      jsxDEV2("input", {
+      /* @__PURE__ */ jsxDEV2("input", {
         value: conversationTitle,
         onChange: (e) => setConversationTitle(e.target.value)
       }, undefined, false, undefined, this),
-      jsxDEV2("textarea", {
+      /* @__PURE__ */ jsxDEV2("textarea", {
         rows: 10,
         value: conversationText,
         onChange: (e) => setConversationText(e.target.value)
       }, undefined, false, undefined, this),
-      jsxDEV2("div", {
-        children: jsxDEV2("div", {
+      /* @__PURE__ */ jsxDEV2("div", {
+        children: /* @__PURE__ */ jsxDEV2("div", {
           children: [
-            jsxDEV2("label", {
+            /* @__PURE__ */ jsxDEV2("label", {
               children: "Midi Note: "
             }, undefined, false, undefined, this),
-            jsxDEV2("input", {
+            /* @__PURE__ */ jsxDEV2("input", {
               style: { width: "10%" },
               type: "number",
               value: conversationQueueMidiNote,
@@ -29241,18 +31157,18 @@ function Conversation({
           ]
         }, undefined, true, undefined, this)
       }, undefined, false, undefined, this),
-      jsxDEV2("div", {
+      /* @__PURE__ */ jsxDEV2("div", {
         style: {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between"
         },
         children: [
-          jsxDEV2("button", {
+          /* @__PURE__ */ jsxDEV2("button", {
             onClick: () => onSay(parsedConversation),
             children: "Add to queue"
           }, undefined, false, undefined, this),
-          jsxDEV2("button", {
+          /* @__PURE__ */ jsxDEV2("button", {
             onClick: removeConversation,
             children: "Delete Conversation"
           }, undefined, false, undefined, this)
@@ -29268,20 +31184,6 @@ var import_react5 = __toESM(require_react(), 1);
 // node_modules/@emotion/react/dist/emotion-react.browser.esm.js
 var React5 = __toESM(require_react(), 1);
 var import_hoist_non_react_statics2 = __toESM(require_hoist_non_react_statics_cjs(), 1);
-var css = function() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-  return serializeStyles(args);
-};
-var merge = function(registered, css2, className) {
-  var registeredStyles = [];
-  var rawClassName = getRegisteredStyles(registered, registeredStyles, className);
-  if (registeredStyles.length < 2) {
-    return className;
-  }
-  return rawClassName + css2(registeredStyles);
-};
 var pkg = {
   name: "@emotion/react",
   version: "11.11.4",
@@ -29414,7 +31316,7 @@ var pkg = {
   }
 };
 var warnedAboutCssPropForGlobal = false;
-var Global = withEmotionCache(function(props, cache4) {
+var Global = /* @__PURE__ */ withEmotionCache(function(props, cache) {
   if (!warnedAboutCssPropForGlobal && (props.className || props.css)) {
     console.error("It looks like you're using the css prop on Global, did you mean to use the styles prop instead?");
     warnedAboutCssPropForGlobal = true;
@@ -29431,63 +31333,69 @@ var Global = withEmotionCache(function(props, cache4) {
       serializedStyles += next2.styles;
       next2 = next2.next;
     }
-    var shouldCache = cache4.compat === true;
-    var rules = cache4.insert("", {
+    var shouldCache = cache.compat === true;
+    var rules = cache.insert("", {
       name: serializedNames,
       styles: serializedStyles
-    }, cache4.sheet, shouldCache);
+    }, cache.sheet, shouldCache);
     if (shouldCache) {
       return null;
     }
-    return React5.createElement("style", (_ref = {}, _ref["data-emotion"] = cache4.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
+    return /* @__PURE__ */ React5.createElement("style", (_ref = {}, _ref["data-emotion"] = cache.key + "-global " + serializedNames, _ref.dangerouslySetInnerHTML = {
       __html: rules
-    }, _ref.nonce = cache4.sheet.nonce, _ref));
+    }, _ref.nonce = cache.sheet.nonce, _ref));
   }
   var sheetRef = React5.useRef();
   useInsertionEffectWithLayoutFallback(function() {
-    var key = cache4.key + "-global";
-    var sheet2 = new cache4.sheet.constructor({
+    var key = cache.key + "-global";
+    var sheet = new cache.sheet.constructor({
       key,
-      nonce: cache4.sheet.nonce,
-      container: cache4.sheet.container,
-      speedy: cache4.sheet.isSpeedy
+      nonce: cache.sheet.nonce,
+      container: cache.sheet.container,
+      speedy: cache.sheet.isSpeedy
     });
     var rehydrating = false;
-    var node2 = document.querySelector("style[data-emotion=\"" + key + " " + serialized.name + "\"]");
-    if (cache4.sheet.tags.length) {
-      sheet2.before = cache4.sheet.tags[0];
+    var node2 = document.querySelector('style[data-emotion="' + key + " " + serialized.name + '"]');
+    if (cache.sheet.tags.length) {
+      sheet.before = cache.sheet.tags[0];
     }
     if (node2 !== null) {
       rehydrating = true;
       node2.setAttribute("data-emotion", key);
-      sheet2.hydrate([node2]);
+      sheet.hydrate([node2]);
     }
-    sheetRef.current = [sheet2, rehydrating];
+    sheetRef.current = [sheet, rehydrating];
     return function() {
-      sheet2.flush();
+      sheet.flush();
     };
-  }, [cache4]);
+  }, [cache]);
   useInsertionEffectWithLayoutFallback(function() {
     var sheetRefCurrent = sheetRef.current;
-    var sheet2 = sheetRefCurrent[0], rehydrating = sheetRefCurrent[1];
+    var sheet = sheetRefCurrent[0], rehydrating = sheetRefCurrent[1];
     if (rehydrating) {
       sheetRefCurrent[1] = false;
       return;
     }
     if (serialized.next !== undefined) {
-      insertStyles(cache4, serialized.next, true);
+      insertStyles(cache, serialized.next, true);
     }
-    if (sheet2.tags.length) {
-      var element = sheet2.tags[sheet2.tags.length - 1].nextElementSibling;
-      sheet2.before = element;
-      sheet2.flush();
+    if (sheet.tags.length) {
+      var element = sheet.tags[sheet.tags.length - 1].nextElementSibling;
+      sheet.before = element;
+      sheet.flush();
     }
-    cache4.insert("", serialized, sheet2, false);
-  }, [cache4, serialized.name]);
+    cache.insert("", serialized, sheet, false);
+  }, [cache, serialized.name]);
   return null;
 });
 if (true) {
   Global.displayName = "EmotionGlobal";
+}
+function css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  return serializeStyles(args);
 }
 var classnames = function classnames2(args) {
   var len = args.length;
@@ -29506,7 +31414,7 @@ var classnames = function classnames2(args) {
           toAdd = classnames2(arg);
         } else {
           if (arg.styles !== undefined && arg.name !== undefined) {
-            console.error("You have passed styles created with `css` from `@emotion/react` package to the `cx`.\n`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component.");
+            console.error("You have passed styles created with `css` from `@emotion/react` package to the `cx`.\n" + "`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component.");
           }
           toAdd = "";
           for (var k in arg) {
@@ -29529,16 +31437,24 @@ var classnames = function classnames2(args) {
   }
   return cls;
 };
+function merge(registered, css2, className) {
+  var registeredStyles = [];
+  var rawClassName = getRegisteredStyles(registered, registeredStyles, className);
+  if (registeredStyles.length < 2) {
+    return className;
+  }
+  return rawClassName + css2(registeredStyles);
+}
 var Insertion3 = function Insertion4(_ref) {
-  var { cache: cache4, serializedArr } = _ref;
+  var { cache, serializedArr } = _ref;
   useInsertionEffectAlwaysWithSyncFallback(function() {
     for (var i = 0;i < serializedArr.length; i++) {
-      insertStyles(cache4, serializedArr[i], false);
+      insertStyles(cache, serializedArr[i], false);
     }
   });
   return null;
 };
-var ClassNames = withEmotionCache(function(props, cache4) {
+var ClassNames = /* @__PURE__ */ withEmotionCache(function(props, cache) {
   var hasRendered = false;
   var serializedArr = [];
   var css2 = function css() {
@@ -29548,10 +31464,10 @@ var ClassNames = withEmotionCache(function(props, cache4) {
     for (var _len = arguments.length, args = new Array(_len), _key = 0;_key < _len; _key++) {
       args[_key] = arguments[_key];
     }
-    var serialized = serializeStyles(args, cache4.registered);
+    var serialized = serializeStyles(args, cache.registered);
     serializedArr.push(serialized);
-    registerStyles(cache4, serialized, false);
-    return cache4.key + "-" + serialized.name;
+    registerStyles(cache, serialized, false);
+    return cache.key + "-" + serialized.name;
   };
   var cx = function cx() {
     if (hasRendered && true) {
@@ -29560,7 +31476,7 @@ var ClassNames = withEmotionCache(function(props, cache4) {
     for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0;_key2 < _len2; _key2++) {
       args[_key2] = arguments[_key2];
     }
-    return merge(cache4.registered, css2, classnames(args));
+    return merge(cache.registered, css2, classnames(args));
   };
   var content = {
     css: css2,
@@ -29569,8 +31485,8 @@ var ClassNames = withEmotionCache(function(props, cache4) {
   };
   var ele = props.children(content);
   hasRendered = true;
-  return React5.createElement(React5.Fragment, null, React5.createElement(Insertion3, {
-    cache: cache4,
+  return /* @__PURE__ */ React5.createElement(React5.Fragment, null, /* @__PURE__ */ React5.createElement(Insertion3, {
+    cache,
     serializedArr
   }), ele);
 });
@@ -29584,7 +31500,7 @@ if (true) {
     globalContext = typeof globalThis !== "undefined" ? globalThis : isBrowser3 ? window : global;
     globalKey = "__EMOTION_REACT_" + pkg.version.split(".")[0] + "__";
     if (globalContext[globalKey]) {
-      console.warn("You are loading @emotion/react when it is already loaded. Running multiple instances may cause problems. This can happen if multiple versions are used, or if multiple builds of the same version are used.");
+      console.warn("You are loading @emotion/react when it is already loaded. Running " + "multiple instances may cause problems. This can happen if multiple " + "versions are used, or if multiple builds of the same version are " + "used.");
     }
     globalContext[globalKey] = true;
   }
@@ -29595,152 +31511,18 @@ var globalContext;
 var globalKey;
 
 // src/media/images/helio.png
-var helio_default = "./helio-06db6a9b5ced0c45.png";
+var helio_default = "./helio-5cdwvav6.png";
 
 // src/media/images/karl.png
-var karl_default = "./karl-591e1eb63ea4090b.png";
+var karl_default = "./karl-b94ypyys.png";
 
 // src/media/images/barbara.png
-var barbara_default = "./barbara-bda1aa12a124c429.png";
+var barbara_default = "./barbara-9441ja1x.png";
 
 // src/media/images/paula.png
-var paula_default = "./paula-dd307689561d9876.png";
+var paula_default = "./paula-prxp9pgx.png";
 
 // src/Speaker.tsx
-function Speaker({
-  handle,
-  index,
-  config,
-  color,
-  onChange
-}) {
-  const [speakerId, setSpeakerId] = import_react5.default.useState(config.deviceId);
-  const [voice, setVoice] = import_react5.default.useState(config.voice);
-  const [volume, setVolume] = import_react5.default.useState(config.volume);
-  const [pan, setPan] = import_react5.default.useState(config.pan);
-  async function say() {
-    await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, {
-      voice,
-      deviceId: speakerId,
-      volume,
-      pan
-    });
-  }
-  async function copyToClipboard() {
-    await navigator.clipboard.writeText(handle);
-  }
-  import_react5.default.useEffect(() => {
-    onChange({ deviceId: speakerId, voice, volume, pan });
-  }, [speakerId, voice, volume, pan]);
-  import_react5.default.useEffect(() => {
-    midi_default.addNoteOnListener((note, velocity) => {
-      if (note === index + 36) {
-        say();
-      }
-    });
-    return () => {
-    };
-  }, [index, speakerId, voice, volume, pan]);
-  return jsxDEV2("div", {
-    style: { display: "flex", flexDirection: "column", flex: 1 },
-    children: [
-      jsxDEV2("div", {
-        style: { height: "200px", margin: "auto" },
-        children: jsxDEV2("img", {
-          src: imageMap[handle],
-          alt: "Helios",
-          style: { height: "100%" }
-        }, undefined, false, undefined, this)
-      }, undefined, false, undefined, this),
-      jsxDEV2("div", {
-        css: flex,
-        children: [
-          jsxDEV2("div", {
-            css: css`
-            ${flexItem};
-            background-color: ${color};
-          `,
-            style: { textAlign: "center" },
-            children: jsxDEV2("a", {
-              css: css`
-              text-decoration: none;
-              &:visited {
-                color: black;
-              }
-            `,
-              href: "#",
-              onClick: copyToClipboard,
-              children: handle
-            }, undefined, false, undefined, this)
-          }, undefined, false, undefined, this),
-          jsxDEV2("div", {
-            css: flexItem,
-            children: jsxDEV2("select", {
-              value: speakerId,
-              onChange: (e) => setSpeakerId(e.target.value),
-              children: audioAPI.outputDevices.map((device) => jsxDEV2("option", {
-                value: device.deviceId,
-                children: device.label
-              }, device.deviceId, false, undefined, this))
-            }, undefined, false, undefined, this)
-          }, undefined, false, undefined, this),
-          jsxDEV2("div", {
-            css: flexItem,
-            children: jsxDEV2("select", {
-              value: voice,
-              onChange: (e) => setVoice(e.target.value),
-              children: voiceOptions.map((voice2) => jsxDEV2("option", {
-                value: voice2,
-                children: voice2
-              }, voice2, false, undefined, this))
-            }, undefined, false, undefined, this)
-          }, undefined, false, undefined, this),
-          jsxDEV2("div", {
-            css: flexItem,
-            children: [
-              jsxDEV2("label", {
-                htmlFor: "volume",
-                children: "Volume"
-              }, undefined, false, undefined, this),
-              jsxDEV2("input", {
-                type: "range",
-                value: volume,
-                onChange: (e) => setVolume(parseFloat(e.target.value)),
-                min: 0,
-                max: 2,
-                step: 0.01
-              }, undefined, false, undefined, this)
-            ]
-          }, undefined, true, undefined, this),
-          jsxDEV2("div", {
-            css: flexItem,
-            children: [
-              jsxDEV2("label", {
-                htmlFor: "pan",
-                children: "Pan"
-              }, undefined, false, undefined, this),
-              jsxDEV2("input", {
-                type: "range",
-                value: pan,
-                onChange: (e) => setPan(parseFloat(e.target.value)),
-                min: -1,
-                max: 1,
-                step: 0.01
-              }, undefined, false, undefined, this)
-            ]
-          }, undefined, true, undefined, this),
-          jsxDEV2("div", {
-            css: flexItem,
-            children: jsxDEV2("button", {
-              onClick: () => say(),
-              children: "\uD83D\uDDE3\uFE0F"
-            }, undefined, false, undefined, this)
-          }, undefined, false, undefined, this)
-        ]
-      }, undefined, true, undefined, this)
-    ]
-  }, undefined, true, undefined, this);
-}
 var imageMap = {
   "[HELIO]": helio_default,
   "[KARL]": karl_default,
@@ -29764,11 +31546,160 @@ var flexItem = css`
     border-bottom: 2px solid black;
   }
 `;
+function Speaker({
+  handle,
+  index,
+  config,
+  color,
+  onChange
+}) {
+  const [speakerId, setSpeakerId] = import_react5.default.useState(config.deviceId);
+  const [voice, setVoice] = import_react5.default.useState(config.voice);
+  const [volume, setVolume] = import_react5.default.useState(config.volume);
+  const [pan, setPan] = import_react5.default.useState(config.pan);
+  const [voiceInstructions, setVoiceInstructions] = import_react5.default.useState(config.voiceInstructions || "Please speak in a slow and clear manner. Add emotion and personality to the text.");
+  async function say() {
+    await API.say(`Hi! My name is ${handle.replace("[", "").replace("]", "")}`, {
+      voice,
+      deviceId: speakerId,
+      volume,
+      pan
+    });
+  }
+  async function copyToClipboard() {
+    await navigator.clipboard.writeText(handle);
+  }
+  import_react5.default.useEffect(() => {
+    onChange({ deviceId: speakerId, voice, volume, pan, voiceInstructions });
+  }, [speakerId, voice, volume, pan, voiceInstructions]);
+  import_react5.default.useEffect(() => {
+    midi_default.addNoteOnListener((note, velocity) => {
+      if (note === index + 36) {
+        say();
+      }
+    });
+    return () => {};
+  }, [index, speakerId, voice, volume, pan]);
+  return /* @__PURE__ */ jsxDEV2("div", {
+    style: { display: "flex", flexDirection: "column", flex: 1 },
+    children: [
+      /* @__PURE__ */ jsxDEV2("div", {
+        style: { height: "200px", margin: "auto" },
+        children: /* @__PURE__ */ jsxDEV2("img", {
+          src: imageMap[handle],
+          alt: "Helios",
+          style: { height: "100%" }
+        }, undefined, false, undefined, this)
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsxDEV2("div", {
+        css: flex,
+        children: [
+          /* @__PURE__ */ jsxDEV2("div", {
+            css: css`
+            ${flexItem};
+            background-color: ${color};
+          `,
+            style: { textAlign: "center" },
+            children: /* @__PURE__ */ jsxDEV2("a", {
+              css: css`
+              text-decoration: none;
+              &:visited {
+                color: black;
+              }
+            `,
+              href: "#",
+              onClick: copyToClipboard,
+              children: handle
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this),
+          /* @__PURE__ */ jsxDEV2("div", {
+            css: flexItem,
+            children: /* @__PURE__ */ jsxDEV2("select", {
+              value: speakerId,
+              onChange: (e) => setSpeakerId(e.target.value),
+              children: audioAPI.outputDevices.map((device) => /* @__PURE__ */ jsxDEV2("option", {
+                value: device.deviceId,
+                children: device.label
+              }, device.deviceId, false, undefined, this))
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this),
+          /* @__PURE__ */ jsxDEV2("div", {
+            css: flexItem,
+            children: /* @__PURE__ */ jsxDEV2("select", {
+              value: voice,
+              onChange: (e) => setVoice(e.target.value),
+              children: voiceOptions.map((voice2) => /* @__PURE__ */ jsxDEV2("option", {
+                value: voice2,
+                children: voice2
+              }, voice2, false, undefined, this))
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this),
+          /* @__PURE__ */ jsxDEV2("div", {
+            css: flexItem,
+            children: [
+              /* @__PURE__ */ jsxDEV2("label", {
+                htmlFor: "volume",
+                children: "Volume"
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsxDEV2("input", {
+                type: "range",
+                value: volume,
+                onChange: (e) => setVolume(parseFloat(e.target.value)),
+                min: 0,
+                max: 2,
+                step: 0.01
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
+          /* @__PURE__ */ jsxDEV2("div", {
+            css: flexItem,
+            children: [
+              /* @__PURE__ */ jsxDEV2("label", {
+                htmlFor: "pan",
+                children: "Pan"
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsxDEV2("input", {
+                type: "range",
+                value: pan,
+                onChange: (e) => setPan(parseFloat(e.target.value)),
+                min: -1,
+                max: 1,
+                step: 0.01
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
+          /* @__PURE__ */ jsxDEV2("div", {
+            css: flexItem,
+            children: [
+              /* @__PURE__ */ jsxDEV2("label", {
+                htmlFor: "voiceInstructions",
+                children: "Voice Instructions"
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsxDEV2("textarea", {
+                value: voiceInstructions,
+                onChange: (e) => setVoiceInstructions(e.target.value),
+                style: { width: "100%", minHeight: "60px" },
+                placeholder: "Enter voice instructions..."
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
+          /* @__PURE__ */ jsxDEV2("div", {
+            css: flexItem,
+            children: /* @__PURE__ */ jsxDEV2("button", {
+              onClick: () => say(),
+              children: "\uD83D\uDDE3️"
+            }, undefined, false, undefined, this)
+          }, undefined, false, undefined, this)
+        ]
+      }, undefined, true, undefined, this)
+    ]
+  }, undefined, true, undefined, this);
+}
 
 // node_modules/zustand/esm/vanilla.mjs
 var createStoreImpl = (createState) => {
   let state;
-  const listeners = new Set;
+  const listeners = /* @__PURE__ */ new Set;
   const setState = (partial, replace2) => {
     const nextState = typeof partial === "function" ? partial(state) : partial;
     if (!Object.is(nextState, state)) {
@@ -29796,9 +31727,13 @@ var createStoreImpl = (createState) => {
 var createStore = (createState) => createState ? createStoreImpl(createState) : createStoreImpl;
 
 // node_modules/zustand/esm/index.mjs
-var import_react6 = __toESM(require_react(), 1);
-var with_selector = __toESM(require_with_selector(), 1);
-var useStore = function(api, selector = identity, equalityFn) {
+var import_react7 = __toESM(require_react(), 1);
+var import_with_selector = __toESM(require_with_selector(), 1);
+var { useDebugValue } = import_react7.default;
+var { useSyncExternalStoreWithSelector } = import_with_selector.default;
+var didWarnAboutEqualityFn = false;
+var identity = (arg) => arg;
+function useStore(api, selector = identity, equalityFn) {
   if ((import.meta.env ? import.meta.env.MODE : undefined) !== "production" && equalityFn && !didWarnAboutEqualityFn) {
     console.warn("[DEPRECATED] Use `createWithEqualityFn` instead of `create` or use `useStoreWithEqualityFn` instead of `useStore`. They can be imported from 'zustand/traditional'. https://github.com/pmndrs/zustand/discussions/1937");
     didWarnAboutEqualityFn = true;
@@ -29806,11 +31741,7 @@ var useStore = function(api, selector = identity, equalityFn) {
   const slice2 = useSyncExternalStoreWithSelector(api.subscribe, api.getState, api.getServerState || api.getInitialState, selector, equalityFn);
   useDebugValue(slice2);
   return slice2;
-};
-var { useDebugValue } = import_react6.default;
-var { useSyncExternalStoreWithSelector } = with_selector.default;
-var didWarnAboutEqualityFn = false;
-var identity = (arg) => arg;
+}
 var createImpl = (createState) => {
   if ((import.meta.env ? import.meta.env.MODE : undefined) !== "production" && typeof createState !== "function") {
     console.warn("[DEPRECATED] Passing a vanilla store will be unsupported in a future version. Instead use `import { useStore } from 'zustand'`.");
@@ -29823,23 +31754,56 @@ var createImpl = (createState) => {
 var create = (createState) => createState ? createImpl(createState) : createImpl;
 
 // node_modules/immer/dist/immer.mjs
-var die = function(error9, ...args) {
+var NOTHING = Symbol.for("immer-nothing");
+var DRAFTABLE = Symbol.for("immer-draftable");
+var DRAFT_STATE = Symbol.for("immer-state");
+var errors = [
+  function(plugin) {
+    return `The plugin for '${plugin}' has not been loaded into Immer. To enable the plugin, import and call \`enable${plugin}()\` when initializing your application.`;
+  },
+  function(thing) {
+    return `produce can only be called on things that are draftable: plain objects, arrays, Map, Set or classes that are marked with '[immerable]: true'. Got '${thing}'`;
+  },
+  "This object has been frozen and should not be mutated",
+  function(data) {
+    return "Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? " + data;
+  },
+  "An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",
+  "Immer forbids circular references",
+  "The first or second argument to `produce` must be a function",
+  "The third argument to `produce` must be a function or undefined",
+  "First argument to `createDraft` must be a plain object, an array, or an immerable object",
+  "First argument to `finishDraft` must be a draft returned by `createDraft`",
+  function(thing) {
+    return `'current' expects a draft, got: ${thing}`;
+  },
+  "Object.defineProperty() cannot be used on an Immer draft",
+  "Object.setPrototypeOf() cannot be used on an Immer draft",
+  "Immer only supports deleting array indices",
+  "Immer only supports setting array indices and the 'length' property",
+  function(thing) {
+    return `'original' expects a draft, got: ${thing}`;
+  }
+];
+function die(error, ...args) {
   if (true) {
-    const e = errors[error9];
+    const e = errors[error];
     const msg = typeof e === "function" ? e.apply(null, args) : e;
     throw new Error(`[Immer] ${msg}`);
   }
-  throw new Error(`[Immer] minified error nr: ${error9}. Full error at: https://bit.ly/3cXEKWf`);
-};
-var isDraft = function(value) {
+  throw new Error(`[Immer] minified error nr: ${error}. Full error at: https://bit.ly/3cXEKWf`);
+}
+var getPrototypeOf = Object.getPrototypeOf;
+function isDraft(value) {
   return !!value && !!value[DRAFT_STATE];
-};
-var isDraftable = function(value) {
+}
+function isDraftable(value) {
   if (!value)
     return false;
   return isPlainObject(value) || Array.isArray(value) || !!value[DRAFTABLE] || !!value.constructor?.[DRAFTABLE] || isMap(value) || isSet(value);
-};
-var isPlainObject = function(value) {
+}
+var objectCtorString = Object.prototype.constructor.toString();
+function isPlainObject(value) {
   if (!value || typeof value !== "object")
     return false;
   const proto = getPrototypeOf(value);
@@ -29850,8 +31814,8 @@ var isPlainObject = function(value) {
   if (Ctor === Object)
     return true;
   return typeof Ctor == "function" && Function.toString.call(Ctor) === objectCtorString;
-};
-var each = function(obj, iter) {
+}
+function each(obj, iter) {
   if (getArchtype(obj) === 0) {
     Reflect.ownKeys(obj).forEach((key) => {
       iter(key, obj[key], obj);
@@ -29859,15 +31823,15 @@ var each = function(obj, iter) {
   } else {
     obj.forEach((entry, index) => iter(index, entry, obj));
   }
-};
-var getArchtype = function(thing) {
+}
+function getArchtype(thing) {
   const state = thing[DRAFT_STATE];
   return state ? state.type_ : Array.isArray(thing) ? 1 : isMap(thing) ? 2 : isSet(thing) ? 3 : 0;
-};
-var has = function(thing, prop) {
+}
+function has2(thing, prop) {
   return getArchtype(thing) === 2 ? thing.has(prop) : Object.prototype.hasOwnProperty.call(thing, prop);
-};
-var set = function(thing, propOrOldValue, value) {
+}
+function set(thing, propOrOldValue, value) {
   const t = getArchtype(thing);
   if (t === 2)
     thing.set(propOrOldValue, value);
@@ -29875,24 +31839,24 @@ var set = function(thing, propOrOldValue, value) {
     thing.add(value);
   } else
     thing[propOrOldValue] = value;
-};
-var is = function(x, y) {
+}
+function is(x, y) {
   if (x === y) {
     return x !== 0 || 1 / x === 1 / y;
   } else {
     return x !== x && y !== y;
   }
-};
-var isMap = function(target) {
+}
+function isMap(target) {
   return target instanceof Map;
-};
-var isSet = function(target) {
+}
+function isSet(target) {
   return target instanceof Set;
-};
-var latest = function(state) {
+}
+function latest(state) {
   return state.copy_ || state.base_;
-};
-var shallowCopy = function(base, strict) {
+}
+function shallowCopy(base, strict) {
   if (isMap(base)) {
     return new Map(base);
   }
@@ -29930,8 +31894,8 @@ var shallowCopy = function(base, strict) {
     const obj = Object.create(proto);
     return Object.assign(obj, base);
   }
-};
-var freeze = function(obj, deep = false) {
+}
+function freeze(obj, deep = false) {
   if (isFrozen(obj) || isDraft(obj) || !isDraftable(obj))
     return obj;
   if (getArchtype(obj) > 1) {
@@ -29941,28 +31905,30 @@ var freeze = function(obj, deep = false) {
   if (deep)
     Object.entries(obj).forEach(([key, value]) => freeze(value, true));
   return obj;
-};
-var dontMutateFrozenCollections = function() {
+}
+function dontMutateFrozenCollections() {
   die(2);
-};
-var isFrozen = function(obj) {
+}
+function isFrozen(obj) {
   return Object.isFrozen(obj);
-};
-var getPlugin = function(pluginKey) {
+}
+var plugins = {};
+function getPlugin(pluginKey) {
   const plugin = plugins[pluginKey];
   if (!plugin) {
     die(0, pluginKey);
   }
   return plugin;
-};
-var loadPlugin = function(pluginKey, implementation) {
+}
+function loadPlugin(pluginKey, implementation) {
   if (!plugins[pluginKey])
     plugins[pluginKey] = implementation;
-};
-var getCurrentScope = function() {
+}
+var currentScope;
+function getCurrentScope() {
   return currentScope;
-};
-var createScope = function(parent_, immer_) {
+}
+function createScope(parent_, immer_) {
   return {
     drafts_: [],
     parent_,
@@ -29970,36 +31936,36 @@ var createScope = function(parent_, immer_) {
     canAutoFreeze_: true,
     unfinalizedDrafts_: 0
   };
-};
-var usePatchesInScope = function(scope, patchListener) {
+}
+function usePatchesInScope(scope, patchListener) {
   if (patchListener) {
     getPlugin("Patches");
     scope.patches_ = [];
     scope.inversePatches_ = [];
     scope.patchListener_ = patchListener;
   }
-};
-var revokeScope = function(scope) {
+}
+function revokeScope(scope) {
   leaveScope(scope);
   scope.drafts_.forEach(revokeDraft);
   scope.drafts_ = null;
-};
-var leaveScope = function(scope) {
+}
+function leaveScope(scope) {
   if (scope === currentScope) {
     currentScope = scope.parent_;
   }
-};
-var enterScope = function(immer2) {
+}
+function enterScope(immer2) {
   return currentScope = createScope(currentScope, immer2);
-};
-var revokeDraft = function(draft) {
+}
+function revokeDraft(draft) {
   const state = draft[DRAFT_STATE];
   if (state.type_ === 0 || state.type_ === 1)
     state.revoke_();
   else
     state.revoked_ = true;
-};
-var processResult = function(result, scope) {
+}
+function processResult(result, scope) {
   scope.unfinalizedDrafts_ = scope.drafts_.length;
   const baseDraft = scope.drafts_[0];
   const isReplaced = result !== undefined && result !== baseDraft;
@@ -30024,8 +31990,8 @@ var processResult = function(result, scope) {
     scope.patchListener_(scope.patches_, scope.inversePatches_);
   }
   return result !== NOTHING ? result : undefined;
-};
-var finalize = function(rootScope, value, path) {
+}
+function finalize(rootScope, value, path) {
   if (isFrozen(value))
     return value;
   const state = value[DRAFT_STATE];
@@ -30057,12 +32023,12 @@ var finalize = function(rootScope, value, path) {
     }
   }
   return state.copy_;
-};
-var finalizeProperty = function(rootScope, parentState, targetObject, prop, childValue, rootPath, targetIsSet) {
+}
+function finalizeProperty(rootScope, parentState, targetObject, prop, childValue, rootPath, targetIsSet) {
   if (childValue === targetObject)
     die(5);
   if (isDraft(childValue)) {
-    const path = rootPath && parentState && parentState.type_ !== 3 && !has(parentState.assigned_, prop) ? rootPath.concat(prop) : undefined;
+    const path = rootPath && parentState && parentState.type_ !== 3 && !has2(parentState.assigned_, prop) ? rootPath.concat(prop) : undefined;
     const res = finalize(rootScope, childValue, path);
     set(targetObject, prop, res);
     if (isDraft(res)) {
@@ -30080,13 +32046,13 @@ var finalizeProperty = function(rootScope, parentState, targetObject, prop, chil
     if ((!parentState || !parentState.scope_.parent_) && typeof prop !== "symbol" && Object.prototype.propertyIsEnumerable.call(targetObject, prop))
       maybeFreeze(rootScope, childValue);
   }
-};
-var maybeFreeze = function(scope, value, deep = false) {
+}
+function maybeFreeze(scope, value, deep = false) {
   if (!scope.parent_ && scope.immer_.autoFreeze_ && scope.canAutoFreeze_) {
     freeze(value, deep);
   }
-};
-var createProxyProxy = function(base, parent) {
+}
+function createProxyProxy(base, parent) {
   const isArray = Array.isArray(base);
   const state = {
     type_: isArray ? 1 : 0,
@@ -30111,360 +32077,13 @@ var createProxyProxy = function(base, parent) {
   state.draft_ = proxy;
   state.revoke_ = revoke;
   return proxy;
-};
-var peek2 = function(draft, prop) {
-  const state = draft[DRAFT_STATE];
-  const source = state ? latest(state) : draft;
-  return source[prop];
-};
-var readPropFromProto = function(state, source, prop) {
-  const desc = getDescriptorFromProto(source, prop);
-  return desc ? `value` in desc ? desc.value : desc.get?.call(state.draft_) : undefined;
-};
-var getDescriptorFromProto = function(source, prop) {
-  if (!(prop in source))
-    return;
-  let proto = getPrototypeOf(source);
-  while (proto) {
-    const desc = Object.getOwnPropertyDescriptor(proto, prop);
-    if (desc)
-      return desc;
-    proto = getPrototypeOf(proto);
-  }
-  return;
-};
-var markChanged = function(state) {
-  if (!state.modified_) {
-    state.modified_ = true;
-    if (state.parent_) {
-      markChanged(state.parent_);
-    }
-  }
-};
-var prepareCopy = function(state) {
-  if (!state.copy_) {
-    state.copy_ = shallowCopy(state.base_, state.scope_.immer_.useStrictShallowCopy_);
-  }
-};
-var createProxy = function(value, parent) {
-  const draft = isMap(value) ? getPlugin("MapSet").proxyMap_(value, parent) : isSet(value) ? getPlugin("MapSet").proxySet_(value, parent) : createProxyProxy(value, parent);
-  const scope = parent ? parent.scope_ : getCurrentScope();
-  scope.drafts_.push(draft);
-  return draft;
-};
-var current = function(value) {
-  if (!isDraft(value))
-    die(10, value);
-  return currentImpl(value);
-};
-var currentImpl = function(value) {
-  if (!isDraftable(value) || isFrozen(value))
-    return value;
-  const state = value[DRAFT_STATE];
-  let copy2;
-  if (state) {
-    if (!state.modified_)
-      return state.base_;
-    state.finalized_ = true;
-    copy2 = shallowCopy(value, state.scope_.immer_.useStrictShallowCopy_);
-  } else {
-    copy2 = shallowCopy(value, true);
-  }
-  each(copy2, (key, childValue) => {
-    set(copy2, key, currentImpl(childValue));
-  });
-  if (state) {
-    state.finalized_ = false;
-  }
-  return copy2;
-};
-var enableMapSet = function() {
-  class DraftMap extends Map {
-    constructor(target, parent) {
-      super();
-      this[DRAFT_STATE] = {
-        type_: 2,
-        parent_: parent,
-        scope_: parent ? parent.scope_ : getCurrentScope(),
-        modified_: false,
-        finalized_: false,
-        copy_: undefined,
-        assigned_: undefined,
-        base_: target,
-        draft_: this,
-        isManual_: false,
-        revoked_: false
-      };
-    }
-    get size() {
-      return latest(this[DRAFT_STATE]).size;
-    }
-    has(key) {
-      return latest(this[DRAFT_STATE]).has(key);
-    }
-    set(key, value) {
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      if (!latest(state).has(key) || latest(state).get(key) !== value) {
-        prepareMapCopy(state);
-        markChanged(state);
-        state.assigned_.set(key, true);
-        state.copy_.set(key, value);
-        state.assigned_.set(key, true);
-      }
-      return this;
-    }
-    delete(key) {
-      if (!this.has(key)) {
-        return false;
-      }
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      prepareMapCopy(state);
-      markChanged(state);
-      if (state.base_.has(key)) {
-        state.assigned_.set(key, false);
-      } else {
-        state.assigned_.delete(key);
-      }
-      state.copy_.delete(key);
-      return true;
-    }
-    clear() {
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      if (latest(state).size) {
-        prepareMapCopy(state);
-        markChanged(state);
-        state.assigned_ = new Map;
-        each(state.base_, (key) => {
-          state.assigned_.set(key, false);
-        });
-        state.copy_.clear();
-      }
-    }
-    forEach(cb, thisArg) {
-      const state = this[DRAFT_STATE];
-      latest(state).forEach((_value, key, _map) => {
-        cb.call(thisArg, this.get(key), key, this);
-      });
-    }
-    get(key) {
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      const value = latest(state).get(key);
-      if (state.finalized_ || !isDraftable(value)) {
-        return value;
-      }
-      if (value !== state.base_.get(key)) {
-        return value;
-      }
-      const draft = createProxy(value, state);
-      prepareMapCopy(state);
-      state.copy_.set(key, draft);
-      return draft;
-    }
-    keys() {
-      return latest(this[DRAFT_STATE]).keys();
-    }
-    values() {
-      const iterator = this.keys();
-      return {
-        [Symbol.iterator]: () => this.values(),
-        next: () => {
-          const r = iterator.next();
-          if (r.done)
-            return r;
-          const value = this.get(r.value);
-          return {
-            done: false,
-            value
-          };
-        }
-      };
-    }
-    entries() {
-      const iterator = this.keys();
-      return {
-        [Symbol.iterator]: () => this.entries(),
-        next: () => {
-          const r = iterator.next();
-          if (r.done)
-            return r;
-          const value = this.get(r.value);
-          return {
-            done: false,
-            value: [r.value, value]
-          };
-        }
-      };
-    }
-    [(DRAFT_STATE, Symbol.iterator)]() {
-      return this.entries();
-    }
-  }
-  function proxyMap_(target, parent) {
-    return new DraftMap(target, parent);
-  }
-  function prepareMapCopy(state) {
-    if (!state.copy_) {
-      state.assigned_ = new Map;
-      state.copy_ = new Map(state.base_);
-    }
-  }
-
-  class DraftSet extends Set {
-    constructor(target, parent) {
-      super();
-      this[DRAFT_STATE] = {
-        type_: 3,
-        parent_: parent,
-        scope_: parent ? parent.scope_ : getCurrentScope(),
-        modified_: false,
-        finalized_: false,
-        copy_: undefined,
-        base_: target,
-        draft_: this,
-        drafts_: new Map,
-        revoked_: false,
-        isManual_: false
-      };
-    }
-    get size() {
-      return latest(this[DRAFT_STATE]).size;
-    }
-    has(value) {
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      if (!state.copy_) {
-        return state.base_.has(value);
-      }
-      if (state.copy_.has(value))
-        return true;
-      if (state.drafts_.has(value) && state.copy_.has(state.drafts_.get(value)))
-        return true;
-      return false;
-    }
-    add(value) {
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      if (!this.has(value)) {
-        prepareSetCopy(state);
-        markChanged(state);
-        state.copy_.add(value);
-      }
-      return this;
-    }
-    delete(value) {
-      if (!this.has(value)) {
-        return false;
-      }
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      prepareSetCopy(state);
-      markChanged(state);
-      return state.copy_.delete(value) || (state.drafts_.has(value) ? state.copy_.delete(state.drafts_.get(value)) : false);
-    }
-    clear() {
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      if (latest(state).size) {
-        prepareSetCopy(state);
-        markChanged(state);
-        state.copy_.clear();
-      }
-    }
-    values() {
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      prepareSetCopy(state);
-      return state.copy_.values();
-    }
-    entries() {
-      const state = this[DRAFT_STATE];
-      assertUnrevoked(state);
-      prepareSetCopy(state);
-      return state.copy_.entries();
-    }
-    keys() {
-      return this.values();
-    }
-    [(DRAFT_STATE, Symbol.iterator)]() {
-      return this.values();
-    }
-    forEach(cb, thisArg) {
-      const iterator = this.values();
-      let result = iterator.next();
-      while (!result.done) {
-        cb.call(thisArg, result.value, result.value, this);
-        result = iterator.next();
-      }
-    }
-  }
-  function proxySet_(target, parent) {
-    return new DraftSet(target, parent);
-  }
-  function prepareSetCopy(state) {
-    if (!state.copy_) {
-      state.copy_ = new Set;
-      state.base_.forEach((value) => {
-        if (isDraftable(value)) {
-          const draft = createProxy(value, state);
-          state.drafts_.set(value, draft);
-          state.copy_.add(draft);
-        } else {
-          state.copy_.add(value);
-        }
-      });
-    }
-  }
-  function assertUnrevoked(state) {
-    if (state.revoked_)
-      die(3, JSON.stringify(latest(state)));
-  }
-  loadPlugin("MapSet", { proxyMap_, proxySet_ });
-};
-var NOTHING = Symbol.for("immer-nothing");
-var DRAFTABLE = Symbol.for("immer-draftable");
-var DRAFT_STATE = Symbol.for("immer-state");
-var errors = [
-  function(plugin) {
-    return `The plugin for '${plugin}' has not been loaded into Immer. To enable the plugin, import and call \`enable${plugin}()\` when initializing your application.`;
-  },
-  function(thing) {
-    return `produce can only be called on things that are draftable: plain objects, arrays, Map, Set or classes that are marked with '[immerable]: true'. Got '${thing}'`;
-  },
-  "This object has been frozen and should not be mutated",
-  function(data) {
-    return "Cannot use a proxy that has been revoked. Did you pass an object from inside an immer function to an async process? " + data;
-  },
-  "An immer producer returned a new value *and* modified its draft. Either return a new value *or* modify the draft.",
-  "Immer forbids circular references",
-  "The first or second argument to `produce` must be a function",
-  "The third argument to `produce` must be a function or undefined",
-  "First argument to `createDraft` must be a plain object, an array, or an immerable object",
-  "First argument to `finishDraft` must be a draft returned by `createDraft`",
-  function(thing) {
-    return `'current' expects a draft, got: ${thing}`;
-  },
-  "Object.defineProperty() cannot be used on an Immer draft",
-  "Object.setPrototypeOf() cannot be used on an Immer draft",
-  "Immer only supports deleting array indices",
-  "Immer only supports setting array indices and the 'length' property",
-  function(thing) {
-    return `'original' expects a draft, got: ${thing}`;
-  }
-];
-var getPrototypeOf = Object.getPrototypeOf;
-var objectCtorString = Object.prototype.constructor.toString();
-var plugins = {};
-var currentScope;
+}
 var objectTraps = {
   get(state, prop) {
     if (prop === DRAFT_STATE)
       return state;
     const source = latest(state);
-    if (!has(source, prop)) {
+    if (!has2(source, prop)) {
       return readPropFromProto(state, source, prop);
     }
     const value = source[prop];
@@ -30497,7 +32116,7 @@ var objectTraps = {
         state.assigned_[prop] = false;
         return true;
       }
-      if (is(value, current2) && (value !== undefined || has(state.base_, prop)))
+      if (is(value, current2) && (value !== undefined || has2(state.base_, prop)))
         return true;
       prepareCopy(state);
       markChanged(state);
@@ -30560,6 +32179,40 @@ arrayTraps.set = function(state, prop, value) {
     die(14);
   return objectTraps.set.call(this, state[0], prop, value, state[0]);
 };
+function peek2(draft, prop) {
+  const state = draft[DRAFT_STATE];
+  const source = state ? latest(state) : draft;
+  return source[prop];
+}
+function readPropFromProto(state, source, prop) {
+  const desc = getDescriptorFromProto(source, prop);
+  return desc ? `value` in desc ? desc.value : desc.get?.call(state.draft_) : undefined;
+}
+function getDescriptorFromProto(source, prop) {
+  if (!(prop in source))
+    return;
+  let proto = getPrototypeOf(source);
+  while (proto) {
+    const desc = Object.getOwnPropertyDescriptor(proto, prop);
+    if (desc)
+      return desc;
+    proto = getPrototypeOf(proto);
+  }
+  return;
+}
+function markChanged(state) {
+  if (!state.modified_) {
+    state.modified_ = true;
+    if (state.parent_) {
+      markChanged(state.parent_);
+    }
+  }
+}
+function prepareCopy(state) {
+  if (!state.copy_) {
+    state.copy_ = shallowCopy(state.base_, state.scope_.immer_.useStrictShallowCopy_);
+  }
+}
 var Immer2 = class {
   constructor(config) {
     this.autoFreeze_ = true;
@@ -30671,6 +32324,284 @@ var Immer2 = class {
     return this.produce(base, (draft) => applyPatchesImpl(draft, patches));
   }
 };
+function createProxy(value, parent) {
+  const draft = isMap(value) ? getPlugin("MapSet").proxyMap_(value, parent) : isSet(value) ? getPlugin("MapSet").proxySet_(value, parent) : createProxyProxy(value, parent);
+  const scope = parent ? parent.scope_ : getCurrentScope();
+  scope.drafts_.push(draft);
+  return draft;
+}
+function current(value) {
+  if (!isDraft(value))
+    die(10, value);
+  return currentImpl(value);
+}
+function currentImpl(value) {
+  if (!isDraftable(value) || isFrozen(value))
+    return value;
+  const state = value[DRAFT_STATE];
+  let copy2;
+  if (state) {
+    if (!state.modified_)
+      return state.base_;
+    state.finalized_ = true;
+    copy2 = shallowCopy(value, state.scope_.immer_.useStrictShallowCopy_);
+  } else {
+    copy2 = shallowCopy(value, true);
+  }
+  each(copy2, (key, childValue) => {
+    set(copy2, key, currentImpl(childValue));
+  });
+  if (state) {
+    state.finalized_ = false;
+  }
+  return copy2;
+}
+function enableMapSet() {
+  class DraftMap extends Map {
+    constructor(target, parent) {
+      super();
+      this[DRAFT_STATE] = {
+        type_: 2,
+        parent_: parent,
+        scope_: parent ? parent.scope_ : getCurrentScope(),
+        modified_: false,
+        finalized_: false,
+        copy_: undefined,
+        assigned_: undefined,
+        base_: target,
+        draft_: this,
+        isManual_: false,
+        revoked_: false
+      };
+    }
+    get size() {
+      return latest(this[DRAFT_STATE]).size;
+    }
+    has(key) {
+      return latest(this[DRAFT_STATE]).has(key);
+    }
+    set(key, value) {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (!latest(state).has(key) || latest(state).get(key) !== value) {
+        prepareMapCopy(state);
+        markChanged(state);
+        state.assigned_.set(key, true);
+        state.copy_.set(key, value);
+        state.assigned_.set(key, true);
+      }
+      return this;
+    }
+    delete(key) {
+      if (!this.has(key)) {
+        return false;
+      }
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareMapCopy(state);
+      markChanged(state);
+      if (state.base_.has(key)) {
+        state.assigned_.set(key, false);
+      } else {
+        state.assigned_.delete(key);
+      }
+      state.copy_.delete(key);
+      return true;
+    }
+    clear() {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (latest(state).size) {
+        prepareMapCopy(state);
+        markChanged(state);
+        state.assigned_ = /* @__PURE__ */ new Map;
+        each(state.base_, (key) => {
+          state.assigned_.set(key, false);
+        });
+        state.copy_.clear();
+      }
+    }
+    forEach(cb, thisArg) {
+      const state = this[DRAFT_STATE];
+      latest(state).forEach((_value, key, _map) => {
+        cb.call(thisArg, this.get(key), key, this);
+      });
+    }
+    get(key) {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      const value = latest(state).get(key);
+      if (state.finalized_ || !isDraftable(value)) {
+        return value;
+      }
+      if (value !== state.base_.get(key)) {
+        return value;
+      }
+      const draft = createProxy(value, state);
+      prepareMapCopy(state);
+      state.copy_.set(key, draft);
+      return draft;
+    }
+    keys() {
+      return latest(this[DRAFT_STATE]).keys();
+    }
+    values() {
+      const iterator = this.keys();
+      return {
+        [Symbol.iterator]: () => this.values(),
+        next: () => {
+          const r = iterator.next();
+          if (r.done)
+            return r;
+          const value = this.get(r.value);
+          return {
+            done: false,
+            value
+          };
+        }
+      };
+    }
+    entries() {
+      const iterator = this.keys();
+      return {
+        [Symbol.iterator]: () => this.entries(),
+        next: () => {
+          const r = iterator.next();
+          if (r.done)
+            return r;
+          const value = this.get(r.value);
+          return {
+            done: false,
+            value: [r.value, value]
+          };
+        }
+      };
+    }
+    [(DRAFT_STATE, Symbol.iterator)]() {
+      return this.entries();
+    }
+  }
+  function proxyMap_(target, parent) {
+    return new DraftMap(target, parent);
+  }
+  function prepareMapCopy(state) {
+    if (!state.copy_) {
+      state.assigned_ = /* @__PURE__ */ new Map;
+      state.copy_ = new Map(state.base_);
+    }
+  }
+
+  class DraftSet extends Set {
+    constructor(target, parent) {
+      super();
+      this[DRAFT_STATE] = {
+        type_: 3,
+        parent_: parent,
+        scope_: parent ? parent.scope_ : getCurrentScope(),
+        modified_: false,
+        finalized_: false,
+        copy_: undefined,
+        base_: target,
+        draft_: this,
+        drafts_: /* @__PURE__ */ new Map,
+        revoked_: false,
+        isManual_: false
+      };
+    }
+    get size() {
+      return latest(this[DRAFT_STATE]).size;
+    }
+    has(value) {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (!state.copy_) {
+        return state.base_.has(value);
+      }
+      if (state.copy_.has(value))
+        return true;
+      if (state.drafts_.has(value) && state.copy_.has(state.drafts_.get(value)))
+        return true;
+      return false;
+    }
+    add(value) {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (!this.has(value)) {
+        prepareSetCopy(state);
+        markChanged(state);
+        state.copy_.add(value);
+      }
+      return this;
+    }
+    delete(value) {
+      if (!this.has(value)) {
+        return false;
+      }
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      markChanged(state);
+      return state.copy_.delete(value) || (state.drafts_.has(value) ? state.copy_.delete(state.drafts_.get(value)) : false);
+    }
+    clear() {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      if (latest(state).size) {
+        prepareSetCopy(state);
+        markChanged(state);
+        state.copy_.clear();
+      }
+    }
+    values() {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      return state.copy_.values();
+    }
+    entries() {
+      const state = this[DRAFT_STATE];
+      assertUnrevoked(state);
+      prepareSetCopy(state);
+      return state.copy_.entries();
+    }
+    keys() {
+      return this.values();
+    }
+    [(DRAFT_STATE, Symbol.iterator)]() {
+      return this.values();
+    }
+    forEach(cb, thisArg) {
+      const iterator = this.values();
+      let result = iterator.next();
+      while (!result.done) {
+        cb.call(thisArg, result.value, result.value, this);
+        result = iterator.next();
+      }
+    }
+  }
+  function proxySet_(target, parent) {
+    return new DraftSet(target, parent);
+  }
+  function prepareSetCopy(state) {
+    if (!state.copy_) {
+      state.copy_ = /* @__PURE__ */ new Set;
+      state.base_.forEach((value) => {
+        if (isDraftable(value)) {
+          const draft = createProxy(value, state);
+          state.drafts_.set(value, draft);
+          state.copy_.add(draft);
+        } else {
+          state.copy_.add(value);
+        }
+      });
+    }
+  }
+  function assertUnrevoked(state) {
+    if (state.revoked_)
+      die(3, JSON.stringify(latest(state)));
+  }
+  loadPlugin("MapSet", { proxyMap_, proxySet_ });
+}
 var immer = new Immer2;
 var produce = immer.produce;
 var produceWithPatches = immer.produceWithPatches.bind(immer);
@@ -30691,7 +32622,7 @@ var immerImpl = (initializer) => (set2, get, store) => {
 var immer2 = immerImpl;
 
 // node_modules/zustand/esm/middleware.mjs
-var createJSONStorage = function(getStorage, options) {
+function createJSONStorage(getStorage, options) {
   let storage;
   try {
     storage = getStorage();
@@ -30717,7 +32648,7 @@ var createJSONStorage = function(getStorage, options) {
     removeItem: (name) => storage.removeItem(name)
   };
   return persistStorage;
-};
+}
 var toThenable = (fn) => (input) => {
   try {
     const result = fn(input);
@@ -30757,13 +32688,12 @@ var oldImpl = (config, baseOptions) => (set2, get, api) => {
     ...baseOptions
   };
   let hasHydrated = false;
-  const hydrationListeners = new Set;
-  const finishHydrationListeners = new Set;
+  const hydrationListeners = /* @__PURE__ */ new Set;
+  const finishHydrationListeners = /* @__PURE__ */ new Set;
   let storage;
   try {
     storage = options.getStorage();
-  } catch (e) {
-  }
+  } catch (e) {}
   if (!storage) {
     return config((...args) => {
       console.warn(`[zustand persist middleware] Unable to update item '${options.name}', the given storage is currently unavailable.`);
@@ -30871,8 +32801,8 @@ var newImpl = (config, baseOptions) => (set2, get, api) => {
     ...baseOptions
   };
   let hasHydrated = false;
-  const hydrationListeners = new Set;
-  const finishHydrationListeners = new Set;
+  const hydrationListeners = /* @__PURE__ */ new Set;
+  const finishHydrationListeners = /* @__PURE__ */ new Set;
   let storage = options.storage;
   if (!storage) {
     return config((...args) => {
@@ -31012,7 +32942,7 @@ Yes! Floral patterns or bold stripes. Something eye-catching.
 We're a fashionable bunch. We should make a statement.
 
 [KARL]
-Absolutely! Let\u2019s pitch the idea to the store manager.
+Absolutely! Let’s pitch the idea to the store manager.
 
 [BARBARA]
 After all, we are the faces of this shop.
@@ -31214,7 +33144,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
 useConversationStore.getState().conversationLoop();
 
 // src/ConversationQueue.tsx
-var import_react7 = __toESM(require_react(), 1);
+var import_react8 = __toESM(require_react(), 1);
 function ConversationQueue() {
   const queue = useConversationStore((state) => state.lineQueue);
   const setQueue = useConversationStore((state) => state.setLineQueue);
@@ -31249,7 +33179,7 @@ function ConversationQueue() {
     state.setIsPlaying
   ]);
   const addInterruption = useConversationStore((state) => state.addInterruption);
-  import_react7.default.useEffect(() => {
+  import_react8.default.useEffect(() => {
     const handleMidiNote = (note) => {
       if (note === clearQueueMidi) {
         setQueue([]);
@@ -31295,9 +33225,9 @@ function ConversationQueue() {
       return "white";
     }
   };
-  return jsxDEV2("div", {
+  return /* @__PURE__ */ jsxDEV2("div", {
     children: [
-      jsxDEV2("div", {
+      /* @__PURE__ */ jsxDEV2("div", {
         style: {
           display: "flex",
           flexDirection: "row",
@@ -31305,92 +33235,92 @@ function ConversationQueue() {
           gap: "10px"
         },
         children: [
-          jsxDEV2("h3", {
+          /* @__PURE__ */ jsxDEV2("h3", {
             children: "Conversation Queue"
           }, undefined, false, undefined, this),
-          !isPlaying && jsxDEV2("button", {
+          !isPlaying && /* @__PURE__ */ jsxDEV2("button", {
             onClick: () => setIsPlaying(true),
             children: "Play"
           }, undefined, false, undefined, this),
-          isPlaying && jsxDEV2("button", {
+          isPlaying && /* @__PURE__ */ jsxDEV2("button", {
             onClick: () => setIsPlaying(false),
             children: "Pause"
           }, undefined, false, undefined, this),
-          jsxDEV2("button", {
+          /* @__PURE__ */ jsxDEV2("button", {
             onClick: () => {
               setQueue([]);
             },
             children: "Clear Queue"
           }, undefined, false, undefined, this),
-          jsxDEV2("div", {
+          /* @__PURE__ */ jsxDEV2("div", {
             children: [
               "Auto play",
-              jsxDEV2("input", {
+              /* @__PURE__ */ jsxDEV2("input", {
                 type: "checkbox",
                 checked: autoPickFromConversations,
                 onChange: (e) => setAutoPickFromConversations(e.target.checked)
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsxDEV2("span", {
+          /* @__PURE__ */ jsxDEV2("span", {
             children: "Interrupt:"
           }, undefined, false, undefined, this),
-          jsxDEV2("button", {
+          /* @__PURE__ */ jsxDEV2("button", {
             onClick: () => addInterruption([{ speaker: "", text: welcomeText }]),
             children: "Welcome"
           }, undefined, false, undefined, this),
-          jsxDEV2("button", {
+          /* @__PURE__ */ jsxDEV2("button", {
             onClick: () => addInterruption([{ speaker: "", text: hushText }]),
             children: "Hush!"
           }, undefined, false, undefined, this),
-          jsxDEV2("button", {
+          /* @__PURE__ */ jsxDEV2("button", {
             onClick: () => addInterruption([{ speaker: "", text: goodbyeText }]),
             children: "Goodbye"
           }, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this),
-      jsxDEV2("div", {
+      /* @__PURE__ */ jsxDEV2("div", {
         children: [
-          jsxDEV2("label", {
+          /* @__PURE__ */ jsxDEV2("label", {
             children: "Play/Pause MIDI note"
           }, undefined, false, undefined, this),
-          jsxDEV2("input", {
+          /* @__PURE__ */ jsxDEV2("input", {
             style: { width: "50px" },
             type: "number",
             value: playPauseMidi,
             onChange: (e) => setPlayPauseMidi(parseInt(e.target.value))
           }, undefined, false, undefined, this),
-          jsxDEV2("label", {
+          /* @__PURE__ */ jsxDEV2("label", {
             children: "Clear Queue MIDI note"
           }, undefined, false, undefined, this),
-          jsxDEV2("input", {
+          /* @__PURE__ */ jsxDEV2("input", {
             style: { width: "50px" },
             type: "number",
             value: clearQueueMidi,
             onChange: (e) => setClearQueueMidi(parseInt(e.target.value))
           }, undefined, false, undefined, this),
-          jsxDEV2("label", {
+          /* @__PURE__ */ jsxDEV2("label", {
             children: "Welcome MIDI note"
           }, undefined, false, undefined, this),
-          jsxDEV2("input", {
+          /* @__PURE__ */ jsxDEV2("input", {
             style: { width: "50px" },
             type: "number",
             value: welcomeMidi,
             onChange: (e) => setWelcomeMidi(parseInt(e.target.value))
           }, undefined, false, undefined, this),
-          jsxDEV2("label", {
+          /* @__PURE__ */ jsxDEV2("label", {
             children: "Hush MIDI note"
           }, undefined, false, undefined, this),
-          jsxDEV2("input", {
+          /* @__PURE__ */ jsxDEV2("input", {
             style: { width: "50px" },
             type: "number",
             value: hushMidi,
             onChange: (e) => setHushMidi(parseInt(e.target.value))
           }, undefined, false, undefined, this),
-          jsxDEV2("label", {
+          /* @__PURE__ */ jsxDEV2("label", {
             children: "Goodbye MIDI note"
           }, undefined, false, undefined, this),
-          jsxDEV2("input", {
+          /* @__PURE__ */ jsxDEV2("input", {
             style: { width: "50px" },
             type: "number",
             value: goodbyeMidi,
@@ -31398,24 +33328,24 @@ function ConversationQueue() {
           }, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this),
-      jsxDEV2("div", {
+      /* @__PURE__ */ jsxDEV2("div", {
         style: {
           display: "flex",
           gap: "10px",
           flexDirection: "column",
           flexWrap: "wrap"
         },
-        children: fullQueue.map((line2, index) => jsxDEV2("div", {
+        children: fullQueue.map((line2, index) => /* @__PURE__ */ jsxDEV2("div", {
           style: {
             border: "1px solid black",
             padding: "10px",
             backgroundColor: getBackgroundColor(line2)
           },
           children: [
-            jsxDEV2("span", {
+            /* @__PURE__ */ jsxDEV2("span", {
               children: line2.speaker
             }, undefined, false, undefined, this),
-            jsxDEV2("p", {
+            /* @__PURE__ */ jsxDEV2("p", {
               children: line2.text
             }, undefined, false, undefined, this)
           ]
@@ -31439,12 +33369,12 @@ function Interruptions() {
     state.goodbyeText,
     state.setGoodbyeText
   ]);
-  return jsxDEV2("div", {
+  return /* @__PURE__ */ jsxDEV2("div", {
     children: [
-      jsxDEV2("h3", {
+      /* @__PURE__ */ jsxDEV2("h3", {
         children: "Interruptions"
       }, undefined, false, undefined, this),
-      jsxDEV2("div", {
+      /* @__PURE__ */ jsxDEV2("div", {
         style: {
           display: "flex",
           flexDirection: "row",
@@ -31452,12 +33382,12 @@ function Interruptions() {
           gap: "10px"
         },
         children: [
-          jsxDEV2("div", {
+          /* @__PURE__ */ jsxDEV2("div", {
             children: [
-              jsxDEV2("span", {
+              /* @__PURE__ */ jsxDEV2("span", {
                 children: "Welcome:"
               }, undefined, false, undefined, this),
-              jsxDEV2("input", {
+              /* @__PURE__ */ jsxDEV2("input", {
                 value: welcomeText,
                 onChange: (e) => setWelcomeText(e.target.value),
                 placeholder: "Welcome Text",
@@ -31465,12 +33395,12 @@ function Interruptions() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsxDEV2("div", {
+          /* @__PURE__ */ jsxDEV2("div", {
             children: [
-              jsxDEV2("span", {
+              /* @__PURE__ */ jsxDEV2("span", {
                 children: "Hush:"
               }, undefined, false, undefined, this),
-              jsxDEV2("input", {
+              /* @__PURE__ */ jsxDEV2("input", {
                 value: hushText,
                 onChange: (e) => {
                   setHushText(e.target.value);
@@ -31480,12 +33410,12 @@ function Interruptions() {
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsxDEV2("div", {
+          /* @__PURE__ */ jsxDEV2("div", {
             children: [
-              jsxDEV2("span", {
+              /* @__PURE__ */ jsxDEV2("span", {
                 children: "Goodbye:"
               }, undefined, false, undefined, this),
-              jsxDEV2("input", {
+              /* @__PURE__ */ jsxDEV2("input", {
                 value: goodbyeText,
                 onChange: (e) => setGoodbyeText(e.target.value),
                 placeholder: "Goodbye Text",
@@ -31506,9 +33436,11 @@ var blue = "rgb(86, 181, 215)";
 var green = "rgb(71, 158, 80)";
 
 // src/App.tsx
+midi_default.init();
+var speakerColors = [pink, yellow, blue, green];
 function App() {
-  const [lastMidiNote, setLastMidiNote] = import_react8.default.useState(null);
-  import_react8.default.useEffect(() => {
+  const [lastMidiNote, setLastMidiNote] = import_react9.default.useState(null);
+  import_react9.default.useEffect(() => {
     const handleMidiNote = (note) => {
       console.log("MIDI Note:", note);
       setLastMidiNote(note);
@@ -31526,25 +33458,25 @@ function App() {
   const setSpeakerConfig = useConversationStore((state) => state.setSpeakerConfig);
   const addToQueue = useConversationStore((state) => state.addToQueue);
   const queue = useConversationStore((state) => state.lineQueue);
-  return jsxDEV2("div", {
+  return /* @__PURE__ */ jsxDEV2("div", {
     style: {
       fontFamily: "DIN Alternate",
       backgroundColor: "rgb(244, 183, 155)"
     },
     children: [
-      jsxDEV2("h2", {
+      /* @__PURE__ */ jsxDEV2("h2", {
         style: { float: "right" },
         children: "Life in Plastic ~ Telepathic Control Center"
       }, undefined, false, undefined, this),
-      jsxDEV2(Config, {}, undefined, false, undefined, this),
-      jsxDEV2("span", {
+      /* @__PURE__ */ jsxDEV2(Config, {}, undefined, false, undefined, this),
+      /* @__PURE__ */ jsxDEV2("span", {
         style: {},
         children: [
           "Last MIDI: ",
           lastMidiNote
         ]
       }, undefined, true, undefined, this),
-      jsxDEV2("div", {
+      /* @__PURE__ */ jsxDEV2("div", {
         style: {
           marginTop: "100px",
           display: "flex",
@@ -31552,12 +33484,12 @@ function App() {
           gap: "10px"
         },
         children: [
-          jsxDEV2("div", {
+          /* @__PURE__ */ jsxDEV2("div", {
             style: {
               display: "flex",
               flexDirection: "row"
             },
-            children: Array.from(speakers.entries()).map(([speaker, config], index) => jsxDEV2(Speaker, {
+            children: Array.from(speakers.entries()).map(([speaker, config], index) => /* @__PURE__ */ jsxDEV2(Speaker, {
               handle: speaker,
               config,
               index,
@@ -31565,36 +33497,34 @@ function App() {
               onChange: (speakerConfig) => setSpeakerConfig(speaker, speakerConfig)
             }, speaker, false, undefined, this))
           }, undefined, false, undefined, this),
-          jsxDEV2("hr", {}, undefined, false, undefined, this),
-          jsxDEV2("div", {
+          /* @__PURE__ */ jsxDEV2("hr", {}, undefined, false, undefined, this),
+          /* @__PURE__ */ jsxDEV2("div", {
             children: [
-              jsxDEV2("div", {
-                children: jsxDEV2("h3", {
+              /* @__PURE__ */ jsxDEV2("div", {
+                children: /* @__PURE__ */ jsxDEV2("h3", {
                   children: "Conversations"
                 }, undefined, false, undefined, this)
               }, undefined, false, undefined, this),
-              conversations.map((conversation, index) => jsxDEV2(Conversation, {
+              conversations.map((conversation, index) => /* @__PURE__ */ jsxDEV2(Conversation, {
                 conversation,
                 updateConversation: (conversation2) => setConversation(index, conversation2),
                 onSay: (conversation2) => addToQueue(conversation2),
                 removeConversation: () => removeConversation(index)
               }, index, false, undefined, this)),
-              jsxDEV2("button", {
+              /* @__PURE__ */ jsxDEV2("button", {
                 onClick: addNewConversation,
                 children: "+"
               }, undefined, false, undefined, this)
             ]
           }, undefined, true, undefined, this),
-          jsxDEV2(Interruptions, {}, undefined, false, undefined, this),
-          jsxDEV2(ConversationQueue, {}, undefined, false, undefined, this)
+          /* @__PURE__ */ jsxDEV2(Interruptions, {}, undefined, false, undefined, this),
+          /* @__PURE__ */ jsxDEV2(ConversationQueue, {}, undefined, false, undefined, this)
         ]
       }, undefined, true, undefined, this)
     ]
   }, undefined, true, undefined, this);
 }
-midi_default.init();
-var speakerColors = [pink, yellow, blue, green];
 
 // src/index.tsx
 var root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(jsxDEV2(App, {}, undefined, false, undefined, this));
+root.render(/* @__PURE__ */ jsxDEV2(App, {}, undefined, false, undefined, this));
