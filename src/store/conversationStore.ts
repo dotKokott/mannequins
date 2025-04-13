@@ -141,7 +141,10 @@ const useConversationStore = create<ConversationStore>()(
             '[BARBARA]',
             { deviceId: 'default', voice: 'alloy', volume: 1, pan: 0 },
           ],
-          ['[KARL]', { deviceId: 'default', voice: 'echo', volume: 1, pan: 0 }],
+          [
+            '[KARL]',
+            { deviceId: 'default', voice: 'ballad', volume: 1, pan: 0 },
+          ],
           [
             '[PAULA]',
             { deviceId: 'default', voice: 'shimmer', volume: 1, pan: 0 },

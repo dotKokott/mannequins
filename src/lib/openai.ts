@@ -44,7 +44,6 @@ function openDB(): Promise<IDBDatabase> {
 
 export class API {
   // cache for audio buffers
-  // it is a map of [voice + text, buffer]
   static bufferCache = new Map<string, ArrayBufferLike>()
   static bufferChanged = false
 
@@ -78,8 +77,11 @@ export class API {
     })
 
     const buffer = await response.arrayBuffer()
-    API.bufferCache.set(`${voice}+${text}`, buffer)
+    const key = `${voice}+${text}-${instructions}`
+    API.bufferCache.set(key, buffer)
     API.bufferChanged = true
+
+    await this.storeCache()
 
     return buffer
   }
@@ -156,6 +158,7 @@ export class API {
       apiKey,
       dangerouslyAllowBrowser: true,
     })
+    this.bufferCache = await this.loadFromCache()
   }
 
   private static completionModel = 'gpt-3.5-turbo-16k-0613'
@@ -183,23 +186,31 @@ export class API {
   }
 
   static async say(text: string, config: SpeakerConfig) {
-    // if text contains {2s} then split the text into two parts and say the first part, then wait 10 seconds and say the second part
-    // text can contain multiple {2s} and they will all be processed
-
-    // split at first occurance
+    // split at first occurrence
     const parts = text.split(/{(\d+)s}(.*)/)
     if (parts.length > 1) {
-      console.log(parts)
+      // Clean up the parts:
+      // 1. Filter out empty strings
+      // 2. Trim whitespace and newlines from each part
+      const cleanParts = parts
+        .filter((part) => part !== '')
+        .map((part) => part.trim())
+        .filter(Boolean) // removes any parts that became empty after trimming
 
-      const [firstPart, waitTime, secondPart] = parts
+      const [firstPart, waitTime, ...remainingParts] = cleanParts
+      const secondPart = remainingParts.join(' ') // join any remaining parts
 
-      console.log(`Found wait time: ${parts[1]}`)
+      console.log('Clean parts:', cleanParts)
 
       await this.say(firstPart, config)
+      console.log('start wait')
       await new Promise((resolve) =>
         setTimeout(resolve, parseInt(waitTime) * 1000),
       )
-      await this.say(secondPart, config)
+      console.log('end wait')
+      if (secondPart) {
+        await this.say(secondPart, config)
+      }
       return
     }
 
@@ -213,7 +224,6 @@ export class API {
       config.voiceInstructions,
     )
 
-    // the slice is needed because the buffer is a stream and we need to copy it
     await audioAPI.play(
       buffer.slice(0),
       config.deviceId,
@@ -233,5 +243,3 @@ export class API {
     return stream.body
   }
 }
-
-API.bufferCache = await API.loadFromCache()
