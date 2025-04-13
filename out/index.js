@@ -29501,8 +29501,10 @@ class API {
       instructions: instructions || "Please speak in a slow and clear manner. Add emotion and personality to the text."
     });
     const buffer = await response.arrayBuffer();
-    API.bufferCache.set(`${voice}+${text}`, buffer);
+    const key = `${voice}+${text}-${instructions}`;
+    API.bufferCache.set(key, buffer);
     API.bufferChanged = true;
+    await this.storeCache();
     return buffer;
   }
   static async storeCache() {
@@ -29560,6 +29562,7 @@ class API {
       apiKey,
       dangerouslyAllowBrowser: true
     });
+    this.bufferCache = await this.loadFromCache();
   }
   static completionModel = "gpt-3.5-turbo-16k-0613";
   static completionSystemPrompt = "";
@@ -29582,12 +29585,17 @@ class API {
   static async say(text, config) {
     const parts = text.split(/{(\d+)s}(.*)/);
     if (parts.length > 1) {
-      console.log(parts);
-      const [firstPart, waitTime, secondPart] = parts;
-      console.log(`Found wait time: ${parts[1]}`);
+      const cleanParts = parts.filter((part) => part !== "").map((part) => part.trim()).filter(Boolean);
+      const [firstPart, waitTime, ...remainingParts] = cleanParts;
+      const secondPart = remainingParts.join(" ");
+      console.log("Clean parts:", cleanParts);
       await this.say(firstPart, config);
+      console.log("start wait");
       await new Promise((resolve) => setTimeout(resolve, parseInt(waitTime) * 1000));
-      await this.say(secondPart, config);
+      console.log("end wait");
+      if (secondPart) {
+        await this.say(secondPart, config);
+      }
       return;
     }
     if (text.length == 0) {
@@ -29606,7 +29614,6 @@ class API {
     return stream.body;
   }
 }
-API.bufferCache = await API.loadFromCache();
 
 // node_modules/@emotion/react/jsx-dev-runtime/dist/emotion-react-jsx-dev-runtime.browser.esm.js
 var ReactJSXRuntimeDev = __toESM(require_jsx_dev_runtime(), 1);
@@ -31100,6 +31107,7 @@ function Conversation({
 }) {
   const [conversationTitle, setConversationTitle] = import_react4.default.useState(conversation.title);
   const [conversationText, setConversationText] = import_react4.default.useState(conversation.text);
+  const [language, setLanguage] = import_react4.default.useState(conversation.language);
   const [conversationQueueMidiNote, setConversationQueueMidiNote] = import_react4.default.useState(conversation.queueMidiNote);
   const parsedConversation = import_react4.default.useMemo(() => {
     return parseConversation(conversationText);
@@ -31109,9 +31117,10 @@ function Conversation({
       title: conversationTitle,
       text: conversationText,
       lines: parseConversation(conversationText),
+      language,
       queueMidiNote: conversationQueueMidiNote
     });
-  }, [conversationTitle, conversationText, conversationQueueMidiNote]);
+  }, [conversationTitle, conversationText, conversationQueueMidiNote, language]);
   import_react4.default.useEffect(() => {
     const handleMidiNote = (note) => {
       if (note === conversationQueueMidiNote) {
@@ -31143,20 +31152,43 @@ function Conversation({
         onChange: (e) => setConversationText(e.target.value)
       }, undefined, false, undefined, this),
       /* @__PURE__ */ jsxDEV2("div", {
-        children: /* @__PURE__ */ jsxDEV2("div", {
-          children: [
-            /* @__PURE__ */ jsxDEV2("label", {
-              children: "Midi Note: "
-            }, undefined, false, undefined, this),
-            /* @__PURE__ */ jsxDEV2("input", {
-              style: { width: "10%" },
-              type: "number",
-              value: conversationQueueMidiNote,
-              onChange: (e) => setConversationQueueMidiNote(parseInt(e.target.value))
-            }, undefined, false, undefined, this)
-          ]
-        }, undefined, true, undefined, this)
-      }, undefined, false, undefined, this),
+        children: [
+          /* @__PURE__ */ jsxDEV2("div", {
+            children: [
+              /* @__PURE__ */ jsxDEV2("label", {
+                children: "Midi Note: "
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsxDEV2("input", {
+                style: { width: "10%" },
+                type: "number",
+                value: conversationQueueMidiNote,
+                onChange: (e) => setConversationQueueMidiNote(parseInt(e.target.value))
+              }, undefined, false, undefined, this)
+            ]
+          }, undefined, true, undefined, this),
+          /* @__PURE__ */ jsxDEV2("div", {
+            children: [
+              /* @__PURE__ */ jsxDEV2("label", {
+                children: "Language: "
+              }, undefined, false, undefined, this),
+              /* @__PURE__ */ jsxDEV2("select", {
+                value: language,
+                onChange: (e) => setLanguage(e.target.value),
+                children: [
+                  /* @__PURE__ */ jsxDEV2("option", {
+                    value: "english",
+                    children: "English"
+                  }, undefined, false, undefined, this),
+                  /* @__PURE__ */ jsxDEV2("option", {
+                    value: "french",
+                    children: "French"
+                  }, undefined, false, undefined, this)
+                ]
+              }, undefined, true, undefined, this)
+            ]
+          }, undefined, true, undefined, this)
+        ]
+      }, undefined, true, undefined, this),
       /* @__PURE__ */ jsxDEV2("div", {
         style: {
           display: "flex",
@@ -32960,7 +32992,10 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       "[BARBARA]",
       { deviceId: "default", voice: "alloy", volume: 1, pan: 0 }
     ],
-    ["[KARL]", { deviceId: "default", voice: "echo", volume: 1, pan: 0 }],
+    [
+      "[KARL]",
+      { deviceId: "default", voice: "ballad", volume: 1, pan: 0 }
+    ],
     [
       "[PAULA]",
       { deviceId: "default", voice: "shimmer", volume: 1, pan: 0 }
@@ -32973,7 +33008,8 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
     {
       title: "Test Conversation",
       text: testConversation,
-      lines: parseConversation(testConversation)
+      lines: parseConversation(testConversation),
+      language: "english"
     }
   ],
   isPlaying: true,
@@ -32981,6 +33017,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   welcomeText: "Ooooh look the new hire!",
   hushText: "Shhh!",
   goodbyeText: "You got bored? Could have said goodbye",
+  currentLanguage: "english",
   setWelcomeText: (text) => {
     set2((state) => {
       state.welcomeText = text;
@@ -33021,12 +33058,18 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       state.goodbyeMidi = midiNote;
     });
   },
+  setCurrentLanguage: (language) => {
+    set2((state) => {
+      state.currentLanguage = language;
+    });
+  },
   addNewConversation: () => {
     set2((state) => {
       state.conversations.push({
         title: "New Conversation",
         text: testConversation,
-        lines: parseConversation(testConversation)
+        lines: parseConversation(testConversation),
+        language: "english"
       });
     });
   },
@@ -33038,6 +33081,7 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   setConversation: (index, conversation) => {
     set2((state) => {
       state.conversations[index] = conversation;
+      console.log(conversation);
     });
   },
   setLineQueue: (lineQueue) => {
@@ -33093,7 +33137,10 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
         API.storeCache();
         console.log("No lines queued. Picking randomly conversations...");
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        const conversation2 = get().conversations[Math.floor(Math.random() * get().conversations.length)];
+        const currentLanguage = get().currentLanguage;
+        const conversationsInLanguage = get().conversations.filter((c) => c.language === currentLanguage);
+        console.log(`Found ${conversationsInLanguage.length} conversations in language ${currentLanguage}`);
+        const conversation2 = conversationsInLanguage[Math.floor(Math.random() * conversationsInLanguage.length)];
         set2((state) => {
           state.lineQueue = conversation2.lines;
         });
@@ -33137,7 +33184,8 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
       ClearQueueMidi: state.ClearQueueMidi,
       welcomeMidi: state.welcomeMidi,
       hushMidi: state.hushMidi,
-      goodbyeMidi: state.goodbyeMidi
+      goodbyeMidi: state.goodbyeMidi,
+      currentLanguage: state.currentLanguage
     };
   }
 }));
@@ -33436,19 +33484,31 @@ var blue = "rgb(86, 181, 215)";
 var green = "rgb(71, 158, 80)";
 
 // src/App.tsx
+midi_default.init();
 var speakerColors = [pink, yellow, blue, green];
 function App() {
   const [lastMidiNote, setLastMidiNote] = import_react9.default.useState(null);
+  const currentLanguage = useConversationStore((state) => state.currentLanguage);
+  const setCurrentLanguage = useConversationStore((state) => state.setCurrentLanguage);
   import_react9.default.useEffect(() => {
     const handleMidiNote = (note) => {
       console.log("MIDI Note:", note);
       setLastMidiNote(note);
     };
     midi_default.addNoteOnListener(handleMidiNote);
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowLeft") {
+        setCurrentLanguage("english");
+      } else if (e.key === "ArrowRight") {
+        setCurrentLanguage("french");
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       midi_default.removeNoteOnListener(handleMidiNote);
+      window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [setCurrentLanguage]);
   const speakers = useConversationStore((state) => state.speakerConfigs);
   const conversations = useConversationStore((state) => state.conversations);
   const setConversation = useConversationStore((state) => state.setConversation);
@@ -33466,6 +33526,15 @@ function App() {
       /* @__PURE__ */ jsxDEV2("h2", {
         style: { float: "right" },
         children: "Life in Plastic ~ Telepathic Control Center"
+      }, undefined, false, undefined, this),
+      /* @__PURE__ */ jsxDEV2("div", {
+        style: { float: "right" },
+        children: /* @__PURE__ */ jsxDEV2("span", {
+          children: [
+            "Current Language: ",
+            currentLanguage
+          ]
+        }, undefined, true, undefined, this)
       }, undefined, false, undefined, this),
       /* @__PURE__ */ jsxDEV2(Config, {}, undefined, false, undefined, this),
       /* @__PURE__ */ jsxDEV2("span", {
