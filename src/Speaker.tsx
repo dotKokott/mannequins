@@ -70,6 +70,7 @@ export function Speaker({
         deviceId: speakerId,
         volume,
         pan,
+        voiceInstructions,
       },
     )
   }

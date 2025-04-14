@@ -31595,7 +31595,8 @@ function Speaker({
       voice,
       deviceId: speakerId,
       volume,
-      pan
+      pan,
+      voiceInstructions
     });
   }
   async function copyToClipboard() {
