@@ -21,6 +21,26 @@ export function App() {
   const setCurrentLanguage = useConversationStore(
     (state) => state.setCurrentLanguage,
   )
+  const setAutoPickFromConversations = useConversationStore(
+    (state) => state.setAutoPickFromConversations,
+  )
+
+  // Function to update URL with language parameter
+  const updateLanguageInURL = (language: string) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('lang', language)
+    window.location.href = url.toString()
+  }
+
+  // Read language from URL on initial load
+  React.useEffect(() => {
+    const url = new URL(window.location.href)
+    const langParam = url.searchParams.get('lang')
+    if (langParam && (langParam === 'english' || langParam === 'french')) {
+      setCurrentLanguage(langParam)
+      setAutoPickFromConversations(true)
+    }
+  }, [setCurrentLanguage, setAutoPickFromConversations])
 
   React.useEffect(() => {
     const handleMidiNote = (note: number) => {
@@ -32,9 +52,9 @@ export function App() {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
-        setCurrentLanguage('english')
+        updateLanguageInURL('english')
       } else if (e.key === 'ArrowRight') {
-        setCurrentLanguage('french')
+        updateLanguageInURL('french')
       }
     }
 

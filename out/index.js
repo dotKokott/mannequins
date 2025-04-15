@@ -33491,6 +33491,20 @@ function App() {
   const [lastMidiNote, setLastMidiNote] = import_react9.default.useState(null);
   const currentLanguage = useConversationStore((state) => state.currentLanguage);
   const setCurrentLanguage = useConversationStore((state) => state.setCurrentLanguage);
+  const setAutoPickFromConversations = useConversationStore((state) => state.setAutoPickFromConversations);
+  const updateLanguageInURL = (language) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", language);
+    window.location.href = url.toString();
+  };
+  import_react9.default.useEffect(() => {
+    const url = new URL(window.location.href);
+    const langParam = url.searchParams.get("lang");
+    if (langParam && (langParam === "english" || langParam === "french")) {
+      setCurrentLanguage(langParam);
+      setAutoPickFromConversations(true);
+    }
+  }, [setCurrentLanguage, setAutoPickFromConversations]);
   import_react9.default.useEffect(() => {
     const handleMidiNote = (note) => {
       console.log("MIDI Note:", note);
@@ -33499,9 +33513,9 @@ function App() {
     midi_default.addNoteOnListener(handleMidiNote);
     const handleKeyDown = (e) => {
       if (e.key === "ArrowLeft") {
-        setCurrentLanguage("english");
+        updateLanguageInURL("english");
       } else if (e.key === "ArrowRight") {
-        setCurrentLanguage("french");
+        updateLanguageInURL("french");
       }
     };
     window.addEventListener("keydown", handleKeyDown);
