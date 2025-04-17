@@ -135,11 +135,23 @@ const useConversationStore = create<ConversationStore>()(
         new Map([
           [
             '[HELIO]',
-            { deviceId: 'default', voice: 'onyx', volume: 1, pan: 0 },
+            {
+              deviceId: 'default',
+              voice: 'onyx',
+              volume: 1,
+              pan: 0,
+              voiceInstructions: 'Add some gay gen Z vibes.',
+            },
           ],
           [
             '[BARBARA]',
-            { deviceId: 'default', voice: 'alloy', volume: 1, pan: 0 },
+            {
+              deviceId: 'default',
+              voice: 'alloy',
+              volume: 1,
+              pan: 0,
+              voiceInstructions: 'Be naive and enthusiastic',
+            },
           ],
           [
             '[KARL]',
@@ -147,7 +159,14 @@ const useConversationStore = create<ConversationStore>()(
           ],
           [
             '[PAULA]',
-            { deviceId: 'default', voice: 'shimmer', volume: 1, pan: 0 },
+            {
+              deviceId: 'default',
+              voice: 'shimmer',
+              volume: 1,
+              pan: 0,
+              voiceInstructions:
+                'Add some burnout and years of experience in your voice.',
+            },
           ],
         ]),
       ),

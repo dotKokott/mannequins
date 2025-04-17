@@ -32987,11 +32987,23 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
   speakerConfigs: new Map(new Map([
     [
       "[HELIO]",
-      { deviceId: "default", voice: "onyx", volume: 1, pan: 0 }
+      {
+        deviceId: "default",
+        voice: "onyx",
+        volume: 1,
+        pan: 0,
+        voiceInstructions: "Add some gay gen Z vibes."
+      }
     ],
     [
       "[BARBARA]",
-      { deviceId: "default", voice: "alloy", volume: 1, pan: 0 }
+      {
+        deviceId: "default",
+        voice: "alloy",
+        volume: 1,
+        pan: 0,
+        voiceInstructions: "Be naive and enthusiastic"
+      }
     ],
     [
       "[KARL]",
@@ -32999,7 +33011,13 @@ var useConversationStore = create()(persist(immer2((set2, get) => ({
     ],
     [
       "[PAULA]",
-      { deviceId: "default", voice: "shimmer", volume: 1, pan: 0 }
+      {
+        deviceId: "default",
+        voice: "shimmer",
+        volume: 1,
+        pan: 0,
+        voiceInstructions: "Add some burnout and years of experience in your voice."
+      }
     ]
   ])),
   lineQueue: [],
