@@ -139,8 +139,31 @@ const useConversationStore = create<ConversationStore>()(
               deviceId: 'default',
               voice: 'onyx',
               volume: 1,
-              pan: 0,
+              pan: -0.75,
               voiceInstructions: 'Add some gay gen Z vibes.',
+            },
+          ],
+
+          [
+            '[PAULA]',
+            {
+              deviceId: 'default',
+              voice: 'shimmer',
+              volume: 1,
+              pan: -0.25,
+              voiceInstructions:
+                'Add some burnout and years of experience in your voice.',
+            },
+          ],
+          [
+            '[KARL]',
+            {
+              deviceId: 'default',
+              voice: 'ballad',
+              volume: 1,
+              pan: 0.25,
+              voiceInstructions:
+                'Please speak in a slow and clear manner. Add emotion and personality to the text.',
             },
           ],
           [
@@ -149,23 +172,8 @@ const useConversationStore = create<ConversationStore>()(
               deviceId: 'default',
               voice: 'alloy',
               volume: 1,
-              pan: 0,
+              pan: 0.75,
               voiceInstructions: 'Be naive and enthusiastic',
-            },
-          ],
-          [
-            '[KARL]',
-            { deviceId: 'default', voice: 'ballad', volume: 1, pan: 0 },
-          ],
-          [
-            '[PAULA]',
-            {
-              deviceId: 'default',
-              voice: 'shimmer',
-              volume: 1,
-              pan: 0,
-              voiceInstructions:
-                'Add some burnout and years of experience in your voice.',
             },
           ],
         ]),
