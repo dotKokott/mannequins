@@ -1,6 +1,9 @@
 <html>
   <head>
     <link href="https://fonts.cdnfonts.com/css/din-alternate" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Add a manifest for PWA functionality -->
+    <link rel="manifest" href="./manifest.json">
   </head> 
   <body>
     <style>
@@ -13,5 +16,19 @@
     </style>
     <div id="root"></div>
     <script type="module" src="./index.js"></script>
+    <script>
+      // Register service worker for offline support
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./service-worker.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(error => {
+              console.log('ServiceWorker registration failed: ', error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

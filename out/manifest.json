@@ -1,0 +1,8 @@
+{
+  "name": "Mannequins",
+  "short_name": "Mannequins",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4b79b",
+  "theme_color": "#f4b79b"
+} 
