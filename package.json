@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun build ./src/index.tsx --outdir ./out --watch && cp service-worker.js manifest.json ./out/",
+    "dev": "cp service-worker.js manifest.json ./out/ && bun build ./src/index.tsx --outdir ./out --watch",
     "serve": "cd out && python -m http.server 9000"
   },
   "devDependencies": {
